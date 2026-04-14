@@ -1,0 +1,229 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── GSFleet Design Tokens ──────────────────────────────────── */
+:root {
+  /* Primitives — Grey */
+  --grey-00:  #ffffff;
+  --grey-05:  #f7f7f8;
+  --grey-10:  #f1f1f2;
+  --grey-20:  #e6e6e7;
+  --grey-30:  #d8d8da;
+  --grey-40:  #c0c2c6;
+  --grey-50:  #b0b2b7;
+  --grey-60:  #9c9ea3;
+  --grey-70:  #6f7176;
+  --grey-80:  #5d6065;
+  --grey-90:  #36383b;
+  --grey-100: #1f2124;
+
+  /* Primitives — Azure Blue */
+  --blue-azure-10:  #e8f6ff;
+  --blue-azure-20:  #d7eff9;
+  --blue-azure-30:  #b3e1f7;
+  --blue-azure-40:  #61bde9;
+  --blue-azure-50:  #39ade3;
+  --blue-azure-60:  #138cc4;
+  --blue-azure-70:  #0a74a6;
+  --blue-azure-80:  #0369a1;
+  --blue-azure-90:  #075985;
+  --blue-azure-100: #013b57;
+
+  /* Primitives — Vivid Blue */
+  --blue-vivid-10:  #e5f0fe;
+  --blue-vivid-20:  #b2d3ff;
+  --blue-vivid-30:  #7cb4ff;
+  --blue-vivid-40:  #5ba1ff;
+  --blue-vivid-50:  #4490f6;
+  --blue-vivid-60:  #227df8;
+  --blue-vivid-70:  #0068f4;
+  --blue-vivid-80:  #065cd1;
+  --blue-vivid-90:  #0f4082;
+  --blue-vivid-100: #072e63;
+
+  /* Primitives — Red */
+  --red-10:  #fef2f2;
+  --red-20:  #fee2e2;
+  --red-30:  #fecaca;
+  --red-40:  #fca5a5;
+  --red-50:  #f87171;
+  --red-60:  #f94144;
+  --red-70:  #dc2626;
+  --red-80:  #b91c1c;
+  --red-90:  #991b1b;
+  --red-100: #781212;
+
+  /* Primitives — Green */
+  --green-10:  #f1fcf2;
+  --green-20:  #e2f8e5;
+  --green-30:  #c5f2cb;
+  --green-40:  #a8ebb2;
+  --green-50:  #8be598;
+  --green-60:  #64d074;
+  --green-70:  #59b767;
+  --green-80:  #469852;
+  --green-90:  #247a31;
+  --green-100: #12591c;
+
+  /* Primitives — Yellow */
+  --yellow-10:  #fff6d7;
+  --yellow-20:  #ffeec7;
+  --yellow-30:  #fde9b9;
+  --yellow-40:  #fbdd95;
+  --yellow-50:  #ffd164;
+  --yellow-60:  #f9c74f;
+  --yellow-70:  #eab308;
+  --yellow-80:  #d6a201;
+  --yellow-90:  #be9103;
+  --yellow-100: #927302;
+
+  /* Primitives — Orange */
+  --orange-10:  #fff0e6;
+  --orange-20:  #ffe2cc;
+  --orange-30:  #ffc49a;
+  --orange-40:  #ffa767;
+  --orange-50:  #ff8935;
+  --orange-60:  #ff6c02;
+  --orange-70:  #e66304;
+  --orange-80:  #d15801;
+  --orange-90:  #aa381a;
+  --orange-100: #702822;
+
+  /* Primitives — Indigo */
+  --indigo-10:  #f1ecff;
+  --indigo-20:  #e4daff;
+  --indigo-30:  #d8c8ff;
+  --indigo-40:  #bea3fd;
+  --indigo-50:  #a078fb;
+  --indigo-60:  #8251f4;
+  --indigo-70:  #6a3fc8;
+  --indigo-80:  #553698;
+  --indigo-90:  #02005f;
+  --indigo-100: #010028;
+
+  /* Primitives — Pink */
+  --pink-10:  #fff3fa;
+  --pink-20:  #f8e3ee;
+  --pink-30:  #f7d3e1;
+  --pink-40:  #f8b0cd;
+  --pink-50:  #f085c0;
+  --pink-60:  #df4e9d;
+  --pink-70:  #d22483;
+  --pink-80:  #be2478;
+  --pink-90:  #a01f65;
+  --pink-100: #5e1640;
+
+  /* Semantic — Status */
+  --color-success:  var(--green-60);
+  --color-warning:  var(--yellow-60);
+  --color-danger:   var(--red-60);
+  --color-info:     var(--blue-azure-60);
+
+  /* Semantic — Surface */
+  --color-surface-default:  var(--grey-00);
+  --color-surface-subtle:   var(--grey-05);
+  --color-surface-muted:    var(--grey-10);
+
+  /* Semantic — Text */
+  --color-text-primary:    var(--grey-100);
+  --color-text-secondary:  var(--grey-70);
+  --color-text-disabled:   var(--grey-50);
+  --color-text-inverse:    var(--grey-00);
+
+  /* Semantic — Border */
+  --color-border-default:  var(--grey-20);
+  --color-border-strong:   var(--grey-40);
+
+  /* Semantic — Accent */
+  --color-accent-main:  var(--blue-azure-50);
+  --color-accent-hover: var(--blue-azure-60);
+
+  /* Button tokens — Primary */
+  --btn-primary-bg:           var(--indigo-100);
+  --btn-primary-hover:        var(--grey-80);
+  --btn-primary-focus-bg:     var(--grey-80);
+  --btn-primary-active-bg:    var(--grey-80);
+  --btn-primary-ring-focus:   var(--blue-azure-30);
+  --btn-primary-ring-active:  var(--blue-azure-40);
+  --btn-primary-text:         #ffffff;
+
+  /* Button tokens — Secondary */
+  --btn-secondary-bg:              var(--grey-00);
+  --btn-secondary-hover-bg:        var(--grey-10);
+  --btn-secondary-focus-bg:        var(--grey-10);
+  --btn-secondary-active-bg:       var(--grey-10);
+  --btn-secondary-text:            var(--grey-90);
+  --btn-secondary-border:          var(--grey-70);
+  --btn-secondary-border-hover:    var(--grey-90);
+  --btn-secondary-ring-focus:      var(--blue-azure-30);
+  --btn-secondary-ring-active:     var(--blue-azure-40);
+  --btn-secondary-disabled-border: var(--grey-20);
+
+  /* Button tokens — Tertiary */
+  --btn-tertiary-bg:           transparent;
+  --btn-tertiary-hover-bg:     var(--grey-10);
+  --btn-tertiary-focus-bg:     var(--grey-10);
+  --btn-tertiary-active-bg:    var(--grey-20);
+  --btn-tertiary-text:         var(--grey-70);
+  --btn-tertiary-hover-text:   var(--grey-70);
+  --btn-tertiary-focus-text:   var(--grey-90);
+  --btn-tertiary-active-text:  var(--grey-90);
+  --btn-tertiary-border:       var(--grey-30);
+  --btn-tertiary-ring-focus:   var(--blue-azure-30);
+  --btn-tertiary-ring-active:  var(--blue-azure-40);
+
+  /* Button tokens — Quiet */
+  --btn-quiet-bg:          transparent;
+  --btn-quiet-hover-bg:    var(--grey-20);
+  --btn-quiet-focus-bg:    var(--grey-10);
+  --btn-quiet-active-bg:   var(--grey-20);
+  --btn-quiet-text:        var(--grey-70);
+  --btn-quiet-hover-text:  var(--grey-90);
+  --btn-quiet-focus-text:  var(--grey-90);
+  --btn-quiet-active-text: var(--grey-90);
+  --btn-quiet-ring-focus:  var(--blue-azure-30);
+  --btn-quiet-ring-active: var(--blue-azure-40);
+
+  /* Button tokens — Danger */
+  --btn-danger-bg:          var(--red-70);
+  --btn-danger-hover-bg:    var(--red-80);
+  --btn-danger-focus-bg:    var(--red-60);
+  --btn-danger-active-bg:   var(--red-70);
+  --btn-danger-text:        #ffffff;
+  --btn-danger-ring-focus:  var(--red-30);
+  --btn-danger-ring-active: var(--red-40);
+
+  /* Shared disabled tokens */
+  --btn-disabled-bg:   var(--grey-10);
+  --btn-disabled-text: var(--grey-50);
+
+  /* Sizing */
+  --btn-height-xl: 56px;
+  --btn-height-md: 40px;
+  --btn-height-sm: 36px;
+  --btn-height-xs: 32px;
+
+  --btn-px-xl: 20px;
+  --btn-px-md: 12px;
+  --btn-px-sm: 12px;
+  --btn-px-xs: 10px;
+
+  --btn-radius: 4px;
+  --btn-font-size: 14px;
+  --btn-line-height: 16px;
+  --btn-font-weight: 500;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--grey-05);
+  color: var(--grey-90);
+  -webkit-font-smoothing: antialiased;
+}

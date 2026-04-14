@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GSFleet Design System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* ─── Design Tokens ─────────────────────────────────────── */
+    :root {
+      /* Grey (from Figma variables) */
+      --grey-00:  #ffffff; --grey-05:  #f7f7f8; --grey-10: #f1f1f2;
+      --grey-20:  #e6e6e7; --grey-30:  #d8d8da; --grey-40: #c0c2c6;
+      --grey-50:  #b0b2b7; --grey-60:  #9c9ea3; --grey-70: #6f7176;
+      --grey-80:  #5d6065; --grey-90:  #36383b; --grey-100: #1f2124;
+
+      /* Azure Blue */
+      --blue-azure-10: #e8f6ff; --blue-azure-20: #d7eff9;
+      --blue-azure-30: #b3e1f7; --blue-azure-40: #61bde9;
+      --blue-azure-50: #39ade3; --blue-azure-60: #138cc4;
+      --blue-azure-70: #0a74a6; --blue-azure-80: #0369a1;
+      --blue-azure-90: #075985; --blue-azure-100: #013b57;
+
+      /* Vivid Blue */
+      --blue-vivid-10: #e5f0fe; --blue-vivid-20: #b2d3ff;
+      --blue-vivid-30: #7cb4ff; --blue-vivid-40: #5ba1ff;
+      --blue-vivid-50: #4490f6; --blue-vivid-60: #227df8;
+      --blue-vivid-70: #0068f4; --blue-vivid-80: #065cd1;
+      --blue-vivid-90: #0f4082; --blue-vivid-100: #072e63;
+
+      /* Red */
+      --red-10: #fef2f2; --red-20: #fee2e2; --red-30: #fecaca;
+      --red-40: #fca5a5; --red-50: #f87171; --red-60: #f94144;
+      --red-70: #dc2626; --red-80: #b91c1c; --red-90: #991b1b; --red-100: #781212;
+
+      /* Green */
+      --green-10: #f1fcf2; --green-20: #e2f8e5; --green-30: #c5f2cb;
+      --green-40: #a8ebb2; --green-50: #8be598; --green-60: #64d074;
+      --green-70: #59b767; --green-80: #469852; --green-90: #247a31; --green-100: #12591c;
+
+      /* Yellow */
+      --yellow-10: #fff6d7; --yellow-20: #ffeec7; --yellow-30: #fde9b9;
+      --yellow-40: #fbdd95; --yellow-50: #ffd164; --yellow-60: #f9c74f;
+      --yellow-70: #eab308; --yellow-80: #d6a201; --yellow-90: #be9103; --yellow-100: #927302;
+
+      /* Orange */
+      --orange-05: #fcf9f5;
+      --orange-10: #fff0e6; --orange-20: #ffe2cc; --orange-30: #ffc49a;
+      --orange-40: #ffa767; --orange-50: #ff8935; --orange-60: #ff6c02;
+      --orange-70: #e66304; --orange-80: #d15801; --orange-90: #aa381a; --orange-100: #702822;
+
+      /* Indigo */
+      --indigo-10: #f1ecff; --indigo-20: #e4daff; --indigo-30: #d8c8ff;
+      --indigo-40: #bea3fd; --indigo-50: #a078fb; --indigo-60: #8251f4;
+      --indigo-70: #6a3fc8; --indigo-80: #553698; --indigo-90: #02005f; --indigo-100: #010028;
+
+      /* Pink */
+      --pink-10: #fff3fa; --pink-20: #f8e3ee; --pink-30: #f7d3e1;
+      --pink-40: #f8b0cd; --pink-50: #f085c0; --pink-60: #df4e9d;
+      --pink-70: #d22483; --pink-80: #be2478; --pink-90: #a01f65; --pink-100: #5e1640;
+
+      /* Button tokens */
+      --btn-primary-bg:           #010028;
+      --btn-primary-hover:        var(--grey-80);
+      --btn-primary-focus-bg:     var(--grey-80);
+      --btn-primary-active-bg:    var(--grey-80);
+      --btn-primary-ring-focus:   var(--blue-azure-30);
+      --btn-primary-ring-active:  var(--blue-azure-40);
+      --btn-primary-text:         #ffffff;
+
+      --btn-secondary-bg:               var(--grey-00);
+      --btn-secondary-hover-bg:         var(--grey-10);
+      --btn-secondary-focus-bg:         var(--grey-10);
+      --btn-secondary-active-bg:        var(--grey-10);
+      --btn-secondary-text:             var(--grey-90);
+      --btn-secondary-border:           var(--grey-80);
+      --btn-secondary-border-hover:     var(--grey-90);
+      --btn-secondary-ring-focus:       var(--blue-azure-30);
+      --btn-secondary-ring-active:      var(--blue-azure-40);
+      --btn-secondary-disabled-border:  var(--grey-20);
+
+      --btn-tertiary-bg:          transparent;
+      --btn-tertiary-hover-bg:    var(--grey-10);
+      --btn-tertiary-focus-bg:    var(--grey-10);
+      --btn-tertiary-active-bg:   var(--grey-20);
+      --btn-tertiary-text:        var(--grey-80);
+      --btn-tertiary-focus-text:  var(--grey-90);
+      --btn-tertiary-active-text: var(--grey-90);
+      --btn-tertiary-border:      var(--grey-30);
+      --btn-tertiary-ring-focus:  var(--blue-azure-30);
+      --btn-tertiary-ring-active: var(--blue-azure-40);
+
+      --btn-quiet-bg:           transparent;
+      --btn-quiet-hover-bg:     var(--grey-20);
+      --btn-quiet-focus-bg:     var(--grey-10);
+      --btn-quiet-active-bg:    var(--grey-20);
+      --btn-quiet-text:         var(--grey-80);
+      --btn-quiet-hover-text:   var(--grey-90);
+      --btn-quiet-focus-text:   var(--grey-90);
+      --btn-quiet-active-text:  var(--grey-90);
+      --btn-quiet-ring-focus:   var(--blue-azure-30);
+      --btn-quiet-ring-active:  var(--blue-azure-40);
+
+      --btn-danger-bg:          var(--red-70);
+      --btn-danger-hover-bg:    var(--red-80);
+      --btn-danger-focus-bg:    var(--red-60);
+      --btn-danger-active-bg:   var(--red-70);
+      --btn-danger-text:        #ffffff;
+      --btn-danger-ring-focus:  var(--red-40);
+      --btn-danger-ring-active: var(--red-50);
+
+      --btn-disabled-bg:   var(--grey-10);
+      --btn-disabled-text: var(--grey-50);
+
+      --btn-height-xl: 56px; --btn-height-md: 40px;
+      --btn-height-sm: 36px; --btn-height-xs: 32px;
+      --btn-radius: 4px;
+      --btn-font-size: 14px; --btn-line-height: 16px; --btn-font-weight: 500;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Roboto', sans-serif; background: var(--grey-05); color: var(--grey-90); -webkit-font-smoothing: antialiased; }
+
+    /* ─── Button styles ──────────────────────────────────────── */
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-family: 'Roboto', sans-serif; font-size: var(--btn-font-size); font-weight: var(--btn-font-weight); line-height: var(--btn-line-height); white-space: nowrap; text-decoration: none; border: none; border-radius: var(--btn-radius); cursor: pointer; user-select: none; outline: none; box-shadow: none; transition: background-color 120ms ease, color 120ms ease, box-shadow 120ms ease; }
+    .btn:disabled, .btn.is-disabled { cursor: not-allowed; pointer-events: none; }
+    .btn .icon { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: 16px; height: 16px; }
+    .btn-xl { height: var(--btn-height-xl); padding: 0 20px; } .btn-xl .icon { width: 20px; height: 20px; }
+    .btn-md { height: var(--btn-height-md); padding: 10px 12px; }
+    .btn-sm { height: var(--btn-height-sm); padding: 8px 12px; }
+    .btn-xs { height: var(--btn-height-xs); padding: 6px 10px; gap: 4px; } .btn-xs .icon { width: 14px; height: 14px; }
+
+    .btn-primary { background: var(--btn-primary-bg); color: var(--btn-primary-text); }
+    .btn-primary:hover:not(:disabled):not(.is-disabled), .btn-primary.is-hover { background: var(--btn-primary-hover); }
+    .btn-primary:focus:not(:disabled):not(.is-disabled), .btn-primary.is-focus { background: var(--btn-primary-focus-bg); box-shadow: inset 0 0 0 3px var(--btn-primary-ring-focus); }
+    .btn-primary:active:not(:disabled):not(.is-disabled), .btn-primary.is-active { background: var(--btn-primary-active-bg); box-shadow: inset 0 0 0 3px var(--btn-primary-ring-active); }
+    .btn-primary:disabled, .btn-primary.is-disabled { background: var(--btn-disabled-bg); color: var(--btn-disabled-text); }
+
+    .btn-secondary { background: var(--btn-secondary-bg); color: var(--btn-secondary-text); box-shadow: inset 0 0 0 1px var(--btn-secondary-border); }
+    .btn-secondary:hover:not(:disabled):not(.is-disabled), .btn-secondary.is-hover { background: var(--btn-secondary-hover-bg); box-shadow: inset 0 0 0 1px var(--btn-secondary-border-hover); }
+    .btn-secondary:focus:not(:disabled):not(.is-disabled), .btn-secondary.is-focus { background: var(--btn-secondary-focus-bg); box-shadow: inset 0 0 0 3px var(--btn-secondary-ring-focus); }
+    .btn-secondary:active:not(:disabled):not(.is-disabled), .btn-secondary.is-active { background: var(--btn-secondary-active-bg); box-shadow: inset 0 0 0 3px var(--btn-secondary-ring-active); }
+    .btn-secondary:disabled, .btn-secondary.is-disabled { background: var(--btn-secondary-bg); color: var(--btn-disabled-text); box-shadow: inset 0 0 0 1px var(--btn-secondary-disabled-border); }
+
+    .btn-tertiary { background: var(--btn-tertiary-bg); color: var(--btn-tertiary-text); box-shadow: inset 0 0 0 1px var(--btn-tertiary-border); }
+    .btn-tertiary:hover:not(:disabled):not(.is-disabled), .btn-tertiary.is-hover { background: var(--btn-tertiary-hover-bg); }
+    .btn-tertiary:focus:not(:disabled):not(.is-disabled), .btn-tertiary.is-focus { background: var(--btn-tertiary-focus-bg); color: var(--btn-tertiary-focus-text); box-shadow: inset 0 0 0 3px var(--btn-tertiary-ring-focus); }
+    .btn-tertiary:active:not(:disabled):not(.is-disabled), .btn-tertiary.is-active { background: var(--btn-tertiary-active-bg); color: var(--btn-tertiary-active-text); box-shadow: inset 0 0 0 3px var(--btn-tertiary-ring-active); }
+    .btn-tertiary:disabled, .btn-tertiary.is-disabled { background: var(--btn-disabled-bg); color: var(--btn-disabled-text); box-shadow: inset 0 0 0 1px var(--grey-20); }
+
+    .btn-quiet { background: var(--btn-quiet-bg); color: var(--btn-quiet-text); }
+    .btn-quiet.btn-md { padding-top: 8px; padding-bottom: 8px; }
+    .btn-quiet.btn-sm { padding-top: 6px; padding-bottom: 6px; }
+    .btn-quiet:hover:not(:disabled):not(.is-disabled), .btn-quiet.is-hover { background: var(--btn-quiet-hover-bg); color: var(--btn-quiet-hover-text); }
+    .btn-quiet:focus:not(:disabled):not(.is-disabled), .btn-quiet.is-focus { background: var(--btn-quiet-focus-bg); color: var(--btn-quiet-focus-text); box-shadow: inset 0 0 0 3px var(--btn-quiet-ring-focus); }
+    .btn-quiet:active:not(:disabled):not(.is-disabled), .btn-quiet.is-active { background: var(--btn-quiet-active-bg); color: var(--btn-quiet-active-text); box-shadow: inset 0 0 0 3px var(--btn-quiet-ring-active); }
+    .btn-quiet:disabled, .btn-quiet.is-disabled { background: transparent; color: var(--btn-disabled-text); }
+
+    .btn-danger { background: var(--btn-danger-bg); color: var(--btn-danger-text); }
+    .btn-danger:hover:not(:disabled):not(.is-disabled), .btn-danger.is-hover { background: var(--btn-danger-hover-bg); }
+    .btn-danger:focus:not(:disabled):not(.is-disabled), .btn-danger.is-focus { background: var(--btn-danger-focus-bg); box-shadow: inset 0 0 0 3px var(--btn-danger-ring-focus); }
+    .btn-danger:active:not(:disabled):not(.is-disabled), .btn-danger.is-active { background: var(--btn-danger-active-bg); box-shadow: inset 0 0 0 3px var(--btn-danger-ring-active); }
+    .btn-danger:disabled, .btn-danger.is-disabled { background: var(--btn-disabled-bg); color: var(--btn-disabled-text); }
+
+    /* ─── Layout ─────────────────────────────────────────────── */
+    .page { min-height: 100vh; background: var(--grey-05); }
+    header { background: #010028; color: #fff; padding: 0 40px; height: 56px; display: flex; align-items: center; position: sticky; top: 0; z-index: 100; }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 1400px; margin: 0 auto; }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .logo { font-size: 18px; font-weight: 700; }
+    .logo span { color: #39ade3; }
+    .header-divider { color: #5d6065; }
+    .header-sub { font-size: 14px; color: #b0b2b7; }
+    .badge { font-size: 11px; font-weight: 600; color: #b0b2b7; background: rgba(255,255,255,.08); padding: 3px 8px; border-radius: 20px; }
+
+    /* ─── App shell ─────────────────────────────────────────── */
+    .app-body { display: flex; flex: 1; min-height: 0; }
+
+    /* ─── Sidebar ────────────────────────────────────────────── */
+    .ds-sidebar {
+      width: 220px;
+      background: #fff;
+      border-right: 1px solid var(--grey-20);
+      position: sticky;
+      top: 56px;
+      height: calc(100vh - 56px);
+      overflow-y: auto;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ds-sidebar-group { padding: 20px 0 4px; }
+    .ds-sidebar-group + .ds-sidebar-group { border-top: 1px solid var(--grey-10); }
+
+    .ds-sidebar-group-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--grey-50);
+      padding: 0 16px 6px;
+    }
+
+    .ds-sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      padding: 7px 16px;
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--grey-70);
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      font-family: 'Roboto', sans-serif;
+      transition: background 100ms, color 100ms;
+      position: relative;
+    }
+
+    .ds-sidebar-item:hover { background: var(--grey-05); color: var(--grey-90); }
+
+    .ds-sidebar-item.active {
+      background: var(--blue-azure-10);
+      color: var(--blue-azure-80);
+      font-weight: 500;
+    }
+
+    .ds-sidebar-item.active::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--blue-azure-70);
+      border-radius: 0 2px 2px 0;
+    }
+
+    /* ─── Content ────────────────────────────────────────────── */
+    .ds-content { flex: 1; min-width: 0; background: var(--grey-05); overflow-y: auto; }
+    .ds-main { max-width: 1400px; margin: 0 auto; padding: 48px 40px 80px; display: flex; flex-direction: column; gap: 56px; }
+    .section { display: flex; flex-direction: column; gap: 20px; }
+    .ds-h1 { font-size: 32px; font-weight: 700; color: var(--grey-100); line-height: 1.1; }
+    .ds-h2 { font-size: 20px; font-weight: 600; color: var(--grey-90); }
+    .ds-lead { font-size: 16px; color: var(--grey-70); margin-top: -8px; }
+    .ds-body { font-size: 14px; color: var(--grey-70); line-height: 1.6; }
+    code { font-size: 12px; background: var(--grey-10); border: 1px solid var(--grey-30); padding: 2px 6px; border-radius: 3px; font-family: 'SFMono-Regular', 'Consolas', monospace; color: var(--grey-90); }
+
+    /* ─── States table ───────────────────────────────────────── */
+    .table-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--grey-20); }
+    table { width: 100%; border-collapse: collapse; background: #fff; font-size: 13px; }
+    thead th { background: var(--grey-05); border-bottom: 1px solid var(--grey-20); padding: 12px 20px; text-align: left; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--grey-70); white-space: nowrap; }
+    tbody td { padding: 16px 20px; border-bottom: 1px solid var(--grey-10); vertical-align: middle; }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover > td { background: var(--grey-05); }
+    .variant-label strong { display: block; font-size: 13px; font-weight: 600; color: var(--grey-90); margin-bottom: 3px; }
+    .variant-label span { display: block; font-size: 12px; color: var(--grey-60); line-height: 1.4; }
+
+    /* ─── Sizes ──────────────────────────────────────────────── */
+    .sizes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+    .size-card { background: #fff; border: 1px solid var(--grey-20); border-radius: 8px; padding: 20px; }
+    .size-card-title { font-size: 12px; font-weight: 600; color: var(--grey-70); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 16px; }
+    .size-row { display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap; }
+    .size-item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .size-label { font-size: 11px; color: var(--grey-60); white-space: nowrap; }
+
+    /* ─── Icons ──────────────────────────────────────────────── */
+    .icon-grid { background: #fff; border: 1px solid var(--grey-20); border-radius: 8px; padding: 24px; display: flex; flex-direction: column; gap: 24px; }
+    .icon-group-label { font-size: 12px; font-weight: 600; color: var(--grey-70); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
+    .icon-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+
+    /* ─── Examples ───────────────────────────────────────────── */
+    .examples-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 16px; }
+    .example-card { background: #fff; border: 1px solid var(--grey-20); border-radius: 8px; overflow: hidden; }
+    .example-label { font-size: 11px; font-weight: 600; color: var(--grey-60); text-transform: uppercase; letter-spacing: .07em; padding: 10px 16px; background: var(--grey-05); border-bottom: 1px solid var(--grey-20); }
+    .example-body { padding: 24px 16px; }
+    .btn-group { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .btn-group-right { justify-content: flex-end; }
+
+    /* ─── Token card ─────────────────────────────────────────── */
+    .token-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 16px; }
+    .token-card { background: #fff; border: 1px solid var(--grey-20); border-radius: 8px; overflow: hidden; }
+    .token-card-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--grey-70); padding: 12px 16px; background: var(--grey-05); border-bottom: 1px solid var(--grey-20); }
+    .token-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .token-table th { text-align: left; padding: 8px 12px; font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--grey-60); font-weight: 600; border-bottom: 1px solid var(--grey-10); background: none; }
+    .token-table td { padding: 8px 12px; border-bottom: 1px solid var(--grey-10); vertical-align: middle; color: var(--grey-80); }
+    .token-table tr:last-child td { border-bottom: none; }
+    .swatch-inline { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: middle; margin-right: 6px; }
+
+    /* ─── Colors page ────────────────────────────────────────── */
+    .primary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .primary-swatch { border-radius: 8px; padding: 20px; min-height: 128px; display: flex; flex-direction: column; justify-content: flex-end; gap: 3px; border: 1px solid rgba(0,0,0,0.07); }
+    .ps-label { font-size: 13px; font-weight: 600; }
+    .ps-hex { font-size: 12px; font-family: 'SFMono-Regular', 'Consolas', monospace; }
+    .ps-token { font-size: 11px; font-family: 'SFMono-Regular', 'Consolas', monospace; opacity: 0.6; }
+
+    .palettes-list { display: flex; flex-direction: column; gap: 24px; }
+    .palette-row { display: flex; flex-direction: column; gap: 8px; }
+    .palette-header { display: flex; align-items: baseline; gap: 10px; }
+    .palette-name { font-size: 14px; font-weight: 600; color: var(--grey-90); }
+    .palette-tag { font-size: 11px; font-weight: 500; color: var(--grey-60); background: var(--grey-10); border: 1px solid var(--grey-20); border-radius: 3px; padding: 1px 6px; }
+    .palette-desc { font-size: 12px; color: var(--grey-60); }
+
+    .palette-strip { display: flex; border-radius: 8px; overflow: hidden; height: 88px; border: 1px solid rgba(0,0,0,0.06); }
+    .palette-swatch { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 8px 6px; transition: flex 0.15s ease; cursor: default; }
+    .palette-swatch:hover { flex: 2.8; }
+    .sw-stop { font-size: 11px; font-weight: 600; line-height: 1; margin-bottom: 4px; font-family: 'SFMono-Regular', 'Consolas', monospace; }
+    .sw-hex { font-size: 10px; line-height: 1; font-family: 'SFMono-Regular', 'Consolas', monospace; opacity: 0; transition: opacity 0.12s; white-space: nowrap; }
+    .palette-swatch:hover .sw-hex { opacity: 1; }
+
+    .color-token-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; }
+    .stop-swatch { display: inline-block; width: 20px; height: 20px; border-radius: 4px; vertical-align: middle; margin-right: 8px; border: 1px solid rgba(0,0,0,0.07); flex-shrink: 0; }
+    .mono { font-family: 'SFMono-Regular', 'Consolas', monospace; }
+
+    /* ─── Icons page ─────────────────────────────────────────── */
+    .icon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 4px; }
+    .icon-card { position: relative; display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 16px 8px 12px; background: #fff; border: 1px solid var(--grey-20); border-radius: 8px; cursor: pointer; transition: background 120ms, border-color 120ms, transform 80ms; font-family: 'Roboto', sans-serif; overflow: hidden; }
+    .icon-card:hover { background: var(--grey-05); border-color: var(--grey-40); }
+    .icon-card:active { transform: scale(0.97); }
+    .icon-card.copied { background: var(--blue-azure-10); border-color: var(--blue-azure-40); }
+    .icon-previews { display: flex; align-items: flex-end; gap: 6px; color: var(--grey-90); }
+    .icon-card.copied .icon-previews { color: var(--blue-azure-70); }
+    .icon-name { font-size: 11px; color: var(--grey-60); text-align: center; line-height: 1.3; word-break: break-word; }
+    .icon-card.copied .icon-name { color: var(--blue-azure-70); }
+    .icon-copied-badge { position: absolute; top:0; left:0; right:0; bottom:0; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:600; color:var(--blue-azure-70); background:var(--blue-azure-10); opacity:0; transition:opacity 120ms; border-radius:8px; }
+    .icon-card.copied .icon-copied-badge { opacity: 1; }
+
+    /* Map Pointers */
+    .mp-sub-h3 { font-size:15px; font-weight:600; color:var(--grey-90); }
+    .mp-sub-note { font-size:12px; font-weight:400; color:var(--grey-60); }
+    .mp-type-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(96px,1fr)); gap:4px; }
+    .mp-type-card { position:relative; display:flex; flex-direction:column; align-items:center; gap:10px; padding:16px 8px 12px; background:#fff; border:1px solid var(--grey-20); border-radius:8px; cursor:pointer; transition:background 120ms,border-color 120ms; overflow:hidden; font-family:'Roboto',sans-serif; }
+    .mp-type-card:hover { background:var(--grey-05); border-color:var(--grey-40); }
+    .mp-type-card.copied { background:var(--blue-azure-10); border-color:var(--blue-azure-40); }
+    .mp-type-name { font-size:11px; color:var(--grey-60); text-align:center; line-height:1.3; word-break:break-word; }
+    .mp-type-card.copied .mp-type-name { color:var(--blue-azure-70); }
+    .mp-pointer-cols { display:flex; gap:0; background:#fff; border:1px solid var(--grey-20); border-radius:8px; overflow:hidden; }
+    .mp-pointer-col { flex:1; display:flex; flex-direction:column; align-items:center; gap:10px; padding:20px 16px; border-right:1px solid var(--grey-10); }
+    .mp-pointer-col:last-child { border-right:none; }
+    .mp-pointer-variant-label { font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.07em; color:var(--grey-60); align-self:flex-start; }
+    .mp-icon-btn { position:relative; background:none; border:none; cursor:pointer; padding:8px; border-radius:8px; display:flex; flex-direction:column; align-items:center; gap:6px; filter:drop-shadow(0 2px 5px rgba(54,56,59,0.18)); transition:transform 80ms,filter 120ms,background 120ms; overflow:visible; font-family:'Roboto',sans-serif; }
+    .mp-icon-btn:hover { transform:scale(1.1); filter:drop-shadow(0 4px 10px rgba(54,56,59,0.28)); background:var(--grey-05); }
+    .mp-icon-btn.mp-copied { filter:drop-shadow(0 2px 6px rgba(3,105,161,0.35)); }
+    .mp-act-label { font-size:10px; color:var(--grey-60); white-space:nowrap; }
+    .mp-copied-badge { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:700; color:var(--blue-azure-70); background:rgba(232,246,255,0.95); border-radius:8px; opacity:0; transition:opacity 120ms; pointer-events:none; }
+    .mp-icon-btn.mp-copied .mp-copied-badge { opacity:1; }
+    .mp-states-row { display:flex; background:#fff; border:1px solid var(--grey-20); border-radius:8px; overflow:hidden; }
+    .mp-state-item { flex:1; display:flex; flex-direction:column; align-items:center; gap:8px; padding:24px 16px 20px; border-right:1px solid var(--grey-10); }
+    .mp-state-item:last-child { border-right:none; }
+    .mp-state-preview { height:56px; display:flex; align-items:center; justify-content:center; }
+    .mp-state-name { font-size:13px; font-weight:600; color:var(--grey-90); }
+    .mp-state-note { font-size:11px; color:var(--grey-60); text-align:center; line-height:1.4; }
+
+    @media (max-width: 900px) { .primary-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 768px) {
+      .ds-sidebar { display: none; }
+      .ds-main { padding: 32px 20px 60px; }
+      header { padding: 0 20px; }
+      .examples-grid, .sizes-grid, .token-grid, .color-token-grid { grid-template-columns: 1fr; }
+      .primary-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div id="app"></div>
+
+<script type="module">
+import { createApp, defineComponent, ref, h } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.prod.js'
+
+/* ─── Helpers ────────────────────────────────────────────────── */
+function isLight(hex) {
+  const r = parseInt(hex.slice(1, 3), 16)
+  const g = parseInt(hex.slice(3, 5), 16)
+  const b = parseInt(hex.slice(5, 7), 16)
+  return (0.299 * r + 0.587 * g + 0.114 * b) / 255 > 0.50
+}
+
+/* ─── Color Palettes (from Figma variables + design context) ── */
+const PALETTES = [
+  {
+    name: 'Grey', prefix: 'grey',
+    description: 'Backgrounds, text, borders, and structural UI elements.',
+    stops: [
+      { stop: '100', hex: '#1f2124' }, { stop: '90', hex: '#36383b' },
+      { stop: '80', hex: '#5d6065' },  { stop: '70', hex: '#6f7176' },
+      { stop: '60', hex: '#9c9ea3' },  { stop: '50', hex: '#b0b2b7' },
+      { stop: '40', hex: '#c0c2c6' },  { stop: '30', hex: '#d8d8da' },
+      { stop: '20', hex: '#e6e6e7' },  { stop: '10', hex: '#f1f1f2' },
+      { stop: '05', hex: '#f7f7f8' },  { stop: '00', hex: '#ffffff' },
+    ],
+  },
+  {
+    name: 'Azure Blue', prefix: 'blue-azure',
+    description: 'Primary brand color. Links, interactive elements, accent.',
+    stops: [
+      { stop: '100', hex: '#013b57' }, { stop: '90', hex: '#075985' },
+      { stop: '80', hex: '#0369a1' },  { stop: '70', hex: '#0a74a6' },
+      { stop: '60', hex: '#138cc4' },  { stop: '50', hex: '#39ade3' },
+      { stop: '40', hex: '#61bde9' },  { stop: '30', hex: '#b3e1f7' },
+      { stop: '20', hex: '#d7eff9' },  { stop: '10', hex: '#e8f6ff' },
+    ],
+  },
+  {
+    name: 'Vivid Blue', prefix: 'blue-vivid',
+    description: 'High-saturation blue for interactive highlights.',
+    stops: [
+      { stop: '100', hex: '#072e63' }, { stop: '90', hex: '#0f4082' },
+      { stop: '80', hex: '#065cd1' },  { stop: '70', hex: '#0068f4' },
+      { stop: '60', hex: '#227df8' },  { stop: '50', hex: '#4490f6' },
+      { stop: '40', hex: '#5ba1ff' },  { stop: '30', hex: '#7cb4ff' },
+      { stop: '20', hex: '#b2d3ff' },  { stop: '10', hex: '#e5f0fe' },
+    ],
+  },
+  {
+    name: 'Red', prefix: 'red',
+    description: 'Errors, destructive actions, and danger states.',
+    stops: [
+      { stop: '100', hex: '#781212' }, { stop: '90', hex: '#991b1b' },
+      { stop: '80', hex: '#b91c1c' },  { stop: '70', hex: '#dc2626' },
+      { stop: '60', hex: '#f94144' },  { stop: '50', hex: '#f87171' },
+      { stop: '40', hex: '#fca5a5' },  { stop: '30', hex: '#fecaca' },
+      { stop: '20', hex: '#fee2e2' },  { stop: '10', hex: '#fef2f2' },
+    ],
+  },
+  {
+    name: 'Green', prefix: 'green',
+    description: 'Success states, confirmations, and positive indicators.',
+    stops: [
+      { stop: '100', hex: '#12591c' }, { stop: '90', hex: '#247a31' },
+      { stop: '80', hex: '#469852' },  { stop: '70', hex: '#59b767' },
+      { stop: '60', hex: '#64d074' },  { stop: '50', hex: '#8be598' },
+      { stop: '40', hex: '#a8ebb2' },  { stop: '30', hex: '#c5f2cb' },
+      { stop: '20', hex: '#e2f8e5' },  { stop: '10', hex: '#f1fcf2' },
+    ],
+  },
+  {
+    name: 'Yellow', prefix: 'yellow',
+    description: 'Warnings, cautions, and attention-required indicators.',
+    stops: [
+      { stop: '100', hex: '#927302' }, { stop: '90', hex: '#be9103' },
+      { stop: '80', hex: '#d6a201' },  { stop: '70', hex: '#eab308' },
+      { stop: '60', hex: '#f9c74f' },  { stop: '50', hex: '#ffd164' },
+      { stop: '40', hex: '#fbdd95' },  { stop: '30', hex: '#fde9b9' },
+      { stop: '20', hex: '#ffeec7' },  { stop: '10', hex: '#fff6d7' },
+    ],
+  },
+  {
+    name: 'Orange', prefix: 'orange',
+    description: 'High-visibility warnings and notification badges.',
+    stops: [
+      { stop: '100', hex: '#702822' }, { stop: '90', hex: '#aa381a' },
+      { stop: '80', hex: '#d15801' },  { stop: '70', hex: '#e66304' },
+      { stop: '60', hex: '#ff6c02' },  { stop: '50', hex: '#ff8935' },
+      { stop: '40', hex: '#ffa767' },  { stop: '30', hex: '#ffc49a' },
+      { stop: '20', hex: '#ffe2cc' },  { stop: '10', hex: '#fff0e6' },
+    ],
+  },
+  {
+    name: 'Indigo', prefix: 'indigo',
+    description: 'Brand backgrounds, deep UI surfaces, and emphasis.',
+    stops: [
+      { stop: '100', hex: '#010028' }, { stop: '90', hex: '#02005f' },
+      { stop: '80', hex: '#553698' },  { stop: '70', hex: '#6a3fc8' },
+      { stop: '60', hex: '#8251f4' },  { stop: '50', hex: '#a078fb' },
+      { stop: '40', hex: '#bea3fd' },  { stop: '30', hex: '#d8c8ff' },
+      { stop: '20', hex: '#e4daff' },  { stop: '10', hex: '#f1ecff' },
+    ],
+  },
+  {
+    name: 'Pink', prefix: 'pink', tag: 'Not in use',
+    description: 'Reserved — do not add to production.',
+    stops: [
+      { stop: '100', hex: '#5e1640' }, { stop: '90', hex: '#a01f65' },
+      { stop: '80', hex: '#be2478' },  { stop: '70', hex: '#d22483' },
+      { stop: '60', hex: '#df4e9d' },  { stop: '50', hex: '#f085c0' },
+      { stop: '40', hex: '#f8b0cd' },  { stop: '30', hex: '#f7d3e1' },
+      { stop: '20', hex: '#f8e3ee' },  { stop: '10', hex: '#fff3fa' },
+    ],
+  },
+]
+
+/* ─── SVG Icons ──────────────────────────────────────────────── */
+const ICONS = {
+  plus:     `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3.333v9.334M3.333 8h9.334" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>`,
+  arrow:    `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  trash:    `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M5.333 4V2.667h5.334V4M6.667 7.333v4M9.333 7.333v4M3.333 4l.667 9.333h8L12.667 4H3.333z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  download: `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v8M5 7l3 3 3-3M2.667 11.333v1.334A.667.667 0 003.333 13h9.334a.667.667 0 00.666-.667v-1.334" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  more:     `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="3" cy="8" r="1.5" fill="currentColor"/><circle cx="8" cy="8" r="1.5" fill="currentColor"/><circle cx="13" cy="8" r="1.5" fill="currentColor"/></svg>`,
+}
+
+/* ─── AppButton ──────────────────────────────────────────────── */
+const AppButton = defineComponent({
+  name: 'AppButton',
+  props: {
+    variant:     { type: String, default: 'primary' },
+    size:        { type: String, default: 'md' },
+    disabled:    { type: Boolean, default: false },
+    as:          { type: String, default: 'button' },
+    forcedState: { type: String, default: null },
+    ariaLabel:   { type: String, default: null },
+  },
+  setup(props, { slots }) {
+    return () => {
+      const isDisabled = props.disabled || props.forcedState === 'disabled'
+      const cls = ['btn', `btn-${props.variant}`, `btn-${props.size}`, props.forcedState ? `is-${props.forcedState}` : null].filter(Boolean).join(' ')
+      const children = []
+      if (slots['icon-left'])  children.push(h('span', { class: 'icon' }, slots['icon-left']()))
+      if (slots.default)       children.push(h('span', slots.default()))
+      if (slots['icon-right']) children.push(h('span', { class: 'icon' }, slots['icon-right']()))
+      return h(props.as, {
+        class: cls,
+        disabled: props.as === 'button' ? isDisabled : undefined,
+        'aria-disabled': props.as !== 'button' ? isDisabled : undefined,
+        'aria-label': props.ariaLabel,
+      }, children)
+    }
+  },
+})
+
+/* ─── Colors Page ────────────────────────────────────────────── */
+const ColorsPage = defineComponent({
+  name: 'ColorsPage',
+  setup() {
+    return { palettes: PALETTES, isLight }
+  },
+  template: `
+  <main class="ds-main">
+
+    <!-- Title -->
+    <div class="section">
+      <h1 class="ds-h1">Colors</h1>
+      <p class="ds-lead">9 families · 10–12 stops · sourced from Figma variables</p>
+    </div>
+
+    <!-- Primary Colors -->
+    <div class="section">
+      <h2 class="ds-h2">Primary Colors</h2>
+      <p class="ds-body">Core brand colors. The foundation for interactive elements, backgrounds, and typography.</p>
+      <div class="primary-grid">
+        <div class="primary-swatch" style="background:#010028">
+          <span class="ps-label" style="color:#ffffff">Indigo 100</span>
+          <span class="ps-hex" style="color:rgba(255,255,255,0.75)">#010028</span>
+          <span class="ps-token" style="color:rgba(255,255,255,0.45)">--indigo-100</span>
+        </div>
+        <div class="primary-swatch" style="background:#d7eff9">
+          <span class="ps-label" style="color:#013b57">Azure Blue 20</span>
+          <span class="ps-hex" style="color:#0a74a6">#D7EFF9</span>
+          <span class="ps-token" style="color:#39ade3">--blue-azure-20</span>
+        </div>
+        <div class="primary-swatch" style="background:#ffffff; border:1px solid #e6e6e7">
+          <span class="ps-label" style="color:#1f2124">White</span>
+          <span class="ps-hex" style="color:#6f7176">#FFFFFF</span>
+          <span class="ps-token" style="color:#9c9ea3">--grey-00</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Extended Palette -->
+    <div class="section">
+      <h2 class="ds-h2">Extended Palette</h2>
+      <p class="ds-body">Hover over a swatch to reveal its hex value.</p>
+      <div class="palettes-list">
+        <div v-for="p in palettes" :key="p.prefix" class="palette-row">
+          <div class="palette-header">
+            <span class="palette-name">{{ p.name }}</span>
+            <span v-if="p.tag" class="palette-tag">{{ p.tag }}</span>
+            <span class="palette-desc">{{ p.description }}</span>
+          </div>
+          <div class="palette-strip">
+            <div
+              v-for="s in p.stops"
+              :key="s.stop"
+              class="palette-swatch"
+              :style="{background: s.hex}"
+              :title="p.prefix + '/' + s.stop + ' · ' + s.hex.toUpperCase()"
+            >
+              <span class="sw-stop" :style="{color: isLight(s.hex) ? '#1f2124' : '#ffffff'}">{{ s.stop }}</span>
+              <span class="sw-hex"  :style="{color: isLight(s.hex) ? '#36383b' : '#ffffff'}">{{ s.hex.toUpperCase() }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Token Reference -->
+    <div class="section">
+      <h2 class="ds-h2">Token Reference</h2>
+      <p class="ds-body">All color variables from Figma. Reference in CSS as <code>var(--blue-azure-70)</code>.</p>
+      <div class="color-token-grid">
+        <div v-for="p in palettes" :key="p.prefix" class="token-card">
+          <p class="token-card-title">
+            {{ p.name }}
+            <span v-if="p.tag" style="font-weight:400;text-transform:none;font-size:11px;opacity:0.6;letter-spacing:0"> &ndash; {{ p.tag }}</span>
+          </p>
+          <table class="token-table">
+            <thead>
+              <tr>
+                <th style="width:36px">Stop</th>
+                <th>Variable</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="s in p.stops" :key="s.stop">
+                <td style="color:var(--grey-60);font-family:monospace;font-size:11px">{{ s.stop }}</td>
+                <td><code>--{{ p.prefix }}-{{ s.stop }}</code></td>
+                <td style="display:flex;align-items:center">
+                  <span class="stop-swatch" :style="{background: s.hex}"></span>
+                  <span class="mono" style="font-size:12px;color:var(--grey-80)">{{ s.hex.toUpperCase() }}</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </main>
+  `,
+})
+
+/* ─── Buttons Page ───────────────────────────────────────────── */
+const ButtonsPage = defineComponent({
+  name: 'ButtonsPage',
+  components: { AppButton },
+  setup() {
+    const variants = ['primary', 'secondary', 'tertiary', 'quiet', 'danger']
+    const sizes    = ['xl', 'md', 'sm', 'xs']
+    const states   = ['main', 'hover', 'focus', 'active', 'disabled']
+    const variantLabels = { primary: 'Primary', secondary: 'Secondary', tertiary: 'Tertiary', quiet: 'Quiet', danger: 'Danger' }
+    const variantDesc   = {
+      primary:   'Main call-to-action. Use once per screen.',
+      secondary: 'Secondary action, paired with a primary.',
+      tertiary:  'Less prominent, independent actions.',
+      quiet:     'Least pronounced: filters, standalone icons.',
+      danger:    'Destructive actions (delete, remove).',
+    }
+    const sizeLabels = { xl: 'XL — 56px', md: 'MD — 40px', sm: 'SM — 36px', xs: 'XS — 32px' }
+    return { variants, sizes, states, variantLabels, variantDesc, sizeLabels, icons: ICONS }
+  },
+  template: `
+  <main class="ds-main">
+
+    <div class="section">
+      <h1 class="ds-h1">Button</h1>
+      <p class="ds-lead">5 variants · 4 sizes · 5 states · icon support</p>
+    </div>
+
+    <!-- States Matrix -->
+    <div class="section">
+      <h2 class="ds-h2">States × Variants</h2>
+      <p class="ds-body">All interactive states side-by-side. <code>forcedState</code> prop used for documentation rendering.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="min-width:220px">Variant</th>
+              <th v-for="s in states" :key="s" style="min-width:120px">{{ s }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="v in variants" :key="v">
+              <td class="variant-label">
+                <strong>{{ variantLabels[v] }}</strong>
+                <span>{{ variantDesc[v] }}</span>
+              </td>
+              <td v-for="s in states" :key="s">
+                <app-button :variant="v" size="md" :forced-state="s === 'main' ? null : s">Button</app-button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Sizes -->
+    <div class="section">
+      <h2 class="ds-h2">Sizes</h2>
+      <p class="ds-body">Heights: XL 56px · MD 40px · SM 36px · XS 32px</p>
+      <div class="sizes-grid">
+        <div v-for="v in variants" :key="v" class="size-card">
+          <p class="size-card-title">{{ variantLabels[v] }}</p>
+          <div class="size-row">
+            <div v-for="s in sizes" :key="s" class="size-item">
+              <app-button :variant="v" :size="s">{{ s.toUpperCase() }}</app-button>
+              <span class="size-label">{{ sizeLabels[s] }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Icon Variants -->
+    <div class="section">
+      <h2 class="ds-h2">Icon Variants</h2>
+      <p class="ds-body">Use <code>#icon-left</code>, <code>#icon-right</code>, or both slots. Icon-only buttons need an <code>aria-label</code>.</p>
+      <div class="icon-grid">
+
+        <div>
+          <p class="icon-group-label">Icon Left</p>
+          <div class="icon-row">
+            <app-button variant="primary"   size="md"><template #icon-left><span v-html="icons.plus"     /></template>Create</app-button>
+            <app-button variant="secondary" size="md"><template #icon-left><span v-html="icons.download" /></template>Export</app-button>
+            <app-button variant="tertiary"  size="md"><template #icon-left><span v-html="icons.arrow"    /></template>Navigate</app-button>
+            <app-button variant="quiet"     size="md"><template #icon-left><span v-html="icons.download" /></template>Download</app-button>
+            <app-button variant="danger"    size="md"><template #icon-left><span v-html="icons.trash"    /></template>Delete</app-button>
+          </div>
+        </div>
+
+        <div>
+          <p class="icon-group-label">Icon Right</p>
+          <div class="icon-row">
+            <app-button variant="primary"   size="md">Continue  <template #icon-right><span v-html="icons.arrow"    /></template></app-button>
+            <app-button variant="secondary" size="md">Export    <template #icon-right><span v-html="icons.download" /></template></app-button>
+            <app-button variant="tertiary"  size="md">More      <template #icon-right><span v-html="icons.arrow"    /></template></app-button>
+            <app-button variant="quiet"     size="md">Options   <template #icon-right><span v-html="icons.arrow"    /></template></app-button>
+            <app-button variant="danger"    size="md">Remove    <template #icon-right><span v-html="icons.trash"    /></template></app-button>
+          </div>
+        </div>
+
+        <div>
+          <p class="icon-group-label">Icon Both</p>
+          <div class="icon-row">
+            <app-button variant="primary"   size="md"><template #icon-left><span v-html="icons.plus"     /></template>Add Item   <template #icon-right><span v-html="icons.arrow" /></template></app-button>
+            <app-button variant="secondary" size="md"><template #icon-left><span v-html="icons.download" /></template>Export All <template #icon-right><span v-html="icons.arrow" /></template></app-button>
+            <app-button variant="danger"    size="md"><template #icon-left><span v-html="icons.trash"    /></template>Delete All <template #icon-right><span v-html="icons.arrow" /></template></app-button>
+          </div>
+        </div>
+
+        <div>
+          <p class="icon-group-label">Icon Only</p>
+          <div class="icon-row">
+            <app-button variant="primary"   size="md" aria-label="Create">  <template #icon-left><span v-html="icons.plus"     /></template></app-button>
+            <app-button variant="secondary" size="md" aria-label="Export">  <template #icon-left><span v-html="icons.download" /></template></app-button>
+            <app-button variant="tertiary"  size="md" aria-label="Navigate"><template #icon-left><span v-html="icons.arrow"    /></template></app-button>
+            <app-button variant="quiet"     size="md" aria-label="Options"> <template #icon-left><span v-html="icons.more"     /></template></app-button>
+            <app-button variant="danger"    size="md" aria-label="Delete">  <template #icon-left><span v-html="icons.trash"    /></template></app-button>
+          </div>
+        </div>
+
+        <div>
+          <p class="icon-group-label">Icon Only — All Sizes (Primary)</p>
+          <div class="icon-row" style="align-items:flex-end">
+            <app-button v-for="s in sizes" :key="s" variant="primary" :size="s" :aria-label="'Create (' + s + ')'">
+              <template #icon-left><span v-html="icons.plus" /></template>
+            </app-button>
+          </div>
+        </div>
+
+        <div>
+          <p class="icon-group-label">Icon Only — All Sizes (Quiet)</p>
+          <div class="icon-row" style="align-items:flex-end">
+            <app-button v-for="s in sizes" :key="s" variant="quiet" :size="s" :aria-label="'Options (' + s + ')'">
+              <template #icon-left><span v-html="icons.more" /></template>
+            </app-button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Usage Examples -->
+    <div class="section">
+      <h2 class="ds-h2">Usage Examples</h2>
+      <div class="examples-grid">
+
+        <div class="example-card">
+          <p class="example-label">Dialog / Modal Footer</p>
+          <div class="example-body">
+            <div class="btn-group btn-group-right">
+              <app-button variant="tertiary"  size="md">Cancel</app-button>
+              <app-button variant="secondary" size="md">Save draft</app-button>
+              <app-button variant="primary"   size="md">Publish</app-button>
+            </div>
+          </div>
+        </div>
+
+        <div class="example-card">
+          <p class="example-label">Destructive Confirmation</p>
+          <div class="example-body">
+            <div class="btn-group btn-group-right">
+              <app-button variant="quiet"  size="md">Cancel</app-button>
+              <app-button variant="danger" size="md">
+                <template #icon-left><span v-html="icons.trash" /></template>
+                Delete permanently
+              </app-button>
+            </div>
+          </div>
+        </div>
+
+        <div class="example-card">
+          <p class="example-label">Toolbar</p>
+          <div class="example-body">
+            <div class="btn-group">
+              <app-button variant="primary"   size="sm"><template #icon-left><span v-html="icons.plus"     /></template>Add vehicle</app-button>
+              <app-button variant="secondary" size="sm"><template #icon-left><span v-html="icons.download" /></template>Export</app-button>
+              <app-button variant="quiet"     size="sm" aria-label="More options"><template #icon-left><span v-html="icons.more" /></template></app-button>
+            </div>
+          </div>
+        </div>
+
+        <div class="example-card">
+          <p class="example-label">Hero / Full-width CTA</p>
+          <div class="example-body">
+            <div class="btn-group">
+              <app-button variant="primary"  size="xl">Get started<template #icon-right><span v-html="icons.arrow" /></template></app-button>
+              <app-button variant="tertiary" size="xl">Learn more</app-button>
+            </div>
+          </div>
+        </div>
+
+        <div class="example-card">
+          <p class="example-label">Disabled State in Context</p>
+          <div class="example-body">
+            <div class="btn-group">
+              <app-button variant="primary"   size="md" :disabled="true">Submit form</app-button>
+              <app-button variant="secondary" size="md" :disabled="true">Save draft</app-button>
+              <app-button variant="danger"    size="md" :disabled="true">
+                <template #icon-left><span v-html="icons.trash" /></template>Delete
+              </app-button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Token Reference -->
+    <div class="section">
+      <h2 class="ds-h2">Token Reference</h2>
+      <div class="token-grid">
+
+        <div class="token-card">
+          <p class="token-card-title">Primary</p>
+          <table class="token-table">
+            <thead><tr><th>State</th><th>Variable</th><th>Value</th></tr></thead>
+            <tbody>
+              <tr><td>Main bg</td>    <td><code>--btn-primary-bg</code></td>           <td><span class="swatch-inline" style="background:#010028"></span>#010028</td></tr>
+              <tr><td>Hover bg</td>   <td><code>--btn-primary-hover</code></td>         <td><span class="swatch-inline" style="background:#5d6065"></span>#5D6065</td></tr>
+              <tr><td>Focus ring</td> <td><code>--btn-primary-ring-focus</code></td>   <td><span class="swatch-inline" style="background:#b3e1f7"></span>#B3E1F7</td></tr>
+              <tr><td>Active ring</td><td><code>--btn-primary-ring-active</code></td>  <td><span class="swatch-inline" style="background:#61bde9"></span>#61BDE9</td></tr>
+              <tr><td>Disabled bg</td><td><code>--btn-disabled-bg</code></td>          <td><span class="swatch-inline" style="background:#f1f1f2;border:1px solid #d8d8da"></span>#F1F1F2</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="token-card">
+          <p class="token-card-title">Secondary</p>
+          <table class="token-table">
+            <thead><tr><th>State</th><th>Variable</th><th>Value</th></tr></thead>
+            <tbody>
+              <tr><td>Border</td>     <td><code>--btn-secondary-border</code></td>       <td><span class="swatch-inline" style="background:#5d6065"></span>#5D6065</td></tr>
+              <tr><td>Hover bg</td>   <td><code>--btn-secondary-hover-bg</code></td>     <td><span class="swatch-inline" style="background:#f1f1f2;border:1px solid #d8d8da"></span>#F1F1F2</td></tr>
+              <tr><td>Hover border</td><td><code>--btn-secondary-border-hover</code></td><td><span class="swatch-inline" style="background:#36383b"></span>#36383B</td></tr>
+              <tr><td>Focus ring</td> <td><code>--btn-secondary-ring-focus</code></td>   <td><span class="swatch-inline" style="background:#b3e1f7"></span>#B3E1F7</td></tr>
+              <tr><td>Active ring</td><td><code>--btn-secondary-ring-active</code></td>  <td><span class="swatch-inline" style="background:#61bde9"></span>#61BDE9</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="token-card">
+          <p class="token-card-title">Tertiary</p>
+          <table class="token-table">
+            <thead><tr><th>State</th><th>Variable</th><th>Value</th></tr></thead>
+            <tbody>
+              <tr><td>Border</td>     <td><code>--btn-tertiary-border</code></td>        <td><span class="swatch-inline" style="background:#d8d8da"></span>#D8D8DA</td></tr>
+              <tr><td>Hover bg</td>   <td><code>--btn-tertiary-hover-bg</code></td>      <td><span class="swatch-inline" style="background:#f1f1f2;border:1px solid #d8d8da"></span>#F1F1F2</td></tr>
+              <tr><td>Active bg</td>  <td><code>--btn-tertiary-active-bg</code></td>     <td><span class="swatch-inline" style="background:#e6e6e7"></span>#E6E6E7</td></tr>
+              <tr><td>Focus ring</td> <td><code>--btn-tertiary-ring-focus</code></td>    <td><span class="swatch-inline" style="background:#b3e1f7"></span>#B3E1F7</td></tr>
+              <tr><td>Active ring</td><td><code>--btn-tertiary-ring-active</code></td>   <td><span class="swatch-inline" style="background:#61bde9"></span>#61BDE9</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="token-card">
+          <p class="token-card-title">Quiet</p>
+          <table class="token-table">
+            <thead><tr><th>State</th><th>Variable</th><th>Value</th></tr></thead>
+            <tbody>
+              <tr><td>Main</td>       <td><code>--btn-quiet-bg</code></td>               <td><span class="swatch-inline" style="background:transparent;border:1px solid #d8d8da"></span>transparent</td></tr>
+              <tr><td>Hover bg</td>   <td><code>--btn-quiet-hover-bg</code></td>         <td><span class="swatch-inline" style="background:#e6e6e7"></span>#E6E6E7</td></tr>
+              <tr><td>Focus bg</td>   <td><code>--btn-quiet-focus-bg</code></td>         <td><span class="swatch-inline" style="background:#f1f1f2;border:1px solid #d8d8da"></span>#F1F1F2</td></tr>
+              <tr><td>Focus ring</td> <td><code>--btn-quiet-ring-focus</code></td>       <td><span class="swatch-inline" style="background:#b3e1f7"></span>#B3E1F7</td></tr>
+              <tr><td>Active ring</td><td><code>--btn-quiet-ring-active</code></td>      <td><span class="swatch-inline" style="background:#61bde9"></span>#61BDE9</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="token-card">
+          <p class="token-card-title">Danger</p>
+          <table class="token-table">
+            <thead><tr><th>State</th><th>Variable</th><th>Value</th></tr></thead>
+            <tbody>
+              <tr><td>Main bg</td>    <td><code>--btn-danger-bg</code></td>              <td><span class="swatch-inline" style="background:#dc2626"></span>#DC2626</td></tr>
+              <tr><td>Hover bg</td>   <td><code>--btn-danger-hover-bg</code></td>        <td><span class="swatch-inline" style="background:#b91c1c"></span>#B91C1C</td></tr>
+              <tr><td>Focus bg</td>   <td><code>--btn-danger-focus-bg</code></td>        <td><span class="swatch-inline" style="background:#f94144"></span>#F94144</td></tr>
+              <tr><td>Focus ring</td> <td><code>--btn-danger-ring-focus</code></td>      <td><span class="swatch-inline" style="background:#fca5a5"></span>#FCA5A5</td></tr>
+              <tr><td>Active ring</td><td><code>--btn-danger-ring-active</code></td>     <td><span class="swatch-inline" style="background:#f87171"></span>#F87171</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="token-card">
+          <p class="token-card-title">Shared / Disabled</p>
+          <table class="token-table">
+            <thead><tr><th>Token</th><th>Value</th><th>Used by</th></tr></thead>
+            <tbody>
+              <tr><td><code>--btn-disabled-bg</code></td>  <td><span class="swatch-inline" style="background:#f1f1f2;border:1px solid #d8d8da"></span>#F1F1F2</td><td>All</td></tr>
+              <tr><td><code>--btn-disabled-text</code></td><td><span class="swatch-inline" style="background:#b0b2b7"></span>#B0B2B7</td><td>All</td></tr>
+              <tr><td><code>--btn-radius</code></td>       <td colspan="2">4px</td></tr>
+              <tr><td><code>--btn-font-size</code></td>    <td colspan="2">14px / Roboto Medium 500</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+  `,
+})
+
+/* ─── Icons Page ─────────────────────────────────────────────── */
+const ICON_GROUPS = [
+  { id:'arrows', name:'Arrows', description:'Navigation and directional cues.', icons:[
+    { name:'arrow-left',           d:'M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z' },
+    { name:'arrow-right',          d:'M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z' },
+    { name:'chevron-up',           d:'M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6 1.41 1.41z' },
+    { name:'chevron-down',         d:'M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z' },
+    { name:'chevron-left',         d:'M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z' },
+    { name:'chevron-right',        d:'M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z' },
+    { name:'chevron-double-left',  d:'M18.41 16.59L17 18l-6-6 6-6 1.41 1.41L13.83 12zm-6 0L11 18l-6-6 6-6 1.41 1.41L7.83 12z' },
+    { name:'chevron-double-right', d:'M5.59 7.41L7 6l6 6-6 6-1.41-1.41L10.17 12zm6 0L13 6l6 6-6 6-1.41-1.41L16.17 12z' },
+    { name:'switcher',             d:'M6.99 11L3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z' },
+  ]},
+  { id:'alerts', name:'Alerts', description:'Status and feedback indicators.', icons:[
+    { name:'help',    d:'M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z' },
+    { name:'success', d:'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z' },
+    { name:'info',    d:'M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 9h2V7h-2v2z' },
+    { name:'error',   d:'M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z' },
+    { name:'warning', d:'M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z' },
+  ]},
+  { id:'system', name:'System', description:'UI controls, actions, and domain-specific symbols.', icons:[
+    { name:'close',       d:'M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z' },
+    { name:'search',      d:'M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z' },
+    { name:'check',       d:'M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z' },
+    { name:'plus',        d:'M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z' },
+    { name:'plus-filled', d:'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z' },
+    { name:'minus',       d:'M19 13H5v-2h14v2z' },
+    { name:'sorting',     d:'M3 18h6v-2H3v2zM3 6v2h18V6H3zm0 7h12v-2H3v2z' },
+    { name:'filter',      d:'M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z' },
+    { name:'settings',    d:'M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z' },
+    { name:'calendar',    d:['M17 12h-5v5h5v-5z','M16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z'] },
+    { name:'time',        d:'M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z' },
+    { name:'home',        d:'M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z' },
+    { name:'bell',        d:'M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z' },
+    { name:'user',        d:'M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z' },
+    { name:'users',       d:'M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z' },
+    { name:'location',    d:'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z' },
+    { name:'map',         d:'M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z' },
+    { name:'send',        d:'M2.01 21L23 12 2.01 3 2 10l15 2-15 2z' },
+    { name:'export',      d:'M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2z' },
+    { name:'logout',      d:'M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z' },
+    { name:'open',        d:'M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z' },
+    { name:'insights',    d:'M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z' },
+    { name:'trips',       d:'M9 11.24V7.5C9 6.12 10.12 5 11.5 5S14 6.12 14 7.5v3.74c1.21-.81 2-2.18 2-3.74C16 5.01 13.99 3 11.5 3S7 5.01 7 7.5c0 1.56.79 2.93 2 3.74zm9.84 4.63l-4.54-2.26c-.17-.07-.35-.11-.54-.11H13v-6c0-.83-.67-1.5-1.5-1.5S10 6.67 10 7.5v10.74l-3.43-.72c-.08-.01-.15-.03-.24-.03-.31 0-.59.13-.79.33l-.79.8 4.94 4.94c.27.27.65.44 1.06.44h6.79c.75 0 1.33-.55 1.44-1.28l.75-5.27c.01-.07.02-.14.02-.2 0-.62-.38-1.16-.91-1.38z' },
+    { name:'truck',       d:'M17 4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h5.5c0 1.66 1.34 3 3 3s3-1.34 3-3H23v-5l-6-8zM3 11V6h4v5H3zm3 6.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm7-6.5H9V6h4v5zm3.5 6.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM15 11V6.5l4.5 4.5H15z' },
+    { name:'car',         d:'M18.92 5.01C18.72 4.42 18.16 4 17.5 4h-11c-.66 0-1.21.42-1.42 1.01L3 11v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 15c-.83 0-1.5-.67-1.5-1.5S5.67 12 6.5 12s1.5.67 1.5 1.5S7.33 15 6.5 15zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 10l1.5-4.5h11L19 10H5z' },
+    { name:'package',     d:'M20.54 5.23l-1.39-1.68C18.88 3.21 18.47 3 18 3H6c-.47 0-.88.21-1.16.55L3.46 5.23C3.17 5.57 3 6.02 3 6.5V19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6.5c0-.48-.17-.93-.46-1.27zM12 17.5L6.5 12H10v-2h4v2h3.5L12 17.5zM5.12 5l.81-1h12l.94 1H5.12z' },
+    { name:'parked',      d:'M13 3H6v18h4v-6h3c3.31 0 6-2.69 6-6s-2.69-6-6-6zm.2 8H10V7h3.2c1.1 0 2 .9 2 2s-.9 2-2 2z' },
+    { name:'driving',     d:'M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z' },
+    { name:'available',   d:'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z' },
+    { name:'rest',        d:'M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V5H1v15h2v-3h18v3h2v-9c0-2.21-1.79-4-4-4z' },
+    { name:'work',        d:'M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z' },
+    { name:'placeholder', d:'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z' },
+    { name:'optional',    d:'M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z' },
+  ]},
+]
+
+// Colors sourced from Figma tokens — pointers/color/bcg/* and pointers/color/border/*
+const MP_TYPES = [
+  { id:'green',           label:'Green',          fill:'#247a31', stroke:null,      fg:'#ffffff', overlay:'rgba(255,255,255,0.15)' },
+  { id:'neutral',         label:'Neutral',        fill:'#5d6065', stroke:null,      fg:'#ffffff', overlay:'rgba(255,255,255,0.15)' },
+  { id:'neutral-inverted',label:'Neutral Inverted',fill:'#ffffff',stroke:'#5d6065', fg:'#5d6065', overlay:null },
+  { id:'plain',           label:'Plain',          fill:'#ffffff', stroke:'#5d6065', fg:'#5d6065', overlay:null },
+  { id:'blue-dark',       label:'Blue Dark',      fill:'#075985', stroke:null,      fg:'#ffffff', overlay:'rgba(255,255,255,0.12)' },
+  { id:'inverted',        label:'Inverted',       fill:'#1f2124', stroke:null,      fg:'#ffffff', overlay:'rgba(255,255,255,0.08)' },
+  { id:'danger-inverted', label:'Danger Inverted',fill:'#b91c1c', stroke:null,      fg:'#ffffff', overlay:'rgba(255,255,255,0.12)' },
+  { id:'blue-light',      label:'Blue Light',     fill:'#61bde9', stroke:null,      fg:'#ffffff', overlay:'rgba(255,255,255,0.18)' },
+  { id:'plain-strong',    label:'Plain Strong',   fill:'#ffffff', stroke:'#36383b', fg:'#36383b', overlay:'rgba(0,0,0,0.04)' },
+  { id:'generic',         label:'Generic',        fill:'#e6e6e7', stroke:null,      fg:'#9c9ea3', overlay:null, generic:true },
+  { id:'highlight',       label:'Highlight',      fill:'#bea3fd', stroke:null,      fg:'#553698', overlay:'rgba(255,255,255,0.20)' },
+  { id:'plain-inverted',  label:'Plain Inverted', fill:'#9c9ea3', stroke:null,      fg:'#ffffff', overlay:'rgba(255,255,255,0.15)' },
+  { id:'plain-light',     label:'Plain Light',    fill:'#ffffff', stroke:'#9c9ea3', fg:'#9c9ea3', overlay:null },
+]
+const MP_SIZES    = [{id:'sm',px:24,label:'SM',desc:'24 px'},{id:'md',px:32,label:'MD',desc:'32 px · default'},{id:'lg',px:48,label:'LG',desc:'48 px'},{id:'xl',px:64,label:'XL',desc:'64 px'}]
+const MP_STATES   = [{id:'main',label:'Main',note:'Default resting state'},{id:'hover',label:'Hover',note:'Cursor over the marker'},{id:'following',label:'Following',note:'Map is locked to this vehicle'}]
+const MP_ACTIVITIES = [
+  { id:'driving',   label:'Driving' },  { id:'idling',    label:'Idling' },
+  { id:'parked',    label:'Parked' },   { id:'engine-on', label:'Engine On' },
+  { id:'off',       label:'Off' },      { id:'rest',      label:'Rest' },
+  { id:'other-work',label:'Other Work'},{ id:'resting',   label:'Resting' },
+]
+
+const IconsPage = defineComponent({
+  name: 'IconsPage',
+  setup() {
+    const copiedId        = ref(null)
+    const copiedPointerId = ref(null)
+    function paths(icon) { return Array.isArray(icon.d) ? icon.d : [icon.d] }
+    function copyIcon(icon) {
+      const ps = paths(icon).map(d => '<path d="'+d+'"/>').join('')
+      navigator.clipboard.writeText('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">'+ps+'</svg>')
+      copiedId.value = icon.name; setTimeout(() => { copiedId.value = null }, 1400)
+    }
+    function actContent(aid, fg) {
+      if (aid==='driving')    return '<path d="M16 9L21.5 23L16 19L10.5 23Z" fill="'+fg+'"/>'
+      if (aid==='idling')     return '<rect x="11.5" y="12" width="3" height="8" rx="0.5" fill="'+fg+'"/><rect x="17.5" y="12" width="3" height="8" rx="0.5" fill="'+fg+'"/>'
+      if (aid==='parked')     return '<text x="16" y="21.5" text-anchor="middle" font-size="12" font-weight="700" fill="'+fg+'" font-family="Roboto,sans-serif">P</text>'
+      if (aid==='engine-on')  return '<circle cx="16" cy="16" r="4.5" fill="'+fg+'"/>'
+      if (aid==='off')        return '<line x1="12" y1="16" x2="20" y2="16" stroke="'+fg+'" stroke-width="2.5" stroke-linecap="round"/>'
+      if (aid==='rest')       return '<path d="M17.5 11a5.5 5.5 0 1 1-5 9.5 7 7 0 0 0 5-9.5z" fill="'+fg+'"/>'
+      if (aid==='other-work') return '<path d="M9 14.5h14v5.5H9z M13 14.5v-1.5a1.5 1.5 0 0 1 3 0v1.5" stroke="'+fg+'" stroke-width="1.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>'
+      if (aid==='resting')    return '<path d="M11 14h5l-4 4h5M13.5 11h4l-3.5 4h4" stroke="'+fg+'" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>'
+      return ''
+    }
+    function makePointerSvg(type, opts) {
+      opts = opts || {}
+      const sa = type.stroke ? ' stroke="'+type.stroke+'" stroke-width="1.5"' : ''
+      const ov = type.overlay ? '<circle cx="16" cy="16" r="10" fill="'+type.overlay+'"/>' : ''
+      const gn = type.generic ? '<circle cx="16" cy="16" r="7" fill="#b0b2b7"/>' : ''
+      let c = ''
+      if (opts.pointer==='yes-number') c = '<text x="16" y="20.5" text-anchor="middle" font-size="11" font-weight="700" fill="'+type.fg+'" font-family="Roboto,sans-serif">'+(opts.number||12)+'</text>'
+      else if (opts.pointer==='yes-symbol' && opts.activity) c = actContent(opts.activity, type.fg)
+      return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32"><circle cx="16" cy="16" r="13" fill="'+type.fill+'"'+sa+'/>'+ov+gn+c+'</svg>'
+    }
+    function copyPointer(key, svgStr) {
+      navigator.clipboard.writeText(svgStr)
+      copiedPointerId.value = key; setTimeout(() => { copiedPointerId.value = null }, 1400)
+    }
+    const total = ICON_GROUPS.reduce((s, g) => s + g.icons.length, 0)
+    return { groups:ICON_GROUPS, copiedId, paths, copyIcon,
+             MP_TYPES, MP_SIZES, MP_STATES, MP_ACTIVITIES,
+             copiedPointerId, copyPointer, makePointerSvg, actContent, total }
+  },
+  template: `
+  <main class="ds-main">
+    <div class="section">
+      <h1 class="ds-h1">Icons</h1>
+      <p class="ds-lead">{{ total }} icons &middot; Material Design &middot; 24 px (sm) &middot; 16 px (xs)</p>
+    </div>
+
+    <div class="section">
+      <h2 class="ds-h2">Sizes</h2>
+      <p class="ds-body">Use 24 px alongside body text and in buttons; 16 px in compact contexts like table cells and tags.</p>
+      <div style="display:flex;gap:12px">
+        <div v-for="s in [{label:'sm',px:24},{label:'xs',px:16}]" :key="s.label"
+          style="background:#fff;border:1px solid var(--grey-20);border-radius:8px;padding:20px 24px;display:flex;align-items:center;gap:16px;min-width:160px">
+          <div style="width:40px;height:40px;background:var(--grey-05);border-radius:6px;display:flex;align-items:center;justify-content:center">
+            <svg :width="s.px" :height="s.px" viewBox="0 0 24 24" fill="var(--grey-90)">
+              <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+            </svg>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:2px">
+            <span style="font-size:14px;font-weight:600;color:var(--grey-90)">{{ s.label }}</span>
+            <span style="font-size:12px;color:var(--grey-60);font-family:monospace">{{ s.px }}px</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div v-for="group in groups" :key="group.id" class="section">
+      <div style="display:flex;align-items:center;gap:10px">
+        <h2 class="ds-h2">{{ group.name }}</h2>
+        <span style="font-size:12px;font-weight:500;color:var(--grey-60);background:var(--grey-10);border-radius:20px;padding:1px 8px">{{ group.icons.length }}</span>
+      </div>
+      <p class="ds-body">{{ group.description }}</p>
+      <div class="icon-grid">
+        <button v-for="icon in group.icons" :key="icon.name"
+          class="icon-card" :class="{copied: copiedId === icon.name}"
+          :title="'Copy SVG — ' + icon.name"
+          @click="copyIcon(icon)"
+        >
+          <div class="icon-previews">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path v-for="(d,i) in paths(icon)" :key="i" :d="d"/>
+            </svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="opacity:.45">
+              <path v-for="(d,i) in paths(icon)" :key="i" :d="d"/>
+            </svg>
+          </div>
+          <span class="icon-name">{{ icon.name }}</span>
+          <span class="icon-copied-badge">Copied!</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="section">
+      <div style="display:flex;align-items:center;gap:10px">
+        <h2 class="ds-h2">Map Pointers</h2>
+        <span style="font-size:12px;font-weight:500;color:var(--grey-60);background:var(--grey-10);border-radius:20px;padding:1px 8px">{{ MP_TYPES.length }} types</span>
+      </div>
+      <p class="ds-body">Circular markers placed on map views to represent vehicle positions. Defined by <strong>type</strong> (color theme), <strong>size</strong> (sm → xl), <strong>state</strong> (main / hover / following), and <strong>pointer content</strong> (empty, number, or activity symbol).</p>
+
+      <!-- 1. Types -->
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <h3 class="mp-sub-h3">Types <span class="mp-sub-note">· md · main · no pointer</span></h3>
+        <div class="mp-type-grid">
+          <button v-for="type in MP_TYPES" :key="type.id"
+            class="mp-type-card" :class="{copied: copiedPointerId===type.id}"
+            :title="'Copy — '+type.label"
+            @click="copyPointer(type.id, makePointerSvg(type))">
+            <div style="filter:drop-shadow(0 2px 6px rgba(54,56,59,0.22))">
+              <svg width="36" height="36" viewBox="0 0 32 32" fill="none">
+                <circle cx="16" cy="16" r="13" :fill="type.fill" :stroke="type.stroke||'none'" :stroke-width="type.stroke?'1.5':'0'"/>
+                <circle v-if="type.overlay" cx="16" cy="16" r="10" :fill="type.overlay"/>
+                <circle v-if="type.generic"  cx="16" cy="16" r="7"  fill="#b0b2b7"/>
+              </svg>
+            </div>
+            <span class="mp-type-name">{{ type.label }}</span>
+            <span class="mp-copied-badge">Copied!</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 2. Pointer content variants -->
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <h3 class="mp-sub-h3">Pointer content <span class="mp-sub-note">· green · md · main</span></h3>
+        <div class="mp-pointer-cols">
+
+          <div class="mp-pointer-col">
+            <p class="mp-pointer-variant-label">no</p>
+            <p style="font-size:12px;color:var(--grey-60);line-height:1.4">Empty — no content displayed</p>
+            <button class="mp-icon-btn" :class="{'mp-copied':copiedPointerId==='ptr-no'}"
+              @click="copyPointer('ptr-no', makePointerSvg(MP_TYPES[0]))">
+              <svg width="36" height="36" viewBox="0 0 32 32" fill="none">
+                <circle cx="16" cy="16" r="13" fill="#247a31"/>
+                <circle cx="16" cy="16" r="10" fill="rgba(255,255,255,0.12)"/>
+              </svg>
+              <span class="mp-copied-badge">Copied!</span>
+            </button>
+          </div>
+
+          <div class="mp-pointer-col">
+            <p class="mp-pointer-variant-label">yes · number</p>
+            <p style="font-size:12px;color:var(--grey-60);line-height:1.4">Vehicle count or cluster number</p>
+            <button class="mp-icon-btn" :class="{'mp-copied':copiedPointerId==='ptr-num'}"
+              @click="copyPointer('ptr-num', makePointerSvg(MP_TYPES[0],{pointer:'yes-number',number:12}))">
+              <svg width="36" height="36" viewBox="0 0 32 32" fill="none">
+                <circle cx="16" cy="16" r="13" fill="#247a31"/>
+                <circle cx="16" cy="16" r="10" fill="rgba(255,255,255,0.12)"/>
+                <text x="16" y="20.5" text-anchor="middle" font-size="11" font-weight="700" fill="white" font-family="Roboto,sans-serif">12</text>
+              </svg>
+              <span class="mp-copied-badge">Copied!</span>
+            </button>
+          </div>
+
+          <div class="mp-pointer-col" style="flex:3;align-items:flex-start">
+            <p class="mp-pointer-variant-label">yes · symbol</p>
+            <p style="font-size:12px;color:var(--grey-60);line-height:1.4">Activity state of the vehicle</p>
+            <div style="display:flex;flex-wrap:wrap;gap:8px">
+              <button v-for="act in MP_ACTIVITIES" :key="act.id"
+                class="mp-icon-btn" :class="{'mp-copied':copiedPointerId==='act-'+act.id}"
+                :title="'Copy — '+act.label"
+                @click="copyPointer('act-'+act.id, makePointerSvg(MP_TYPES[0],{pointer:'yes-symbol',activity:act.id}))">
+                <svg width="36" height="36" viewBox="0 0 32 32" fill="none">
+                  <circle cx="16" cy="16" r="13" fill="#247a31"/>
+                  <circle cx="16" cy="16" r="10" fill="rgba(255,255,255,0.12)"/>
+                  <path v-if="act.id==='driving'" d="M16 9L21.5 23L16 19L10.5 23Z" fill="white"/>
+                  <g v-if="act.id==='idling'"><rect x="11.5" y="12" width="3" height="8" rx="0.5" fill="white"/><rect x="17.5" y="12" width="3" height="8" rx="0.5" fill="white"/></g>
+                  <text v-if="act.id==='parked'" x="16" y="21.5" text-anchor="middle" font-size="12" font-weight="700" fill="white" font-family="Roboto,sans-serif">P</text>
+                  <circle v-if="act.id==='engine-on'" cx="16" cy="16" r="4.5" fill="white"/>
+                  <line v-if="act.id==='off'" x1="12" y1="16" x2="20" y2="16" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                  <path v-if="act.id==='rest'" d="M17.5 11a5.5 5.5 0 1 1-5 9.5 7 7 0 0 0 5-9.5z" fill="white"/>
+                  <path v-if="act.id==='other-work'" d="M9 14.5h14v5.5H9z M13 14.5v-1.5a1.5 1.5 0 0 1 3 0v1.5" stroke="white" stroke-width="1.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+                  <path v-if="act.id==='resting'" d="M11 14h5l-4 4h5M13.5 11h4l-3.5 4h4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                </svg>
+                <span class="mp-act-label">{{ act.label }}</span>
+                <span class="mp-copied-badge">Copied!</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Sizes -->
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <h3 class="mp-sub-h3">Sizes <span class="mp-sub-note">· green · main · driving</span></h3>
+        <div style="display:flex;gap:8px;align-items:flex-end;background:#fff;border:1px solid var(--grey-20);border-radius:8px;padding:24px 28px">
+          <div v-for="s in MP_SIZES" :key="s.id" style="display:flex;flex-direction:column;align-items:center;gap:6px;min-width:72px">
+            <div :style="{height:'72px',display:'flex',alignItems:'flex-end',justifyContent:'center'}">
+              <svg :width="s.px" :height="s.px" viewBox="0 0 32 32" fill="none" style="filter:drop-shadow(0 3px 8px rgba(54,56,59,0.22))">
+                <circle cx="16" cy="16" r="13" fill="#247a31"/>
+                <circle cx="16" cy="16" r="10" fill="rgba(255,255,255,0.12)"/>
+                <path d="M16 9L21.5 23L16 19L10.5 23Z" fill="white"/>
+              </svg>
+            </div>
+            <span style="font-size:12px;font-weight:600;color:var(--grey-90)">{{ s.label }}</span>
+            <span style="font-size:11px;color:var(--grey-60);font-family:monospace">{{ s.desc }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. States -->
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <h3 class="mp-sub-h3">States <span class="mp-sub-note">· green · md · driving</span></h3>
+        <div class="mp-states-row">
+          <div class="mp-state-item">
+            <div class="mp-state-preview">
+              <svg width="36" height="36" viewBox="0 0 32 32" fill="none" style="filter:drop-shadow(0 3px 8px rgba(54,56,59,0.22))">
+                <circle cx="16" cy="16" r="13" fill="#247a31"/><circle cx="16" cy="16" r="10" fill="rgba(255,255,255,0.12)"/>
+                <path d="M16 9L21.5 23L16 19L10.5 23Z" fill="white"/>
+              </svg>
+            </div>
+            <span class="mp-state-name">Main</span><span class="mp-state-note">Default resting state</span>
+          </div>
+          <div class="mp-state-item">
+            <div class="mp-state-preview">
+              <svg width="44" height="44" viewBox="0 0 32 32" fill="none" style="filter:drop-shadow(0 6px 16px rgba(54,56,59,0.35))">
+                <circle cx="16" cy="16" r="13" fill="#247a31"/><circle cx="16" cy="16" r="10" fill="rgba(255,255,255,0.12)"/>
+                <path d="M16 9L21.5 23L16 19L10.5 23Z" fill="white"/>
+              </svg>
+            </div>
+            <span class="mp-state-name">Hover</span><span class="mp-state-note">Cursor over the marker</span>
+          </div>
+          <div class="mp-state-item">
+            <div class="mp-state-preview">
+              <svg width="44" height="44" viewBox="0 0 36 36" fill="none" style="filter:drop-shadow(0 4px 12px rgba(54,56,59,0.30))">
+                <circle cx="18" cy="18" r="17" fill="#64d074"/>
+                <circle cx="18" cy="18" r="13" fill="#247a31"/><circle cx="18" cy="18" r="10" fill="rgba(255,255,255,0.15)"/>
+                <path d="M18 11L23.5 25L18 21L12.5 25Z" fill="white"/>
+              </svg>
+            </div>
+            <span class="mp-state-name">Following</span><span class="mp-state-note">Map is locked to this vehicle</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="ds-h2">Usage</h2>
+      <p class="ds-body">Inline SVG with <code>currentColor</code> fill. Add <code>aria-hidden="true"</code> for decorative icons.</p>
+      <div class="token-card">
+        <p class="token-card-title">Inline SVG</p>
+        <pre style="font-family:monospace;font-size:12px;color:var(--grey-80);padding:16px;line-height:1.7;white-space:pre;overflow-x:auto">&lt;svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"&gt;
+  &lt;path d="M10 6L8.59 7.41 13.17 12..."/&gt;
+&lt;/svg&gt;</pre>
+      </div>
+    </div>
+  </main>
+  `,
+})
+
+/* ─── Needed CSS additions ───────────────────────────────────── */
+
+/* ─── App (navigation wrapper) ───────────────────────────────── */
+const App = defineComponent({
+  name: 'App',
+  components: { ButtonsPage, ColorsPage, IconsPage },
+  setup() {
+    const page = ref('buttons')
+    return { page }
+  },
+  template: `
+  <div class="page" style="display:flex;flex-direction:column;min-height:100vh">
+    <header>
+      <div class="header-inner">
+        <div class="brand">
+          <span class="logo">GS<span>Fleet</span></span>
+          <span class="header-divider">|</span>
+          <span class="header-sub">Design System</span>
+        </div>
+        <span class="badge">v0.1.0</span>
+      </div>
+    </header>
+    <div class="app-body">
+      <aside class="ds-sidebar">
+        <div class="ds-sidebar-group">
+          <p class="ds-sidebar-group-label">Foundations</p>
+          <button @click="page='colors'"  :class="['ds-sidebar-item', {active: page==='colors'}]">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0;opacity:.7"><circle cx="4.5" cy="4.5" r="3" fill="#39ade3"/><circle cx="9.5" cy="4.5" r="3" fill="#f9c74f"/><circle cx="7" cy="9" r="3" fill="#64d074"/></svg>
+            Colors
+          </button>
+          <button @click="page='icons'"   :class="['ds-sidebar-item', {active: page==='icons'}]">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;opacity:.7"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
+            Icons
+          </button>
+        </div>
+        <div class="ds-sidebar-group">
+          <p class="ds-sidebar-group-label">Components</p>
+          <button @click="page='buttons'" :class="['ds-sidebar-item', {active: page==='buttons'}]">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0;opacity:.7"><rect x="1" y="4" width="12" height="6" rx="2" stroke="currentColor" stroke-width="1.25"/></svg>
+            Button
+          </button>
+        </div>
+      </aside>
+      <div class="ds-content">
+        <buttons-page v-if="page === 'buttons'" />
+        <colors-page  v-if="page === 'colors'" />
+        <icons-page   v-if="page === 'icons'" />
+      </div>
+    </div>
+  </div>
+  `,
+})
+
+createApp(App).mount('#app')
+</script>
+</body>
+</html>
