@@ -1,14 +1,16 @@
 <script setup>
 import { ref } from 'vue'
-import ButtonsPage from './pages/ButtonsPage.vue'
-import ColorsPage  from './pages/ColorsPage.vue'
-import IconsPage   from './pages/IconsPage.vue'
+import ButtonsPage   from './pages/ButtonsPage.vue'
+import ColorsPage    from './pages/ColorsPage.vue'
+import IconsPage     from './pages/IconsPage.vue'
+import TypographyPage from './pages/TypographyPage.vue'
 
 const page = ref('buttons')
 
-const IconColors = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="4.5" cy="4.5" r="3" fill="#39ade3"/><circle cx="9.5" cy="4.5" r="3" fill="#f9c74f"/><circle cx="7" cy="9" r="3" fill="#64d074"/></svg>`
-const IconIcons  = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>`
-const IconButton = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="4" width="12" height="6" rx="2" stroke="currentColor" stroke-width="1.25"/></svg>`
+const IconColors     = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="4.5" cy="4.5" r="3" fill="#39ade3"/><circle cx="9.5" cy="4.5" r="3" fill="#f9c74f"/><circle cx="7" cy="9" r="3" fill="#64d074"/></svg>`
+const IconIcons      = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>`
+const IconButton     = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="4" width="12" height="6" rx="2" stroke="currentColor" stroke-width="1.25"/></svg>`
+const IconTypography = `<svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M1 2.5h5v1.25H4.25v7H2.75v-7H1V2.5zm6 3h4v1H9.75v4H8.25v-4H7V5.5z"/></svg>`
 </script>
 
 <template>
@@ -49,6 +51,10 @@ const IconButton = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none">
             <span class="ds-sidebar__item-icon" v-html="IconColors" />
             Colors
           </button>
+          <button @click="page = 'typography'" :class="['ds-sidebar__item', { active: page === 'typography' }]">
+            <span class="ds-sidebar__item-icon" v-html="IconTypography" />
+            Typography
+          </button>
           <button @click="page = 'icons'" :class="['ds-sidebar__item', { active: page === 'icons' }]">
             <span class="ds-sidebar__item-icon" v-html="IconIcons" />
             Icons
@@ -65,9 +71,10 @@ const IconButton = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none">
       </aside>
 
       <div class="ds-content">
-        <ButtonsPage v-if="page === 'buttons'" />
-        <ColorsPage  v-if="page === 'colors'" />
-        <IconsPage   v-if="page === 'icons'" />
+        <ButtonsPage    v-if="page === 'buttons'" />
+        <ColorsPage     v-if="page === 'colors'" />
+        <TypographyPage v-if="page === 'typography'" />
+        <IconsPage      v-if="page === 'icons'" />
       </div>
 
     </div>
