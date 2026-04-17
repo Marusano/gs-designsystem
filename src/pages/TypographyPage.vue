@@ -279,6 +279,123 @@ const SEVERITY_STYLES = [
 
     </section>
 
+    <!-- ── Token Reference ───────────────────────────────────────── -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Token Reference</h2>
+
+      <!-- Scale tokens -->
+      <div class="token-group">
+        <h3 class="typo-sub-h3">Scale — Typography collection</h3>
+        <div class="tok-table-wrap">
+          <table class="tok-table">
+            <thead>
+              <tr>
+                <th>Size token</th><th>Value</th>
+                <th>Line height token</th><th>Value</th>
+                <th>Used for</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><code>size/xs</code></td><td>12px</td><td><code>line height/sm</code></td><td>14px</td><td>Supporting label</td></tr>
+              <tr><td><code>size/sm</code></td><td>14px</td><td><code>line height/md</code></td><td>16px</td><td>Body, subtitle, label, H6, button md</td></tr>
+              <tr><td><code>size/md</code></td><td>16px</td><td><code>line height/lg</code></td><td>20px</td><td>H5, button xl</td></tr>
+              <tr><td><code>size/lg</code></td><td>20px</td><td><code>line height/xl</code></td><td>24px</td><td>H4</td></tr>
+              <tr><td><code>size/xl</code></td><td>22px</td><td class="tok-muted">—</td><td class="tok-muted">—</td><td>Intermediate step (no paired lh)</td></tr>
+              <tr><td><code>size/xxl</code></td><td>24px</td><td><code>line height/xxl</code></td><td>32px</td><td>H2, H3</td></tr>
+              <tr><td><code>size/xxxl</code></td><td>32px</td><td><code>line height/xxl</code></td><td>32px</td><td>H1 (tight, 1:1 ratio)</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Weight & family tokens -->
+      <div class="token-group">
+        <h3 class="typo-sub-h3">Weight &amp; Family — Typography collection</h3>
+        <div class="tok-table-wrap">
+          <table class="tok-table">
+            <thead>
+              <tr><th>Token</th><th>Value</th><th>CSS weight</th><th>Used for</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>family/primary</code></td><td>Inter</td><td class="tok-muted">—</td><td>All text styles</td></tr>
+              <tr><td><code>weight/regular</code></td><td>Regular</td><td>400</td><td>Body, subtitle, link, H3, H4, severity</td></tr>
+              <tr><td><code>weight/medium</code></td><td>Semi-bold</td><td>600</td><td>H2, H5, H6, label, supporting label, button md</td></tr>
+              <tr><td><code>weight/bold</code></td><td>Bold</td><td>700</td><td>H1</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Font color tokens -->
+      <div class="token-group">
+        <h3 class="typo-sub-h3">Font colors — Mapped / font group</h3>
+        <div class="tok-table-wrap">
+          <table class="tok-table">
+            <thead>
+              <tr><th>Token</th><th>Value</th><th>Primitive</th><th>Used for</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>font-color-title-strong</code></td>
+                <td><span class="swatch" style="background:#1f2124"></span>#1f2124</td>
+                <td><code>grey-100</code></td>
+                <td>H1 – H6 headings</td>
+              </tr>
+              <tr>
+                <td><code>font-color-body</code></td>
+                <td><span class="swatch" style="background:#36383b"></span>#36383b</td>
+                <td><code>grey-90</code></td>
+                <td>Default body text</td>
+              </tr>
+              <tr>
+                <td><code>font/color/subtile</code> <span class="tok-note">(sic)</span></td>
+                <td><span class="swatch" style="background:#6f7176"></span>#6f7176</td>
+                <td><code>grey-70</code></td>
+                <td>Subtitle, supporting label</td>
+              </tr>
+              <tr>
+                <td><code>font/color/label</code></td>
+                <td><span class="swatch" style="background:#9c9ea3"></span>#9c9ea3</td>
+                <td><code>grey-60</code></td>
+                <td>Labels, metadata</td>
+              </tr>
+              <tr>
+                <td><code>font/color/disabled</code></td>
+                <td><span class="swatch" style="background:#b0b2b7"></span>#b0b2b7</td>
+                <td><code>grey-50</code></td>
+                <td>Disabled text</td>
+              </tr>
+              <tr>
+                <td><code>font/color/link</code></td>
+                <td><span class="swatch" style="background:#0369a1"></span>#0369a1</td>
+                <td><code>blue-azure-80</code></td>
+                <td>Link text</td>
+              </tr>
+              <tr>
+                <td><code>font/color/success</code></td>
+                <td><span class="swatch" style="background:#247a31"></span>#247a31</td>
+                <td><code>green-90</code></td>
+                <td>Success / positive text</td>
+              </tr>
+              <tr>
+                <td><code>font/color/warning</code></td>
+                <td><span class="swatch" style="background:#927302"></span>#927302</td>
+                <td><code>yellow-100</code></td>
+                <td>Warning text</td>
+              </tr>
+              <tr>
+                <td><code>font/color/error</code></td>
+                <td><span class="swatch" style="background:#b91c1c"></span>#b91c1c</td>
+                <td><code>red-80</code></td>
+                <td>Error / danger text</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
   </div>
 </template>
 
@@ -566,6 +683,76 @@ const SEVERITY_STYLES = [
 .typo-style-note--color {
   font-family: 'SFMono-Regular', 'Consolas', monospace;
   opacity: 0.8;
+}
+
+/* ── Token Reference ────────────────────────────────────────── */
+.token-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tok-table-wrap {
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid var(--grey-20);
+}
+
+.tok-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  font-size: 13px;
+}
+
+.tok-table thead th {
+  background: var(--grey-05);
+  border-bottom: 1px solid var(--grey-20);
+  padding: 10px 16px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--grey-60);
+  white-space: nowrap;
+}
+
+.tok-table td {
+  padding: 9px 16px;
+  border-bottom: 1px solid var(--grey-10);
+  color: var(--grey-80);
+  vertical-align: middle;
+}
+
+.tok-table tr:last-child td { border-bottom: none; }
+.tok-table tr:hover > td    { background: var(--grey-05); }
+
+.tok-table code {
+  font-family: 'SFMono-Regular', 'Consolas', monospace;
+  font-size: 11px;
+  background: var(--grey-05);
+  padding: 2px 5px;
+  border-radius: 3px;
+  color: var(--grey-80);
+}
+
+.tok-muted { color: var(--grey-40); }
+
+.tok-note {
+  font-size: 11px;
+  color: var(--grey-50);
+  font-style: italic;
+}
+
+.swatch {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  vertical-align: middle;
+  margin-right: 6px;
+  flex-shrink: 0;
 }
 
 /* ── Responsive ─────────────────────────────────────────────── */
