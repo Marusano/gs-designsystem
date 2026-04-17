@@ -15,8 +15,8 @@ const variantLabels = {
 
 const variantDescriptions = {
   primary:   'Main call-to-action. Use once per screen.',
-  secondary: 'Secondary action, paired with a primary.',
-  tertiary:  'Less prominent, independent actions.',
+  secondary: 'Negative action paired with a primary: Cancel, Back, Close. Never use alone or for positive actions.',
+  tertiary:  'Less prominent positive/neutral actions. Often paired with primary.',
   quiet:     'Least pronounced: filters, standalone icons.',
   danger:    'Destructive actions (delete, remove).',
 }
@@ -28,11 +28,13 @@ const sizeLabels = {
   xs: 'XS — 32px',
 }
 
-const IconPlus = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3.333v9.334M3.333 8h9.334" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>`
-const IconArrow = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`
-const IconTrash = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M5.333 4V2.667h5.334V4M6.667 7.333v4M9.333 7.333v4M3.333 4l.667 9.333h8L12.667 4H3.333z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+const IconPlus     = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3.333v9.334M3.333 8h9.334" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>`
+const IconArrow    = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+const IconArrowLeft= `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 8H3M7 12l-4-4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+const IconTrash    = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M5.333 4V2.667h5.334V4M6.667 7.333v4M9.333 7.333v4M3.333 4l.667 9.333h8L12.667 4H3.333z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`
 const IconDownload = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v8M5 7l3 3 3-3M2.667 11.333v1.334A.667.667 0 003.333 13h9.334a.667.667 0 00.666-.667v-1.334" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`
-const IconMore = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="3" cy="8" r="1.5" fill="currentColor"/><circle cx="8" cy="8" r="1.5" fill="currentColor"/><circle cx="13" cy="8" r="1.5" fill="currentColor"/></svg>`
+const IconMore     = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="3" cy="8" r="1.5" fill="currentColor"/><circle cx="8" cy="8" r="1.5" fill="currentColor"/><circle cx="13" cy="8" r="1.5" fill="currentColor"/></svg>`
+const IconX        = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M12 4L4 12M4 4l8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>`
 </script>
 
 <template>
@@ -106,8 +108,8 @@ const IconMore = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><c
           <p class="ds-icon-group__label">Icon Left</p>
           <div class="ds-icon-row">
             <AppButton variant="primary"   size="md"><template #icon-left><span v-html="IconPlus"     /></template>Create</AppButton>
-            <AppButton variant="secondary" size="md"><template #icon-left><span v-html="IconDownload" /></template>Export</AppButton>
-            <AppButton variant="tertiary"  size="md"><template #icon-left><span v-html="IconArrow"    /></template>Navigate</AppButton>
+            <AppButton variant="secondary" size="md"><template #icon-left><span v-html="IconX"        /></template>Cancel</AppButton>
+            <AppButton variant="tertiary"  size="md"><template #icon-left><span v-html="IconDownload" /></template>Export</AppButton>
             <AppButton variant="quiet"     size="md"><template #icon-left><span v-html="IconDownload" /></template>Download</AppButton>
             <AppButton variant="danger"    size="md"><template #icon-left><span v-html="IconTrash"    /></template>Delete</AppButton>
           </div>
@@ -115,29 +117,29 @@ const IconMore = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><c
         <div class="ds-icon-group">
           <p class="ds-icon-group__label">Icon Right</p>
           <div class="ds-icon-row">
-            <AppButton variant="primary"   size="md">Continue  <template #icon-right><span v-html="IconArrow"    /></template></AppButton>
-            <AppButton variant="secondary" size="md">Export    <template #icon-right><span v-html="IconDownload" /></template></AppButton>
-            <AppButton variant="tertiary"  size="md">More      <template #icon-right><span v-html="IconArrow"    /></template></AppButton>
-            <AppButton variant="quiet"     size="md">Options   <template #icon-right><span v-html="IconArrow"    /></template></AppButton>
-            <AppButton variant="danger"    size="md">Remove    <template #icon-right><span v-html="IconTrash"    /></template></AppButton>
+            <AppButton variant="primary"   size="md">Continue  <template #icon-right><span v-html="IconArrow"     /></template></AppButton>
+            <AppButton variant="secondary" size="md"><template #icon-left><span v-html="IconArrowLeft"/></template>Back</AppButton>
+            <AppButton variant="tertiary"  size="md">More      <template #icon-right><span v-html="IconArrow"     /></template></AppButton>
+            <AppButton variant="quiet"     size="md">Options   <template #icon-right><span v-html="IconArrow"     /></template></AppButton>
+            <AppButton variant="danger"    size="md">Remove    <template #icon-right><span v-html="IconTrash"     /></template></AppButton>
           </div>
         </div>
         <div class="ds-icon-group">
           <p class="ds-icon-group__label">Icon Both</p>
           <div class="ds-icon-row">
             <AppButton variant="primary"   size="md"><template #icon-left><span v-html="IconPlus"     /></template>Add Item   <template #icon-right><span v-html="IconArrow" /></template></AppButton>
-            <AppButton variant="secondary" size="md"><template #icon-left><span v-html="IconDownload" /></template>Export All <template #icon-right><span v-html="IconArrow" /></template></AppButton>
+            <AppButton variant="tertiary"  size="md"><template #icon-left><span v-html="IconDownload" /></template>Export All <template #icon-right><span v-html="IconArrow" /></template></AppButton>
             <AppButton variant="danger"    size="md"><template #icon-left><span v-html="IconTrash"    /></template>Delete All <template #icon-right><span v-html="IconArrow" /></template></AppButton>
           </div>
         </div>
         <div class="ds-icon-group">
           <p class="ds-icon-group__label">Icon Only</p>
           <div class="ds-icon-row">
-            <AppButton variant="primary"   size="md" aria-label="Create">  <template #icon-left><span v-html="IconPlus"     /></template></AppButton>
-            <AppButton variant="secondary" size="md" aria-label="Export">  <template #icon-left><span v-html="IconDownload" /></template></AppButton>
-            <AppButton variant="tertiary"  size="md" aria-label="Navigate"><template #icon-left><span v-html="IconArrow"    /></template></AppButton>
-            <AppButton variant="quiet"     size="md" aria-label="Options"> <template #icon-left><span v-html="IconMore"     /></template></AppButton>
-            <AppButton variant="danger"    size="md" aria-label="Delete">  <template #icon-left><span v-html="IconTrash"    /></template></AppButton>
+            <AppButton variant="primary"   size="md" aria-label="Create">  <template #icon-left><span v-html="IconPlus"  /></template></AppButton>
+            <AppButton variant="secondary" size="md" aria-label="Close">   <template #icon-left><span v-html="IconX"     /></template></AppButton>
+            <AppButton variant="tertiary"  size="md" aria-label="Navigate"><template #icon-left><span v-html="IconArrow" /></template></AppButton>
+            <AppButton variant="quiet"     size="md" aria-label="Options"> <template #icon-left><span v-html="IconMore"  /></template></AppButton>
+            <AppButton variant="danger"    size="md" aria-label="Delete">  <template #icon-left><span v-html="IconTrash" /></template></AppButton>
           </div>
         </div>
         <div class="ds-icon-group">
@@ -167,8 +169,8 @@ const IconMore = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><c
           <p class="ds-example-card__label">Dialog / Modal Footer</p>
           <div class="ds-example-card__body">
             <div class="ds-btn-group ds-btn-group--right">
-              <AppButton variant="tertiary"  size="md">Cancel</AppButton>
-              <AppButton variant="secondary" size="md">Save draft</AppButton>
+              <AppButton variant="secondary" size="md">Cancel</AppButton>
+              <AppButton variant="tertiary"  size="md">Save draft</AppButton>
               <AppButton variant="primary"   size="md">Publish</AppButton>
             </div>
           </div>
@@ -177,10 +179,23 @@ const IconMore = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><c
           <p class="ds-example-card__label">Destructive Confirmation</p>
           <div class="ds-example-card__body">
             <div class="ds-btn-group ds-btn-group--right">
-              <AppButton variant="quiet"  size="md">Cancel</AppButton>
-              <AppButton variant="danger" size="md">
+              <AppButton variant="secondary" size="md">Cancel</AppButton>
+              <AppButton variant="danger"    size="md">
                 <template #icon-left><span v-html="IconTrash" /></template>
                 Delete permanently
+              </AppButton>
+            </div>
+          </div>
+        </div>
+        <div class="ds-example-card">
+          <p class="ds-example-card__label">Multi-step Wizard</p>
+          <div class="ds-example-card__body">
+            <div class="ds-btn-group ds-btn-group--right">
+              <AppButton variant="secondary" size="md">
+                <template #icon-left><span v-html="IconArrowLeft" /></template>Back
+              </AppButton>
+              <AppButton variant="primary" size="md">
+                Next<template #icon-right><span v-html="IconArrow" /></template>
               </AppButton>
             </div>
           </div>
@@ -189,9 +204,9 @@ const IconMore = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><c
           <p class="ds-example-card__label">Toolbar</p>
           <div class="ds-example-card__body">
             <div class="ds-btn-group">
-              <AppButton variant="primary"   size="sm"><template #icon-left><span v-html="IconPlus"     /></template>Add vehicle</AppButton>
-              <AppButton variant="secondary" size="sm"><template #icon-left><span v-html="IconDownload" /></template>Export</AppButton>
-              <AppButton variant="quiet"     size="sm" aria-label="More options"><template #icon-left><span v-html="IconMore" /></template></AppButton>
+              <AppButton variant="primary"  size="sm"><template #icon-left><span v-html="IconPlus"     /></template>Add vehicle</AppButton>
+              <AppButton variant="tertiary" size="sm"><template #icon-left><span v-html="IconDownload" /></template>Export</AppButton>
+              <AppButton variant="quiet"    size="sm" aria-label="More options"><template #icon-left><span v-html="IconMore" /></template></AppButton>
             </div>
           </div>
         </div>
@@ -208,11 +223,9 @@ const IconMore = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><c
           <p class="ds-example-card__label">Disabled State in Context</p>
           <div class="ds-example-card__body">
             <div class="ds-btn-group">
+              <AppButton variant="secondary" size="md" disabled>Cancel</AppButton>
+              <AppButton variant="tertiary"  size="md" disabled>Save draft</AppButton>
               <AppButton variant="primary"   size="md" disabled>Submit form</AppButton>
-              <AppButton variant="secondary" size="md" disabled>Save draft</AppButton>
-              <AppButton variant="danger"    size="md" disabled>
-                <template #icon-left><span v-html="IconTrash" /></template>Delete
-              </AppButton>
             </div>
           </div>
         </div>
