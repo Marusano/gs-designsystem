@@ -291,7 +291,7 @@ const SEVERITY_STYLES = [
   display: flex;
   flex-direction: column;
   gap: 48px;
-  padding-bottom: 80px;
+  padding: 48px 40px 80px;
   font-family: 'Inter', 'Roboto', sans-serif;
 }
 

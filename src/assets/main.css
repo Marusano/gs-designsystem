@@ -213,6 +213,42 @@
   --btn-font-size: 14px;
   --btn-line-height: 16px;
   --btn-font-weight: 500;
+
+  /* ── Field / Input tokens ───────────────────────────────── */
+  --field-height:          40px;
+  --field-radius:          4px;
+  --field-px:              12px;
+  --field-py:              8px;
+  --field-gap:             6px;
+  --field-font-size:       14px;
+  --field-line-height:     16px;
+  --field-label-weight:    600;
+
+  /* Default state */
+  --field-bg:              var(--grey-00);
+  --field-border:          var(--grey-30);
+  --field-text:            var(--grey-90);
+  --field-placeholder:     var(--grey-70);
+  --field-label-color:     var(--grey-90);
+
+  /* Hover */
+  --field-hover-bg:        var(--grey-10);
+  --field-hover-border:    var(--grey-80);
+
+  /* Focus */
+  --field-focus-bg:        var(--grey-00);
+  --field-focus-border:    var(--grey-80);
+
+  /* Error */
+  --field-error-bg:        var(--red-10);
+  --field-error-border:    var(--red-70);
+  --field-error-text:      var(--red-90);
+
+  /* Disabled */
+  --field-disabled-bg:     var(--grey-00);
+  --field-disabled-border: var(--grey-20);
+  --field-disabled-text:   var(--grey-50);
+  --field-disabled-label:  var(--grey-60);
 }
 
 *, *::before, *::after {

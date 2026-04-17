@@ -1,9 +1,10 @@
 <script setup>
 import { ref } from 'vue'
-import ButtonsPage   from './pages/ButtonsPage.vue'
-import ColorsPage    from './pages/ColorsPage.vue'
-import IconsPage     from './pages/IconsPage.vue'
+import ButtonsPage    from './pages/ButtonsPage.vue'
+import ColorsPage     from './pages/ColorsPage.vue'
+import IconsPage      from './pages/IconsPage.vue'
 import TypographyPage from './pages/TypographyPage.vue'
+import FormsPage      from './pages/FormsPage.vue'
 
 const page = ref('buttons')
 
@@ -11,6 +12,7 @@ const IconColors     = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
 const IconIcons      = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>`
 const IconButton     = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="4" width="12" height="6" rx="2" stroke="currentColor" stroke-width="1.25"/></svg>`
 const IconTypography = `<svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M1 2.5h5v1.25H4.25v7H2.75v-7H1V2.5zm6 3h4v1H9.75v4H8.25v-4H7V5.5z"/></svg>`
+const IconForms      = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="3" width="12" height="3" rx="1" stroke="currentColor" stroke-width="1.1"/><rect x="1" y="8" width="12" height="3" rx="1" stroke="currentColor" stroke-width="1.1"/></svg>`
 </script>
 
 <template>
@@ -67,11 +69,16 @@ const IconTypography = `<svg width="14" height="14" viewBox="0 0 14 14" fill="cu
             <span class="ds-sidebar__item-icon" v-html="IconButton" />
             Button
           </button>
+          <button @click="page = 'forms'" :class="['ds-sidebar__item', { active: page === 'forms' }]">
+            <span class="ds-sidebar__item-icon" v-html="IconForms" />
+            Input / Forms
+          </button>
         </div>
       </aside>
 
       <div class="ds-content">
         <ButtonsPage    v-if="page === 'buttons'" />
+        <FormsPage      v-if="page === 'forms'" />
         <ColorsPage     v-if="page === 'colors'" />
         <TypographyPage v-if="page === 'typography'" />
         <IconsPage      v-if="page === 'icons'" />
