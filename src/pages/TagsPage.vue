@@ -282,7 +282,7 @@ function resetFilters() {
       <div class="ds-examples">
 
         <div class="ds-example-card">
-          <p class="ds-example-card__label">Vehicle list row</p>
+          <p class="ds-example-card__label">Asset status examples</p>
           <div class="ds-example-card__body">
             <div class="ds-list-row">
               <span class="ds-list-label">Volvo FH16 · PL22 KXB</span>
@@ -313,43 +313,6 @@ function resetFilters() {
                   Idle
                 </AppTag>
                 <AppTag type="neutral">Van</AppTag>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="ds-example-card">
-          <p class="ds-example-card__label">Driver card — status badges</p>
-          <div class="ds-example-card__body">
-            <div class="ds-driver-card">
-              <div class="ds-driver-info">
-                <div class="ds-driver-avatar">JD</div>
-                <div>
-                  <strong>James Davies</strong>
-                  <p style="font-size:12px;color:var(--grey-60)">Driver · LIC-4821</p>
-                </div>
-              </div>
-              <div class="ds-tag-row" style="margin-top:12px">
-                <AppTag type="success-strong">On duty</AppTag>
-                <AppTag type="highlight">Inspected</AppTag>
-                <AppTag type="informational">HGV certified</AppTag>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="ds-example-card">
-          <p class="ds-example-card__label">Vehicle card — MD card tags</p>
-          <div class="ds-example-card__body">
-            <div class="ds-vehicle-card">
-              <div class="ds-vehicle-card__header">
-                <strong>Volvo FH16</strong>
-                <span style="font-size:12px;color:var(--grey-60)">PL22 KXB</span>
-              </div>
-              <div class="ds-tag-row" style="margin-top:12px;flex-wrap:wrap">
-                <AppTag type="success" size="md" card-title="Status">Online</AppTag>
-                <AppTag type="neutral" size="md" card-title="Mileage">142,300 km</AppTag>
-                <AppTag type="informational"    size="md" card-title="Last sync">4 min ago</AppTag>
               </div>
             </div>
           </div>
@@ -401,32 +364,6 @@ function resetFilters() {
                 Resolved
               </AppTag>
               <span class="ds-fault-text">Brake fluid replaced</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="ds-example-card">
-          <p class="ds-example-card__label">Do / Don't</p>
-          <div class="ds-example-card__body">
-            <div class="ds-do-dont">
-              <div class="ds-do">
-                <p class="ds-do__label ds-do__label--do">✓ Do</p>
-                <div class="ds-tag-row">
-                  <AppTag type="success">Active</AppTag>
-                  <AppTag type="danger">Offline</AppTag>
-                  <AppTag type="moderate">Idle</AppTag>
-                </div>
-                <p class="ds-do__note">Consistent semantic colours for vehicle status.</p>
-              </div>
-              <div class="ds-do">
-                <p class="ds-do__label ds-do__label--dont">✗ Don't</p>
-                <div class="ds-tag-row">
-                  <AppTag type="highlight">Active</AppTag>
-                  <AppTag type="warning">Offline</AppTag>
-                  <AppTag type="success">Idle</AppTag>
-                </div>
-                <p class="ds-do__note">Mismatched types break meaning and confuse users.</p>
-              </div>
             </div>
           </div>
         </div>
