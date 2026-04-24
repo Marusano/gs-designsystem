@@ -5,6 +5,7 @@ import ColorsPage     from './pages/ColorsPage.vue'
 import IconsPage      from './pages/IconsPage.vue'
 import TypographyPage from './pages/TypographyPage.vue'
 import FormsPage      from './pages/FormsPage.vue'
+import TagsPage       from './pages/TagsPage.vue'
 
 const page = ref('buttons')
 
@@ -13,6 +14,7 @@ const IconIcons      = `<svg width="14" height="14" viewBox="0 0 24 24" fill="cu
 const IconButton     = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="4" width="12" height="6" rx="2" stroke="currentColor" stroke-width="1.25"/></svg>`
 const IconTypography = `<svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M1 2.5h5v1.25H4.25v7H2.75v-7H1V2.5zm6 3h4v1H9.75v4H8.25v-4H7V5.5z"/></svg>`
 const IconForms      = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="3" width="12" height="3" rx="1" stroke="currentColor" stroke-width="1.1"/><rect x="1" y="8" width="12" height="3" rx="1" stroke="currentColor" stroke-width="1.1"/></svg>`
+const IconTag        = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1.5 1.5h5l5.5 5.5-5 5L1.5 6.5v-5z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/><circle cx="4.5" cy="4.5" r="1" fill="currentColor"/></svg>`
 </script>
 
 <template>
@@ -73,6 +75,10 @@ const IconForms      = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
             <span class="ds-sidebar__item-icon" v-html="IconForms" />
             Input / Forms
           </button>
+          <button @click="page = 'tags'" :class="['ds-sidebar__item', { active: page === 'tags' }]">
+            <span class="ds-sidebar__item-icon" v-html="IconTag" />
+            Tag
+          </button>
         </div>
       </aside>
 
@@ -82,6 +88,7 @@ const IconForms      = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
         <ColorsPage     v-if="page === 'colors'" />
         <TypographyPage v-if="page === 'typography'" />
         <IconsPage      v-if="page === 'icons'" />
+        <TagsPage       v-if="page === 'tags'" />
       </div>
 
     </div>
