@@ -286,34 +286,24 @@ function resetFilters() {
           <div class="ds-example-card__body">
             <div class="ds-list-row">
               <span class="ds-list-label">Volvo FH16 · PL22 KXB</span>
-              <div class="ds-tag-row">
-                <AppTag type="success">
-                  <template #icon><span v-html="IconDot" /></template>
-                  Online
-                </AppTag>
-                <AppTag type="neutral">HGV</AppTag>
-                <AppTag type="informational">Syncing</AppTag>
-              </div>
+              <AppTag type="success">
+                <template #icon><span v-html="IconDriving" /></template>
+                Driving
+              </AppTag>
             </div>
             <div class="ds-list-row">
               <span class="ds-list-label">DAF XF · MN71 TRK</span>
-              <div class="ds-tag-row">
-                <AppTag type="danger">
-                  <template #icon><span v-html="IconDot" /></template>
-                  Offline
-                </AppTag>
-                <AppTag type="warning">Engine warning</AppTag>
-              </div>
+              <AppTag type="informational">
+                <template #icon><span v-html="IconIdling" /></template>
+                Idling
+              </AppTag>
             </div>
             <div class="ds-list-row">
               <span class="ds-list-label">Mercedes Actros · LD70 ACT</span>
-              <div class="ds-tag-row">
-                <AppTag type="moderate">
-                  <template #icon><span v-html="IconDot" /></template>
-                  Idle
-                </AppTag>
-                <AppTag type="neutral">Van</AppTag>
-              </div>
+              <AppTag type="neutral-outline">
+                <template #icon><span v-html="IconDot" /></template>
+                Unknown
+              </AppTag>
             </div>
           </div>
         </div>
@@ -323,13 +313,8 @@ function resetFilters() {
           <div class="ds-example-card__body">
             <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
               <span style="font-size:12px;font-weight:600;color:var(--grey-60)">Filters:</span>
-              <AppTag type="neutral-outline" :dismissible="true">
-                <template #icon><span v-html="IconFilter" /></template>
-                Status: Active
-              </AppTag>
               <AppTag type="neutral-outline" :dismissible="true">Region: North</AppTag>
               <AppTag type="neutral-outline" :dismissible="true">Type: HGV</AppTag>
-              <AppTag type="highlight" :dismissible="true">Selected: 12</AppTag>
             </div>
           </div>
         </div>
@@ -354,7 +339,7 @@ function resetFilters() {
             <div class="ds-fault-row">
               <AppTag type="moderate">
                 <template #icon><span v-html="IconClock" /></template>
-                Scheduled
+                Warning
               </AppTag>
               <span class="ds-fault-text">Service due in 1,200 km</span>
             </div>
