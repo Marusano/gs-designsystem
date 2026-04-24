@@ -3,8 +3,8 @@
  * AppTag — GSFleet Design System
  *
  * @prop {string}  type       - 'neutral' | 'neutral-outline' | 'neutral-inverted' |
- *                              'success' | 'success-strong' | 'blue' |
- *                              'danger' | 'orange' | 'moderate' | 'highlight'
+ *                              'success' | 'success-strong' | 'informational' |
+ *                              'danger' | 'warning' | 'moderate' | 'highlight'
  * @prop {string}  size       - 'sm' (24px, default) | 'md' (56px card tag)
  * @prop {boolean} dismissible - shows × button, emits 'dismiss' on click
  * @prop {string}  cardTitle  - top label for md card variant
@@ -21,8 +21,8 @@ const props = defineProps({
     default: 'neutral',
     validator: (v) => [
       'neutral', 'neutral-outline', 'neutral-inverted',
-      'success', 'success-strong', 'blue',
-      'danger', 'orange', 'moderate', 'highlight',
+      'success', 'success-strong', 'informational',
+      'danger', 'warning', 'moderate', 'highlight',
     ].includes(v),
   },
   size:        { type: String,  default: 'sm', validator: (v) => ['sm', 'md'].includes(v) },
@@ -170,17 +170,17 @@ const classes = computed(() => [
 .tag--success-strong { background: #247a31; color: #f1fcf2; }
 .tag--success-strong:hover { background: #12591c; border-color: #469852; }
 
-/* ── Type — Blue ───────────────────────────────────────────── */
-.tag--blue { background: #b3e1f7; color: #013b57; }
-.tag--blue:hover { border-color: #61bde9; }
+/* ── Type — Informational ──────────────────────────────────── */
+.tag--informational { background: #b3e1f7; color: #013b57; }
+.tag--informational:hover { border-color: #61bde9; }
 
 /* ── Type — Danger ─────────────────────────────────────────── */
 .tag--danger { background: #fecaca; color: #781212; }
 .tag--danger:hover { border-color: #fca5a5; }
 
-/* ── Type — Orange ─────────────────────────────────────────── */
-.tag--orange { background: #ffe2cc; color: #702822; }
-.tag--orange:hover { border-color: #ffa767; }
+/* ── Type — Warning ────────────────────────────────────────── */
+.tag--warning { background: #ffe2cc; color: #702822; }
+.tag--warning:hover { border-color: #ffa767; }
 
 /* ── Type — Moderate ───────────────────────────────────────── */
 .tag--moderate { background: #ffeec7; color: #927302; }
@@ -194,5 +194,5 @@ const classes = computed(() => [
 .tag--md.tag--highlight .tag__card-title { color: #553698; }
 .tag--md.tag--neutral   .tag__card-title { color: #5d6065; }
 .tag--md.tag--success   .tag__card-title { color: #12591c; }
-.tag--md.tag--blue      .tag__card-title { color: #013b57; }
+.tag--md.tag--informational .tag__card-title { color: #013b57; }
 </style>

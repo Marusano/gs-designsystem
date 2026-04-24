@@ -4,8 +4,8 @@ import AppTag from '../components/ui/AppTag.vue'
 
 const types = [
   'neutral', 'neutral-outline', 'neutral-inverted',
-  'success', 'success-strong', 'blue',
-  'danger', 'orange', 'moderate', 'highlight',
+  'success', 'success-strong', 'informational',
+  'danger', 'warning', 'moderate', 'highlight',
 ]
 
 const typeLabels = {
@@ -14,9 +14,9 @@ const typeLabels = {
   'neutral-inverted': 'Neutral Inverted',
   'success':          'Success',
   'success-strong':   'Success Strong',
-  'blue':             'Blue',
+  'informational':    'Informational',
   'danger':           'Danger',
-  'orange':           'Orange',
+  'warning':          'Warning',
   'moderate':         'Moderate',
   'highlight':        'Highlight',
 }
@@ -27,9 +27,9 @@ const typeDescriptions = {
   'neutral-inverted': 'Dark background. Use on light surfaces for contrast.',
   'success':          'Active, online, healthy. Positive status.',
   'success-strong':   'Critical positive status. High contrast success.',
-  'blue':             'Informational. Sync in progress, pending review.',
+  'informational':    'Informational. Sync in progress, pending review.',
   'danger':           'Error, offline, critical fault.',
-  'orange':           'Degraded, partially unavailable, recoverable warning.',
+  'warning':          'Degraded, partially unavailable, recoverable warning.',
   'moderate':         'Idle, parked, moderate risk. Mid-range caution.',
   'highlight':        'Selected, featured, newly added.',
 }
@@ -139,7 +139,7 @@ function resetFilters() {
               <template #icon><span v-html="IconWarning" /></template>
               Fault
             </AppTag>
-            <AppTag type="blue">
+            <AppTag type="informational">
               <template #icon><span v-html="IconIdling" /></template>
               Idling
             </AppTag>
@@ -159,8 +159,8 @@ function resetFilters() {
             <AppTag type="neutral">Neutral</AppTag>
             <AppTag type="success">Active</AppTag>
             <AppTag type="danger">Offline</AppTag>
-            <AppTag type="orange">Warning</AppTag>
-            <AppTag type="blue">Pending</AppTag>
+            <AppTag type="warning">Warning</AppTag>
+            <AppTag type="informational">Pending</AppTag>
           </div>
         </div>
         <div class="ds-tag-group">
@@ -178,7 +178,7 @@ function resetFilters() {
             <AppTag type="danger" :aria-label="'Fault'">
               <template #icon><span v-html="IconWarning" /></template>
             </AppTag>
-            <AppTag type="blue" :aria-label="'Idling'">
+            <AppTag type="informational" :aria-label="'Idling'">
               <template #icon><span v-html="IconIdling" /></template>
             </AppTag>
             <AppTag type="highlight" :aria-label="'Other work'">
@@ -196,7 +196,7 @@ function resetFilters() {
               <template #icon><span v-html="IconFilter" /></template>
               Active
             </AppTag>
-            <AppTag type="blue" :dismissible="true">
+            <AppTag type="informational" :dismissible="true">
               <template #icon><span v-html="IconTruck" /></template>
               HGV
             </AppTag>
@@ -240,7 +240,7 @@ function resetFilters() {
             <AppTag type="danger" size="md" card-title="Fault code">
               P0401
             </AppTag>
-            <AppTag type="blue" size="md" card-title="Last sync">
+            <AppTag type="informational" size="md" card-title="Last sync">
               2 min ago
             </AppTag>
             <AppTag type="highlight" size="md" card-title="Region">
@@ -292,7 +292,7 @@ function resetFilters() {
                   Online
                 </AppTag>
                 <AppTag type="neutral">HGV</AppTag>
-                <AppTag type="blue">Syncing</AppTag>
+                <AppTag type="informational">Syncing</AppTag>
               </div>
             </div>
             <div class="ds-list-row">
@@ -302,7 +302,7 @@ function resetFilters() {
                   <template #icon><span v-html="IconDot" /></template>
                   Offline
                 </AppTag>
-                <AppTag type="orange">Engine warning</AppTag>
+                <AppTag type="warning">Engine warning</AppTag>
               </div>
             </div>
             <div class="ds-list-row">
@@ -332,7 +332,7 @@ function resetFilters() {
               <div class="ds-tag-row" style="margin-top:12px">
                 <AppTag type="success-strong">On duty</AppTag>
                 <AppTag type="highlight">Inspected</AppTag>
-                <AppTag type="blue">HGV certified</AppTag>
+                <AppTag type="informational">HGV certified</AppTag>
               </div>
             </div>
           </div>
@@ -349,7 +349,7 @@ function resetFilters() {
               <div class="ds-tag-row" style="margin-top:12px;flex-wrap:wrap">
                 <AppTag type="success" size="md" card-title="Status">Online</AppTag>
                 <AppTag type="neutral" size="md" card-title="Mileage">142,300 km</AppTag>
-                <AppTag type="blue"    size="md" card-title="Last sync">4 min ago</AppTag>
+                <AppTag type="informational"    size="md" card-title="Last sync">4 min ago</AppTag>
               </div>
             </div>
           </div>
@@ -382,7 +382,7 @@ function resetFilters() {
               <span class="ds-fault-text">ABS sensor failure — rear axle</span>
             </div>
             <div class="ds-fault-row">
-              <AppTag type="orange">
+              <AppTag type="warning">
                 <template #icon><span v-html="IconAlert" /></template>
                 Warning
               </AppTag>
@@ -422,7 +422,7 @@ function resetFilters() {
                 <p class="ds-do__label ds-do__label--dont">✗ Don't</p>
                 <div class="ds-tag-row">
                   <AppTag type="highlight">Active</AppTag>
-                  <AppTag type="orange">Offline</AppTag>
+                  <AppTag type="warning">Offline</AppTag>
                   <AppTag type="success">Idle</AppTag>
                 </div>
                 <p class="ds-do__note">Mismatched types break meaning and confuse users.</p>
@@ -506,7 +506,7 @@ function resetFilters() {
         </div>
 
         <div class="ds-token-card">
-          <p class="ds-token-card__title">Blue</p>
+          <p class="ds-token-card__title">Informational</p>
           <table class="ds-token-table">
             <thead><tr><th>Property</th><th>Value</th></tr></thead>
             <tbody>
@@ -530,7 +530,7 @@ function resetFilters() {
         </div>
 
         <div class="ds-token-card">
-          <p class="ds-token-card__title">Orange</p>
+          <p class="ds-token-card__title">Warning</p>
           <table class="ds-token-table">
             <thead><tr><th>Property</th><th>Value</th></tr></thead>
             <tbody>
