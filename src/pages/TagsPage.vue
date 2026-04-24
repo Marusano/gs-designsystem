@@ -332,14 +332,14 @@ function resetFilters() {
             </div>
             <div class="ds-fault-row">
               <AppTag type="warning">
-                <template #icon><span v-html="IconAlert" /></template>
+                <template #icon><span v-html="IconWarning" /></template>
                 Warning
               </AppTag>
               <span class="ds-fault-text">Tyre pressure low — front left</span>
             </div>
             <div class="ds-fault-row">
               <AppTag type="moderate">
-                <template #icon><span v-html="IconClock" /></template>
+                <template #icon><span v-html="IconWarning" /></template>
                 Warning
               </AppTag>
               <span class="ds-fault-text">Service due in 1,200 km</span>
