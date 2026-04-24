@@ -3,7 +3,8 @@
  * AppTag — GSFleet Design System
  *
  * @prop {string}  type       - 'neutral' | 'neutral-outline' | 'neutral-inverted' |
- *                              'success' | 'success-strong' | 'informational' |
+ *                              'success' | 'success-strong' |
+ *                              'informational' | 'informational-strong' | 'informational-inverted' |
  *                              'danger' | 'warning' | 'moderate' | 'highlight'
  * @prop {string}  size       - 'sm' (24px, default) | 'md' (56px card tag)
  * @prop {boolean} dismissible - shows × button, emits 'dismiss' on click
@@ -21,7 +22,8 @@ const props = defineProps({
     default: 'neutral',
     validator: (v) => [
       'neutral', 'neutral-outline', 'neutral-inverted',
-      'success', 'success-strong', 'informational',
+      'success', 'success-strong',
+      'informational', 'informational-strong', 'informational-inverted',
       'danger', 'warning', 'moderate', 'highlight',
     ].includes(v),
   },
@@ -174,6 +176,14 @@ const classes = computed(() => [
 .tag--informational { background: #b3e1f7; color: #013b57; }
 .tag--informational:hover { border-color: #61bde9; }
 
+/* ── Type — Informational Strong ───────────────────────────── */
+.tag--informational-strong { background: #39ade3; color: #ffffff; }
+.tag--informational-strong:hover { background: #138cc4; border-color: #61bde9; }
+
+/* ── Type — Informational Inverted ─────────────────────────── */
+.tag--informational-inverted { background: #075985; color: #ffffff; }
+.tag--informational-inverted:hover { background: #013b57; border-color: #138cc4; }
+
 /* ── Type — Danger ─────────────────────────────────────────── */
 .tag--danger { background: #fecaca; color: #781212; }
 .tag--danger:hover { border-color: #fca5a5; }
@@ -194,5 +204,7 @@ const classes = computed(() => [
 .tag--md.tag--highlight .tag__card-title { color: #553698; }
 .tag--md.tag--neutral   .tag__card-title { color: #5d6065; }
 .tag--md.tag--success   .tag__card-title { color: #12591c; }
-.tag--md.tag--informational .tag__card-title { color: #013b57; }
+.tag--md.tag--informational          .tag__card-title { color: #013b57; }
+.tag--md.tag--informational-strong   .tag__card-title { color: #ffffff; }
+.tag--md.tag--informational-inverted .tag__card-title { color: #ffffff; }
 </style>
