@@ -325,7 +325,7 @@ function resetFilters() {
           <div class="ds-example-card__body">
             <div class="ds-fault-row">
               <AppTag type="danger">
-                <template #icon><span v-html="IconAlert" /></template>
+                <template #icon><span v-html="IconWarning" /></template>
                 Critical
               </AppTag>
               <span class="ds-fault-text">ABS sensor failure — rear axle</span>
