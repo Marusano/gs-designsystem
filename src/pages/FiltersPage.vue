@@ -2,143 +2,165 @@
 import { ref, computed } from 'vue'
 import AppButton from '../components/ui/AppButton.vue'
 
-/* ── Filter definitions ───────────────────────────────────────── */
+/* ── Filter definitions (match Figma: "Filter label" × 3, "Filter option 1–7") ── */
 const FILTER_DEFS = [
-  { key: 'status',  label: 'Status',       options: ['Active', 'Inactive', 'Maintenance', 'Unknown'] },
-  { key: 'region',  label: 'Region',       options: ['North', 'South', 'East', 'West', 'Central'] },
-  { key: 'type',    label: 'Vehicle type', options: ['HGV', 'LGV', 'Van', 'Car', 'Trailer'] },
-  { key: 'driver',  label: 'Driver',       options: ['Assigned', 'Unassigned'] },
+  { key: 'f1', label: 'Filter label', options: ['Filter option 1','Filter option 2','Filter option 3','Filter option 4','Filter option 5','Filter option 6','Filter option 7'] },
+  { key: 'f2', label: 'Filter label', options: ['Filter option 1','Filter option 2','Filter option 3','Filter option 4','Filter option 5','Filter option 6','Filter option 7'] },
+  { key: 'f3', label: 'Filter label', options: ['Filter option 1','Filter option 2','Filter option 3','Filter option 4','Filter option 5','Filter option 6','Filter option 7'] },
 ]
 
-/* ── Interactive demo state ───────────────────────────────────── */
-const openDropdown   = ref(null)
-const pendingMap     = ref(Object.fromEntries(FILTER_DEFS.map(f => [f.key, []])))
-const appliedMap     = ref(Object.fromEntries(FILTER_DEFS.map(f => [f.key, []])))
+/* ── Interactive demo state ─────────────────────────────────── */
+const openDropdown = ref(null)
+const pendingMap   = ref(Object.fromEntries(FILTER_DEFS.map(f => [f.key, []])))
+const appliedMap   = ref(Object.fromEntries(FILTER_DEFS.map(f => [f.key, []])))
 
 function openFilter(key) {
   if (openDropdown.value === key) { openDropdown.value = null; return }
   pendingMap.value[key] = [...(appliedMap.value[key] || [])]
   openDropdown.value = key
 }
-
-function toggleOption(key, option) {
+function toggleOption(key, opt) {
   const arr = pendingMap.value[key]
-  const i   = arr.indexOf(option)
-  if (i === -1) arr.push(option)
+  const i   = arr.indexOf(opt)
+  if (i === -1) arr.push(opt)
   else          arr.splice(i, 1)
 }
-
 function applyChanges() {
   if (!openDropdown.value) return
   appliedMap.value[openDropdown.value] = [...pendingMap.value[openDropdown.value]]
   openDropdown.value = null
 }
-
-function removeChip(filterKey, option) {
-  appliedMap.value[filterKey] = appliedMap.value[filterKey].filter(o => o !== option)
+function removeChip(key, opt) {
+  appliedMap.value[key] = appliedMap.value[key].filter(o => o !== opt)
 }
-
 function clearAll() {
   FILTER_DEFS.forEach(f => { appliedMap.value[f.key] = [] })
 }
 
 const allChips   = computed(() =>
   FILTER_DEFS.flatMap(f =>
-    (appliedMap.value[f.key] || []).map(opt => ({ filterKey: f.key, label: `${f.label}: ${opt}`, opt }))
+    (appliedMap.value[f.key] || []).map(opt => ({ key: f.key, label: opt, opt }))
   )
 )
 const hasFilters = computed(() => allChips.value.length > 0)
-
 function filterCount(key) { return (appliedMap.value[key] || []).length }
 
-/* ── Overflow demo ────────────────────────────────────────────── */
+/* ── State 3 static chips (match Figma: "Truck" + "Driving") ── */
+const state3chips = ref(['Truck', 'Driving'])
+function removeState3(label) { state3chips.value = state3chips.value.filter(c => c !== label) }
+function resetState3()       { state3chips.value = ['Truck', 'Driving'] }
+
+/* ── Overflow demo chips ────────────────────────────────────── */
 const OVERFLOW_INIT = [
-  { key: 'status-active',       label: 'Status: Active' },
-  { key: 'status-maintenance',  label: 'Status: Maintenance' },
-  { key: 'region-north',        label: 'Region: North' },
-  { key: 'region-east',         label: 'Region: East' },
-  { key: 'type-hgv',            label: 'Type: HGV' },
-  { key: 'type-van',            label: 'Type: Van' },
-  { key: 'driver-assigned',     label: 'Driver: Assigned' },
+  { key: 'a', label: 'Filter label: option 3' },
+  { key: 'b', label: 'Filter label: option 6' },
+  { key: 'c', label: 'Filter label: option 1' },
+  { key: 'd', label: 'Filter label: option 4' },
+  { key: 'e', label: 'Filter label: option 2' },
+  { key: 'f', label: 'Filter label: option 5' },
 ]
 const overflowChips = ref([...OVERFLOW_INIT])
 function removeOverflow(key) { overflowChips.value = overflowChips.value.filter(c => c.key !== key) }
 function resetOverflow()     { overflowChips.value = [...OVERFLOW_INIT] }
 
-/* ── SVG icons ────────────────────────────────────────────────── */
+/* ── SVG icons ──────────────────────────────────────────────── */
 const IconFilter  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1.5 3.5h11M4 7h6M6 10.5h2" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>`
 const IconSearch  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="5.75" cy="5.75" r="3.75" stroke="currentColor" stroke-width="1.25"/><path d="M8.75 8.75L12 12" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>`
 const IconClose   = `<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 2l6 6M8 2l-6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>`
 const IconChevron = `<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5l3 3 3-3" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>`
 const IconCheck   = `<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l3 3 4-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+const IconHelp    = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.25"/><path d="M6.5 6.5a1.5 1.5 0 0 1 3 .5c0 1-1.5 1.5-1.5 2.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/><circle cx="8" cy="11.5" r=".75" fill="currentColor"/></svg>`
+const IconUser    = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5.5" r="2.5" stroke="currentColor" stroke-width="1.25"/><path d="M3 13c0-2.76 2.24-5 5-5s5 2.24 5 5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>`
+const IconChevronRight = `<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 3l3 3-3 3" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+const IconChevronDown  = `<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5l3 3 3-3" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>`
 </script>
 
 <template>
   <main class="ds-main">
 
-    <!-- ── Header ───────────────────────────────────────────────── -->
+    <!-- ── Header ──────────────────────────────────────────────── -->
     <section class="ds-section">
       <h1 class="ds-h1">Filters</h1>
-      <p class="ds-lead">3 layers · dropdown selection · chip dismissal · overflow wrapping</p>
-      <p class="ds-body">
-        The filter component provides contextual narrowing of list or table views.
-        It consists of three layers: a persistent <strong>filter bar</strong> with trigger buttons,
-        an optional <strong>dropdown panel</strong> with selectable checkboxes, and a
-        <strong>dismissible chip strip</strong> that shows applied filters inline.
-      </p>
-      <div class="ds-callout">
-        <strong>Design rationale —</strong> The two-step commit (Apply vs immediate remove) is intentional:
-        it prevents accidental filtering mid-selection while keeping single-chip removal frictionless.
-        "Clear all" only appears when filters are active, reducing noise in the default state.
-      </div>
-    </section>
-
-    <!-- ── Anatomy ──────────────────────────────────────────────── -->
-    <section class="ds-section">
-      <h2 class="ds-h2">Anatomy</h2>
-      <div class="ds-anatomy-grid">
-        <div class="ds-anatomy-card">
-          <div class="ds-anatomy-card__badge">Layer 1</div>
-          <strong class="ds-anatomy-card__title">Filter bar</strong>
-          <p class="ds-body">Persistent toolbar row. Contains a search input on the left and one trigger button per filterable dimension. Always visible — even when no filters are active.</p>
-        </div>
-        <div class="ds-anatomy-card">
-          <div class="ds-anatomy-card__badge">Layer 2</div>
-          <strong class="ds-anatomy-card__title">Dropdown panel</strong>
-          <p class="ds-body">Appears below its trigger button. Lists options as checkboxes. Changes are <em>pending</em> until "Apply changes" is confirmed. Closes on Apply, Escape, or click-outside.</p>
-        </div>
-        <div class="ds-anatomy-card">
-          <div class="ds-anatomy-card__badge">Layer 3</div>
-          <strong class="ds-anatomy-card__title">Applied-filter chips</strong>
-          <p class="ds-body">Each selected value renders as an inline chip with a × dismiss button. Removal is <em>immediate</em> — no Apply step needed. "Clear all" appears only when at least one filter is active.</p>
+      <div class="ds-header-cols">
+        <p class="ds-body">
+          The filter component provides contextual narrowing of list or table views. It consists of three layers:
+          a persistent filter bar, an optional dropdown with selectable options, and a dismissible applied-filters
+          strip below the content area.
+        </p>
+        <div class="ds-callout">
+          <strong>Note:</strong> The two-step commit (apply vs immediate remove) is intentional — it prevents
+          accidental filtering mid-selection while keeping single-chip removal frictionless. The "Clear all"
+          control only appears when filters are active, reducing noise in the default state.
         </div>
       </div>
     </section>
 
-    <!-- ── States ───────────────────────────────────────────────── -->
+    <!-- ── Example ─────────────────────────────────────────────── -->
     <section class="ds-section">
-      <h2 class="ds-h2">States</h2>
-      <p class="ds-body">Try the interactive demo below — it cycles through all three states as you interact.</p>
+      <h2 class="ds-h2">Example</h2>
 
-      <div class="ds-card">
-        <!-- Demo context label -->
-        <p class="ds-card__label">Live demo · Fleet asset list</p>
+      <div class="ds-frame">
+        <!-- Top bar -->
+        <div class="ds-topbar">
+          <div class="ds-breadcrumb">
+            <span>Settings</span>
+            <span class="ds-breadcrumb__sep" v-html="IconChevronRight" />
+            <span>User Management</span>
+            <span class="ds-breadcrumb__sep" v-html="IconChevronRight" />
+            <span class="ds-breadcrumb__active">Aaro Saarinen</span>
+          </div>
+          <div class="ds-topbar__right">
+            <button class="ds-topbar__icon-btn" v-html="IconHelp" />
+            <button class="ds-topbar__user">
+              Aaro Saarinen
+              <span v-html="IconChevronDown" />
+            </button>
+          </div>
+        </div>
 
-        <!-- Simulated table toolbar -->
-        <div class="ds-demo-toolbar">
+        <!-- Page header -->
+        <div class="ds-page-header">
+          <div>
+            <h2 class="ds-page-header__title">Hello, Anna</h2>
+            <p class="ds-page-header__sub">Welcome back to Fleet Manager</p>
+          </div>
+          <div class="ds-page-header__actions">
+            <AppButton variant="secondary" size="sm">
+              <template #icon-left><span class="ds-btn-icon-placeholder" /></template>
+              Button label here
+            </AppButton>
+            <AppButton variant="primary" size="sm">
+              Button
+              <template #icon-right><span v-html="IconChevronDown" /></template>
+            </AppButton>
+          </div>
+        </div>
+
+        <!-- Filter toolbar -->
+        <div class="ds-toolbar">
           <!-- Search -->
           <div class="ds-search">
             <span class="ds-search__icon" v-html="IconSearch" />
-            <input class="ds-search__input" type="text" placeholder="Search assets…" readonly />
+            <input class="ds-search__input" type="text" placeholder="Search" readonly />
           </div>
 
-          <!-- Filter bar -->
-          <div class="ds-filterbar">
-            <div
-              v-for="fd in FILTER_DEFS"
-              :key="fd.key"
-              class="ds-filter-btn-wrap"
+          <!-- Applied chips -->
+          <div v-if="hasFilters" class="ds-chip-inline">
+            <span class="ds-chip-inline__icon" v-html="IconFilter" />
+            <button
+              v-for="chip in allChips"
+              :key="chip.key + chip.opt"
+              class="ds-chip"
+              @click="removeChip(chip.key, chip.opt)"
             >
+              {{ chip.label }}
+              <span class="ds-chip__close" v-html="IconClose" />
+            </button>
+          </div>
+
+          <!-- Filter buttons — right-aligned -->
+          <div class="ds-filterbar">
+            <div v-for="fd in FILTER_DEFS" :key="fd.key" class="ds-filter-btn-wrap">
               <AppButton
                 variant="tertiary"
                 size="sm"
@@ -150,7 +172,6 @@ const IconCheck   = `<svg width="10" height="10" viewBox="0 0 10 10" fill="none"
                 <template #icon-right><span v-html="IconChevron" /></template>
               </AppButton>
 
-              <!-- Dropdown panel -->
               <div v-if="openDropdown === fd.key" class="ds-dropdown">
                 <ul class="ds-dropdown__list">
                   <li
@@ -159,10 +180,7 @@ const IconCheck   = `<svg width="10" height="10" viewBox="0 0 10 10" fill="none"
                     class="ds-dropdown__item"
                     @click="toggleOption(fd.key, opt)"
                   >
-                    <span
-                      class="ds-checkbox"
-                      :class="{ 'ds-checkbox--checked': pendingMap[fd.key].includes(opt) }"
-                    >
+                    <span class="ds-checkbox" :class="{ 'ds-checkbox--checked': pendingMap[fd.key].includes(opt) }">
                       <span v-if="pendingMap[fd.key].includes(opt)" v-html="IconCheck" />
                     </span>
                     {{ opt }}
@@ -174,111 +192,149 @@ const IconCheck   = `<svg width="10" height="10" viewBox="0 0 10 10" fill="none"
               </div>
             </div>
 
-            <!-- Clear all — only when filters active -->
             <AppButton v-if="hasFilters" variant="quiet" size="sm" @click="clearAll">
               <template #icon-left><span v-html="IconFilter" /></template>
-              Clear all
+              Clear all filters
             </AppButton>
           </div>
         </div>
 
-        <!-- Chip strip — only when filters active -->
-        <div v-if="hasFilters" class="ds-chip-strip">
-          <span class="ds-chip-strip__icon" v-html="IconFilter" />
-          <div class="ds-chip-strip__chips">
+        <!-- Content placeholder -->
+        <div class="ds-content-placeholder" />
+      </div>
+    </section>
+
+    <!-- ── States ──────────────────────────────────────────────── -->
+    <section class="ds-section">
+      <h2 class="ds-h2">States</h2>
+
+      <!-- State 1 -->
+      <div class="ds-state-block">
+        <p class="ds-state-block__name">Default (No filters applied)</p>
+        <p class="ds-body">
+          Show all records by default. Filter buttons are inactive (neutral border, no badge).
+          No applied-filters strip is rendered. Do not pre-select any option.
+          "Show all" is the implicit default.
+        </p>
+        <div class="ds-mock">
+          <div class="ds-search ds-search--mock">
+            <span class="ds-search__icon" v-html="IconSearch" />
+            <input class="ds-search__input" type="text" placeholder="Search" readonly />
+          </div>
+          <div class="ds-filterbar ds-filterbar--mock">
+            <AppButton variant="tertiary" size="sm" v-for="n in 3" :key="n">
+              Filter label
+              <template #icon-right><span v-html="IconChevron" /></template>
+            </AppButton>
+          </div>
+        </div>
+      </div>
+
+      <!-- State 2 -->
+      <div class="ds-state-block">
+        <p class="ds-state-block__name">State 2 — Dropdown open</p>
+        <p class="ds-body">
+          Clicking a filter label opens a checkbox list. Multiple selections are allowed.
+          Changes are pending until "Apply changes" is pressed — do not filter live on individual
+          checkbox ticks. Panel closes on "Apply changes", on Escape, or on click-outside.
+          The trigger button stays in active state while the panel is open.
+        </p>
+        <div class="ds-mock">
+          <div class="ds-search ds-search--mock">
+            <span class="ds-search__icon" v-html="IconSearch" />
+            <input class="ds-search__input" type="text" placeholder="Search" readonly />
+          </div>
+          <div class="ds-filterbar ds-filterbar--mock">
+            <AppButton variant="tertiary" size="sm">
+              Filter label
+              <template #icon-right><span v-html="IconChevron" /></template>
+            </AppButton>
+            <!-- Second button shown as active/open -->
+            <div class="ds-filter-btn-wrap">
+              <AppButton variant="tertiary" size="sm" class="ds-filter-btn--active">
+                Filter label
+                <template #icon-right><span v-html="IconChevron" /></template>
+              </AppButton>
+              <div class="ds-dropdown ds-dropdown--static">
+                <ul class="ds-dropdown__list">
+                  <li class="ds-dropdown__item"><span class="ds-checkbox" />Filter option 1</li>
+                  <li class="ds-dropdown__item"><span class="ds-checkbox" />Filter option 2</li>
+                  <li class="ds-dropdown__item"><span class="ds-checkbox ds-checkbox--checked"><span v-html="IconCheck" /></span>Filter option 3</li>
+                  <li class="ds-dropdown__item"><span class="ds-checkbox" />Filter option 4</li>
+                  <li class="ds-dropdown__item"><span class="ds-checkbox" />Filter option 5</li>
+                  <li class="ds-dropdown__item"><span class="ds-checkbox ds-checkbox--checked"><span v-html="IconCheck" /></span>Filter option 6</li>
+                  <li class="ds-dropdown__item"><span class="ds-checkbox" />Filter option 7</li>
+                </ul>
+                <div class="ds-dropdown__footer">
+                  <AppButton variant="primary" size="sm" style="width:100%">Apply changes</AppButton>
+                </div>
+              </div>
+            </div>
+            <AppButton variant="tertiary" size="sm">
+              Filter label
+              <template #icon-right><span v-html="IconChevron" /></template>
+            </AppButton>
+          </div>
+        </div>
+      </div>
+
+      <!-- State 3 -->
+      <div class="ds-state-block">
+        <p class="ds-state-block__name">State 3 — Filters applied</p>
+        <p class="ds-body">
+          Each active filter renders as a chip with a dismiss "×" directly in the filter bar.
+          Chips appear right of the search, separated by a filter icon. Removing a chip applies
+          the change immediately — no "Apply" step needed for individual removal. Remove all option
+          also does not require additional approval.
+        </p>
+        <div class="ds-mock">
+          <div class="ds-search ds-search--mock">
+            <span class="ds-search__icon" v-html="IconSearch" />
+            <input class="ds-search__input" type="text" placeholder="Search" readonly />
+          </div>
+          <div v-if="state3chips.length" class="ds-chip-inline">
+            <span class="ds-chip-inline__icon" v-html="IconFilter" />
             <button
-              v-for="chip in allChips"
-              :key="chip.filterKey + chip.opt"
+              v-for="c in state3chips" :key="c"
               class="ds-chip"
-              @click="removeChip(chip.filterKey, chip.opt)"
+              @click="removeState3(c)"
             >
-              {{ chip.label }}
-              <span class="ds-chip__close" v-html="IconClose" />
+              {{ c }} <span class="ds-chip__close" v-html="IconClose" />
             </button>
           </div>
-        </div>
-
-        <!-- Simulated table -->
-        <div class="ds-demo-table">
-          <div class="ds-demo-table__head">
-            <span>Asset</span><span>Status</span><span>Region</span><span>Type</span><span>Driver</span>
+          <div class="ds-filterbar ds-filterbar--mock">
+            <AppButton variant="tertiary" size="sm" v-for="n in 3" :key="n">
+              Filter label
+              <template #icon-right><span v-html="IconChevron" /></template>
+            </AppButton>
           </div>
-          <div class="ds-demo-table__row" v-for="row in 4" :key="row">
-            <span class="ds-demo-table__name">{{ ['Volvo FH16 · PL22 KXB','DAF XF · MN71 TRK','Merc Actros · LD70 ACT','Scania R · BX19 SCN'][row-1] }}</span>
-            <span><span class="ds-tag ds-tag--success">Active</span></span>
-            <span class="ds-demo-table__muted">North</span>
-            <span class="ds-demo-table__muted">HGV</span>
-            <span class="ds-demo-table__muted">J. Smith</span>
-          </div>
+          <AppButton v-if="!state3chips.length" variant="quiet" size="sm" @click="resetState3">
+            ↺ Reset
+          </AppButton>
         </div>
-
-        <!-- State indicator -->
-        <p class="ds-demo-state">
-          <strong>Current state:</strong>
-          <span v-if="!hasFilters && !openDropdown" class="ds-demo-state__pill ds-demo-state__pill--default">Default — no filters active</span>
-          <span v-else-if="openDropdown"            class="ds-demo-state__pill ds-demo-state__pill--open">Dropdown open — changes pending</span>
-          <span v-else                              class="ds-demo-state__pill ds-demo-state__pill--applied">Filters applied — {{ allChips.length }} chip{{ allChips.length !== 1 ? 's' : '' }} active</span>
-        </p>
       </div>
     </section>
 
-    <!-- ── State breakdown ──────────────────────────────────────── -->
-    <section class="ds-section">
-      <h2 class="ds-h2">State breakdown</h2>
-      <div class="ds-table-wrap">
-        <table class="ds-state-table">
-          <thead>
-            <tr>
-              <th class="ds-state-table__label">State</th>
-              <th>Filter bar</th>
-              <th>Chip strip</th>
-              <th>Trigger</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="ds-state-table__label">
-                <strong>Default</strong>
-                <span>No filters selected. All records shown.</span>
-              </td>
-              <td>Neutral border, no badge</td>
-              <td>Hidden</td>
-              <td>Click a filter label</td>
-            </tr>
-            <tr>
-              <td class="ds-state-table__label">
-                <strong>Dropdown open</strong>
-                <span>User is selecting options. Changes are uncommitted.</span>
-              </td>
-              <td>Trigger button highlighted (active outline)</td>
-              <td>Hidden until Apply</td>
-              <td>"Apply changes" · Escape · click-outside</td>
-            </tr>
-            <tr>
-              <td class="ds-state-table__label">
-                <strong>Filters applied</strong>
-                <span>One or more filters committed.</span>
-              </td>
-              <td>Active button shows count badge</td>
-              <td>Visible — one chip per value</td>
-              <td>× on chip · "Clear all"</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- ── Overflow ──────────────────────────────────────────────── -->
+    <!-- ── Overflow handling ────────────────────────────────────── -->
     <section class="ds-section">
       <h2 class="ds-h2">Overflow handling</h2>
       <p class="ds-body">
-        When chips exceed the available strip width they wrap to a second line.
-        All chips remain fully visible — no truncation, no "show more" collapse.
-        Dismiss any chip with ×, or reset to see the full set.
+        When chips in the filter bar exceed the available width, wrap to a second line below the search.
+        In the secondary strip, always show all chips regardless of count.
       </p>
-      <div class="ds-card">
-        <p class="ds-card__label">Overflow demo</p>
-        <div class="ds-chip-strip ds-chip-strip--overflow" v-if="overflowChips.length">
+
+      <div class="ds-mock ds-mock--overflow">
+        <div class="ds-search ds-search--mock">
+          <span class="ds-search__icon" v-html="IconSearch" />
+          <input class="ds-search__input" type="text" placeholder="Search" readonly />
+        </div>
+        <div class="ds-filterbar ds-filterbar--mock">
+          <AppButton variant="tertiary" size="sm" v-for="n in 3" :key="n">
+            Filter label
+            <template #icon-right><span v-html="IconChevron" /></template>
+          </AppButton>
+        </div>
+        <div v-if="overflowChips.length" class="ds-chip-strip">
           <span class="ds-chip-strip__icon" v-html="IconFilter" />
           <div class="ds-chip-strip__chips">
             <button
@@ -292,8 +348,8 @@ const IconCheck   = `<svg width="10" height="10" viewBox="0 0 10 10" fill="none"
             </button>
           </div>
         </div>
-        <p v-else class="ds-body" style="color:var(--grey-50);font-style:italic">All chips dismissed.</p>
-        <div style="padding: 0 20px 16px">
+        <p v-else class="ds-body" style="color:var(--grey-50);font-style:italic;padding:8px 0">All chips dismissed.</p>
+        <div style="margin-top: 8px">
           <AppButton variant="tertiary" size="sm" @click="resetOverflow">↺ Reset chips</AppButton>
         </div>
       </div>
@@ -302,160 +358,28 @@ const IconCheck   = `<svg width="10" height="10" viewBox="0 0 10 10" fill="none"
     <!-- ── Interaction guidelines ───────────────────────────────── -->
     <section class="ds-section">
       <h2 class="ds-h2">Interaction guidelines</h2>
-      <div class="ds-guidelines-grid">
-
-        <div class="ds-guideline-card">
-          <p class="ds-guideline-card__title">Apply on confirm, remove on tap</p>
-          <p class="ds-body">
-            Selecting options inside the dropdown does <em>not</em> update the view immediately —
-            changes are committed only when the user clicks "Apply changes". Removing a chip,
-            however, takes effect at once with no confirmation step.
-          </p>
-        </div>
-
-        <div class="ds-guideline-card">
-          <p class="ds-guideline-card__title">Clear all</p>
-          <p class="ds-body">
-            The "Clear all" control appears <em>only</em> when at least one filter is active.
-            It sits at the trailing end of the filter bar, visually separated from the trigger buttons.
-            Activating it removes every chip immediately — equivalent to clicking × on each one.
-          </p>
-        </div>
-
-        <div class="ds-guideline-card">
-          <p class="ds-guideline-card__title">Filter state persistence</p>
-          <p class="ds-body">
-            Applied filters persist while the user navigates within the same view context
-            (e.g. switching between list and map mode). They reset when the user navigates
-            to a new top-level route or explicitly clears them.
-          </p>
-        </div>
-
-        <div class="ds-guideline-card">
-          <p class="ds-guideline-card__title">Empty state with shortcut</p>
-          <p class="ds-body">
-            If the filtered result set is empty, show the standard empty-state illustration
-            with the message <em>"No results match your filters"</em> and a
-            <strong>Clear filters</strong> link inline — do not make the user hunt for
-            the "Clear all" button in the bar.
-          </p>
-        </div>
-
-        <div class="ds-guideline-card">
-          <p class="ds-guideline-card__title">One open panel at a time</p>
-          <p class="ds-body">
-            Only one dropdown may be open at a time. Clicking a second filter button while
-            another is open should close the first (without applying uncommitted changes)
-            and open the new one.
-          </p>
-        </div>
-
-        <div class="ds-guideline-card">
-          <p class="ds-guideline-card__title">Accessibility</p>
-          <p class="ds-body">
-            Filter trigger buttons carry <code>aria-expanded</code> and <code>aria-haspopup="listbox"</code>.
-            The dropdown panel is keyboard-navigable (arrow keys cycle options, Space toggles,
-            Enter applies). Chips expose <code>aria-label="Remove [filter]: [value]"</code>.
-            "Clear all" is a <code>&lt;button&gt;</code> — not a link.
-          </p>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ── Do / Don't ───────────────────────────────────────────── -->
-    <section class="ds-section">
-      <h2 class="ds-h2">Do / Don't</h2>
-      <div class="ds-do-dont-grid">
-
-        <div class="ds-do-card ds-do-card--do">
-          <p class="ds-do-card__label ds-do-card__label--do">✓ Do</p>
-          <ul class="ds-do-card__list">
-            <li>Use the filter bar only for dimensions that meaningfully narrow the list (status, region, type, assignment).</li>
-            <li>Show a count badge on the trigger button once a filter is applied so users know the view is constrained.</li>
-            <li>Preserve uncommitted pending selections if the user reopens the same dropdown before applying.</li>
-            <li>Show "Clear all" inline at the trailing edge of the filter bar — not in a modal or tooltip.</li>
-          </ul>
-        </div>
-
-        <div class="ds-do-card ds-do-card--dont">
-          <p class="ds-do-card__label ds-do-card__label--dont">✗ Don't</p>
-          <ul class="ds-do-card__list">
-            <li>Don't apply filters automatically as checkboxes are ticked — this causes disorienting mid-selection flicker.</li>
-            <li>Don't truncate chips with "…+3 more" — wrap to a second line instead so all active filters remain visible.</li>
-            <li>Don't show "Clear all" when no filters are active — it adds noise and confusion.</li>
-            <li>Don't place filter dropdowns over the content area; anchor them below the filter bar row.</li>
-          </ul>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ── Token reference ──────────────────────────────────────── -->
-    <section class="ds-section">
-      <h2 class="ds-h2">Token reference</h2>
-      <div class="ds-token-grid">
-
-        <div class="ds-token-card">
-          <p class="ds-token-card__title">Filter button — default</p>
-          <table class="ds-token-table">
-            <thead><tr><th>Property</th><th>Token / value</th></tr></thead>
-            <tbody>
-              <tr><td>Height</td>         <td>32px</td></tr>
-              <tr><td>Padding</td>        <td>0 10px</td></tr>
-              <tr><td>Border</td>         <td>1px solid <span class="swatch" style="background:#c0c2c6"></span>#c0c2c6</td></tr>
-              <tr><td>Background</td>     <td><span class="swatch" style="background:#ffffff;border:1px solid #d8d8da"></span>#ffffff</td></tr>
-              <tr><td>Text</td>           <td><span class="swatch" style="background:#5d6065"></span>#5d6065</td></tr>
-              <tr><td>Border radius</td>  <td>6px</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="ds-token-card">
-          <p class="ds-token-card__title">Filter button — active / open</p>
-          <table class="ds-token-table">
-            <thead><tr><th>Property</th><th>Token / value</th></tr></thead>
-            <tbody>
-              <tr><td>Border</td>         <td>1.5px solid <span class="swatch" style="background:#138bc3"></span>#138bc3</td></tr>
-              <tr><td>Background</td>     <td><span class="swatch" style="background:#e8f5ff"></span>#e8f5ff</td></tr>
-              <tr><td>Text</td>           <td><span class="swatch" style="background:#0369a1"></span>#0369a1</td></tr>
-              <tr><td>Badge bg</td>       <td><span class="swatch" style="background:#138bc3"></span>#138bc3</td></tr>
-              <tr><td>Badge text</td>     <td><span class="swatch" style="background:#ffffff;border:1px solid #d8d8da"></span>#ffffff</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="ds-token-card">
-          <p class="ds-token-card__title">Dropdown panel</p>
-          <table class="ds-token-table">
-            <thead><tr><th>Property</th><th>Token / value</th></tr></thead>
-            <tbody>
-              <tr><td>Background</td>     <td><span class="swatch" style="background:#ffffff;border:1px solid #d8d8da"></span>#ffffff</td></tr>
-              <tr><td>Border</td>         <td>1px solid <span class="swatch" style="background:#c0c2c6"></span>#c0c2c6</td></tr>
-              <tr><td>Shadow</td>         <td>0 4px 12px rgba(0,0,0,.10)</td></tr>
-              <tr><td>Min width</td>      <td>180px</td></tr>
-              <tr><td>Item height</td>    <td>36px</td></tr>
-              <tr><td>Item hover bg</td>  <td><span class="swatch" style="background:#f7f7f8"></span>#f7f7f8</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="ds-token-card">
-          <p class="ds-token-card__title">Applied-filter chip</p>
-          <table class="ds-token-table">
-            <thead><tr><th>Property</th><th>Token / value</th></tr></thead>
-            <tbody>
-              <tr><td>Height</td>         <td>24px</td></tr>
-              <tr><td>Background</td>     <td><span class="swatch" style="background:#e8f5ff"></span>#e8f5ff</td></tr>
-              <tr><td>Border</td>         <td>1px solid <span class="swatch" style="background:#61bde9"></span>#61bde9</td></tr>
-              <tr><td>Text</td>           <td><span class="swatch" style="background:#013b57"></span>#013b57</td></tr>
-              <tr><td>× icon</td>         <td><span class="swatch" style="background:#39ade3"></span>#39ade3</td></tr>
-              <tr><td>Hover bg</td>       <td><span class="swatch" style="background:#b3e1f7"></span>#b3e1f7</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-      </div>
+      <ul class="ds-guidelines">
+        <li class="ds-guideline">
+          <strong>Apply on confirm, remove on tap</strong>
+          Selections inside a dropdown are committed only on "Apply changes." Removing a chip (via ×) is immediate with no confirmation step.
+        </li>
+        <li class="ds-guideline">
+          <strong>Clear all</strong>
+          The "Clear all filters" button removes every active filter at once and returns the view to its default state. It appears only when at least one filter is active. Accessible on hover on filter icon — hidden but there when you need it.
+        </li>
+        <li class="ds-guideline">
+          <strong>Filter state persistence</strong>
+          Preserve filter state across pagination and sorting actions. Navigating away and back should restore the last applied filters unless the user explicitly cleared them.
+        </li>
+        <li class="ds-guideline">
+          <strong>Empty states</strong>
+          If the combination of active filters returns zero results, show a contextual empty state with a "Clear filters" shortcut — not a generic empty screen and use copy like: "No results match your filters. Try removing one or adjusting your selection."
+        </li>
+        <li class="ds-guideline">
+          <strong>Accessibility</strong>
+          Dropdown panels must be keyboard-navigable (Tab, Space to toggle checkbox, Enter to apply, Escape to close). Chips must be focusable and dismissible via keyboard (focus chip, press Delete or Backspace).
+        </li>
+      </ul>
     </section>
 
   </main>
@@ -464,7 +388,7 @@ const IconCheck   = `<svg width="10" height="10" viewBox="0 0 10 10" fill="none"
 <style scoped>
 /* ── Layout ─────────────────────────────────────────────────────── */
 .ds-main {
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 48px 40px 80px;
   display: flex;
@@ -475,8 +399,15 @@ const IconCheck   = `<svg width="10" height="10" viewBox="0 0 10 10" fill="none"
 .ds-section { display: flex; flex-direction: column; gap: 20px; }
 .ds-h1  { font-size: 32px; font-weight: 700; color: var(--grey-100); line-height: 1.1; margin-bottom: 4px; }
 .ds-h2  { font-size: 20px; font-weight: 600; color: var(--grey-90); }
-.ds-lead{ font-size: 16px; color: var(--grey-70); margin-top: -8px; }
 .ds-body{ font-size: 14px; color: var(--grey-70); line-height: 1.6; }
+
+/* ── Header two-column layout ───────────────────────────────────── */
+.ds-header-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
 
 /* ── Callout ────────────────────────────────────────────────────── */
 .ds-callout {
@@ -490,67 +421,75 @@ const IconCheck   = `<svg width="10" height="10" viewBox="0 0 10 10" fill="none"
   line-height: 1.55;
 }
 
-/* ── Anatomy ────────────────────────────────────────────────────── */
-.ds-anatomy-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-}
-.ds-anatomy-card {
-  background: #fff;
+/* ── Example frame ──────────────────────────────────────────────── */
+.ds-frame {
   border: 1px solid var(--grey-20);
   border-radius: 8px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.ds-anatomy-card__badge {
-  display: inline-block;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .06em;
-  color: var(--blue-azure-70, #0369a1);
-  background: var(--blue-azure-10, #e8f5ff);
-  border-radius: 4px;
-  padding: 2px 7px;
-  width: fit-content;
-}
-.ds-anatomy-card__title {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--grey-90);
-  display: block;
-}
-
-/* ── Card ───────────────────────────────────────────────────────── */
-.ds-card {
-  background: #fff;
-  border: 1px solid var(--grey-20);
-  border-radius: 8px;
-  padding: 0;
-  overflow: hidden;
-}
-.ds-card__label {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--grey-60);
-  text-transform: uppercase;
-  letter-spacing: .07em;
-  padding: 10px 20px;
   background: var(--grey-05);
-  border-bottom: 1px solid var(--grey-20);
+  overflow: visible;
 }
 
-/* ── Demo toolbar ───────────────────────────────────────────────── */
-.ds-demo-toolbar {
+/* ── Top bar ────────────────────────────────────────────────────── */
+.ds-topbar {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  height: 48px;
+  background: #fff;
+  border-bottom: 1px solid var(--grey-10);
+  border-radius: 8px 8px 0 0;
   gap: 12px;
-  padding: 14px 20px;
+}
+.ds-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--grey-60);
+}
+.ds-breadcrumb__sep { display: flex; align-items: center; color: var(--grey-30); }
+.ds-breadcrumb__active { color: var(--grey-90); font-weight: 500; }
+.ds-topbar__right { display: flex; align-items: center; gap: 8px; }
+.ds-topbar__icon-btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px; border-radius: 6px;
+  background: none; border: 1px solid var(--grey-20);
+  color: var(--grey-60); cursor: pointer;
+}
+.ds-topbar__user {
+  display: flex; align-items: center; gap: 4px;
+  height: 32px; padding: 0 10px;
+  background: none; border: 1px solid var(--grey-20);
+  border-radius: 6px; font-size: 13px; color: var(--grey-80);
+  font-family: 'Roboto', sans-serif; cursor: pointer;
+}
+
+/* ── Page header ────────────────────────────────────────────────── */
+.ds-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: #fff;
+  border-bottom: 1px solid var(--grey-10);
+  gap: 12px;
+}
+.ds-page-header__title { font-size: 22px; font-weight: 700; color: var(--grey-100); }
+.ds-page-header__sub   { font-size: 13px; color: var(--grey-60); margin-top: 2px; }
+.ds-page-header__actions { display: flex; align-items: center; gap: 8px; }
+.ds-btn-icon-placeholder { display: inline-block; width: 12px; height: 12px; background: var(--grey-30); border-radius: 2px; }
+
+/* ── Toolbar ────────────────────────────────────────────────────── */
+.ds-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: #fff;
   border-bottom: 1px solid var(--grey-10);
   flex-wrap: wrap;
+  position: relative;
 }
 
 /* ── Search ─────────────────────────────────────────────────────── */
@@ -565,15 +504,25 @@ const IconCheck   = `<svg width="10" height="10" viewBox="0 0 10 10" fill="none"
   background: #fff;
   flex-shrink: 0;
 }
-.ds-search__icon { display: flex; align-items: center; color: var(--grey-50); }
+.ds-search--mock { background: #fff; }
+.ds-search__icon { display: flex; align-items: center; color: var(--grey-50); flex-shrink: 0; }
 .ds-search__input {
-  border: none;
-  outline: none;
-  font-size: 13px;
-  color: var(--grey-70);
+  border: none; outline: none;
+  font-size: 13px; color: var(--grey-70);
   font-family: 'Roboto', sans-serif;
-  background: transparent;
-  width: 160px;
+  background: transparent; width: 140px;
+}
+
+/* ── Inline chips (in toolbar row) ─────────────────────────────── */
+.ds-chip-inline {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.ds-chip-inline__icon {
+  display: flex; align-items: center;
+  color: var(--grey-50); flex-shrink: 0;
 }
 
 /* ── Filter bar ─────────────────────────────────────────────────── */
@@ -582,278 +531,161 @@ const IconCheck   = `<svg width="10" height="10" viewBox="0 0 10 10" fill="none"
   align-items: center;
   gap: 6px;
   flex-wrap: wrap;
+  margin-left: auto;
 }
+.ds-filterbar--mock { margin-left: 0; }
 .ds-filter-btn-wrap { position: relative; }
 
-/* Active/open state override on top of AppButton tertiary */
 .ds-filter-btn--active.btn--tertiary {
   box-shadow: inset 0 0 0 1.5px #138bc3;
   background: #e8f5ff;
   color: #0369a1;
   font-weight: 500;
 }
-.ds-filter-btn--active.btn--tertiary:hover {
-  background: #d4edf9;
-}
+.ds-filter-btn--active.btn--tertiary:hover { background: #d4edf9; }
 
 .ds-filter-btn__badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 16px;
-  height: 16px;
-  padding: 0 4px;
-  background: #138bc3;
-  color: #fff;
-  font-size: 10px;
-  font-weight: 700;
-  border-radius: 8px;
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 16px; height: 16px; padding: 0 4px;
+  background: #138bc3; color: #fff;
+  font-size: 10px; font-weight: 700; border-radius: 8px;
 }
 
 /* ── Dropdown ───────────────────────────────────────────────────── */
 .ds-dropdown {
   position: absolute;
   top: calc(100% + 4px);
-  left: 0;
+  right: 0;
   z-index: 50;
-  min-width: 180px;
+  min-width: 200px;
   background: #fff;
   border: 1px solid var(--grey-30, #c0c2c6);
   border-radius: 8px;
   box-shadow: 0 4px 16px rgba(0,0,0,.10);
   overflow: hidden;
 }
-.ds-dropdown__list {
-  list-style: none;
-  padding: 4px 0;
-  margin: 0;
+/* Static (non-positioned) dropdown for State 2 illustration */
+.ds-dropdown--static {
+  position: static;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+  margin-top: 4px;
 }
+.ds-dropdown__list { list-style: none; padding: 4px 0; margin: 0; }
 .ds-dropdown__item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 14px;
-  font-size: 13px;
-  color: var(--grey-80);
-  cursor: pointer;
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 14px; font-size: 13px; color: var(--grey-80);
+  cursor: pointer; user-select: none;
   transition: background 80ms;
-  user-select: none;
 }
 .ds-dropdown__item:hover { background: var(--grey-05); }
 
 .ds-checkbox {
-  width: 16px;
-  height: 16px;
+  width: 16px; height: 16px;
   border: 1.5px solid var(--grey-30, #c0c2c6);
-  border-radius: 3px;
-  background: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: border-color 100ms, background 100ms;
+  border-radius: 3px; background: #fff;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: border-color 100ms, background 100ms;
 }
-.ds-checkbox--checked {
-  background: #138bc3;
-  border-color: #138bc3;
-  color: #fff;
-}
+.ds-checkbox--checked { background: #138bc3; border-color: #138bc3; color: #fff; }
 
-.ds-dropdown__footer {
-  border-top: 1px solid var(--grey-10);
-  padding: 8px 12px;
-}
+.ds-dropdown__footer { border-top: 1px solid var(--grey-10); padding: 8px 12px; }
 
-/* ── Chip strip ─────────────────────────────────────────────────── */
-.ds-chip-strip {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  padding: 10px 20px;
-  border-bottom: 1px solid var(--grey-10);
-}
-.ds-chip-strip__icon {
-  display: flex;
-  align-items: center;
-  color: var(--grey-50);
-  flex-shrink: 0;
-  margin-top: 4px;
-}
-.ds-chip-strip__chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
+/* ── Chips ──────────────────────────────────────────────────────── */
 .ds-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  height: 24px;
-  padding: 0 8px;
-  font-size: 12px;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 400;
-  color: #013b57;
-  background: #e8f5ff;
-  border: 1px solid #61bde9;
-  border-radius: 4px;
-  cursor: pointer;
+  display: inline-flex; align-items: center; gap: 5px;
+  height: 24px; padding: 0 8px;
+  font-size: 12px; font-family: 'Roboto', sans-serif; font-weight: 400;
+  color: #013b57; background: #e8f5ff;
+  border: 1px solid #61bde9; border-radius: 4px;
+  cursor: pointer; white-space: nowrap;
   transition: background 100ms, border-color 100ms;
-  white-space: nowrap;
 }
 .ds-chip:hover { background: #b3e1f7; border-color: #39ade3; }
 .ds-chip__close { display: flex; align-items: center; color: #39ade3; }
 
-/* ── Demo table ─────────────────────────────────────────────────── */
-.ds-demo-table { padding: 0 20px 4px; }
-.ds-demo-table__head {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-  gap: 12px;
-  padding: 10px 0;
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: .06em;
-  color: var(--grey-50);
-  border-bottom: 1px solid var(--grey-10);
+/* ── Chip strip (overflow — wraps below toolbar) ────────────────── */
+.ds-chip-strip {
+  display: flex; align-items: flex-start; gap: 8px;
+  padding: 10px 0 0;
+  width: 100%;
 }
-.ds-demo-table__row {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-  gap: 12px;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--grey-10);
-  font-size: 13px;
-  align-items: center;
+.ds-chip-strip__icon {
+  display: flex; align-items: center; color: var(--grey-50);
+  flex-shrink: 0; margin-top: 4px;
 }
-.ds-demo-table__row:last-child { border-bottom: none; }
-.ds-demo-table__name { font-weight: 500; color: var(--grey-90); }
-.ds-demo-table__muted { color: var(--grey-60); }
+.ds-chip-strip__chips { display: flex; flex-wrap: wrap; gap: 6px; }
 
-.ds-tag {
-  display: inline-flex;
-  align-items: center;
-  height: 20px;
-  padding: 0 7px;
-  border-radius: 4px;
-  font-size: 11px;
-  font-weight: 600;
-}
-.ds-tag--success { background: #c5f2cb; color: #12591c; }
-
-/* ── State indicator ────────────────────────────────────────────── */
-.ds-demo-state {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 20px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--grey-60);
-  border-top: 1px solid var(--grey-10);
+/* ── Content placeholder ────────────────────────────────────────── */
+.ds-content-placeholder {
+  height: 120px;
   background: var(--grey-05);
+  border-radius: 0 0 8px 8px;
 }
-.ds-demo-state__pill {
-  display: inline-flex;
-  align-items: center;
-  padding: 2px 9px;
-  border-radius: 10px;
-  font-size: 11px;
-  font-weight: 600;
-}
-.ds-demo-state__pill--default  { background: #f1f1f2; color: #5d6065; }
-.ds-demo-state__pill--open     { background: #fffbeb; color: #92400e; border: 1px solid #f9c74f; }
-.ds-demo-state__pill--applied  { background: #e8f5ff; color: #0369a1; border: 1px solid #61bde9; }
 
-/* ── State table ────────────────────────────────────────────────── */
-.ds-table-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--grey-20); }
-.ds-state-table { width: 100%; border-collapse: collapse; background: #fff; font-size: 13px; }
-.ds-state-table thead th { background: var(--grey-05); border-bottom: 1px solid var(--grey-20); padding: 12px 20px; text-align: left; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--grey-70); white-space: nowrap; }
-.ds-state-table tbody td { padding: 14px 20px; border-bottom: 1px solid var(--grey-10); vertical-align: middle; color: var(--grey-70); }
-.ds-state-table tbody tr:last-child td { border-bottom: none; }
-.ds-state-table__label { min-width: 200px; }
-.ds-state-table__label strong { display: block; font-size: 13px; font-weight: 600; color: var(--grey-90); margin-bottom: 3px; }
-.ds-state-table__label span   { display: block; font-size: 12px; color: var(--grey-60); line-height: 1.4; }
-
-/* ── Overflow demo ──────────────────────────────────────────────── */
-.ds-chip-strip--overflow { padding: 16px 20px; border-bottom: none; }
-
-/* ── Guidelines ─────────────────────────────────────────────────── */
-.ds-guidelines-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
-.ds-guideline-card {
+/* ── State blocks ───────────────────────────────────────────────── */
+.ds-state-block {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 24px;
   background: #fff;
   border: 1px solid var(--grey-20);
   border-radius: 8px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
 }
-.ds-guideline-card__title { font-size: 14px; font-weight: 600; color: var(--grey-90); }
-
-/* ── Do / Don't ─────────────────────────────────────────────────── */
-.ds-do-dont-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.ds-do-card {
-  border-radius: 8px;
-  border: 1px solid var(--grey-20);
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.ds-do-card--do   { background: #f0fdf4; border-color: #86efac; }
-.ds-do-card--dont { background: #fff5f5; border-color: #fca5a5; }
-.ds-do-card__label {
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .06em;
-}
-.ds-do-card__label--do   { color: #15803d; }
-.ds-do-card__label--dont { color: #b91c1c; }
-.ds-do-card__list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.ds-do-card__list li {
+.ds-state-block__name {
   font-size: 13px;
-  color: var(--grey-80);
-  line-height: 1.5;
-  padding-left: 16px;
-  position: relative;
+  font-weight: 600;
+  color: var(--grey-70);
+  text-transform: uppercase;
+  letter-spacing: .05em;
 }
-.ds-do-card--do   .ds-do-card__list li::before { content: '✓'; position: absolute; left: 0; color: #15803d; font-weight: 700; }
-.ds-do-card--dont .ds-do-card__list li::before { content: '✗'; position: absolute; left: 0; color: #b91c1c; font-weight: 700; }
 
-/* ── Token reference ────────────────────────────────────────────── */
-.ds-token-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
-.ds-token-card { background: #fff; border: 1px solid var(--grey-20); border-radius: 8px; overflow: hidden; }
-.ds-token-card__title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--grey-70); padding: 10px 16px; background: var(--grey-05); border-bottom: 1px solid var(--grey-20); }
-.ds-token-table { width: 100%; border-collapse: collapse; font-size: 12px; }
-.ds-token-table th { text-align: left; padding: 8px 12px; font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--grey-60); font-weight: 600; border-bottom: 1px solid var(--grey-10); }
-.ds-token-table td { padding: 7px 12px; border-bottom: 1px solid var(--grey-10); vertical-align: middle; color: var(--grey-80); }
-.ds-token-table tr:last-child td { border-bottom: none; }
-.swatch { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: middle; margin-right: 6px; flex-shrink: 0; }
+/* ── Mock filter bar (state illustrations) ──────────────────────── */
+.ds-mock {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 12px 16px;
+  background: var(--grey-05);
+  border: 1px solid var(--grey-10);
+  border-radius: 6px;
+}
+.ds-mock--overflow { flex-direction: column; align-items: flex-start; gap: 10px; }
+
+/* ── Interaction guidelines ─────────────────────────────────────── */
+.ds-guidelines {
+  list-style: none;
+  padding: 0; margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--grey-20);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+}
+.ds-guideline {
+  font-size: 14px;
+  color: var(--grey-70);
+  line-height: 1.6;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--grey-10);
+}
+.ds-guideline:last-child { border-bottom: none; }
+.ds-guideline strong {
+  color: var(--grey-90);
+  font-weight: 600;
+  margin-right: 6px;
+}
 
 /* ── Responsive ─────────────────────────────────────────────────── */
-@media (max-width: 1024px) {
-  .ds-anatomy-grid { grid-template-columns: 1fr 1fr; }
-  .ds-do-dont-grid { grid-template-columns: 1fr; }
+@media (max-width: 900px) {
+  .ds-header-cols { grid-template-columns: 1fr; }
 }
 @media (max-width: 768px) {
   .ds-main { padding: 32px 20px 60px; }
-  .ds-anatomy-grid  { grid-template-columns: 1fr; }
-  .ds-demo-table__head,
-  .ds-demo-table__row { grid-template-columns: 1fr 1fr; }
-  .ds-demo-table__head span:nth-child(n+3),
-  .ds-demo-table__row  span:nth-child(n+3) { display: none; }
-  .ds-token-grid { grid-template-columns: 1fr; }
-  .ds-guidelines-grid { grid-template-columns: 1fr; }
+  .ds-toolbar { gap: 6px; }
+  .ds-filterbar { margin-left: 0; }
 }
 </style>
