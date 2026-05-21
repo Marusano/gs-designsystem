@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import AppButton from '../components/ui/AppButton.vue'
+import AppTag    from '../components/ui/AppTag.vue'
 
 /* ── Filter definitions (match Figma: "Filter label" × 3, "Filter option 1–7") ── */
 const FILTER_DEFS = [
@@ -66,7 +67,6 @@ function resetOverflow()     { overflowChips.value = [...OVERFLOW_INIT] }
 /* ── SVG icons ──────────────────────────────────────────────── */
 const IconFilter  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1.5 3.5h11M4 7h6M6 10.5h2" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>`
 const IconSearch  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="5.75" cy="5.75" r="3.75" stroke="currentColor" stroke-width="1.25"/><path d="M8.75 8.75L12 12" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>`
-const IconClose   = `<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 2l6 6M8 2l-6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>`
 const IconChevron = `<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5l3 3 3-3" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>`
 const IconCheck   = `<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l3 3 4-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`
 const IconHelp    = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.25"/><path d="M6.5 6.5a1.5 1.5 0 0 1 3 .5c0 1-1.5 1.5-1.5 2.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/><circle cx="8" cy="11.5" r=".75" fill="currentColor"/></svg>`
@@ -147,15 +147,13 @@ const IconChevronDown  = `<svg width="12" height="12" viewBox="0 0 12 12" fill="
           <!-- Applied chips -->
           <div v-if="hasFilters" class="ds-chip-inline">
             <span class="ds-chip-inline__icon" v-html="IconFilter" />
-            <button
+            <AppTag
               v-for="chip in allChips"
               :key="chip.key + chip.opt"
-              class="ds-chip"
-              @click="removeChip(chip.key, chip.opt)"
-            >
-              {{ chip.label }}
-              <span class="ds-chip__close" v-html="IconClose" />
-            </button>
+              type="neutral-outline"
+              :dismissible="true"
+              @dismiss="removeChip(chip.key, chip.opt)"
+            >{{ chip.label }}</AppTag>
           </div>
 
           <!-- Filter buttons — right-aligned -->
@@ -294,13 +292,12 @@ const IconChevronDown  = `<svg width="12" height="12" viewBox="0 0 12 12" fill="
           </div>
           <div v-if="state3chips.length" class="ds-chip-inline">
             <span class="ds-chip-inline__icon" v-html="IconFilter" />
-            <button
+            <AppTag
               v-for="c in state3chips" :key="c"
-              class="ds-chip"
-              @click="removeState3(c)"
-            >
-              {{ c }} <span class="ds-chip__close" v-html="IconClose" />
-            </button>
+              type="neutral-outline"
+              :dismissible="true"
+              @dismiss="removeState3(c)"
+            >{{ c }}</AppTag>
           </div>
           <div class="ds-filterbar ds-filterbar--mock">
             <AppButton variant="tertiary" size="sm" v-for="n in 3" :key="n">
@@ -337,15 +334,13 @@ const IconChevronDown  = `<svg width="12" height="12" viewBox="0 0 12 12" fill="
         <div v-if="overflowChips.length" class="ds-chip-strip">
           <span class="ds-chip-strip__icon" v-html="IconFilter" />
           <div class="ds-chip-strip__chips">
-            <button
+            <AppTag
               v-for="chip in overflowChips"
               :key="chip.key"
-              class="ds-chip"
-              @click="removeOverflow(chip.key)"
-            >
-              {{ chip.label }}
-              <span class="ds-chip__close" v-html="IconClose" />
-            </button>
+              type="neutral-outline"
+              :dismissible="true"
+              @dismiss="removeOverflow(chip.key)"
+            >{{ chip.label }}</AppTag>
           </div>
         </div>
         <p v-else class="ds-body" style="color:var(--grey-50);font-style:italic;padding:8px 0">All chips dismissed.</p>
@@ -586,22 +581,11 @@ const IconChevronDown  = `<svg width="12" height="12" viewBox="0 0 12 12" fill="
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0; transition: border-color 100ms, background 100ms;
 }
-.ds-checkbox--checked { background: #138bc3; border-color: #138bc3; color: #fff; }
+.ds-checkbox--checked { background: var(--btn-primary-bg); border-color: var(--btn-primary-bg); color: #fff; }
 
 .ds-dropdown__footer { border-top: 1px solid var(--grey-10); padding: 8px 12px; }
 
-/* ── Chips ──────────────────────────────────────────────────────── */
-.ds-chip {
-  display: inline-flex; align-items: center; gap: 5px;
-  height: 24px; padding: 0 8px;
-  font-size: 12px; font-family: 'Roboto', sans-serif; font-weight: 400;
-  color: #013b57; background: #e8f5ff;
-  border: 1px solid #61bde9; border-radius: 4px;
-  cursor: pointer; white-space: nowrap;
-  transition: background 100ms, border-color 100ms;
-}
-.ds-chip:hover { background: #b3e1f7; border-color: #39ade3; }
-.ds-chip__close { display: flex; align-items: center; color: #39ade3; }
+/* chips rendered by AppTag neutral-outline + dismissible — no custom CSS needed */
 
 /* ── Chip strip (overflow — wraps below toolbar) ────────────────── */
 .ds-chip-strip {
