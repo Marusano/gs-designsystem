@@ -6,6 +6,7 @@ import IconsPage      from './pages/IconsPage.vue'
 import TypographyPage from './pages/TypographyPage.vue'
 import FormsPage      from './pages/FormsPage.vue'
 import TagsPage       from './pages/TagsPage.vue'
+import ElementsPage   from './pages/ElementsPage.vue'
 import FiltersPage    from './pages/FiltersPage.vue'
 
 const page = ref('buttons')
@@ -16,6 +17,7 @@ const IconButton     = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
 const IconTypography = `<svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M1 2.5h5v1.25H4.25v7H2.75v-7H1V2.5zm6 3h4v1H9.75v4H8.25v-4H7V5.5z"/></svg>`
 const IconForms      = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="3" width="12" height="3" rx="1" stroke="currentColor" stroke-width="1.1"/><rect x="1" y="8" width="12" height="3" rx="1" stroke="currentColor" stroke-width="1.1"/></svg>`
 const IconTag        = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1.5 1.5h5l5.5 5.5-5 5L1.5 6.5v-5z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/><circle cx="4.5" cy="4.5" r="1" fill="currentColor"/></svg>`
+const IconElements   = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.1"/><rect x="8" y="1" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.1"/><rect x="1" y="8" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.1"/><circle cx="10.5" cy="10.5" r="2.5" stroke="currentColor" stroke-width="1.1"/></svg>`
 const IconFilters    = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1.5 3.5h11M4 7h6M6 10.5h2" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>`
 </script>
 
@@ -81,6 +83,10 @@ const IconFilters    = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
             <span class="ds-sidebar__item-icon" v-html="IconTag" />
             Tag
           </button>
+          <button @click="page = 'elements'" :class="['ds-sidebar__item', { active: page === 'elements' }]">
+            <span class="ds-sidebar__item-icon" v-html="IconElements" />
+            Elements
+          </button>
         </div>
 
         <div class="ds-sidebar__group">
@@ -99,6 +105,7 @@ const IconFilters    = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
         <TypographyPage v-if="page === 'typography'" />
         <IconsPage      v-if="page === 'icons'" />
         <TagsPage       v-if="page === 'tags'" />
+        <ElementsPage   v-if="page === 'elements'" />
         <FiltersPage    v-if="page === 'filters'" />
       </div>
 
