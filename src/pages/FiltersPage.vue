@@ -137,11 +137,27 @@ const IconChevronDown  = `<svg width="12" height="12" viewBox="0 0 12 12" fill="
           </div>
         </div>
 
-        <!-- Filter toolbar — row 1: search (left) + filter buttons (right, fixed) -->
+        <!-- Filter toolbar: [search] [chip container if active] [filter buttons right] -->
         <div class="ds-toolbar-row">
           <div class="ds-search">
             <span class="ds-search__icon" v-html="IconSearch" />
             <input class="ds-search__input" type="text" placeholder="Search" readonly />
+          </div>
+
+          <!-- Chip container: inline between search and filter buttons, grey bg wraps only chips -->
+          <div v-if="hasFilters" class="ds-chip-container">
+            <button class="ds-clear-icon" @click="clearAll" title="Clear all filters">
+              <span class="ds-clear-icon__default" v-html="IconFilter" />
+              <span class="ds-clear-icon__hover" v-html="IconX" />
+              <span class="ds-clear-icon__tooltip">Clear all filters</span>
+            </button>
+            <AppTag
+              v-for="chip in allChips"
+              :key="chip.key + chip.opt"
+              type="neutral-outline"
+              :dismissible="true"
+              @dismiss="removeChip(chip.key, chip.opt)"
+            >{{ chip.label }}</AppTag>
           </div>
 
           <div class="ds-filterbar">
@@ -177,23 +193,6 @@ const IconChevronDown  = `<svg width="12" height="12" viewBox="0 0 12 12" fill="
               </div>
             </div>
           </div>
-        </div>
-
-        <!-- Filter toolbar — row 2: chip strip (only when filters active) -->
-        <div v-if="hasFilters" class="ds-chip-strip">
-          <!-- Filter icon → × on hover = "Clear all filters" -->
-          <button class="ds-clear-icon" @click="clearAll" title="Clear all filters">
-            <span class="ds-clear-icon__default" v-html="IconFilter" />
-            <span class="ds-clear-icon__hover" v-html="IconX" />
-            <span class="ds-clear-icon__tooltip">Clear all filters</span>
-          </button>
-          <AppTag
-            v-for="chip in allChips"
-            :key="chip.key + chip.opt"
-            type="neutral-outline"
-            :dismissible="true"
-            @dismiss="removeChip(chip.key, chip.opt)"
-          >{{ chip.label }}</AppTag>
         </div>
 
         <!-- Content placeholder -->
@@ -239,41 +238,41 @@ const IconChevronDown  = `<svg width="12" height="12" viewBox="0 0 12 12" fill="
           The trigger button stays in active state while the panel is open.
         </p>
         <div class="ds-mock ds-mock--col">
-          <div class="ds-mock-row">
+          <div class="ds-mock-row ds-mock-row--top">
             <div class="ds-search">
               <span class="ds-search__icon" v-html="IconSearch" />
               <input class="ds-search__input" type="text" placeholder="Search" readonly />
             </div>
-            <div class="ds-filterbar">
-            <AppButton variant="tertiary" size="sm">
-              Filter label
-              <template #icon-right><span v-html="IconChevron" /></template>
-            </AppButton>
-            <!-- Second button shown as active/open -->
-            <div class="ds-filter-btn-wrap">
-              <AppButton variant="tertiary" size="sm" class="ds-filter-btn--active">
+            <div class="ds-filterbar" style="align-items: flex-start">
+              <AppButton variant="tertiary" size="sm" style="align-self: flex-start">
                 Filter label
                 <template #icon-right><span v-html="IconChevron" /></template>
               </AppButton>
-              <div class="ds-dropdown ds-dropdown--static">
-                <ul class="ds-dropdown__list">
-                  <li class="ds-dropdown__item"><span class="ds-checkbox" />Filter option 1</li>
-                  <li class="ds-dropdown__item"><span class="ds-checkbox" />Filter option 2</li>
-                  <li class="ds-dropdown__item"><span class="ds-checkbox ds-checkbox--checked"><span v-html="IconCheck" /></span>Filter option 3</li>
-                  <li class="ds-dropdown__item"><span class="ds-checkbox" />Filter option 4</li>
-                  <li class="ds-dropdown__item"><span class="ds-checkbox" />Filter option 5</li>
-                  <li class="ds-dropdown__item"><span class="ds-checkbox ds-checkbox--checked"><span v-html="IconCheck" /></span>Filter option 6</li>
-                  <li class="ds-dropdown__item"><span class="ds-checkbox" />Filter option 7</li>
-                </ul>
-                <div class="ds-dropdown__footer">
-                  <AppButton variant="primary" size="sm" style="width:100%">Apply changes</AppButton>
+              <!-- Second button shown as active/open -->
+              <div class="ds-filter-btn-wrap">
+                <AppButton variant="tertiary" size="sm" class="ds-filter-btn--active">
+                  Filter label
+                  <template #icon-right><span v-html="IconChevron" /></template>
+                </AppButton>
+                <div class="ds-dropdown ds-dropdown--static">
+                  <ul class="ds-dropdown__list">
+                    <li class="ds-dropdown__item"><span class="ds-checkbox" />Filter option 1</li>
+                    <li class="ds-dropdown__item"><span class="ds-checkbox" />Filter option 2</li>
+                    <li class="ds-dropdown__item"><span class="ds-checkbox ds-checkbox--checked"><span v-html="IconCheck" /></span>Filter option 3</li>
+                    <li class="ds-dropdown__item"><span class="ds-checkbox" />Filter option 4</li>
+                    <li class="ds-dropdown__item"><span class="ds-checkbox" />Filter option 5</li>
+                    <li class="ds-dropdown__item"><span class="ds-checkbox ds-checkbox--checked"><span v-html="IconCheck" /></span>Filter option 6</li>
+                    <li class="ds-dropdown__item"><span class="ds-checkbox" />Filter option 7</li>
+                  </ul>
+                  <div class="ds-dropdown__footer">
+                    <AppButton variant="primary" size="sm" style="width:100%">Apply changes</AppButton>
+                  </div>
                 </div>
               </div>
-            </div>
-            <AppButton variant="tertiary" size="sm">
-              Filter label
-              <template #icon-right><span v-html="IconChevron" /></template>
-            </AppButton>
+              <AppButton variant="tertiary" size="sm" style="align-self: flex-start">
+                Filter label
+                <template #icon-right><span v-html="IconChevron" /></template>
+              </AppButton>
             </div><!-- end .ds-filterbar -->
           </div><!-- end .ds-mock-row -->
         </div><!-- end .ds-mock -->
@@ -289,11 +288,20 @@ const IconChevronDown  = `<svg width="12" height="12" viewBox="0 0 12 12" fill="
           also does not require additional approval.
         </p>
         <div class="ds-mock ds-mock--col">
-          <!-- Row 1 -->
+          <!-- Single row: [search] [chip container inline] [filter buttons right] -->
           <div class="ds-mock-row">
             <div class="ds-search">
               <span class="ds-search__icon" v-html="IconSearch" />
               <input class="ds-search__input" type="text" placeholder="Search" readonly />
+            </div>
+            <!-- Chip container inline between search and filter buttons -->
+            <div v-if="state3chips.length" class="ds-chip-container">
+              <button class="ds-clear-icon" @click="resetState3" title="Clear all filters">
+                <span class="ds-clear-icon__default" v-html="IconFilter" />
+                <span class="ds-clear-icon__hover" v-html="IconX" />
+                <span class="ds-clear-icon__tooltip">Clear all filters</span>
+              </button>
+              <AppTag v-for="c in state3chips" :key="c" type="neutral-outline" :dismissible="true" @dismiss="removeState3(c)">{{ c }}</AppTag>
             </div>
             <div class="ds-filterbar">
               <AppButton variant="tertiary" size="sm" v-for="n in 3" :key="n">
@@ -302,16 +310,7 @@ const IconChevronDown  = `<svg width="12" height="12" viewBox="0 0 12 12" fill="
               </AppButton>
             </div>
           </div>
-          <!-- Row 2: chip strip -->
-          <div v-if="state3chips.length" class="ds-chip-strip">
-            <button class="ds-clear-icon" @click="resetState3" title="Clear all filters">
-              <span class="ds-clear-icon__default" v-html="IconFilter" />
-              <span class="ds-clear-icon__hover" v-html="IconX" />
-              <span class="ds-clear-icon__tooltip">Clear all filters</span>
-            </button>
-            <AppTag v-for="c in state3chips" :key="c" type="neutral-outline" :dismissible="true" @dismiss="removeState3(c)">{{ c }}</AppTag>
-          </div>
-          <div v-if="!state3chips.length" style="display:flex;align-items:center;gap:8px;padding:4px 0">
+          <div v-if="!state3chips.length" style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:#fff">
             <span style="font-size:12px;color:var(--grey-50);font-style:italic">All chips dismissed.</span>
             <AppButton variant="tertiary" size="sm" @click="resetState3">↺ Reset</AppButton>
           </div>
@@ -328,7 +327,7 @@ const IconChevronDown  = `<svg width="12" height="12" viewBox="0 0 12 12" fill="
       </p>
 
       <div class="ds-mock ds-mock--col">
-        <!-- Row 1 -->
+        <!-- Row 1: search + filter buttons -->
         <div class="ds-mock-row">
           <div class="ds-search">
             <span class="ds-search__icon" v-html="IconSearch" />
@@ -341,20 +340,22 @@ const IconChevronDown  = `<svg width="12" height="12" viewBox="0 0 12 12" fill="
             </AppButton>
           </div>
         </div>
-        <!-- Row 2: chip strip (wraps when full) -->
-        <div v-if="overflowChips.length" class="ds-chip-strip">
-          <button class="ds-clear-icon" @click="resetOverflow" title="Clear all filters">
-            <span class="ds-clear-icon__default" v-html="IconFilter" />
-            <span class="ds-clear-icon__hover" v-html="IconX" />
-            <span class="ds-clear-icon__tooltip">Clear all filters</span>
-          </button>
-          <AppTag
-            v-for="chip in overflowChips" :key="chip.key"
-            type="neutral-outline" :dismissible="true"
-            @dismiss="removeOverflow(chip.key)"
-          >{{ chip.label }}</AppTag>
+        <!-- Row 2: chip container — bg wraps only the chips, not the full row -->
+        <div v-if="overflowChips.length" class="ds-mock-chip-row">
+          <div class="ds-chip-container">
+            <button class="ds-clear-icon" @click="resetOverflow" title="Clear all filters">
+              <span class="ds-clear-icon__default" v-html="IconFilter" />
+              <span class="ds-clear-icon__hover" v-html="IconX" />
+              <span class="ds-clear-icon__tooltip">Clear all filters</span>
+            </button>
+            <AppTag
+              v-for="chip in overflowChips" :key="chip.key"
+              type="neutral-outline" :dismissible="true"
+              @dismiss="removeOverflow(chip.key)"
+            >{{ chip.label }}</AppTag>
+          </div>
         </div>
-        <div v-else style="display:flex;align-items:center;gap:8px;padding:4px 0">
+        <div v-if="!overflowChips.length" style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:#fff">
           <span style="font-size:12px;color:var(--grey-50);font-style:italic">All chips dismissed.</span>
           <AppButton variant="tertiary" size="sm" @click="resetOverflow">↺ Reset chips</AppButton>
         </div>
@@ -487,11 +488,10 @@ const IconChevronDown  = `<svg width="12" height="12" viewBox="0 0 12 12" fill="
 .ds-btn-icon-placeholder { display: inline-block; width: 12px; height: 12px; background: var(--grey-30); border-radius: 2px; }
 
 /* ── Toolbar ────────────────────────────────────────────────────── */
-/* Row 1: search left + filter buttons right (never wraps) */
+/* Row: [search] [chip container, auto width] [filter buttons, pinned right] */
 .ds-toolbar-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 8px;
   padding: 12px 20px;
   background: #fff;
@@ -525,6 +525,7 @@ const IconChevronDown  = `<svg width="12" height="12" viewBox="0 0 12 12" fill="
   align-items: center;
   gap: 6px;
   flex-shrink: 0;
+  margin-left: auto; /* always pins to the right */
 }
 .ds-filter-btn-wrap { position: relative; }
 
@@ -584,15 +585,27 @@ const IconChevronDown  = `<svg width="12" height="12" viewBox="0 0 12 12" fill="
 
 /* chips rendered by AppTag neutral-outline + dismissible — no custom CSS needed */
 
-/* ── Chip strip — row 2 below toolbar-row ───────────────────────── */
-.ds-chip-strip {
+/* ── Chip container — inline grey bubble, only wraps its content ─── */
+.ds-chip-container {
   display: flex;
-  align-items: center;
   flex-wrap: wrap;
+  align-items: center;
   gap: 6px;
-  padding: 8px 20px;
+  flex: 0 0 auto;          /* take only content width — no stretching */
   background: var(--grey-05);
-  border-bottom: 1px solid var(--grey-10);
+  border: 1px solid var(--grey-10);
+  border-radius: 6px;
+  padding: 3px 8px;
+}
+
+/* ── Overflow row — second row housing the chip container ──────────── */
+/* Row has white bg; only the chip container inside has grey bg */
+/* No border-top needed — ds-mock-row above already has border-bottom */
+.ds-mock-chip-row {
+  display: flex;
+  align-items: flex-start;
+  padding: 8px 12px;
+  background: #fff;
 }
 
 /* ── Clear-all icon: filter lines → × on hover ──────────────────── */
@@ -601,12 +614,12 @@ const IconChevronDown  = `<svg width="12" height="12" viewBox="0 0 12 12" fill="
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
   flex-shrink: 0;
   background: #fff;
   border: 1px solid var(--grey-20);
-  border-radius: 6px;
+  border-radius: 4px;
   color: var(--grey-60);
   cursor: pointer;
   transition: color 120ms, border-color 120ms, background 120ms;
@@ -676,20 +689,20 @@ const IconChevronDown  = `<svg width="12" height="12" viewBox="0 0 12 12" fill="
   overflow: hidden;
 }
 .ds-mock--col { display: flex; flex-direction: column; }
-/* Row 1 inside mock: search + filter buttons */
+/* Row inside mock: [search] [chip container?] [filter buttons right] */
 .ds-mock-row {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  align-items: center;
   gap: 8px;
   padding: 10px 12px;
   background: #fff;
   border-bottom: 1px solid var(--grey-10);
 }
-/* chip strip inside mock reuses .ds-chip-strip but with tighter padding */
-.ds-mock .ds-chip-strip { padding: 8px 12px; }
-/* reset/empty state padding inside mock */
-.ds-mock > div:last-child { padding: 8px 12px; }
+/* State 2 needs top-align because of the open static dropdown */
+.ds-mock-row--top { align-items: flex-start; }
+/* Also top-align items inside the filterbar itself — otherwise the plain buttons
+   center against the taller active-button+dropdown wrapper */
+.ds-mock-row--top .ds-filterbar { align-items: flex-start; }
 
 /* ── Interaction guidelines ─────────────────────────────────────── */
 .ds-guidelines {

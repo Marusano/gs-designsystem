@@ -81,6 +81,10 @@ const IconFilters    = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
             <span class="ds-sidebar__item-icon" v-html="IconTag" />
             Tag
           </button>
+        </div>
+
+        <div class="ds-sidebar__group">
+          <p class="ds-sidebar__group-label">Design blocks</p>
           <button @click="page = 'filters'" :class="['ds-sidebar__item', { active: page === 'filters' }]">
             <span class="ds-sidebar__item-icon" v-html="IconFilters" />
             Filters
