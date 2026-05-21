@@ -200,21 +200,21 @@ const IconBell  = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><
         <span class="ds-tg-head">On</span>
         <span class="ds-tg-head">Disabled</span>
 
-        <span class="ds-tg-size-label">S</span>
-        <div class="ds-toggle ds-toggle--s ds-toggle--off"><div class="ds-toggle__thumb"></div></div>
-        <div class="ds-toggle ds-toggle--s ds-toggle--on"><div class="ds-toggle__thumb"></div></div>
-        <div class="ds-toggle ds-toggle--s ds-toggle--disabled"><div class="ds-toggle__thumb ds-toggle__thumb--dim"></div></div>
+        <span class="ds-tg-size-label">sm</span>
+        <div class="ds-toggle ds-toggle--sm ds-toggle--off"><div class="ds-toggle__thumb"></div></div>
+        <div class="ds-toggle ds-toggle--sm ds-toggle--on"><div class="ds-toggle__thumb"></div></div>
+        <div class="ds-toggle ds-toggle--sm ds-toggle--disabled"><div class="ds-toggle__thumb ds-toggle__thumb--dim"></div></div>
 
-        <span class="ds-tg-size-label">M</span>
-        <div class="ds-toggle ds-toggle--m ds-toggle--off"><div class="ds-toggle__thumb ds-toggle__thumb--m"></div></div>
-        <div class="ds-toggle ds-toggle--m ds-toggle--on"><div class="ds-toggle__thumb ds-toggle__thumb--m"></div></div>
-        <div class="ds-toggle ds-toggle--m ds-toggle--disabled"><div class="ds-toggle__thumb ds-toggle__thumb--m ds-toggle__thumb--dim"></div></div>
+        <span class="ds-tg-size-label">md</span>
+        <div class="ds-toggle ds-toggle--md ds-toggle--off"><div class="ds-toggle__thumb ds-toggle__thumb--md"></div></div>
+        <div class="ds-toggle ds-toggle--md ds-toggle--on"><div class="ds-toggle__thumb ds-toggle__thumb--md"></div></div>
+        <div class="ds-toggle ds-toggle--md ds-toggle--disabled"><div class="ds-toggle__thumb ds-toggle__thumb--md ds-toggle__thumb--dim"></div></div>
       </div>
 
       <!-- Size spec note -->
       <div class="ds-spec-note">
-        <div class="ds-spec-note__item"><strong>S track</strong> 36 × 20 px · thumb 20 × 20 px · border-radius 10px</div>
-        <div class="ds-spec-note__item"><strong>M track</strong> 36 × 20 px · thumb 16 × 16 px · border-radius 10px</div>
+        <div class="ds-spec-note__item"><strong>sm</strong> container 36 × 20 px · base (track) 36 × 14 px · thumb 20 × 20 px</div>
+        <div class="ds-spec-note__item"><strong>md</strong> container 36 × 20 px · base (track) 36 × 20 px · thumb 16 × 16 px</div>
       </div>
 
       <!-- Tokens -->
@@ -539,35 +539,51 @@ code {
   font-family: 'Roboto', sans-serif;
 }
 
-/* Track */
+/* Track wrapper — both sizes share base rules */
 .ds-toggle {
   position: relative;
   display: inline-block;
   height: 20px;
   border-radius: 10px;
   cursor: pointer;
-  transition: background 150ms;
   flex-shrink: 0;
 }
-.ds-toggle--off      { background: #d8d8da; }
-.ds-toggle--on       { background: #010028; }
-.ds-toggle--disabled { background: #e6e6e7; cursor: not-allowed; }
+.ds-toggle--disabled { cursor: not-allowed; }
 
-/* S: 36px wide, thumb 20×20 */
-.ds-toggle--s { width: 36px; }
-.ds-toggle--s .ds-toggle__thumb { width: 20px; height: 20px; }
-.ds-toggle--s.ds-toggle--off  .ds-toggle__thumb { left: 0; }
-.ds-toggle--s.ds-toggle--on   .ds-toggle__thumb { left: 16px; }  /* 36-20 */
-.ds-toggle--s.ds-toggle--disabled .ds-toggle__thumb { left: 0; }
+/* ── sm: 36px wide, base (track) 14px tall via ::before ── */
+/* container is transparent; ::before draws the 14px coloured track */
+.ds-toggle--sm { width: 36px; background: transparent; }
+.ds-toggle--sm::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  top: 3px; bottom: 3px;   /* 20px - 3 - 3 = 14px */
+  border-radius: 7px;
+  transition: background 150ms;
+}
+.ds-toggle--sm.ds-toggle--off::before      { background: #d8d8da; }
+.ds-toggle--sm.ds-toggle--on::before       { background: #010028; }
+.ds-toggle--sm.ds-toggle--disabled::before { background: #e6e6e7; }
 
-/* M: 36px wide, thumb 16×16 */
-.ds-toggle--m { width: 36px; }
-.ds-toggle--m .ds-toggle__thumb { width: 16px; height: 16px; }
-.ds-toggle--m.ds-toggle--off  .ds-toggle__thumb { left: 2px; }
-.ds-toggle--m.ds-toggle--on   .ds-toggle__thumb { left: 18px; }  /* 36-16-2 */
-.ds-toggle--m.ds-toggle--disabled .ds-toggle__thumb { left: 2px; }
+/* sm thumb: 20×20 — overhangs the 14px track by 3px top & bottom */
+.ds-toggle--sm .ds-toggle__thumb            { width: 20px; height: 20px; }
+.ds-toggle--sm.ds-toggle--off  .ds-toggle__thumb { left: 0; }
+.ds-toggle--sm.ds-toggle--on   .ds-toggle__thumb { left: 16px; }   /* 36-20 */
+.ds-toggle--sm.ds-toggle--disabled .ds-toggle__thumb { left: 0; }
 
-/* Thumb */
+/* ── md: 36px wide, base (track) full 20px ── */
+.ds-toggle--md { width: 36px; }
+.ds-toggle--md.ds-toggle--off      { background: #d8d8da; }
+.ds-toggle--md.ds-toggle--on       { background: #010028; }
+.ds-toggle--md.ds-toggle--disabled { background: #e6e6e7; }
+
+/* md thumb: 16×16 inset 2px from each edge */
+.ds-toggle__thumb--md               { width: 16px; height: 16px; }
+.ds-toggle--md.ds-toggle--off  .ds-toggle__thumb { left: 2px; }
+.ds-toggle--md.ds-toggle--on   .ds-toggle__thumb { left: 18px; }   /* 36-16-2 */
+.ds-toggle--md.ds-toggle--disabled .ds-toggle__thumb { left: 2px; }
+
+/* Thumb base */
 .ds-toggle__thumb {
   position: absolute;
   top: 50%;
@@ -576,6 +592,7 @@ code {
   background: #fff;
   box-shadow: 0 1px 4px rgba(0,0,0,.22);
   transition: left 150ms;
+  z-index: 1;   /* sit above ::before track */
 }
 .ds-toggle__thumb--dim { background: #f0f0f1; box-shadow: none; }
 
