@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue'
+import AppButton from '../components/ui/AppButton.vue'
 
 /* ── Filter definitions ───────────────────────────────────────── */
 const FILTER_DEFS = [
@@ -138,18 +139,16 @@ const IconCheck   = `<svg width="10" height="10" viewBox="0 0 10 10" fill="none"
               :key="fd.key"
               class="ds-filter-btn-wrap"
             >
-              <button
-                class="ds-filter-btn"
-                :class="{
-                  'ds-filter-btn--active':  filterCount(fd.key) > 0,
-                  'ds-filter-btn--open':    openDropdown === fd.key
-                }"
+              <AppButton
+                variant="tertiary"
+                size="sm"
+                :class="{ 'ds-filter-btn--active': filterCount(fd.key) > 0 || openDropdown === fd.key }"
                 @click="openFilter(fd.key)"
               >
                 {{ fd.label }}
                 <span v-if="filterCount(fd.key)" class="ds-filter-btn__badge">{{ filterCount(fd.key) }}</span>
-                <span class="ds-filter-btn__chevron" v-html="IconChevron" />
-              </button>
+                <template #icon-right><span v-html="IconChevron" /></template>
+              </AppButton>
 
               <!-- Dropdown panel -->
               <div v-if="openDropdown === fd.key" class="ds-dropdown">
@@ -170,16 +169,16 @@ const IconCheck   = `<svg width="10" height="10" viewBox="0 0 10 10" fill="none"
                   </li>
                 </ul>
                 <div class="ds-dropdown__footer">
-                  <button class="ds-btn-apply" @click="applyChanges">Apply changes</button>
+                  <AppButton variant="primary" size="sm" style="width:100%" @click="applyChanges">Apply changes</AppButton>
                 </div>
               </div>
             </div>
 
             <!-- Clear all — only when filters active -->
-            <button v-if="hasFilters" class="ds-clear-btn" @click="clearAll">
-              <span v-html="IconFilter" />
+            <AppButton v-if="hasFilters" variant="quiet" size="sm" @click="clearAll">
+              <template #icon-left><span v-html="IconFilter" /></template>
               Clear all
-            </button>
+            </AppButton>
           </div>
         </div>
 
@@ -294,7 +293,9 @@ const IconCheck   = `<svg width="10" height="10" viewBox="0 0 10 10" fill="none"
           </div>
         </div>
         <p v-else class="ds-body" style="color:var(--grey-50);font-style:italic">All chips dismissed.</p>
-        <button class="ds-reset-btn" @click="resetOverflow">↺ Reset chips</button>
+        <div style="padding: 0 20px 16px">
+          <AppButton variant="tertiary" size="sm" @click="resetOverflow">↺ Reset chips</AppButton>
+        </div>
       </div>
     </section>
 
@@ -584,31 +585,15 @@ const IconCheck   = `<svg width="10" height="10" viewBox="0 0 10 10" fill="none"
 }
 .ds-filter-btn-wrap { position: relative; }
 
-.ds-filter-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  height: 32px;
-  padding: 0 10px;
-  font-size: 13px;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 400;
-  color: var(--grey-70);
-  background: #fff;
-  border: 1px solid var(--grey-30, #c0c2c6);
-  border-radius: 6px;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: border-color 120ms, background 120ms, color 120ms;
-}
-.ds-filter-btn:hover { border-color: var(--grey-50); color: var(--grey-90); }
-
-.ds-filter-btn--active,
-.ds-filter-btn--open {
-  border: 1.5px solid #138bc3;
+/* Active/open state override on top of AppButton tertiary */
+.ds-filter-btn--active.btn--tertiary {
+  box-shadow: inset 0 0 0 1.5px #138bc3;
   background: #e8f5ff;
   color: #0369a1;
   font-weight: 500;
+}
+.ds-filter-btn--active.btn--tertiary:hover {
+  background: #d4edf9;
 }
 
 .ds-filter-btn__badge {
@@ -623,12 +608,6 @@ const IconCheck   = `<svg width="10" height="10" viewBox="0 0 10 10" fill="none"
   font-size: 10px;
   font-weight: 700;
   border-radius: 8px;
-}
-.ds-filter-btn__chevron {
-  display: flex;
-  align-items: center;
-  color: currentColor;
-  opacity: .7;
 }
 
 /* ── Dropdown ───────────────────────────────────────────────────── */
@@ -684,40 +663,6 @@ const IconCheck   = `<svg width="10" height="10" viewBox="0 0 10 10" fill="none"
   border-top: 1px solid var(--grey-10);
   padding: 8px 12px;
 }
-.ds-btn-apply {
-  width: 100%;
-  height: 30px;
-  background: #138bc3;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: 500;
-  font-family: 'Roboto', sans-serif;
-  cursor: pointer;
-  transition: background 120ms;
-}
-.ds-btn-apply:hover { background: #0369a1; }
-
-/* ── Clear all ──────────────────────────────────────────────────── */
-.ds-clear-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  height: 32px;
-  padding: 0 10px;
-  font-size: 12px;
-  font-weight: 500;
-  font-family: 'Roboto', sans-serif;
-  color: var(--grey-60);
-  background: none;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-left: 2px;
-  transition: color 100ms, background 100ms;
-}
-.ds-clear-btn:hover { color: var(--grey-90); background: var(--grey-05); }
 
 /* ── Chip strip ─────────────────────────────────────────────────── */
 .ds-chip-strip {
@@ -832,21 +777,8 @@ const IconCheck   = `<svg width="10" height="10" viewBox="0 0 10 10" fill="none"
 .ds-state-table__label strong { display: block; font-size: 13px; font-weight: 600; color: var(--grey-90); margin-bottom: 3px; }
 .ds-state-table__label span   { display: block; font-size: 12px; color: var(--grey-60); line-height: 1.4; }
 
-/* ── Overflow demo reset ────────────────────────────────────────── */
+/* ── Overflow demo ──────────────────────────────────────────────── */
 .ds-chip-strip--overflow { padding: 16px 20px; border-bottom: none; }
-.ds-reset-btn {
-  font-size: 12px;
-  font-family: 'Roboto', sans-serif;
-  color: var(--grey-70);
-  background: none;
-  border: 1px solid var(--grey-20);
-  border-radius: 4px;
-  padding: 5px 12px;
-  cursor: pointer;
-  margin: 0 20px 16px;
-  transition: background 100ms, border-color 100ms;
-}
-.ds-reset-btn:hover { background: var(--grey-05); border-color: var(--grey-40); }
 
 /* ── Guidelines ─────────────────────────────────────────────────── */
 .ds-guidelines-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
