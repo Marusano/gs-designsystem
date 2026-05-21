@@ -679,7 +679,7 @@ const IconChevronDown  = `<svg width="12" height="12" viewBox="0 0 12 12" fill="
 /* Row 1 inside mock: search + filter buttons */
 .ds-mock-row {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 8px;
   padding: 10px 12px;
