@@ -6,8 +6,12 @@ import IconsPage      from './pages/IconsPage.vue'
 import TypographyPage from './pages/TypographyPage.vue'
 import FormsPage      from './pages/FormsPage.vue'
 import TagsPage       from './pages/TagsPage.vue'
-import ElementsPage   from './pages/ElementsPage.vue'
+import CheckboxPage   from './pages/CheckboxPage.vue'
+import RadioButtonPage from './pages/RadioButtonPage.vue'
+import TogglePage     from './pages/TogglePage.vue'
+import NotificationBubblePage from './pages/NotificationBubblePage.vue'
 import FiltersPage    from './pages/FiltersPage.vue'
+import MenuPage      from './pages/MenuPage.vue'
 
 const page = ref('buttons')
 
@@ -17,8 +21,12 @@ const IconButton     = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
 const IconTypography = `<svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M1 2.5h5v1.25H4.25v7H2.75v-7H1V2.5zm6 3h4v1H9.75v4H8.25v-4H7V5.5z"/></svg>`
 const IconForms      = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="3" width="12" height="3" rx="1" stroke="currentColor" stroke-width="1.1"/><rect x="1" y="8" width="12" height="3" rx="1" stroke="currentColor" stroke-width="1.1"/></svg>`
 const IconTag        = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1.5 1.5h5l5.5 5.5-5 5L1.5 6.5v-5z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/><circle cx="4.5" cy="4.5" r="1" fill="currentColor"/></svg>`
-const IconElements   = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.1"/><rect x="8" y="1" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.1"/><rect x="1" y="8" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.1"/><circle cx="10.5" cy="10.5" r="2.5" stroke="currentColor" stroke-width="1.1"/></svg>`
+const IconCheckbox   = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="10" height="10" rx="2" stroke="currentColor" stroke-width="1.1"/><path d="M4.5 7l2 2 3-4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+const IconRadio      = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.1"/><circle cx="7" cy="7" r="2" fill="currentColor"/></svg>`
+const IconToggle     = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="4" width="12" height="6" rx="3" stroke="currentColor" stroke-width="1.1"/><circle cx="9.5" cy="7" r="2" fill="currentColor"/></svg>`
+const IconBell       = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M13.73 21a2 2 0 0 1-3.46 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`
 const IconFilters    = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1.5 3.5h11M4 7h6M6 10.5h2" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>`
+const IconMenu       = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1.5" y="2.5" width="11" height="9" rx="1.5" stroke="currentColor" stroke-width="1.1"/><path d="M4 5.5h6M4 8.5h4" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>`
 </script>
 
 <template>
@@ -83,9 +91,21 @@ const IconFilters    = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
             <span class="ds-sidebar__item-icon" v-html="IconTag" />
             Tag
           </button>
-          <button @click="page = 'elements'" :class="['ds-sidebar__item', { active: page === 'elements' }]">
-            <span class="ds-sidebar__item-icon" v-html="IconElements" />
-            Elements
+          <button @click="page = 'checkbox'" :class="['ds-sidebar__item', { active: page === 'checkbox' }]">
+            <span class="ds-sidebar__item-icon" v-html="IconCheckbox" />
+            Checkbox
+          </button>
+          <button @click="page = 'radio'" :class="['ds-sidebar__item', { active: page === 'radio' }]">
+            <span class="ds-sidebar__item-icon" v-html="IconRadio" />
+            Radio button
+          </button>
+          <button @click="page = 'toggle'" :class="['ds-sidebar__item', { active: page === 'toggle' }]">
+            <span class="ds-sidebar__item-icon" v-html="IconToggle" />
+            Toggle
+          </button>
+          <button @click="page = 'notifications'" :class="['ds-sidebar__item', { active: page === 'notifications' }]">
+            <span class="ds-sidebar__item-icon" v-html="IconBell" />
+            Notification bubble
           </button>
         </div>
 
@@ -94,6 +114,10 @@ const IconFilters    = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
           <button @click="page = 'filters'" :class="['ds-sidebar__item', { active: page === 'filters' }]">
             <span class="ds-sidebar__item-icon" v-html="IconFilters" />
             Filters
+          </button>
+          <button @click="page = 'menu'" :class="['ds-sidebar__item', { active: page === 'menu' }]">
+            <span class="ds-sidebar__item-icon" v-html="IconMenu" />
+            Menu
           </button>
         </div>
       </aside>
@@ -105,8 +129,12 @@ const IconFilters    = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
         <TypographyPage v-if="page === 'typography'" />
         <IconsPage      v-if="page === 'icons'" />
         <TagsPage       v-if="page === 'tags'" />
-        <ElementsPage   v-if="page === 'elements'" />
+        <CheckboxPage   v-if="page === 'checkbox'" />
+        <RadioButtonPage v-if="page === 'radio'" />
+        <TogglePage     v-if="page === 'toggle'" />
+        <NotificationBubblePage v-if="page === 'notifications'" />
         <FiltersPage    v-if="page === 'filters'" />
+        <MenuPage       v-if="page === 'menu'" />
       </div>
 
     </div>
