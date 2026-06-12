@@ -134,7 +134,7 @@ const IconMenu       = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
         <TogglePage     v-if="page === 'toggle'" />
         <NotificationBubblePage v-if="page === 'notifications'" />
         <FiltersPage    v-if="page === 'filters'" />
-        <MenuPage       v-if="page === 'menu'" />
+        <MenuPage       v-if="page === 'menu'" @navigate="page = $event" />
       </div>
 
     </div>

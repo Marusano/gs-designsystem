@@ -1,6 +1,9 @@
 <script setup>
 import { ref } from 'vue'
 import AppButton from '../components/ui/AppButton.vue'
+import AppTag from '../components/ui/AppTag.vue'
+
+defineEmits(['navigate'])
 
 /* ── Interactive optional-menu demo ──────────────────── */
 const demoOpen   = ref(false)
@@ -8,16 +11,20 @@ const demoSel    = ref(null)
 function pickOption(opt) { demoSel.value = opt; demoOpen.value = false }
 
 /* ── Multi-select demo ───────────────────────────────── */
-const multiSel   = ref([])
-const multiOpen  = ref(false)
-const MULTI_OPTS = ['Option 1','Option 2','Option 3','Option 4','Option 5']
+const multiSel     = ref([])
+const multiOpen    = ref(false)
+const appliedMulti = ref([])
+const MULTI_OPTS   = ['Option 1','Option 2','Option 3','Option 4','Option 5']
 function toggleMulti(o) {
   const i = multiSel.value.indexOf(o)
   if (i === -1) multiSel.value.push(o)
   else multiSel.value.splice(i, 1)
 }
-function applyMulti() { multiOpen.value = false }
-function cancelMulti() { multiSel.value = []; multiOpen.value = false }
+function applyMulti() { appliedMulti.value = [...multiSel.value]; multiOpen.value = false }
+function removeApplied(o) {
+  appliedMulti.value = appliedMulti.value.filter(x => x !== o)
+  multiSel.value     = multiSel.value.filter(x => x !== o)
+}
 
 /* ── Account menu variant selector ──────────────────── */
 const accountTab = ref('default')
@@ -26,7 +33,6 @@ const accountTab = ref('default')
 const IconChevronRight = `<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 3l3 3-3 3" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>`
 const IconCheck        = `<svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l4 4 6-8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`
 const IconPlaceholder  = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" fill="#9c9ea3"/></svg>`
-const IconMoreDots     = `<svg width="4" height="16" viewBox="0 0 4 16" fill="none"><circle cx="2" cy="2.5" r="1.5" fill="currentColor"/><circle cx="2" cy="8" r="1.5" fill="currentColor"/><circle cx="2" cy="13.5" r="1.5" fill="currentColor"/></svg>`
 const IconUser         = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5.5" r="2.5" stroke="currentColor" stroke-width="1.25"/><path d="M3 13c0-2.76 2.24-5 5-5s5 2.24 5 5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>`
 const IconSend         = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M14 2L2 7l5 2 2 5 5-12z" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>`
 const IconLogout       = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 11v2.5H2V2.5h8V5M7 8h7M14 8l-2-2M14 8l-2 2" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>`
@@ -216,8 +222,8 @@ const IconChevronDown  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="
         <div class="ds-demo-area">
           <div class="ds-demo-trigger-wrap">
             <AppButton variant="tertiary" size="sm" @click="demoOpen = !demoOpen">
-              <template #icon-right><span v-html="IconMoreDots" /></template>
-              Actions
+              <template #icon-right><span v-html="IconChevronDown" /></template>
+              Bulk actions
             </AppButton>
             <div v-if="demoOpen" class="ds-menu ds-menu--positioned">
               <div class="ds-menu-item ds-menu-item--icon-left" @click="pickOption('edit')">
@@ -336,14 +342,23 @@ const IconChevronDown  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="
                   {{ opt }}
                 </div>
               </div>
-              <div class="ds-menu__footer ds-menu__footer--two">
-                <AppButton variant="secondary" size="sm" @click="cancelMulti">Cancel</AppButton>
-                <AppButton variant="primary" size="sm" style="flex:1" @click="applyMulti">Apply</AppButton>
+              <div class="ds-menu__footer">
+                <AppButton variant="primary" size="sm" style="width:100%" @click="applyMulti">Apply</AppButton>
               </div>
             </div>
           </div>
-          <p v-if="multiSel.length" class="ds-demo-feedback">Selected: <strong>{{ multiSel.join(', ') }}</strong></p>
+          <div v-if="appliedMulti.length" class="ds-demo-feedback ds-demo-feedback--chips">
+            <span>Selected:</span>
+            <div class="ds-chip-container">
+              <AppTag
+                v-for="opt in appliedMulti" :key="opt"
+                type="neutral-outline" :dismissible="true"
+                @dismiss="removeApplied(opt)"
+              >{{ opt }}</AppTag>
+            </div>
+          </div>
         </div>
+        <a href="#" class="ds-demo-link" @click.prevent="$emit('navigate', 'filters')">Take me to filters design block</a>
       </div>
     </section>
 
@@ -765,6 +780,37 @@ const IconChevronDown  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="
   font-family: 'Roboto', sans-serif;
 }
 .ds-demo-feedback strong { color: var(--grey-90); }
+.ds-demo-feedback--chips {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Chip container — matches Filters page pattern */
+.ds-chip-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+  background: var(--grey-05);
+  border: 1px solid var(--grey-10);
+  border-radius: 6px;
+  padding: 3px 8px;
+}
+
+/* Link to another design block */
+.ds-demo-link {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--color-accent-main);
+  text-decoration: underline;
+  font-family: 'Roboto', sans-serif;
+  cursor: pointer;
+}
+.ds-demo-link:hover { color: var(--color-accent-hover); }
 
 /* ── Tab selector (account variants) ────────────────────────── */
 .ds-tab-row {
