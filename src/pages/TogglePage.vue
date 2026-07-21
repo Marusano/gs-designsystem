@@ -84,7 +84,7 @@
 .ds-body { font-size: 14px; color: var(--grey-70); line-height: 1.6; }
 
 code {
-  font-family: 'Roboto Mono', 'Courier New', monospace;
+  font-family: 'Fira Code', 'Courier New', monospace;
   font-size: 12px;
   background: var(--grey-05);
   border: 1px solid var(--grey-10);
@@ -109,7 +109,7 @@ code {
   border-bottom: 1px solid var(--grey-10);
   font-size: 13px;
   color: var(--grey-70);
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 .ds-token-row:last-child { border-bottom: none; }
 .ds-token-row--head {
@@ -147,13 +147,13 @@ code {
   color: var(--grey-50);
   text-transform: uppercase;
   letter-spacing: .06em;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 .ds-tg-size-label {
   font-size: 12px;
   font-weight: 600;
   color: var(--grey-60);
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 /* Track wrapper — both sizes share base rules */
@@ -224,7 +224,7 @@ code {
   border-radius: 6px;
   font-size: 13px;
   color: var(--grey-60);
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 .ds-spec-note__item strong { color: var(--grey-80); font-weight: 600; margin-right: 4px; }
 

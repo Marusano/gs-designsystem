@@ -469,7 +469,7 @@ const IconChevronDown  = `<svg width="12" height="12" viewBox="0 0 12 12" fill="
   height: 32px; padding: 0 10px;
   background: none; border: 1px solid var(--grey-20);
   border-radius: 6px; font-size: 13px; color: var(--grey-80);
-  font-family: 'Roboto', sans-serif; cursor: pointer;
+  font-family: 'Inter', sans-serif; cursor: pointer;
 }
 
 /* ── Page header ────────────────────────────────────────────────── */
@@ -515,7 +515,7 @@ const IconChevronDown  = `<svg width="12" height="12" viewBox="0 0 12 12" fill="
 .ds-search__input {
   border: none; outline: none;
   font-size: 13px; color: var(--grey-70);
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
   background: transparent; width: 140px;
 }
 

@@ -216,7 +216,7 @@ function makePointerSvg(type, { pointer = 'no', activity = null, number = 12 } =
   const innerR = 10.4
   let content = ''
   if (pointer === 'yes-number')
-    content = `<text x="16" y="20.5" text-anchor="middle" font-size="11" font-weight="700" fill="${type.fg}" font-family="Roboto,sans-serif">${number}</text>`
+    content = `<text x="16" y="20.5" text-anchor="middle" font-size="11" font-weight="700" fill="${type.fg}" font-family="Inter,sans-serif">${number}</text>`
   else if (pointer === 'yes-symbol' && activity)
     content = activityContent(activity, type.fg)
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32"><circle cx="16" cy="16" r="13" fill="${type.outerFill}"/><circle cx="16" cy="16" r="${innerR}" fill="${type.innerFill}"/>${content}</svg>`
@@ -372,7 +372,7 @@ const totalCount = GROUPS.reduce((sum, g) => sum + g.icons.length, 0)
                 style="filter:drop-shadow(0 2px 8px rgba(54,56,59,0.28))">
                 <circle cx="16" cy="16" r="13" fill="#ffffff"/>
                 <circle cx="16" cy="16" r="10.4" fill="#247a31"/>
-                <text x="16" y="20.5" text-anchor="middle" font-size="11" font-weight="700" fill="white" font-family="Roboto,sans-serif">12</text>
+                <text x="16" y="20.5" text-anchor="middle" font-size="11" font-weight="700" fill="white" font-family="Inter,sans-serif">12</text>
               </svg>
               <span class="mp-copied-badge">Copied!</span>
             </button>
@@ -447,7 +447,7 @@ const totalCount = GROUPS.reduce((sum, g) => sum + g.icons.length, 0)
                 style="filter:drop-shadow(0 2px 8px rgba(54,56,59,0.28))">
                 <circle cx="16" cy="16" r="13" fill="#ffffff"/>
                 <circle cx="16" cy="16" r="10.4" fill="#075985"/>
-                <text x="16" y="20.5" text-anchor="middle" font-size="11" font-weight="700" fill="white" font-family="Roboto,sans-serif">12</text>
+                <text x="16" y="20.5" text-anchor="middle" font-size="11" font-weight="700" fill="white" font-family="Inter,sans-serif">12</text>
               </svg>
               <span class="mp-copied-badge">Copied!</span>
             </button>
@@ -507,7 +507,7 @@ const totalCount = GROUPS.reduce((sum, g) => sum + g.icons.length, 0)
                 style="filter:drop-shadow(0 2px 8px rgba(54,56,59,0.28))">
                 <circle cx="16" cy="16" r="13" fill="#ffffff"/>
                 <circle cx="16" cy="16" r="10.4" fill="#61bde9"/>
-                <text x="16" y="20.5" text-anchor="middle" font-size="11" font-weight="700" fill="white" font-family="Roboto,sans-serif">12</text>
+                <text x="16" y="20.5" text-anchor="middle" font-size="11" font-weight="700" fill="white" font-family="Inter,sans-serif">12</text>
               </svg>
               <span class="mp-copied-badge">Copied!</span>
             </button>
@@ -566,7 +566,7 @@ const totalCount = GROUPS.reduce((sum, g) => sum + g.icons.length, 0)
                 style="filter:drop-shadow(0 2px 8px rgba(54,56,59,0.28))">
                 <circle cx="16" cy="16" r="13" fill="#ffffff"/>
                 <circle cx="16" cy="16" r="10.4" fill="#bea3fd"/>
-                <text x="16" y="20.5" text-anchor="middle" font-size="11" font-weight="700" fill="#553698" font-family="Roboto,sans-serif">12</text>
+                <text x="16" y="20.5" text-anchor="middle" font-size="11" font-weight="700" fill="#553698" font-family="Inter,sans-serif">12</text>
               </svg>
               <span class="mp-copied-badge">Copied!</span>
             </button>
@@ -625,7 +625,7 @@ const totalCount = GROUPS.reduce((sum, g) => sum + g.icons.length, 0)
                 style="filter:drop-shadow(0 2px 8px rgba(54,56,59,0.28))">
                 <circle cx="16" cy="16" r="13" fill="#ffffff"/>
                 <circle cx="16" cy="16" r="10.4" fill="#9c9ea3"/>
-                <text x="16" y="20.5" text-anchor="middle" font-size="11" font-weight="700" fill="white" font-family="Roboto,sans-serif">12</text>
+                <text x="16" y="20.5" text-anchor="middle" font-size="11" font-weight="700" fill="white" font-family="Inter,sans-serif">12</text>
               </svg>
               <span class="mp-copied-badge">Copied!</span>
             </button>
@@ -684,7 +684,7 @@ const totalCount = GROUPS.reduce((sum, g) => sum + g.icons.length, 0)
                 style="filter:drop-shadow(0 2px 8px rgba(54,56,59,0.28))">
                 <circle cx="16" cy="16" r="13" fill="#36383b"/>
                 <circle cx="16" cy="16" r="10.4" fill="#ffffff"/>
-                <text x="16" y="20.5" text-anchor="middle" font-size="11" font-weight="700" fill="#36383b" font-family="Roboto,sans-serif">12</text>
+                <text x="16" y="20.5" text-anchor="middle" font-size="11" font-weight="700" fill="#36383b" font-family="Inter,sans-serif">12</text>
               </svg>
               <span class="mp-copied-badge">Copied!</span>
             </button>
@@ -722,7 +722,7 @@ const totalCount = GROUPS.reduce((sum, g) => sum + g.icons.length, 0)
                 style="filter:drop-shadow(0 2px 8px rgba(54,56,59,0.28))">
                 <circle cx="16" cy="16" r="13" fill="#dc2626"/>
                 <circle cx="16" cy="16" r="10.4" fill="#ffffff"/>
-                <text x="16" y="20.5" text-anchor="middle" font-size="11" font-weight="700" fill="#dc2626" font-family="Roboto,sans-serif">12</text>
+                <text x="16" y="20.5" text-anchor="middle" font-size="11" font-weight="700" fill="#dc2626" font-family="Inter,sans-serif">12</text>
               </svg>
               <span class="mp-copied-badge">Copied!</span>
             </button>
@@ -782,7 +782,7 @@ const totalCount = GROUPS.reduce((sum, g) => sum + g.icons.length, 0)
                 style="filter:drop-shadow(0 2px 8px rgba(54,56,59,0.28))">
                 <circle cx="16" cy="16" r="13" fill="#9c9ea3"/>
                 <circle cx="16" cy="16" r="10.4" fill="#ffffff"/>
-                <text x="16" y="20.5" text-anchor="middle" font-size="11" font-weight="700" fill="#9c9ea3" font-family="Roboto,sans-serif">12</text>
+                <text x="16" y="20.5" text-anchor="middle" font-size="11" font-weight="700" fill="#9c9ea3" font-family="Inter,sans-serif">12</text>
               </svg>
               <span class="mp-copied-badge">Copied!</span>
             </button>
@@ -1006,7 +1006,7 @@ const totalCount = GROUPS.reduce((sum, g) => sum + g.icons.length, 0)
   border-radius: 8px;
   cursor: pointer;
   transition: background 120ms, border-color 120ms, transform 80ms;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
   overflow: hidden;
 }
 
@@ -1131,7 +1131,7 @@ const totalCount = GROUPS.reduce((sum, g) => sum + g.icons.length, 0)
   cursor: pointer;
   transition: background 120ms, border-color 120ms;
   overflow: hidden;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 .mp-type-card:hover {
@@ -1221,7 +1221,7 @@ const totalCount = GROUPS.reduce((sum, g) => sum + g.icons.length, 0)
   filter: drop-shadow(0 2px 5px rgba(54,56,59,0.18));
   transition: transform 80ms, filter 120ms, background 120ms;
   overflow: visible;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 .mp-icon-btn:hover {

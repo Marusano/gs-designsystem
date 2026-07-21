@@ -89,7 +89,7 @@ const SEVERITY_STYLES = [
           </div>
           <div class="typo-meta-row">
             <span class="typo-meta-label">Note</span>
-            <span class="typo-note-italic">Transitioning from Roboto to Inter</span>
+            <span class="typo-note-italic">Inter — primary typeface</span>
           </div>
         </div>
       </div>
@@ -409,7 +409,7 @@ const SEVERITY_STYLES = [
   flex-direction: column;
   gap: 48px;
   padding: 48px 40px 80px;
-  font-family: 'Inter', 'Roboto', sans-serif;
+  font-family: 'Inter', 'Inter', sans-serif;
 }
 
 /* ── Shared with other pages ────────────────────────────────── */

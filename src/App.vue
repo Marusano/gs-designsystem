@@ -219,7 +219,7 @@ const IconMenu       = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
   border: none;
   cursor: pointer;
   text-align: left;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
   transition: background 100ms, color 100ms;
   position: relative;
 }

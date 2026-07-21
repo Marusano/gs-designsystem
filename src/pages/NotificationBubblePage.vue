@@ -100,7 +100,7 @@ const IconBell = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><p
           <code class="ds-token-name">size</code>
           <div class="ds-swatch ds-swatch--none"></div>
           <code class="ds-token-val">24 × 24 px</code>
-          <span>Count bubble · border-radius 12px · Roboto SemiBold 14px</span>
+          <span>Count bubble · border-radius 12px · Inter SemiBold 14px</span>
         </div>
       </div>
     </section>
@@ -123,7 +123,7 @@ const IconBell = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><p
 .ds-body { font-size: 14px; color: var(--grey-70); line-height: 1.6; }
 
 code {
-  font-family: 'Roboto Mono', 'Courier New', monospace;
+  font-family: 'Fira Code', 'Courier New', monospace;
   font-size: 12px;
   background: var(--grey-05);
   border: 1px solid var(--grey-10);
@@ -152,7 +152,7 @@ code {
   font-size: 11px;
   color: var(--grey-50);
   white-space: nowrap;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 /* ── Example card ────────────────────────────────────────────── */
@@ -169,7 +169,7 @@ code {
   text-transform: uppercase;
   letter-spacing: .06em;
   margin-bottom: 16px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 /* ── Token table ─────────────────────────────────────────────── */
@@ -188,7 +188,7 @@ code {
   border-bottom: 1px solid var(--grey-10);
   font-size: 13px;
   color: var(--grey-70);
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 .ds-token-row:last-child { border-bottom: none; }
 .ds-token-row--head {
@@ -218,7 +218,7 @@ code {
   align-items: center;
   justify-content: center;
   padding: 0 5px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
@@ -289,7 +289,7 @@ code {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 /* ── Responsive ──────────────────────────────────────────────── */

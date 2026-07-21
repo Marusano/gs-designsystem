@@ -130,7 +130,7 @@ const classes = computed(() => ({
   width: 100%;
   height: var(--field-height, 40px);
   padding: var(--field-py, 8px) var(--field-px, 12px);
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: var(--field-font-size, 14px);
   font-weight: 400;
   line-height: var(--field-line-height, 16px);

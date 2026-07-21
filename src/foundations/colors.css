@@ -258,7 +258,7 @@
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
   background-color: var(--grey-05);
   color: var(--grey-90);
   -webkit-font-smoothing: antialiased;

@@ -94,7 +94,7 @@ const classes = computed(() => [
   justify-content: center;
   gap: 6px;
 
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: var(--btn-font-size);
   font-weight: var(--btn-font-weight);
   line-height: var(--btn-line-height);

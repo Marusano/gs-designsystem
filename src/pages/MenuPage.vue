@@ -603,7 +603,7 @@ const IconChevronDown  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="
   text-transform: uppercase;
   letter-spacing: .06em;
   margin-bottom: 14px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 /* ── Menu item ───────────────────────────────────────────────── */
@@ -615,7 +615,7 @@ const IconChevronDown  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="
   border-radius: 2px;
   font-size: 14px;
   color: #36383b;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
   cursor: pointer;
   gap: 0;
   flex-shrink: 0;
@@ -727,7 +727,7 @@ const IconChevronDown  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: .06em;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 /* Item row (inline, not in container) */
@@ -777,7 +777,7 @@ const IconChevronDown  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="
   font-size: 13px;
   color: var(--grey-70);
   padding-top: 6px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 .ds-demo-feedback strong { color: var(--grey-90); }
 .ds-demo-feedback--chips {
@@ -807,7 +807,7 @@ const IconChevronDown  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="
   font-size: 13px;
   color: var(--color-accent-main);
   text-decoration: underline;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
   cursor: pointer;
 }
 .ds-demo-link:hover { color: var(--color-accent-hover); }
@@ -826,7 +826,7 @@ const IconChevronDown  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="
   padding: 7px 16px;
   font-size: 13px;
   font-weight: 400;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
   color: var(--grey-60);
   background: none;
   border: none;
@@ -859,8 +859,8 @@ const IconChevronDown  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="
   padding: 14px 16px;
   background: var(--grey-05);
 }
-.ds-account-menu__name  { font-size: 14px; font-weight: 500; color: #36383b; font-family: 'Roboto', sans-serif; }
-.ds-account-menu__email { font-size: 13px; color: #6f7176; font-family: 'Roboto', sans-serif; }
+.ds-account-menu__name  { font-size: 14px; font-weight: 500; color: #36383b; font-family: 'Inter', sans-serif; }
+.ds-account-menu__email { font-size: 13px; color: #6f7176; font-family: 'Inter', sans-serif; }
 
 .ds-account-menu__body  { display: flex; flex-direction: column; padding: 4px; }
 .ds-account-menu__divider { height: 1px; background: #e6e6e7; flex-shrink: 0; }
@@ -876,10 +876,10 @@ const IconChevronDown  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="
   font-size: 14px;
   font-weight: 500;
   color: #5d6065;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
-.ds-account-menu__loginas-name  { font-size: 14px; color: #6f7176; font-family: 'Roboto', sans-serif; }
-.ds-account-menu__loginas-email { font-size: 12px; color: #6f7176; font-family: 'Roboto', sans-serif; }
+.ds-account-menu__loginas-name  { font-size: 14px; color: #6f7176; font-family: 'Inter', sans-serif; }
+.ds-account-menu__loginas-email { font-size: 12px; color: #6f7176; font-family: 'Inter', sans-serif; }
 
 /* context section */
 .ds-account-menu__context {
@@ -898,7 +898,7 @@ const IconChevronDown  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
   flex-shrink: 0;
 }
 .ds-account-menu__context-info {
@@ -911,13 +911,13 @@ const IconChevronDown  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="
   font-size: 12px;
   font-weight: 500;
   color: #6f7176;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
   letter-spacing: .03em;
 }
 .ds-account-menu__context-role {
   font-size: 14px;
   color: #6f7176;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 .ds-account-menu__context-chevron {
   display: flex;
@@ -942,7 +942,7 @@ const IconChevronDown  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="
   border-bottom: 1px solid var(--grey-10);
   font-size: 13px;
   color: var(--grey-70);
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 .ds-token-row:last-child { border-bottom: none; }
 .ds-token-row--head {
@@ -953,8 +953,8 @@ const IconChevronDown  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="
   letter-spacing: .06em;
   background: var(--grey-05);
 }
-.ds-token-name { font-family: 'Roboto Mono', monospace; font-size: 12px; color: var(--grey-80); }
-.ds-token-val  { font-family: 'Roboto Mono', monospace; font-size: 12px; color: var(--grey-60); }
+.ds-token-name { font-family: 'Fira Code', 'Courier New', monospace; font-size: 12px; color: var(--grey-80); }
+.ds-token-val  { font-family: 'Fira Code', 'Courier New', monospace; font-size: 12px; color: var(--grey-60); }
 .ds-swatch {
   width: 20px; height: 20px;
   border-radius: 4px;

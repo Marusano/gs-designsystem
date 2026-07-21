@@ -97,7 +97,7 @@
 .ds-body { font-size: 14px; color: var(--grey-70); line-height: 1.6; }
 
 code {
-  font-family: 'Roboto Mono', 'Courier New', monospace;
+  font-family: 'Fira Code', 'Courier New', monospace;
   font-size: 12px;
   background: var(--grey-05);
   border: 1px solid var(--grey-10);
@@ -126,7 +126,7 @@ code {
   font-size: 11px;
   color: var(--grey-50);
   white-space: nowrap;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 /* ── Example card ────────────────────────────────────────────── */
@@ -143,7 +143,7 @@ code {
   text-transform: uppercase;
   letter-spacing: .06em;
   margin-bottom: 16px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 /* ── Field list (radio rows) ─────────────────────────────────── */
@@ -154,7 +154,7 @@ code {
   gap: 8px;
   cursor: pointer;
 }
-.ds-field-text { font-size: 14px; color: var(--grey-80); font-family: 'Roboto', sans-serif; }
+.ds-field-text { font-size: 14px; color: var(--grey-80); font-family: 'Inter', sans-serif; }
 .ds-field-text--disabled { color: var(--grey-40); }
 
 /* ── Token table ─────────────────────────────────────────────── */
@@ -173,7 +173,7 @@ code {
   border-bottom: 1px solid var(--grey-10);
   font-size: 13px;
   color: var(--grey-70);
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 .ds-token-row:last-child { border-bottom: none; }
 .ds-token-row--head {

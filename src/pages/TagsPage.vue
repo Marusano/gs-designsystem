@@ -569,7 +569,7 @@ function resetFilters() {
 /* ── Dismissible demo ─────────────────────────────────────────────── */
 .ds-dismiss-demo { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
 .ds-reset-btn {
-  font-size: 12px; font-family: 'Roboto', sans-serif;
+  font-size: 12px; font-family: 'Inter', sans-serif;
   color: var(--grey-70); background: none; border: 1px solid var(--grey-20);
   border-radius: 4px; padding: 4px 10px; cursor: pointer;
   transition: background 100ms, border-color 100ms;
