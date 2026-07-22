@@ -12,11 +12,15 @@ import TogglePage     from './pages/TogglePage.vue'
 import NotificationBubblePage from './pages/NotificationBubblePage.vue'
 import FiltersPage    from './pages/FiltersPage.vue'
 import MenuPage      from './pages/MenuPage.vue'
-import ProcessPage   from './pages/ProcessPage.vue'
+import ProcessPage        from './pages/ProcessPage.vue'
+import PurposeStackPage  from './pages/PurposeStackPage.vue'
+import SizesPage         from './pages/SizesPage.vue'
 
 const page = ref('buttons')
 
-const IconProcess    = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="2.5" cy="7" r="1.5" stroke="currentColor" stroke-width="1.1"/><circle cx="7" cy="2.5" r="1.5" stroke="currentColor" stroke-width="1.1"/><circle cx="11.5" cy="7" r="1.5" stroke="currentColor" stroke-width="1.1"/><circle cx="7" cy="11.5" r="1.5" stroke="currentColor" stroke-width="1.1"/><path d="M4 2.5h1.5M8.5 2.5H10M2.5 5.5v-1.5M2.5 8.5v1.5M4 11.5h1.5M8.5 11.5H10M11.5 5.5v-1.5M11.5 8.5v1.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>`
+const IconPurposeStack = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.1"/><path d="M7 4v3.5l2 1.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+const IconProcess      = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="2.5" cy="7" r="1.5" stroke="currentColor" stroke-width="1.1"/><circle cx="7" cy="2.5" r="1.5" stroke="currentColor" stroke-width="1.1"/><circle cx="11.5" cy="7" r="1.5" stroke="currentColor" stroke-width="1.1"/><circle cx="7" cy="11.5" r="1.5" stroke="currentColor" stroke-width="1.1"/><path d="M4 2.5h1.5M8.5 2.5H10M2.5 5.5v-1.5M2.5 8.5v1.5M4 11.5h1.5M8.5 11.5H10M11.5 5.5v-1.5M11.5 8.5v1.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>`
+const IconSizes      = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1.5 7h11M7 1.5v11" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><path d="M1.5 4.5h3M1.5 9.5h3M9.5 4.5h3M9.5 9.5h3" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>`
 const IconColors     = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="4.5" cy="4.5" r="3" fill="#39ade3"/><circle cx="9.5" cy="4.5" r="3" fill="#f9c74f"/><circle cx="7" cy="9" r="3" fill="#64d074"/></svg>`
 const IconIcons      = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>`
 const IconButton     = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="4" width="12" height="6" rx="2" stroke="currentColor" stroke-width="1.25"/></svg>`
@@ -64,7 +68,11 @@ const IconMenu       = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
 
       <aside class="ds-sidebar">
         <div class="ds-sidebar__group">
-          <p class="ds-sidebar__group-label">Purpose &amp; Stack</p>
+          <p class="ds-sidebar__group-label">About</p>
+          <button @click="page = 'purpose-stack'" :class="['ds-sidebar__item', { active: page === 'purpose-stack' }]">
+            <span class="ds-sidebar__item-icon" v-html="IconPurposeStack" />
+            Purpose &amp; Stack
+          </button>
           <button @click="page = 'process'" :class="['ds-sidebar__item', { active: page === 'process' }]">
             <span class="ds-sidebar__item-icon" v-html="IconProcess" />
             Process
@@ -76,6 +84,10 @@ const IconMenu       = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
           <button @click="page = 'colors'" :class="['ds-sidebar__item', { active: page === 'colors' }]">
             <span class="ds-sidebar__item-icon" v-html="IconColors" />
             Colors
+          </button>
+          <button @click="page = 'sizes'" :class="['ds-sidebar__item', { active: page === 'sizes' }]">
+            <span class="ds-sidebar__item-icon" v-html="IconSizes" />
+            Sizes
           </button>
           <button @click="page = 'typography'" :class="['ds-sidebar__item', { active: page === 'typography' }]">
             <span class="ds-sidebar__item-icon" v-html="IconTypography" />
@@ -145,6 +157,8 @@ const IconMenu       = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
         <NotificationBubblePage v-if="page === 'notifications'" />
         <FiltersPage    v-if="page === 'filters'" />
         <MenuPage       v-if="page === 'menu'" @navigate="page = $event" />
+        <PurposeStackPage v-if="page === 'purpose-stack'" />
+        <SizesPage        v-if="page === 'sizes'" />
         <ProcessPage    v-if="page === 'process'" />
       </div>
 

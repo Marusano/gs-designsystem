@@ -73,6 +73,7 @@ const SearchIconAdd = `<svg width="16" height="16" viewBox="0 0 16 16" fill="non
     <section class="ds-section">
       <h1 class="ds-h1">Input / Forms</h1>
       <p class="ds-lead">3 components · 6 states · WCAG AA accessible</p>
+      <p class="ds-body">A unified field component for all text-based inputs. The label is always visible — no placeholder-only fields. Hint text provides additional context below the field; error messages replace it when validation fails. Use the correct input type to activate the right keyboard on mobile and enable browser autofill.</p>
     </section>
 
     <!-- ── Text Input states ────────────────────────────────── -->

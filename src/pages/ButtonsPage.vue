@@ -43,6 +43,7 @@ const IconX        = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none
     <section class="ds-section">
       <h1 class="ds-h1">Button</h1>
       <p class="ds-lead">5 variants · 4 sizes · 5 states · icon support</p>
+      <p class="ds-body">Buttons initiate actions. Choose a variant based on the action's prominence and consequence — only one primary button should appear per screen context.</p>
     </section>
 
     <!-- States matrix -->
