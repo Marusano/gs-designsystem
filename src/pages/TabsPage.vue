@@ -197,6 +197,7 @@ const demoTab3 = ref(0)
   display: flex;
   align-items: center;
   gap: 2px;
+  width: 100%;
 }
 
 .tb-tabs--contained {
@@ -228,7 +229,7 @@ const demoTab3 = ref(0)
 }
 
 .tb-tabs--borderless .tb-tab {
-  border-radius: 6px 6px 0 0;
+  border-radius: 0;
   border-bottom: 2px solid transparent;
   margin-bottom: -1px;
 }

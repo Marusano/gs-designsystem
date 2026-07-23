@@ -108,7 +108,7 @@
               <td>Critical</td>
               <td><span class="lg-dot lg-dot--critical"></span></td>
               <td>#fee2e2</td>
-              <td><code>—</code></td>
+              <td><code>--red-20</code></td>
             </tr>
             <tr>
               <td>Work</td>
@@ -193,7 +193,7 @@
 
 .lg-dot--normal     { background: #d1fae5; }
 .lg-dot--moderate   { background: #fef3c7; }
-.lg-dot--critical   { background: #fee2e2; }
+.lg-dot--critical   { background: var(--red-20); }
 .lg-dot--drive      { background: #247a31; }
 .lg-dot--other-work { background: #e0d7f8; }
 .lg-dot--rest       { background: #e6e6e7; }
