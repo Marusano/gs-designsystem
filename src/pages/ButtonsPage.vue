@@ -46,31 +46,6 @@ const IconX        = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none
       <p class="ds-body">Buttons initiate actions. Buttons are clickable elements that are used to trigger actions. They communicate calls to action to the user and allow users to interact with pages in a variety of ways. Button labels express what action will occur when the user interacts with it.</p>
     </section>
 
-    <!-- Usage -->
-    <section class="ds-section">
-      <h2 class="ds-h2">Usage</h2>
-      <div class="ds-usage-grid">
-        <div class="ds-usage-card ds-usage-card--do">
-          <p class="ds-usage-card__label ds-usage-card__label--do">Do</p>
-          <ul class="ds-usage-list">
-            <li>Use buttons to communicate actions users can take and to allow users to interact with the page.</li>
-            <li><strong>Use primary once per screen context.</strong> If two primary-weight actions exist, reconsider the hierarchy.</li>
-            <li><strong>Always pair secondary with a primary.</strong> "Cancel" alone on a page with no other CTA is a dead end.</li>
-            <li>Use buttons for actions only — not as navigational elements. Use links when the desired action is to take the user to a new page.</li>
-            <li>Choose a variant based on the action's prominence and consequence — only one primary button should appear per screen context.</li>
-          </ul>
-        </div>
-        <div class="ds-usage-card ds-usage-card--dont">
-          <p class="ds-usage-card__label ds-usage-card__label--dont">Don't</p>
-          <ul class="ds-usage-list">
-            <li><strong>Don't use danger for actions that can be undone</strong> — reserve it for permanent deletions or actions with strong consequences.</li>
-            <li><strong>Don't mix sizes within the same action group.</strong> Buttons that appear side-by-side should share a size.</li>
-            <li>Do not use buttons as navigational elements. Use links instead.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
     <!-- States matrix -->
     <section class="ds-section">
       <h2 class="ds-h2">States × Variants</h2>
@@ -458,6 +433,31 @@ const IconX        = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none
               <AppButton variant="primary"   size="md" disabled>Submit form</AppButton>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Usage -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Usage</h2>
+      <div class="ds-usage-grid">
+        <div class="ds-usage-card ds-usage-card--do">
+          <p class="ds-usage-card__label ds-usage-card__label--do">Do</p>
+          <ul class="ds-usage-list">
+            <li>Use buttons to communicate actions users can take and to allow users to interact with the page.</li>
+            <li><strong>Use primary once per screen context.</strong> If two primary-weight actions exist, reconsider the hierarchy.</li>
+            <li><strong>Always pair secondary with a primary.</strong> "Cancel" alone on a page with no other CTA is a dead end.</li>
+            <li>Use buttons for actions only — not as navigational elements. Use links when the desired action is to take the user to a new page.</li>
+            <li>Choose a variant based on the action's prominence and consequence — only one primary button should appear per screen context.</li>
+          </ul>
+        </div>
+        <div class="ds-usage-card ds-usage-card--dont">
+          <p class="ds-usage-card__label ds-usage-card__label--dont">Don't</p>
+          <ul class="ds-usage-list">
+            <li><strong>Don't use danger for actions that can be undone</strong> — reserve it for permanent deletions or actions with strong consequences.</li>
+            <li><strong>Don't mix sizes within the same action group.</strong> Buttons that appear side-by-side should share a size.</li>
+            <li>Do not use buttons as navigational elements. Use links instead.</li>
+          </ul>
         </div>
       </div>
     </section>

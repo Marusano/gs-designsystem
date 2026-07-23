@@ -17,6 +17,8 @@ import PurposeStackPage  from './pages/PurposeStackPage.vue'
 import SizesPage         from './pages/SizesPage.vue'
 import BreadcrumbsPage   from './pages/BreadcrumbsPage.vue'
 import TooltipPage       from './pages/TooltipPage.vue'
+import LegendPage        from './pages/LegendPage.vue'
+import TabsPage          from './pages/TabsPage.vue'
 
 const page = ref('buttons')
 
@@ -37,6 +39,8 @@ const IconFilters    = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
 const IconMenu       = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1.5" y="2.5" width="11" height="9" rx="1.5" stroke="currentColor" stroke-width="1.1"/><path d="M4 5.5h6M4 8.5h4" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>`
 const IconBreadcrumb = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1.5 7h3M5.5 7h3M9.5 7h3" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><path d="M4 5l2 2-2 2M8 5l2 2-2 2" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>`
 const IconTooltip    = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="3" width="12" height="7" rx="2" stroke="currentColor" stroke-width="1.1"/><path d="M5 11.5l2 1.5 2-1.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+const IconLegend     = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="4" width="3" height="3" rx="0.5" fill="currentColor" opacity="0.4"/><path d="M6 5.5h7" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><rect x="1" y="8" width="3" height="3" rx="0.5" fill="currentColor"/><path d="M6 9.5h7" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>`
+const IconTabs       = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="5" width="12" height="8" rx="1.5" stroke="currentColor" stroke-width="1.1"/><rect x="1" y="1" width="4" height="5" rx="1" fill="currentColor"/><rect x="6" y="2" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.1"/></svg>`
 </script>
 
 <template>
@@ -141,6 +145,14 @@ const IconTooltip    = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
             <span class="ds-sidebar__item-icon" v-html="IconTooltip" />
             Tooltip
           </button>
+          <button @click="page = 'legend'" :class="['ds-sidebar__item', { active: page === 'legend' }]">
+            <span class="ds-sidebar__item-icon" v-html="IconLegend" />
+            Legend
+          </button>
+          <button @click="page = 'tabs'" :class="['ds-sidebar__item', { active: page === 'tabs' }]">
+            <span class="ds-sidebar__item-icon" v-html="IconTabs" />
+            Tabs
+          </button>
         </div>
 
         <div class="ds-sidebar__group">
@@ -173,6 +185,8 @@ const IconTooltip    = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
         <SizesPage        v-if="page === 'sizes'" />
         <BreadcrumbsPage  v-if="page === 'breadcrumbs'" />
         <TooltipPage      v-if="page === 'tooltip'" />
+        <LegendPage       v-if="page === 'legend'" />
+        <TabsPage         v-if="page === 'tabs'" />
         <ProcessPage    v-if="page === 'process'" />
       </div>
 
