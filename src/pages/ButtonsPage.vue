@@ -42,17 +42,39 @@ const IconX        = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none
 
     <section class="ds-section">
       <h1 class="ds-h1">Button</h1>
-      <p class="ds-lead">5 variants · 4 sizes · 5 states · icon support</p>
-      <p class="ds-body">Buttons initiate actions. Choose a variant based on the action's prominence and consequence — only one primary button should appear per screen context.</p>
+      <p class="ds-lead">5 variants · 4 sizes · 5 states · icon (with, without, single, double)</p>
+      <p class="ds-body">Buttons initiate actions. Buttons are clickable elements that are used to trigger actions. They communicate calls to action to the user and allow users to interact with pages in a variety of ways. Button labels express what action will occur when the user interacts with it.</p>
+    </section>
+
+    <!-- Usage -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Usage</h2>
+      <div class="ds-usage-grid">
+        <div class="ds-usage-card ds-usage-card--do">
+          <p class="ds-usage-card__label ds-usage-card__label--do">Do</p>
+          <ul class="ds-usage-list">
+            <li>Use buttons to communicate actions users can take and to allow users to interact with the page.</li>
+            <li><strong>Use primary once per screen context.</strong> If two primary-weight actions exist, reconsider the hierarchy.</li>
+            <li><strong>Always pair secondary with a primary.</strong> "Cancel" alone on a page with no other CTA is a dead end.</li>
+            <li>Use buttons for actions only — not as navigational elements. Use links when the desired action is to take the user to a new page.</li>
+            <li>Choose a variant based on the action's prominence and consequence — only one primary button should appear per screen context.</li>
+          </ul>
+        </div>
+        <div class="ds-usage-card ds-usage-card--dont">
+          <p class="ds-usage-card__label ds-usage-card__label--dont">Don't</p>
+          <ul class="ds-usage-list">
+            <li><strong>Don't use danger for actions that can be undone</strong> — reserve it for permanent deletions or actions with strong consequences.</li>
+            <li><strong>Don't mix sizes within the same action group.</strong> Buttons that appear side-by-side should share a size.</li>
+            <li>Do not use buttons as navigational elements. Use links instead.</li>
+          </ul>
+        </div>
+      </div>
     </section>
 
     <!-- States matrix -->
     <section class="ds-section">
       <h2 class="ds-h2">States × Variants</h2>
-      <p class="ds-body">
-        All interactive states shown side-by-side. <code>forcedState</code> prop used for
-        documentation rendering — does not affect real interactivity.
-      </p>
+      <p class="ds-body">Each button variant has a particular function and its design signals that function to the user. It is, therefore, very important that the different variants are implemented consistently across products to convey the correct actions.</p>
       <div class="ds-table-wrap">
         <table class="ds-state-table">
           <thead>
@@ -78,10 +100,99 @@ const IconX        = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none
       </div>
     </section>
 
+    <!-- Variants guidance table -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Variants usage</h2>
+      <p class="ds-body">Each button variant has a particular function, and a reserved use in the interface. It is important that the variant used matches the function it performs.</p>
+      <div class="ds-table-wrap">
+        <table class="ds-guide-table">
+          <thead>
+            <tr>
+              <th>Variant</th>
+              <th>Default height</th>
+              <th>When to use</th>
+              <th>Never use when</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Primary</strong></td>
+              <td>56px</td>
+              <td>Main call-to-action. Use once per screen context for the most important action.</td>
+              <td>There is more than one primary action on the same page.</td>
+            </tr>
+            <tr>
+              <td><strong>Secondary</strong></td>
+              <td>40px</td>
+              <td>Paired with Primary. Use for dismissal or back actions (Cancel, Back, Close).</td>
+              <td>It is used alone without a primary action, or paired with a positive action.</td>
+            </tr>
+            <tr>
+              <td><strong>Tertiary</strong></td>
+              <td>40px</td>
+              <td>Less prominent positive or neutral actions. Often appears alongside primary.</td>
+              <td>It is the only button on the screen; use primary instead.</td>
+            </tr>
+            <tr>
+              <td><strong>Quiet</strong></td>
+              <td>32px</td>
+              <td>Lowest visual weight for filters, toolbars, icon-only buttons.</td>
+              <td>A more prominent button is needed — upgrade to tertiary or secondary.</td>
+            </tr>
+            <tr>
+              <td><strong>Danger</strong></td>
+              <td>40px</td>
+              <td>Destructive or irreversible actions only (delete, permanently remove).</td>
+              <td>The action can be undone; use primary or secondary instead.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
     <!-- Sizes -->
     <section class="ds-section">
       <h2 class="ds-h2">Sizes</h2>
-      <p class="ds-body">Heights: XL 56px · MD 40px · SM 36px · XS 32px</p>
+      <p class="ds-body">The button is available in different sizes: extra small, small, medium, extra large. The table below adds more context around the use case for each size.</p>
+      <p class="ds-body">Do not mix different button sizes in button groups.</p>
+      <div class="ds-table-wrap">
+        <table class="ds-guide-table">
+          <thead>
+            <tr>
+              <th>Size</th>
+              <th>Height</th>
+              <th>Padding (x)</th>
+              <th>Typical context</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>XL</strong></td>
+              <td>56px</td>
+              <td>24px</td>
+              <td>Hero sections, marketing pages, onboarding flows</td>
+            </tr>
+            <tr>
+              <td><strong>MD</strong></td>
+              <td>40px</td>
+              <td>16px</td>
+              <td>Standard UI — dialogs, forms, page headers</td>
+            </tr>
+            <tr>
+              <td><strong>SM</strong></td>
+              <td>36px</td>
+              <td>12px</td>
+              <td>Compact toolbars, table rows, cards</td>
+            </tr>
+            <tr>
+              <td><strong>XS</strong></td>
+              <td>32px</td>
+              <td>8px</td>
+              <td>Very tight spaces: inline forms, dense data tables</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <div class="ds-sizes-grid">
         <div v-for="variant in variants" :key="variant" class="ds-sizes-card">
           <p class="ds-sizes-card__title">{{ variantLabels[variant] }}</p>
@@ -158,6 +269,124 @@ const IconX        = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none
               <template #icon-left><span v-html="IconMore" /></template>
             </AppButton>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Props -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Props</h2>
+      <div class="ds-table-wrap">
+        <table class="ds-guide-table">
+          <thead>
+            <tr>
+              <th>Prop</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>variant</code></td>
+              <td>String</td>
+              <td><code>'primary'</code></td>
+              <td>Controls button style: <code>primary</code> · <code>secondary</code> · <code>tertiary</code> · <code>quiet</code> · <code>danger</code></td>
+            </tr>
+            <tr>
+              <td><code>size</code></td>
+              <td>String</td>
+              <td><code>'md'</code></td>
+              <td>Controls height: <code>xl</code> (56px) · <code>md</code> (40px) · <code>sm</code> (36px) · <code>xs</code> (32px)</td>
+            </tr>
+            <tr>
+              <td><code>disabled</code></td>
+              <td>Boolean</td>
+              <td><code>false</code></td>
+              <td>Prevents interaction; applies disabled visual styles</td>
+            </tr>
+            <tr>
+              <td><code>loading</code></td>
+              <td>Boolean</td>
+              <td><code>false</code></td>
+              <td>Shows a loading spinner and prevents interaction</td>
+            </tr>
+            <tr>
+              <td><code>as</code></td>
+              <td>String</td>
+              <td><code>'button'</code></td>
+              <td>Renders as a different HTML element (e.g. <code>'a'</code>, <code>'span'</code>)</td>
+            </tr>
+            <tr>
+              <td><code>forcedState</code></td>
+              <td>String</td>
+              <td><code>null</code></td>
+              <td>Forces a visual state for documentation: <code>hover</code> · <code>focus</code> · <code>active</code> · <code>disabled</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Slots -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Slots</h2>
+      <div class="ds-table-wrap">
+        <table class="ds-guide-table">
+          <thead>
+            <tr>
+              <th>Slot</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>default</code></td>
+              <td>Button label text</td>
+            </tr>
+            <tr>
+              <td><code>#icon-left</code></td>
+              <td>Icon rendered to the left of the label</td>
+            </tr>
+            <tr>
+              <td><code>#icon-right</code></td>
+              <td>Icon rendered to the right of the label</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Formatting -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Formatting</h2>
+      <div class="ds-formatting-body">
+        <p class="ds-body"><strong>Label alignment.</strong> Labels are always horizontally centered within the button — never left- or right-aligned. Icon slots are placed flush against the label, not at the edges.</p>
+        <p class="ds-body"><strong>Sentence case.</strong> Use sentence case for all button labels: "Save changes", not "Save Changes" or "SAVE CHANGES". The only exception is proper nouns.</p>
+        <p class="ds-body"><strong>Icon-only buttons.</strong> When a button has no visible label text, it must carry an <code>aria-label</code> that describes the action (e.g. <code>aria-label="Delete vehicle"</code>).</p>
+        <p class="ds-body"><strong>Visual hierarchy.</strong> Avoid placing buttons of very different visual weights side-by-side without a clear hierarchy reason — a quiet button next to a primary creates an unbalanced focal point.</p>
+      </div>
+    </section>
+
+    <!-- Interaction -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Interaction</h2>
+      <div class="ds-interaction-grid">
+        <div class="ds-interaction-card">
+          <p class="ds-interaction-card__title">Mouse</p>
+          <ul class="ds-usage-list">
+            <li><strong>Click</strong> — triggers the button's action</li>
+            <li><strong>Hover</strong> — reveals the hover state</li>
+            <li>Disabled buttons do not respond to clicks or hover</li>
+          </ul>
+        </div>
+        <div class="ds-interaction-card">
+          <p class="ds-interaction-card__title">Keyboard</p>
+          <ul class="ds-usage-list">
+            <li><kbd>Tab</kbd> — moves focus to the button</li>
+            <li><kbd>Enter</kbd> or <kbd>Space</kbd> — triggers the action</li>
+            <li>Disabled buttons cannot receive keyboard focus</li>
+          </ul>
         </div>
       </div>
     </section>
@@ -341,8 +570,39 @@ const IconX        = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none
 
 .swatch { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: middle; margin-right: 6px; flex-shrink: 0; }
 
+/* Guide table (variants, sizes, props, slots) */
+.ds-guide-table { width: 100%; border-collapse: collapse; background: #fff; font-size: 13px; }
+.ds-guide-table thead th { background: var(--grey-05); border-bottom: 1px solid var(--grey-20); padding: 10px 16px; text-align: left; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--grey-70); white-space: nowrap; }
+.ds-guide-table tbody td { padding: 12px 16px; border-bottom: 1px solid var(--grey-10); vertical-align: top; color: var(--grey-80); font-size: 13px; line-height: 1.5; }
+.ds-guide-table tbody tr:last-child td { border-bottom: none; }
+.ds-guide-table tbody tr:hover > td { background: var(--grey-05); }
+.ds-guide-table code { font-size: 11px; font-family: 'SFMono-Regular', 'Consolas', monospace; color: var(--grey-80); background: var(--grey-05); padding: 2px 5px; border-radius: 3px; }
+
+/* Usage cards */
+.ds-usage-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.ds-usage-card { background: #fff; border: 1px solid var(--grey-20); border-radius: 8px; padding: 20px; padding-top: 0; overflow: hidden; }
+.ds-usage-card--do   { border-top: 3px solid var(--green-60); }
+.ds-usage-card--dont { border-top: 3px solid var(--red-60); }
+.ds-usage-card__label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; padding-top: 16px; }
+.ds-usage-card__label--do   { color: var(--green-90); }
+.ds-usage-card__label--dont { color: var(--red-70); }
+.ds-usage-list { padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.ds-usage-list li { font-size: 13px; color: var(--grey-80); line-height: 1.5; padding-left: 14px; position: relative; }
+.ds-usage-list li::before { content: '·'; position: absolute; left: 0; color: var(--grey-50); }
+
+/* Formatting */
+.ds-formatting-body { display: flex; flex-direction: column; gap: 12px; }
+.ds-formatting-body .ds-body { margin: 0; }
+
+/* Interaction cards */
+.ds-interaction-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.ds-interaction-card { background: #fff; border: 1px solid var(--grey-20); border-radius: 8px; padding: 20px; }
+.ds-interaction-card__title { font-size: 13px; font-weight: 600; color: var(--grey-90); margin-bottom: 14px; }
+kbd { display: inline-block; font-size: 11px; font-family: 'SFMono-Regular', 'Consolas', monospace; color: var(--grey-80); background: var(--grey-05); border: 1px solid var(--grey-20); border-radius: 4px; padding: 1px 6px; margin: 0 1px; }
+
 @media (max-width: 768px) {
   .ds-main { padding: 32px 20px 60px; }
   .ds-examples, .ds-sizes-grid, .ds-token-grid { grid-template-columns: 1fr; }
+  .ds-usage-grid, .ds-interaction-grid { grid-template-columns: 1fr; }
 }
 </style>

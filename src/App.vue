@@ -15,6 +15,8 @@ import MenuPage      from './pages/MenuPage.vue'
 import ProcessPage        from './pages/ProcessPage.vue'
 import PurposeStackPage  from './pages/PurposeStackPage.vue'
 import SizesPage         from './pages/SizesPage.vue'
+import BreadcrumbsPage   from './pages/BreadcrumbsPage.vue'
+import TooltipPage       from './pages/TooltipPage.vue'
 
 const page = ref('buttons')
 
@@ -33,6 +35,8 @@ const IconToggle     = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
 const IconBell       = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M13.73 21a2 2 0 0 1-3.46 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`
 const IconFilters    = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1.5 3.5h11M4 7h6M6 10.5h2" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>`
 const IconMenu       = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1.5" y="2.5" width="11" height="9" rx="1.5" stroke="currentColor" stroke-width="1.1"/><path d="M4 5.5h6M4 8.5h4" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>`
+const IconBreadcrumb = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1.5 7h3M5.5 7h3M9.5 7h3" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><path d="M4 5l2 2-2 2M8 5l2 2-2 2" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+const IconTooltip    = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="3" width="12" height="7" rx="2" stroke="currentColor" stroke-width="1.1"/><path d="M5 11.5l2 1.5 2-1.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>`
 </script>
 
 <template>
@@ -129,6 +133,14 @@ const IconMenu       = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
             <span class="ds-sidebar__item-icon" v-html="IconBell" />
             Notification bubble
           </button>
+          <button @click="page = 'breadcrumbs'" :class="['ds-sidebar__item', { active: page === 'breadcrumbs' }]">
+            <span class="ds-sidebar__item-icon" v-html="IconBreadcrumb" />
+            Breadcrumbs
+          </button>
+          <button @click="page = 'tooltip'" :class="['ds-sidebar__item', { active: page === 'tooltip' }]">
+            <span class="ds-sidebar__item-icon" v-html="IconTooltip" />
+            Tooltip
+          </button>
         </div>
 
         <div class="ds-sidebar__group">
@@ -159,6 +171,8 @@ const IconMenu       = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
         <MenuPage       v-if="page === 'menu'" @navigate="page = $event" />
         <PurposeStackPage v-if="page === 'purpose-stack'" />
         <SizesPage        v-if="page === 'sizes'" />
+        <BreadcrumbsPage  v-if="page === 'breadcrumbs'" />
+        <TooltipPage      v-if="page === 'tooltip'" />
         <ProcessPage    v-if="page === 'process'" />
       </div>
 
