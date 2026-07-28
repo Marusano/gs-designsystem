@@ -1,9 +1,25 @@
 <script setup>
 import { ref } from 'vue'
+import AppTabs from '../components/ui/AppTabs.vue'
 
-const demoTab1 = ref(0)
-const demoTab2 = ref(0)
-const demoTab3 = ref(0)
+const demoTab1 = ref('monitoring')
+const demoTab2 = ref('overview')
+const demoTab3 = ref('monitoring')
+
+const tabsContained = [
+  { label: 'Monitoring',     value: 'monitoring' },
+  { label: 'Asset details',  value: 'asset-details' },
+  { label: 'History',        value: 'history' },
+]
+const tabsBorderless = [
+  { label: 'Overview',  value: 'overview' },
+  { label: 'Details',   value: 'details' },
+  { label: 'Settings',  value: 'settings' },
+]
+const tabsCompact = [
+  { label: 'Monitoring',    value: 'monitoring' },
+  { label: 'Asset details', value: 'asset-details' },
+]
 </script>
 
 <template>
@@ -65,17 +81,10 @@ const demoTab3 = ref(0)
         <div class="tb-variant-card">
           <p class="tb-variant-card__label">Contained</p>
           <p class="ds-body tb-variant-desc">Tabs sit inside a bordered container. Use in cards, panels, modals, and data tables.</p>
-          <div class="tb-tabs tb-tabs--contained">
-            <button
-              v-for="(tab, i) in ['Monitoring', 'Asset details', 'History']"
-              :key="i"
-              :class="['tb-tab', { 'tb-tab--selected': demoTab1 === i }]"
-              @click="demoTab1 = i"
-            >{{ tab }}</button>
-          </div>
+          <AppTabs v-model="demoTab1" :items="tabsContained" variant="contained" />
           <div class="tb-panel">
             <p class="ds-body" style="color: var(--grey-50)">
-              {{ ['Monitoring view content', 'Asset details content', 'History content'][demoTab1] }}
+              {{ { monitoring: 'Monitoring view content', 'asset-details': 'Asset details content', history: 'History content' }[demoTab1] }}
             </p>
           </div>
         </div>
@@ -83,17 +92,10 @@ const demoTab3 = ref(0)
         <div class="tb-variant-card">
           <p class="tb-variant-card__label">Borderless</p>
           <p class="ds-body tb-variant-desc">No outer container border. Use on full-page layouts where tabs sit directly on the page surface.</p>
-          <div class="tb-tabs tb-tabs--borderless">
-            <button
-              v-for="(tab, i) in ['Overview', 'Details', 'Settings']"
-              :key="i"
-              :class="['tb-tab', { 'tb-tab--selected': demoTab2 === i }]"
-              @click="demoTab2 = i"
-            >{{ tab }}</button>
-          </div>
+          <AppTabs v-model="demoTab2" :items="tabsBorderless" variant="borderless" />
           <div class="tb-panel tb-panel--borderless">
             <p class="ds-body" style="color: var(--grey-50)">
-              {{ ['Overview content', 'Details content', 'Settings content'][demoTab2] }}
+              {{ { overview: 'Overview content', details: 'Details content', settings: 'Settings content' }[demoTab2] }}
             </p>
           </div>
         </div>
@@ -101,14 +103,7 @@ const demoTab3 = ref(0)
         <div class="tb-variant-card">
           <p class="tb-variant-card__label">Compact (2 tabs)</p>
           <p class="ds-body tb-variant-desc">Minimum of two tabs. Common in side panels and compact modal headers.</p>
-          <div class="tb-tabs tb-tabs--contained">
-            <button
-              v-for="(tab, i) in ['Monitoring', 'Asset details']"
-              :key="i"
-              :class="['tb-tab', { 'tb-tab--selected': demoTab3 === i }]"
-              @click="demoTab3 = i"
-            >{{ tab }}</button>
-          </div>
+          <AppTabs v-model="demoTab3" :items="tabsCompact" variant="contained" />
         </div>
 
       </div>
