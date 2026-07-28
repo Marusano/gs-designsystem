@@ -29,7 +29,7 @@ const boxClasses = computed(() => [
       type="checkbox"
       :checked="modelValue"
       :disabled="disabled"
-      @change="emit('update:modelValue', ($event.target as HTMLInputElement).checked)"
+      @change="emit('update:modelValue', $event.target.checked)"
     />
     <div :class="boxClasses" v-html="icon" aria-hidden="true" />
     <span v-if="label" class="cb-label">{{ label }}</span>

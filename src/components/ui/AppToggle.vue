@@ -31,7 +31,7 @@ const thumbClasses = computed(() => [
       role="switch"
       :checked="modelValue"
       :disabled="disabled"
-      @change="emit('update:modelValue', ($event.target as HTMLInputElement).checked)"
+      @change="emit('update:modelValue', $event.target.checked)"
     />
     <div :class="trackClasses">
       <div :class="thumbClasses" />

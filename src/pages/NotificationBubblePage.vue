@@ -1,4 +1,6 @@
 <script setup>
+import AppNotificationBubble from '../components/ui/AppNotificationBubble.vue'
+
 const IconBell = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" stroke="#5d6065" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M13.73 21a2 2 0 0 1-3.46 0" stroke="#5d6065" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`
 </script>
 
@@ -105,6 +107,43 @@ const IconBell = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><p
       </div>
     </section>
 
+    <!-- ── Component demo ────────────────────────────────── -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Component</h2>
+      <p class="ds-body">AppNotificationBubble in use — on an icon and standalone.</p>
+      <div class="ds-card ds-demo-flex">
+        <div class="ds-demo-item">
+          <div class="demo-icon-wrap">
+            <span v-html="IconBell" />
+            <AppNotificationBubble :count="3" variant="elevated" style="position:absolute;top:-4px;right:-4px;" />
+          </div>
+          <span class="ds-state-label">Elevated · count</span>
+        </div>
+        <div class="ds-demo-item">
+          <div class="demo-icon-wrap" style="background: var(--indigo-100); border-radius: 8px; padding: 6px;">
+            <span v-html="IconBell" style="color:#fff" />
+            <AppNotificationBubble :count="12" variant="flat" style="position:absolute;top:-4px;right:-4px;" />
+          </div>
+          <span class="ds-state-label">Flat · count</span>
+        </div>
+        <div class="ds-demo-item">
+          <div class="demo-icon-wrap">
+            <span v-html="IconBell" />
+            <AppNotificationBubble dot variant="elevated" style="position:absolute;top:-2px;right:-2px;" />
+          </div>
+          <span class="ds-state-label">Dot indicator</span>
+        </div>
+        <div class="ds-demo-item">
+          <AppNotificationBubble :count="99" variant="elevated" />
+          <span class="ds-state-label">Max count</span>
+        </div>
+        <div class="ds-demo-item">
+          <AppNotificationBubble :count="142" variant="elevated" />
+          <span class="ds-state-label">Over 99</span>
+        </div>
+      </div>
+    </section>
+
   </main>
 </template>
 
@@ -120,7 +159,13 @@ const IconBell = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><p
 }
 .ds-section { display: flex; flex-direction: column; gap: 20px; }
 .ds-h1  { font-size: 32px; font-weight: 700; color: var(--grey-100); line-height: 1.1; margin-bottom: 4px; }
+.ds-h2  { font-size: 20px; font-weight: 600; color: var(--grey-90); }
 .ds-body { font-size: 14px; color: var(--grey-70); line-height: 1.6; }
+.ds-card       { background: #fff; border: 1px solid var(--grey-20); border-radius: 8px; padding: 20px; }
+.ds-demo-flex  { display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-end; }
+.ds-demo-item  { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.demo-icon-wrap { position: relative; display: inline-flex; }
+.ds-state-label { font-size: 11px; color: var(--grey-60); text-align: center; }
 
 code {
   font-family: 'Fira Code', 'Courier New', monospace;

@@ -1,7 +1,8 @@
 <script setup>
 import { ref } from 'vue'
 import AppButton from '../components/ui/AppButton.vue'
-import AppTag from '../components/ui/AppTag.vue'
+import AppTag   from '../components/ui/AppTag.vue'
+import AppMenu  from '../components/ui/AppMenu.vue'
 
 defineEmits(['navigate'])
 
@@ -28,6 +29,17 @@ function removeApplied(o) {
 
 /* ── Account menu variant selector ──────────────────── */
 const accountTab = ref('default')
+
+/* ── AppMenu component demo ──────────────────────────── */
+const cmOpen      = ref(false)
+const cmSelected  = ref(null)
+const cmItems = [
+  { label: 'Edit',       icon: `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M11 2l3 3L5 14H2v-3L11 2z" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>` },
+  { label: 'Export',     icon: `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v8M5 5l3-3 3 3M3 10v3.5h10V10" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>` },
+  { label: 'Assign to',  icon: `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5.5" r="2.5" stroke="currentColor" stroke-width="1.25"/><path d="M3 13c0-2.76 2.24-5 5-5s5 2.24 5 5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>` },
+  { divider: true },
+  { label: 'Delete', danger: true, icon: `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M5 4V2h6v2M6 7v5M10 7v5M3 4l1 9h8l1-9" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>` },
+]
 
 /* ── Icons ───────────────────────────────────────────── */
 const IconChevronRight = `<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 3l3 3-3 3" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>`
@@ -61,6 +73,23 @@ const IconChevronDown  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="
           The optional menu is always <em>single-selection</em>. For multi-selections — typically
           used for filtering — use the multi-selection menu variant with checkboxes and action buttons.
         </div>
+      </div>
+    </section>
+
+    <!-- ── Component demo ────────────────────────────────── -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Component</h2>
+      <p class="ds-body">AppMenu manages open/close state and emits a <code>select</code> event. Click the button to open the menu.</p>
+      <div class="ds-card" style="display:flex;align-items:center;gap:24px;flex-wrap:wrap;">
+        <AppMenu v-model:open="cmOpen" :items="cmItems" @select="cmSelected = $event.label">
+          <template #trigger>
+            <AppButton variant="tertiary" size="sm">
+              Bulk actions
+              <template #icon-right><span v-html="IconChevronDown" /></template>
+            </AppButton>
+          </template>
+        </AppMenu>
+        <p v-if="cmSelected" class="ds-body">Selected: <strong>{{ cmSelected }}</strong></p>
       </div>
     </section>
 
@@ -568,6 +597,7 @@ const IconChevronDown  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="
   flex-direction: column;
   gap: 56px;
 }
+.ds-card    { background: #fff; border: 1px solid var(--grey-20); border-radius: 8px; padding: 20px; }
 .ds-section { display: flex; flex-direction: column; gap: 20px; }
 .ds-h1  { font-size: 32px; font-weight: 700; color: var(--grey-100); line-height: 1.1; margin-bottom: 4px; }
 .ds-h2  { font-size: 20px; font-weight: 600; color: var(--grey-90); }

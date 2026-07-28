@@ -1,3 +1,12 @@
+<script setup>
+import { ref } from 'vue'
+import AppToggle from '../components/ui/AppToggle.vue'
+
+const demoNotifications = ref(true)
+const demoGPS           = ref(false)
+const demoReports       = ref(true)
+</script>
+
 <template>
   <main class="ds-main">
 
@@ -10,6 +19,17 @@
         mutually exclusive options and always have a default value. Toggles should provide
         immediate results, giving users the freedom to control their preferences as needed.
       </p>
+    </section>
+
+    <!-- ── Component demo ────────────────────────────────── -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Component</h2>
+      <p class="ds-body">Click each toggle to turn it on or off.</p>
+      <div class="ds-card ds-demo-row">
+        <AppToggle v-model="demoNotifications" label="Push notifications" />
+        <AppToggle v-model="demoGPS"           label="Real-time GPS updates" />
+        <AppToggle v-model="demoReports"       label="Automated reports" :disabled="true" />
+      </div>
     </section>
 
     <!-- ── Interaction & States ───────────────────────────── -->
@@ -199,6 +219,9 @@
 </template>
 
 <style scoped>
+.ds-card      { background: #fff; border: 1px solid var(--grey-20); border-radius: 8px; padding: 20px; }
+.ds-demo-row  { display: flex; flex-direction: column; gap: 12px; }
+
 /* ── Layout ──────────────────────────────────────────────────── */
 .ds-main {
   max-width: 1100px;

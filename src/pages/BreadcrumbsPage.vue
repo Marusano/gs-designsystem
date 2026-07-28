@@ -1,5 +1,5 @@
 <script setup>
-// no reactive state needed
+import AppBreadcrumbs from '../components/ui/AppBreadcrumbs.vue'
 </script>
 
 <template>
@@ -155,54 +155,22 @@
 
         <div class="bc-example-group">
           <p class="bc-example-label">Two levels</p>
-          <nav class="bc-nav" aria-label="Breadcrumb">
-            <ol class="bc-list">
-              <li class="bc-item"><a href="#" class="bc-link" @click.prevent>Home</a></li>
-              <li class="bc-sep" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></li>
-              <li class="bc-item"><span class="bc-current" aria-current="page">Current breadcrumb</span></li>
-            </ol>
-          </nav>
+          <AppBreadcrumbs :items="[{label:'Home'},{label:'Current breadcrumb'}]" />
         </div>
 
         <div class="bc-example-group">
           <p class="bc-example-label">Three levels</p>
-          <nav class="bc-nav" aria-label="Breadcrumb">
-            <ol class="bc-list">
-              <li class="bc-item"><a href="#" class="bc-link" @click.prevent>Home</a></li>
-              <li class="bc-sep" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></li>
-              <li class="bc-item"><a href="#" class="bc-link" @click.prevent>Previous level</a></li>
-              <li class="bc-sep" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></li>
-              <li class="bc-item"><span class="bc-current" aria-current="page">Current breadcrumb</span></li>
-            </ol>
-          </nav>
+          <AppBreadcrumbs :items="[{label:'Home'},{label:'Previous level'},{label:'Current breadcrumb'}]" />
         </div>
 
         <div class="bc-example-group">
           <p class="bc-example-label">Four levels</p>
-          <nav class="bc-nav" aria-label="Breadcrumb">
-            <ol class="bc-list">
-              <li class="bc-item"><a href="#" class="bc-link" @click.prevent>Home</a></li>
-              <li class="bc-sep" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></li>
-              <li class="bc-item"><a href="#" class="bc-link" @click.prevent>Level two</a></li>
-              <li class="bc-sep" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></li>
-              <li class="bc-item"><a href="#" class="bc-link" @click.prevent>Previous level</a></li>
-              <li class="bc-sep" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></li>
-              <li class="bc-item"><span class="bc-current" aria-current="page">Current breadcrumb</span></li>
-            </ol>
-          </nav>
+          <AppBreadcrumbs :items="[{label:'Home'},{label:'Level two'},{label:'Previous level'},{label:'Current breadcrumb'}]" />
         </div>
 
         <div class="bc-example-group">
           <p class="bc-example-label">Fleet context example</p>
-          <nav class="bc-nav" aria-label="Breadcrumb">
-            <ol class="bc-list">
-              <li class="bc-item"><a href="#" class="bc-link" @click.prevent>Settings</a></li>
-              <li class="bc-sep" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></li>
-              <li class="bc-item"><a href="#" class="bc-link" @click.prevent>Users</a></li>
-              <li class="bc-sep" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></li>
-              <li class="bc-item"><span class="bc-current" aria-current="page">Elisabeth B. Keen</span></li>
-            </ol>
-          </nav>
+          <AppBreadcrumbs :items="[{label:'Settings'},{label:'Users'},{label:'Elisabeth B. Keen'}]" />
         </div>
 
       </div>

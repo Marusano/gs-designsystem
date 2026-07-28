@@ -1,3 +1,10 @@
+<script setup>
+import { ref } from 'vue'
+import AppRadio from '../components/ui/AppRadio.vue'
+
+const demoFleet = ref('gps')
+</script>
+
 <template>
   <main class="ds-main">
 
@@ -10,6 +17,18 @@
         from the group is allowed. Only one radio button can be selected at a time. When a user
         chooses a new item, the previous choice is automatically deselected.
       </p>
+    </section>
+
+    <!-- ── Component demo ────────────────────────────────── -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Component</h2>
+      <p class="ds-body">Select a tracking method — only one option can be active at a time.</p>
+      <div class="ds-card ds-demo-row">
+        <AppRadio v-model="demoFleet" value="gps"      label="GPS tracking"      name="demo-fleet" />
+        <AppRadio v-model="demoFleet" value="cellular" label="Cellular tracking"  name="demo-fleet" />
+        <AppRadio v-model="demoFleet" value="manual"   label="Manual entry"       name="demo-fleet" />
+        <AppRadio v-model="demoFleet" value="disabled" label="Satellite (unavailable)" name="demo-fleet" :disabled="true" />
+      </div>
     </section>
 
     <!-- ── Interaction & States ───────────────────────────── -->
@@ -237,6 +256,9 @@
 </template>
 
 <style scoped>
+.ds-card      { background: #fff; border: 1px solid var(--grey-20); border-radius: 8px; padding: 20px; }
+.ds-demo-row  { display: flex; flex-direction: column; gap: 12px; }
+
 /* ── Layout ──────────────────────────────────────────────────── */
 .ds-main {
   max-width: 1100px;

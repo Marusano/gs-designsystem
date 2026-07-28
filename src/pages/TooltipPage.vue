@@ -1,3 +1,8 @@
+<script setup>
+import AppTooltip from '../components/ui/AppTooltip.vue'
+import AppButton  from '../components/ui/AppButton.vue'
+</script>
+
 <template>
   <main class="ds-main">
 
@@ -76,6 +81,36 @@
     </section>
 
     <!-- ── Live hover demo ───────────────────────────────── -->
+    <!-- ── Component demo ────────────────────────────────── -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Component</h2>
+      <p class="ds-body">AppTooltip wraps any trigger element — hover to reveal.</p>
+      <div class="ds-card tt-demo-card">
+        <div class="tt-demo-group">
+          <p class="tt-demo-group__label">Light (default)</p>
+          <div class="tt-demo-row">
+            <AppTooltip content="Open settings" position="top">
+              <AppButton variant="quiet" size="sm">Settings</AppButton>
+            </AppTooltip>
+            <AppTooltip content="Download report" position="top">
+              <AppButton variant="quiet" size="sm">Download</AppButton>
+            </AppTooltip>
+          </div>
+        </div>
+        <div class="tt-demo-group">
+          <p class="tt-demo-group__label">Dark variant</p>
+          <div class="tt-demo-row">
+            <AppTooltip content="Filter results" variant="dark" position="bottom">
+              <AppButton variant="quiet" size="sm">Filter</AppButton>
+            </AppTooltip>
+            <AppTooltip content="Sort column ascending" variant="dark" position="bottom">
+              <AppButton variant="quiet" size="sm">Sort</AppButton>
+            </AppTooltip>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="ds-section">
       <h2 class="ds-h2">Live Demo</h2>
       <p class="ds-body">Hover over each element to see the tooltip appear.</p>

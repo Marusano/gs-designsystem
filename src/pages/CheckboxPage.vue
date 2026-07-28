@@ -1,6 +1,13 @@
 <script setup>
+import { ref } from 'vue'
+import AppCheckbox from '../components/ui/AppCheckbox.vue'
+
 const IconCheck = `<svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`
 const IconDash  = `<svg width="8" height="2" viewBox="0 0 8 2" fill="none"><path d="M0 1H8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>`
+
+const demoA = ref(true)
+const demoB = ref(false)
+const demoC = ref(false)
 </script>
 
 <template>
@@ -15,6 +22,17 @@ const IconDash  = `<svg width="8" height="2" viewBox="0 0 8 2" fill="none"><path
         users to select one, some, or none of items from a list. They can be used standalone, in
         checkbox lists, or nested checkbox lists.
       </p>
+    </section>
+
+    <!-- ── Component demo ────────────────────────────────── -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Component</h2>
+      <p class="ds-body">Click the checkboxes below to toggle their state.</p>
+      <div class="ds-card ds-demo-row">
+        <AppCheckbox v-model="demoA" label="Receive email notifications" />
+        <AppCheckbox v-model="demoB" label="Enable SMS alerts" />
+        <AppCheckbox v-model="demoC" label="Share usage data" :disabled="true" />
+      </div>
     </section>
 
     <!-- ── States ─────────────────────────────────────────── -->
@@ -239,6 +257,9 @@ const IconDash  = `<svg width="8" height="2" viewBox="0 0 8 2" fill="none"><path
 </template>
 
 <style scoped>
+.ds-card      { background: #fff; border: 1px solid var(--grey-20); border-radius: 8px; padding: 20px; }
+.ds-demo-row  { display: flex; flex-direction: column; gap: 12px; }
+
 /* ── Layout ──────────────────────────────────────────────────── */
 .ds-main {
   max-width: 1100px;
