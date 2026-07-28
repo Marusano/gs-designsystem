@@ -11,7 +11,8 @@ import RadioButtonPage from './pages/RadioButtonPage.vue'
 import TogglePage     from './pages/TogglePage.vue'
 import NotificationBubblePage from './pages/NotificationBubblePage.vue'
 import FiltersPage    from './pages/FiltersPage.vue'
-import MenuPage      from './pages/MenuPage.vue'
+import MenuPage       from './pages/MenuPage.vue'
+import TopBarPage     from './pages/TopBarPage.vue'
 import ProcessPage        from './pages/ProcessPage.vue'
 import PurposeStackPage  from './pages/PurposeStackPage.vue'
 import SizesPage         from './pages/SizesPage.vue'
@@ -19,6 +20,7 @@ import BreadcrumbsPage   from './pages/BreadcrumbsPage.vue'
 import TooltipPage       from './pages/TooltipPage.vue'
 import LegendPage        from './pages/LegendPage.vue'
 import TabsPage          from './pages/TabsPage.vue'
+import PlaygroundTestPage from './pages/PlaygroundTestPage.vue'
 
 const page = ref('buttons')
 
@@ -41,6 +43,8 @@ const IconBreadcrumb = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
 const IconTooltip    = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="3" width="12" height="7" rx="2" stroke="currentColor" stroke-width="1.1"/><path d="M5 11.5l2 1.5 2-1.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>`
 const IconLegend     = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="4" width="3" height="3" rx="0.5" fill="currentColor" opacity="0.4"/><path d="M6 5.5h7" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><rect x="1" y="8" width="3" height="3" rx="0.5" fill="currentColor"/><path d="M6 9.5h7" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>`
 const IconTabs       = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="5" width="12" height="8" rx="1.5" stroke="currentColor" stroke-width="1.1"/><rect x="1" y="1" width="4" height="5" rx="1" fill="currentColor"/><rect x="6" y="2" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.1"/></svg>`
+const IconTopBar     = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1.5" stroke="currentColor" stroke-width="1.1"/><path d="M1 5h12" stroke="currentColor" stroke-width="1.1"/><path d="M3.5 3.5h4" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><circle cx="11" cy="3.5" r=".75" fill="currentColor"/></svg>`
+const IconPlayground = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 11.5L5.5 5l2 3 1.5-2.5L12 11.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="3" r="1.25" stroke="currentColor" stroke-width="1.1"/></svg>`
 </script>
 
 <template>
@@ -165,6 +169,18 @@ const IconTabs       = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
             <span class="ds-sidebar__item-icon" v-html="IconMenu" />
             Menu
           </button>
+          <button @click="page = 'topbar'" :class="['ds-sidebar__item', { active: page === 'topbar' }]">
+            <span class="ds-sidebar__item-icon" v-html="IconTopBar" />
+            Top bar
+          </button>
+        </div>
+
+        <div class="ds-sidebar__group">
+          <p class="ds-sidebar__group-label">Playground</p>
+          <button @click="page = 'playground-test'" :class="['ds-sidebar__item', { active: page === 'playground-test' }]">
+            <span class="ds-sidebar__item-icon" v-html="IconPlayground" />
+            Test
+          </button>
         </div>
       </aside>
 
@@ -181,6 +197,7 @@ const IconTabs       = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
         <NotificationBubblePage v-if="page === 'notifications'" />
         <FiltersPage    v-if="page === 'filters'" />
         <MenuPage       v-if="page === 'menu'" @navigate="page = $event" />
+        <TopBarPage     v-if="page === 'topbar'" />
         <PurposeStackPage v-if="page === 'purpose-stack'" />
         <SizesPage        v-if="page === 'sizes'" />
         <BreadcrumbsPage  v-if="page === 'breadcrumbs'" />
@@ -188,6 +205,7 @@ const IconTabs       = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
         <LegendPage       v-if="page === 'legend'" />
         <TabsPage         v-if="page === 'tabs'" />
         <ProcessPage    v-if="page === 'process'" />
+        <PlaygroundTestPage v-if="page === 'playground-test'" />
       </div>
 
     </div>
