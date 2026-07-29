@@ -1,6 +1,7 @@
 <script setup>
 import AppTooltip from '../components/ui/AppTooltip.vue'
 import AppButton  from '../components/ui/AppButton.vue'
+import AppIcon    from '../components/ui/AppIcon.vue'
 </script>
 
 <template>
@@ -57,7 +58,7 @@ import AppButton  from '../components/ui/AppButton.vue'
           <p class="ds-example-label">Top (default)</p>
           <div class="tt-position-demo">
             <div class="tt tt--light tt--pos-top">Show label</div>
-            <button class="tt-trigger">Icon button</button>
+            <AppButton variant="tertiary" size="sm">Icon button</AppButton>
           </div>
         </div>
 
@@ -65,14 +66,14 @@ import AppButton  from '../components/ui/AppButton.vue'
           <p class="ds-example-label">Left</p>
           <div class="tt-position-demo tt-position-demo--row">
             <div class="tt tt--light">Show label</div>
-            <button class="tt-trigger">Icon button</button>
+            <AppButton variant="tertiary" size="sm">Icon button</AppButton>
           </div>
         </div>
 
         <div class="ds-example-card">
           <p class="ds-example-label">Right</p>
           <div class="tt-position-demo tt-position-demo--row">
-            <button class="tt-trigger">Icon button</button>
+            <AppButton variant="tertiary" size="sm">Icon button</AppButton>
             <div class="tt tt--light">Show label</div>
           </div>
         </div>
@@ -119,24 +120,21 @@ import AppButton  from '../components/ui/AppButton.vue'
         <div class="tt-demo-group">
           <p class="tt-demo-group__label">Icon button with label</p>
           <div class="tt-demo-row">
-            <div class="tt-anchor">
-              <button class="tt-icon-btn" aria-label="Settings">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" stroke="currentColor" stroke-width="1.25"/><path d="M8 1v1.5M8 13.5V15M1 8h1.5M13.5 8H15M2.93 2.93l1.06 1.06M12.01 12.01l1.06 1.06M2.93 13.07l1.06-1.06M12.01 3.99l1.06-1.06" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>
-              </button>
-              <div class="tt tt--light tt--live">Settings</div>
-            </div>
-            <div class="tt-anchor">
-              <button class="tt-icon-btn" aria-label="Download">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v8M5 7l3 3 3-3" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 12h12" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>
-              </button>
-              <div class="tt tt--light tt--live">Download</div>
-            </div>
-            <div class="tt-anchor">
-              <button class="tt-icon-btn" aria-label="Delete">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M5 4V2h6v2M6 7v5M10 7v5M3 4l1 9h8l1-9" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </button>
-              <div class="tt tt--light tt--live">Delete</div>
-            </div>
+            <AppTooltip content="Settings" position="top">
+              <AppButton variant="quiet" size="xs" aria-label="Settings">
+                <template #icon-left><AppIcon name="settings" :size="16" /></template>
+              </AppButton>
+            </AppTooltip>
+            <AppTooltip content="Export" position="top">
+              <AppButton variant="quiet" size="xs" aria-label="Export">
+                <template #icon-left><AppIcon name="export" :size="16" /></template>
+              </AppButton>
+            </AppTooltip>
+            <AppTooltip content="Remove" position="top">
+              <AppButton variant="quiet" size="xs" aria-label="Remove">
+                <template #icon-left><AppIcon name="close" :size="16" /></template>
+              </AppButton>
+            </AppTooltip>
           </div>
         </div>
 
@@ -144,10 +142,9 @@ import AppButton  from '../components/ui/AppButton.vue'
           <p class="tt-demo-group__label">Definition tooltip on inline text</p>
           <p class="ds-body">
             The vehicle's
-            <span class="tt-anchor tt-anchor--inline">
+            <AppTooltip content="Electronic Logging Device — records Hours of Service automatically" position="top">
               <span class="tt-definition-trigger">ELD compliance</span>
-              <div class="tt tt--light tt--live tt--wide">Electronic Logging Device — records Hours of Service automatically</div>
-            </span>
+            </AppTooltip>
             status is automatically updated every 15 minutes via the telematics module.
           </p>
         </div>
@@ -155,18 +152,16 @@ import AppButton  from '../components/ui/AppButton.vue'
         <div class="tt-demo-group">
           <p class="tt-demo-group__label">Dark variant</p>
           <div class="tt-demo-row">
-            <div class="tt-anchor">
-              <button class="tt-icon-btn" aria-label="Filter">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M4.5 8h7M7 12h2" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>
-              </button>
-              <div class="tt tt--dark tt--live">Filter results</div>
-            </div>
-            <div class="tt-anchor">
-              <button class="tt-icon-btn" aria-label="Sort">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 5h12M4 8h8M6 11h4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>
-              </button>
-              <div class="tt tt--dark tt--live">Sort column</div>
-            </div>
+            <AppTooltip content="Filter results" variant="dark" position="top">
+              <AppButton variant="quiet" size="xs" aria-label="Filter results">
+                <template #icon-left><AppIcon name="filter" :size="16" /></template>
+              </AppButton>
+            </AppTooltip>
+            <AppTooltip content="Sort column" variant="dark" position="top">
+              <AppButton variant="quiet" size="xs" aria-label="Sort column">
+                <template #icon-left><AppIcon name="sorting" :size="16" /></template>
+              </AppButton>
+            </AppTooltip>
           </div>
         </div>
 
@@ -365,19 +360,6 @@ kbd {
   gap: 8px;
   padding: 20px 0;
 }
-.tt-trigger {
-  font-size: 13px;
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  color: var(--grey-80);
-  background: var(--grey-05);
-  border: 1px solid var(--grey-20);
-  border-radius: 6px;
-  padding: 6px 14px;
-  cursor: default;
-  white-space: nowrap;
-}
-
 /* ── Live hover demo ─────────────────────────────────────────── */
 .ds-card {
   background: #fff;
@@ -402,57 +384,6 @@ kbd {
   align-items: center;
   gap: 16px;
   flex-wrap: wrap;
-}
-
-/* Anchor: positions the tooltip absolutely above trigger */
-.tt-anchor {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-}
-.tt-anchor--inline {
-  display: inline;
-}
-
-/* Tooltip in live mode: hidden by default, shown on hover */
-.tt--live {
-  position: absolute;
-  bottom: calc(100% + 6px);
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 120ms;
-  z-index: 10;
-  white-space: nowrap;
-}
-.tt-anchor--inline .tt--live {
-  left: 0;
-  transform: none;
-}
-.tt-anchor:hover .tt--live,
-.tt-anchor:focus-within .tt--live {
-  opacity: 1;
-}
-
-/* Icon button trigger */
-.tt-icon-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 6px;
-  border: 1px solid var(--grey-20);
-  background: var(--grey-05);
-  color: var(--grey-70);
-  cursor: pointer;
-  transition: background 100ms, color 100ms, border-color 100ms;
-}
-.tt-icon-btn:hover {
-  background: var(--grey-10);
-  color: var(--grey-90);
-  border-color: var(--grey-30);
 }
 
 /* Definition tooltip trigger */
