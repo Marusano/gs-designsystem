@@ -56,7 +56,7 @@ const tabsClasses = computed(() => [
 .tabs--borderless {
   background: transparent;
   padding: 0;
-  gap: 0;
+  gap: 2px;
 }
 
 .tab {
@@ -72,12 +72,6 @@ const tabsClasses = computed(() => [
   transition: background 120ms, color 120ms;
   white-space: nowrap;
   font-family: 'Inter', sans-serif;
-}
-
-.tabs--borderless .tab {
-  border-radius: 0;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -1px;
 }
 
 .tab:hover:not(:disabled) {
@@ -96,11 +90,6 @@ const tabsClasses = computed(() => [
   background: var(--grey-10);
   color: var(--grey-100);
   font-weight: 600;
-}
-
-.tabs--borderless .tab--selected {
-  background: transparent;
-  border-bottom-color: var(--grey-90);
 }
 
 .tab:disabled {

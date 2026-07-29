@@ -205,7 +205,7 @@ const tabsCompact = [
 .tb-tabs--borderless {
   background: transparent;
   padding: 0;
-  gap: 0;
+  gap: 2px;
 }
 
 .tb-tab {
@@ -221,12 +221,6 @@ const tabsCompact = [
   transition: background 120ms, color 120ms;
   white-space: nowrap;
   font-family: 'Inter', sans-serif;
-}
-
-.tb-tabs--borderless .tb-tab {
-  border-radius: 0;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -1px;
 }
 
 .tb-tab:hover:not(:disabled),
@@ -247,11 +241,6 @@ const tabsCompact = [
   background: var(--grey-10);
   color: var(--grey-100);
   font-weight: 600;
-}
-
-.tb-tabs--borderless .tb-tab--selected {
-  background: var(--grey-10);
-  border-bottom-color: var(--grey-90);
 }
 
 .tb-tab:disabled {
