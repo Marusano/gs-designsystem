@@ -1,3 +1,20 @@
+<script setup>
+import AppLegend from '../components/ui/AppLegend.vue'
+
+const statusItems = [
+  { label: 'normal',   color: '#d1fae5' },
+  { label: 'moderate', color: '#fef3c7' },
+  { label: 'critical', color: '#fee2e2' },
+]
+
+const activityItems = [
+  { label: 'work',       color: '#1f2124', dash: true },
+  { label: 'drive',      color: '#247a31' },
+  { label: 'other work', color: '#e0d7f8' },
+  { label: 'rest',       color: '#e6e6e7' },
+]
+</script>
+
 <template>
   <main class="ds-main">
 
@@ -12,38 +29,8 @@
     <section class="ds-section">
       <h2 class="ds-h2">Overview</h2>
       <div class="lg-preview">
-        <div class="lg-strip">
-          <div class="lg-item">
-            <span class="lg-dot lg-dot--normal"></span>
-            <span class="lg-label">normal</span>
-          </div>
-          <div class="lg-item">
-            <span class="lg-dot lg-dot--moderate"></span>
-            <span class="lg-label">moderate</span>
-          </div>
-          <div class="lg-item">
-            <span class="lg-dot lg-dot--critical"></span>
-            <span class="lg-label">critical</span>
-          </div>
-        </div>
-        <div class="lg-strip">
-          <div class="lg-item">
-            <span class="lg-dash"></span>
-            <span class="lg-label">work</span>
-          </div>
-          <div class="lg-item">
-            <span class="lg-dot lg-dot--drive"></span>
-            <span class="lg-label">drive</span>
-          </div>
-          <div class="lg-item">
-            <span class="lg-dot lg-dot--other-work"></span>
-            <span class="lg-label">other work</span>
-          </div>
-          <div class="lg-item">
-            <span class="lg-dot lg-dot--rest"></span>
-            <span class="lg-label">rest</span>
-          </div>
-        </div>
+        <AppLegend :items="statusItems" />
+        <AppLegend :items="activityItems" />
       </div>
     </section>
 

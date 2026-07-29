@@ -12,3 +12,6 @@ export { default as AppBreadcrumbs }        from './components/ui/AppBreadcrumbs
 export { default as AppTooltip }            from './components/ui/AppTooltip.vue'
 export { default as AppTabs }               from './components/ui/AppTabs.vue'
 export { default as AppMenu }               from './components/ui/AppMenu.vue'
+export { default as AppIcon }               from './components/ui/AppIcon.vue'
+export { default as AppLegend }             from './components/ui/AppLegend.vue'
+export { GROUPS as iconGroups, ICONS as iconRegistry } from './components/icons/index.js'
