@@ -40,7 +40,7 @@ const tabsCompact = [
       <div class="tb-states-grid">
         <div class="tb-state-card">
           <p class="tb-state-card__label">Default (first selected)</p>
-          <div class="tb-tabs tb-tabs--contained">
+          <div class="tb-tabs tb-tabs--borderless">
             <button class="tb-tab tb-tab--selected">Tab 1</button>
             <button class="tb-tab">Tab 2</button>
             <button class="tb-tab">Tab 3</button>
@@ -48,7 +48,7 @@ const tabsCompact = [
         </div>
         <div class="tb-state-card">
           <p class="tb-state-card__label">Hover</p>
-          <div class="tb-tabs tb-tabs--contained">
+          <div class="tb-tabs tb-tabs--borderless">
             <button class="tb-tab tb-tab--selected">Tab 1</button>
             <button class="tb-tab tb-tab--hover">Tab 2</button>
             <button class="tb-tab">Tab 3</button>
@@ -56,7 +56,7 @@ const tabsCompact = [
         </div>
         <div class="tb-state-card">
           <p class="tb-state-card__label">Focus</p>
-          <div class="tb-tabs tb-tabs--contained">
+          <div class="tb-tabs tb-tabs--borderless">
             <button class="tb-tab tb-tab--selected">Tab 1</button>
             <button class="tb-tab tb-tab--focus">Tab 2</button>
             <button class="tb-tab">Tab 3</button>
@@ -64,7 +64,7 @@ const tabsCompact = [
         </div>
         <div class="tb-state-card">
           <p class="tb-state-card__label">Disabled</p>
-          <div class="tb-tabs tb-tabs--contained">
+          <div class="tb-tabs tb-tabs--borderless">
             <button class="tb-tab tb-tab--selected">Tab 1</button>
             <button class="tb-tab">Tab 2</button>
             <button class="tb-tab" disabled>Tab 3</button>
@@ -195,7 +195,7 @@ const tabsCompact = [
   width: 100%;
 }
 
-.tb-tabs--contained {
+.tb-tabs--borderless {
   background: #fff;
   border: 1px solid var(--grey-20);
   border-radius: 8px;
