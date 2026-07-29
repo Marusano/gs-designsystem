@@ -282,13 +282,11 @@ const tabsCompact = [
 }
 
 .tb-state-card {
-  background: #fff;
-  border: 1px solid var(--grey-20);
-  border-radius: 8px;
-  padding: 20px;
+  background: transparent;
+  padding: 4px 0 16px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
 .tb-state-card__label {
