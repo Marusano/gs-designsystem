@@ -203,9 +203,9 @@ const tabsCompact = [
 }
 
 .tb-tabs--borderless {
-  background: transparent;
+  background: var(--grey-05);
   padding: 0;
-  gap: 2px;
+  gap: 0;
 }
 
 .tb-tab {
@@ -223,16 +223,21 @@ const tabsCompact = [
   font-family: 'Inter', sans-serif;
 }
 
+.tb-tabs--borderless .tb-tab {
+  height: 40px;
+  border-radius: 4px;
+}
+
 .tb-tab:hover:not(:disabled),
 .tb-tab--hover {
-  background: var(--grey-05);
+  background: var(--grey-10);
   color: var(--grey-90);
 }
 
 .tb-tab--focus,
 .tb-tab:focus-visible {
   outline: none;
-  background: var(--grey-05);
+  background: var(--grey-10);
   box-shadow: inset 0 0 0 2px var(--blue-azure-50);
   color: var(--grey-90);
 }
@@ -241,6 +246,11 @@ const tabsCompact = [
   background: var(--grey-10);
   color: var(--grey-100);
   font-weight: 600;
+}
+
+.tb-tabs--borderless .tb-tab--selected {
+  background: var(--grey-20);
+  color: var(--grey-90);
 }
 
 .tb-tab:disabled {

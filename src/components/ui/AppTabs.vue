@@ -54,9 +54,9 @@ const tabsClasses = computed(() => [
 }
 
 .tabs--borderless {
-  background: transparent;
+  background: var(--grey-05);
   padding: 0;
-  gap: 2px;
+  gap: 0;
 }
 
 .tab {
@@ -74,14 +74,19 @@ const tabsClasses = computed(() => [
   font-family: 'Inter', sans-serif;
 }
 
+.tabs--borderless .tab {
+  height: 40px;
+  border-radius: 4px;
+}
+
 .tab:hover:not(:disabled) {
-  background: var(--grey-05);
+  background: var(--grey-10);
   color: var(--grey-90);
 }
 
 .tab:focus-visible {
   outline: none;
-  background: var(--grey-05);
+  background: var(--grey-10);
   box-shadow: inset 0 0 0 2px var(--blue-azure-50);
   color: var(--grey-90);
 }
@@ -90,6 +95,11 @@ const tabsClasses = computed(() => [
   background: var(--grey-10);
   color: var(--grey-100);
   font-weight: 600;
+}
+
+.tabs--borderless .tab--selected {
+  background: var(--grey-20);
+  color: var(--grey-90);
 }
 
 .tab:disabled {
