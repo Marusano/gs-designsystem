@@ -1,205 +1,277 @@
 <script setup>
 import { ref } from 'vue'
-import AppButton      from '../components/ui/AppButton.vue'
-import AppBreadcrumbs from '../components/ui/AppBreadcrumbs.vue'
+import AppTopBar      from '../components/ui/AppTopBar.vue'
+import AppAccountMenu from '../components/ui/AppAccountMenu.vue'
 
-const helpOpen = ref(false)
-const userOpen = ref(false)
+/* ── Interactive example state ─────────────────────────────── */
+const helpOpen   = ref(false)
+const userOpen   = ref(false)
+const lastEvent  = ref(null)
+const accountTab = ref('default')
 
-function toggleHelp() {
-  helpOpen.value = !helpOpen.value
-  if (helpOpen.value) userOpen.value = false
-}
-function toggleUser() {
-  userOpen.value = !userOpen.value
-  if (userOpen.value) helpOpen.value = false
-}
+function handleBell()    { lastEvent.value = 'bell-click'; helpOpen.value = false; userOpen.value = false }
+function handleHelp()    { helpOpen.value = !helpOpen.value; userOpen.value = false; lastEvent.value = 'help-click' }
+function handleUser()    { userOpen.value = !userOpen.value; helpOpen.value = false; lastEvent.value = 'user-click' }
+function handleCompany() { lastEvent.value = 'company-click' }
+function handleSearch(v) { lastEvent.value = `search: "${v}"` }
 
-const IconHelp = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.2"/><path d="M6.5 6a1.5 1.5 0 1 1 2.12 1.37C8.2 7.6 8 8.5 8.5 8.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="8" cy="11" r=".75" fill="currentColor"/></svg>`
-const IconBell = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2a4.5 4.5 0 0 0-4.5 4.5V10l-1 1.5h11L12.5 10V6.5A4.5 4.5 0 0 0 8 2z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M6.5 12.5a1.5 1.5 0 0 0 3 0" stroke="currentColor" stroke-width="1.2"/></svg>`
-const IconChevronDown = `<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 4.5l3.5 3 3.5-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+const IconHelp     = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/><path d="M9.5 9.5a2.5 2.5 0 0 1 5 0c0 2-3 2-3 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="18" r="1" fill="currentColor"/></svg>`
 const IconExternal = `<svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 1.5h8M9.5 1.5v8M1.5 9.5l8-8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>`
-const IconAccount = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="4.5" r="2.5" stroke="currentColor" stroke-width="1.1"/><path d="M2 12c0-2.76 2.24-5 5-5s5 2.24 5 5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>`
-const IconFeedback = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 9.5l1.5-4 6-3.5 1.5 2.5-6 4.5L2 9.5z" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>`
-const IconLogout = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 7h6M9 5l2 2-2 2M8.5 2.5H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>`
 </script>
 
 <template>
   <main class="ds-main">
 
-    <!-- Title -->
+    <!-- ── Title ─────────────────────────────────────────────── -->
     <section class="ds-section">
       <h1 class="ds-h1">Top bar</h1>
-      <p class="ds-lead">Breadcrumb navigation · help menu · user profile</p>
-      <p class="ds-body">The top bar spans the full width at the top of every application page. It anchors breadcrumb navigation on the left and exposes the help menu and user profile on the right. Optionally it includes a notification bell and a company/role selector for multi-role accounts.</p>
+      <p class="ds-lead">56 px application shell — breadcrumbs · search · notifications · user profile</p>
+      <p class="ds-body">The top bar spans the full width at the top of every application page. It anchors breadcrumb navigation (or a search input) on the left, and exposes notification, help, and user actions on the right. A company context selector appears when the user belongs to multiple organisations.</p>
     </section>
 
-    <!-- Interactive example -->
+    <!-- ── Interactive example ──────────────────────────────── -->
     <section class="ds-section">
       <h2 class="ds-h2">Example</h2>
+
       <div class="tpb-demo-wrap">
-        <div class="tpb-bar">
-          <AppBreadcrumbs :items="[{label:'Settings'},{label:'User Management'},{label:'Aaro Saarinen'}]" />
+        <!-- Live component -->
+        <div class="tpb-demo-topbar">
+          <AppTopBar
+            user-name="Aaro Saarinnen"
+            user-role="Fleet Manager / Basic"
+            :breadcrumbs="[{label:'Settings',href:'#'},{label:'User Management',href:'#'},{label:'Aaro Saarinen'}]"
+            :show-bell="true"
+            :show-help="true"
+            @bell-click="handleBell"
+            @help-click="handleHelp"
+            @user-click="handleUser"
+          />
+        </div>
 
-          <div class="tpb-right">
-            <!-- Help button -->
-            <div class="tpb-popover-wrap">
-              <AppButton variant="quiet" size="sm" aria-label="Help" class="tpb-icon-btn" @click="toggleHelp">
-                <template #icon-left><span v-html="IconHelp" /></template>
-              </AppButton>
-              <div v-if="helpOpen" class="ds-menu ds-menu--positioned ds-menu--right">
-                <a href="#" class="ds-menu-item ds-menu-item--icon-left" @click.prevent>
-                  Help Center
-                  <span class="ds-menu-item__icon-right" v-html="IconExternal" />
-                </a>
-                <a href="#" class="ds-menu-item ds-menu-item--icon-left" @click.prevent>
-                  GSFleet Manager website
-                  <span class="ds-menu-item__icon-right" v-html="IconExternal" />
-                </a>
-              </div>
+        <!-- Help dropdown (shown as overlay below top bar) -->
+        <div class="tpb-dropdown-zone">
+          <div v-if="helpOpen" class="tpb-dropdown tpb-dropdown--help">
+            <a href="#" class="tpb-dropdown-item" @click.prevent="helpOpen = false">
+              Help Center
+              <span v-html="IconExternal" class="tpb-dropdown-icon-right" />
+            </a>
+            <a href="#" class="tpb-dropdown-item" @click.prevent="helpOpen = false">
+              GSFleet Manager website
+              <span v-html="IconExternal" class="tpb-dropdown-icon-right" />
+            </a>
+          </div>
+          <div v-if="userOpen" class="tpb-account-wrap">
+            <!-- Tab selector -->
+            <div class="tpb-account-tabs">
+              <button
+                v-for="tab in ['default','login-as','context']" :key="tab"
+                class="tpb-account-tab"
+                :class="{ 'tpb-account-tab--active': accountTab === tab }"
+                @click="accountTab = tab"
+              >{{ tab === 'default' ? 'Default' : tab === 'login-as' ? 'With login as' : 'With context' }}</button>
             </div>
 
-            <!-- User button -->
-            <div class="tpb-popover-wrap">
-              <AppButton variant="tertiary" size="sm" @click="toggleUser">
-                Aaro Saarinen
-                <template #icon-right><span v-html="IconChevronDown" /></template>
-              </AppButton>
-              <div v-if="userOpen" class="ds-menu ds-menu--positioned ds-menu--right ds-menu--wide">
-                <div class="tpb-user-header">
-                  <p class="tpb-user-name">Elisabeth Keen</p>
-                  <p class="tpb-user-email">elisabeth@email.com</p>
-                </div>
-                <div class="tpb-divider"></div>
-                <div class="ds-menu-item ds-menu-item--icon-left" @click="userOpen = false">
-                  <span class="ds-menu-item__icon" v-html="IconAccount" />
-                  My account
-                </div>
-                <div class="ds-menu-item ds-menu-item--icon-left" @click="userOpen = false">
-                  <span class="ds-menu-item__icon" v-html="IconFeedback" />
-                  Send feedback
-                </div>
-                <div class="tpb-divider"></div>
-                <div class="ds-menu-item ds-menu-item--icon-left ds-menu-item--danger" @click="userOpen = false">
-                  <span class="ds-menu-item__icon" v-html="IconLogout" />
-                  Logout
-                </div>
-              </div>
-            </div>
+            <AppAccountMenu
+              :variant="accountTab"
+              user-name="Aaro Saarinnen"
+              user-email="aaro@gsfleet.io"
+              login-as-name="Elisabeth B. Keen"
+              login-as-email="elisabeth@nicecompany.com"
+              company-initials="GS"
+              company-name="GSFLEET"
+              company-role="Fleet Manager / Basic"
+              @account-click="userOpen = false; lastEvent = 'account-click'"
+              @feedback-click="userOpen = false; lastEvent = 'feedback-click'"
+              @logout-click="userOpen = false; lastEvent = 'logout-click'"
+              @switch-click="userOpen = false; lastEvent = 'switch-click'"
+              @context-click="lastEvent = 'context-click'"
+            />
           </div>
         </div>
+
         <div class="tpb-demo-hint">
-          Click <strong>?</strong> or <strong>Aaro Saarinen</strong> to open the dropdowns.
+          Click <strong v-html="IconHelp" style="display:inline-flex;vertical-align:middle;margin:0 2px" /> or <strong>Aaro Saarinnen</strong> to open the dropdowns.
+          <span v-if="lastEvent" class="tpb-last-event">Last event: <code>{{ lastEvent }}</code></span>
         </div>
       </div>
     </section>
 
-    <!-- Variants -->
+    <!-- ── Variants ──────────────────────────────────────────── -->
     <section class="ds-section">
       <h2 class="ds-h2">Variants</h2>
-      <div class="tpb-variants-list">
+      <div class="tpb-variants">
 
         <!-- Plain -->
-        <div class="tpb-variant-card">
-          <p class="tpb-variant-label">Plain — user menu only</p>
-          <div class="tpb-bar">
-            <div class="tpb-right">
-              <AppButton variant="tertiary" size="sm">
-                Aaro Saarinen
-                <template #icon-right><span v-html="IconChevronDown" /></template>
-              </AppButton>
-            </div>
-          </div>
+        <div class="tpb-variant">
+          <p class="tpb-variant-label">Plain — user only</p>
+          <AppTopBar user-name="Aaro Saarinnen" />
         </div>
 
-        <!-- Level 1 + help + user -->
-        <div class="tpb-variant-card">
-          <p class="tpb-variant-label">1-level breadcrumb · help · user</p>
-          <div class="tpb-bar">
-            <AppBreadcrumbs :items="[{label:'Settings'}]" />
-            <div class="tpb-right">
-              <AppButton variant="quiet" size="sm" aria-label="Help" class="tpb-icon-btn">
-                <template #icon-left><span v-html="IconHelp" /></template>
-              </AppButton>
-              <AppButton variant="tertiary" size="sm">
-                Aaro Saarinen
-                <template #icon-right><span v-html="IconChevronDown" /></template>
-              </AppButton>
-            </div>
-          </div>
+        <!-- Primary / 1 action -->
+        <div class="tpb-variant">
+          <p class="tpb-variant-label">Breadcrumbs · help · user</p>
+          <AppTopBar
+            user-name="Aaro Saarinnen"
+            :breadcrumbs="[{label:'Settings'}]"
+            :show-help="true"
+          />
         </div>
 
-        <!-- Level 1 + bell + help + user with role -->
-        <div class="tpb-variant-card">
-          <p class="tpb-variant-label">1-level breadcrumb · notifications · help · user with role</p>
-          <div class="tpb-bar">
-            <AppBreadcrumbs :items="[{label:'Settings'}]" />
-            <div class="tpb-right">
-              <AppButton variant="quiet" size="sm" aria-label="Notifications" class="tpb-icon-btn">
-                <template #icon-left><span v-html="IconBell" /></template>
-              </AppButton>
-              <AppButton variant="quiet" size="sm" aria-label="Help" class="tpb-icon-btn">
-                <template #icon-left><span v-html="IconHelp" /></template>
-              </AppButton>
-              <AppButton variant="tertiary" size="sm" class="tpb-user-btn--with-role">
-                <span class="tpb-user-line">
-                  <span class="tpb-user-main">Aaro Saarinen</span>
-                  <span class="tpb-user-role">Fleet Manager / Basic</span>
-                </span>
-                <template #icon-right><span v-html="IconChevronDown" /></template>
-              </AppButton>
-            </div>
-          </div>
+        <!-- Primary / 2 actions + role -->
+        <div class="tpb-variant">
+          <p class="tpb-variant-label">Breadcrumbs · bell · help · user with role</p>
+          <AppTopBar
+            user-name="Aaro Saarinnen"
+            user-role="Fleet Manager / Basic"
+            :breadcrumbs="[{label:'Settings'}]"
+            :show-bell="true"
+            :show-help="true"
+          />
         </div>
 
-        <!-- Level 1 + bell + help + company + user -->
-        <div class="tpb-variant-card">
-          <p class="tpb-variant-label">1-level breadcrumb · notifications · help · company selector · user</p>
-          <div class="tpb-bar">
-            <AppBreadcrumbs :items="[{label:'Settings'}]" />
-            <div class="tpb-right">
-              <AppButton variant="quiet" size="sm" aria-label="Notifications" class="tpb-icon-btn">
-                <template #icon-left><span v-html="IconBell" /></template>
-              </AppButton>
-              <AppButton variant="quiet" size="sm" aria-label="Help" class="tpb-icon-btn">
-                <template #icon-left><span v-html="IconHelp" /></template>
-              </AppButton>
-              <AppButton variant="tertiary" size="sm" class="tpb-user-btn--with-role">
-                <span class="tpb-user-line">
-                  <span class="tpb-company-name">NICE COMPANY</span>
-                  <span class="tpb-user-role">Basic / Driver</span>
-                </span>
-                <template #icon-right><span v-html="IconChevronDown" /></template>
-              </AppButton>
-              <AppButton variant="tertiary" size="sm">
-                Aaro Saarinen
-                <template #icon-right><span v-html="IconChevronDown" /></template>
-              </AppButton>
-            </div>
-          </div>
+        <!-- Primary / w context -->
+        <div class="tpb-variant">
+          <p class="tpb-variant-label">Breadcrumbs · bell · help · company context · user</p>
+          <AppTopBar
+            user-name="Aaro Saarinnen"
+            :breadcrumbs="[{label:'Settings'}]"
+            :show-bell="true"
+            :show-help="true"
+            company-name="NICE COMPANY"
+            company-role="Basic / Driver"
+          />
         </div>
 
-        <!-- 3-level breadcrumb -->
-        <div class="tpb-variant-card">
-          <p class="tpb-variant-label">3-level breadcrumb · help · user</p>
-          <div class="tpb-bar">
-            <AppBreadcrumbs :items="[{label:'Settings'},{label:'User Management'},{label:'Aaro Saarinen'}]" />
-            <div class="tpb-right">
-              <AppButton variant="quiet" size="sm" aria-label="Help" class="tpb-icon-btn">
-                <template #icon-left><span v-html="IconHelp" /></template>
-              </AppButton>
-              <AppButton variant="tertiary" size="sm">
-                Aaro Saarinen
-                <template #icon-right><span v-html="IconChevronDown" /></template>
-              </AppButton>
-            </div>
-          </div>
+        <!-- Multi-level breadcrumbs -->
+        <div class="tpb-variant">
+          <p class="tpb-variant-label">Deep breadcrumbs · bell · help · user with role</p>
+          <AppTopBar
+            user-name="Aaro Saarinnen"
+            user-role="Fleet Manager / Basic"
+            :breadcrumbs="[{label:'Settings',href:'#'},{label:'User Management',href:'#'},{label:'Aaro Saarinen'}]"
+            :show-bell="true"
+            :show-help="true"
+          />
+        </div>
+
+        <!-- Search, idle -->
+        <div class="tpb-variant">
+          <p class="tpb-variant-label">Search (idle) · bell · help · user with role</p>
+          <AppTopBar
+            user-name="Aaro Saarinnen"
+            user-role="Fleet Manager / Basic"
+            :show-search="true"
+            :show-bell="true"
+            :show-help="true"
+          />
+        </div>
+
+        <!-- Search, focused -->
+        <div class="tpb-variant">
+          <p class="tpb-variant-label">Search (click to focus) · user only</p>
+          <AppTopBar
+            user-name="Aaro Saarinnen"
+            :show-search="true"
+            search-placeholder="Typing here…"
+          />
         </div>
 
       </div>
     </section>
 
-    <!-- Usage -->
+    <!-- ── Props ─────────────────────────────────────────────── -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Props</h2>
+      <div class="ds-table-wrap">
+        <table class="ds-guide-table">
+          <thead>
+            <tr>
+              <th>Prop</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>userName</code> <span class="ds-required">required</span></td>
+              <td><code>String</code></td>
+              <td>—</td>
+              <td>Display name of the logged-in user</td>
+            </tr>
+            <tr>
+              <td><code>userRole</code></td>
+              <td><code>String</code></td>
+              <td><code>null</code></td>
+              <td>Optional role subtitle shown below the user name (e.g. "Fleet Manager / Basic")</td>
+            </tr>
+            <tr>
+              <td><code>breadcrumbs</code></td>
+              <td><code>Array</code></td>
+              <td><code>null</code></td>
+              <td>Navigation path: <code>[{ label: string, href?: string }]</code>. Omit to show a plain bar with no left-zone content.</td>
+            </tr>
+            <tr>
+              <td><code>showSearch</code></td>
+              <td><code>Boolean</code></td>
+              <td><code>false</code></td>
+              <td>Replace the left zone with a search input. Mutually exclusive with <code>breadcrumbs</code>.</td>
+            </tr>
+            <tr>
+              <td><code>searchPlaceholder</code></td>
+              <td><code>String</code></td>
+              <td><code>"Search for page name or everything"</code></td>
+              <td>Placeholder text for the search input</td>
+            </tr>
+            <tr>
+              <td><code>showBell</code></td>
+              <td><code>Boolean</code></td>
+              <td><code>false</code></td>
+              <td>Show the notification bell icon button</td>
+            </tr>
+            <tr>
+              <td><code>showHelp</code></td>
+              <td><code>Boolean</code></td>
+              <td><code>false</code></td>
+              <td>Show the help (?) icon button</td>
+            </tr>
+            <tr>
+              <td><code>companyName</code></td>
+              <td><code>String</code></td>
+              <td><code>null</code></td>
+              <td>Shows a company context selector. Displayed in all-caps above <code>companyRole</code>.</td>
+            </tr>
+            <tr>
+              <td><code>companyRole</code></td>
+              <td><code>String</code></td>
+              <td><code>null</code></td>
+              <td>Active role within the selected company (e.g. "Basic / Driver")</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── Events ────────────────────────────────────────────── -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Events</h2>
+      <div class="ds-table-wrap">
+        <table class="ds-guide-table">
+          <thead>
+            <tr><th>Event</th><th>Payload</th><th>When fired</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>bell-click</code></td><td>—</td><td>Notification bell button clicked</td></tr>
+            <tr><td><code>help-click</code></td><td>—</td><td>Help (?) button clicked</td></tr>
+            <tr><td><code>user-click</code></td><td>—</td><td>User menu button clicked</td></tr>
+            <tr><td><code>company-click</code></td><td>—</td><td>Company context selector clicked</td></tr>
+            <tr><td><code>search</code></td><td><code>string</code></td><td>Search input value changes</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── Usage ─────────────────────────────────────────────── -->
     <section class="ds-section">
       <h2 class="ds-h2">Usage</h2>
       <div class="ds-usage-grid">
@@ -208,33 +280,35 @@ const IconLogout = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none">
           <ul class="ds-usage-list">
             <li>Keep the top bar present and consistent on every application page.</li>
             <li>Use breadcrumbs to reflect the user's current location in the navigation hierarchy.</li>
-            <li>Show the user's name and role so they always know which account and permission level they are operating under.</li>
+            <li>Show the user's name so they always know which account they are operating under.</li>
+            <li>Add <code>userRole</code> when the application is role-sensitive — it saves users from having to guess their permissions.</li>
           </ul>
         </div>
         <div class="ds-usage-card ds-usage-card--dont">
           <p class="ds-usage-card__label ds-usage-card__label--dont">Don't</p>
           <ul class="ds-usage-list">
-            <li><strong>Don't place page-level actions in the top bar.</strong> Primary actions belong in the page header or toolbar, not in the application shell.</li>
-            <li><strong>Don't truncate the user name</strong> without a tooltip — the full name helps users confirm the correct account.</li>
+            <li><strong>Don't place page-level actions in the top bar.</strong> Primary actions belong in the page header or toolbar.</li>
+            <li><strong>Don't show both breadcrumbs and search simultaneously.</strong> Pass either <code>breadcrumbs</code> or <code>showSearch</code>, not both.</li>
             <li>Don't add icons or decorations to the breadcrumb trail — text-only keeps it scannable.</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <!-- Formatting -->
+    <!-- ── Formatting ────────────────────────────────────────── -->
     <section class="ds-section">
       <h2 class="ds-h2">Formatting</h2>
       <div class="ds-formatting-body">
-        <p class="ds-body"><strong>Breadcrumbs.</strong> The left zone shows the navigation path as a series of text links separated by a chevron. The current page is always the rightmost item and is rendered in a darker, heavier weight. Ancestor levels are styled as links.</p>
-        <p class="ds-body"><strong>Help section.</strong> The help icon button opens a small dropdown with links to the Help Center and the GSFleet Manager website. Both links open in a new tab.</p>
-        <p class="ds-body"><strong>User menu.</strong> The user button shows the logged-in username. For multi-role accounts it also shows the role on a second line. Clicking it opens a dropdown with the full name, email, account links, and a logout action.</p>
-        <p class="ds-body"><strong>Notifications.</strong> When enabled, a bell icon sits to the left of the help button. It is optional and only present on pages where notification context is relevant.</p>
-        <p class="ds-body"><strong>Company selector.</strong> Shown only when the user belongs to multiple companies. Appears between the help icon and the user button, and allows switching context without logging out.</p>
+        <p class="ds-body"><strong>Breadcrumbs.</strong> The left zone shows the navigation path via the <code>AppBreadcrumbs</code> component. The current page is always the rightmost item, rendered in a darker weight. Ancestor levels are styled as links.</p>
+        <p class="ds-body"><strong>Search.</strong> When <code>showSearch</code> is true the left zone renders a search input that emits a <code>search</code> event on every keystroke. Use it for global/page-level search. The input gains a 2 px focus ring on focus, matching the standard field convention.</p>
+        <p class="ds-body"><strong>Notification bell.</strong> Optional. Set <code>showBell</code> to add the bell action. The parent is responsible for opening the notifications panel on <code>bell-click</code>.</p>
+        <p class="ds-body"><strong>Help.</strong> Optional. Set <code>showHelp</code> to add the help (?) button. Handle <code>help-click</code> to open a dropdown with Help Center and product links.</p>
+        <p class="ds-body"><strong>Company context selector.</strong> Shown only when the user belongs to multiple organisations. Pass both <code>companyName</code> and <code>companyRole</code>. It appears to the left of the user button, separated by a divider.</p>
+        <p class="ds-body"><strong>User button.</strong> Always present. Shows the user's name; when <code>userRole</code> is set, the role is displayed on a second line. Handle <code>user-click</code> to open the profile dropdown.</p>
       </div>
     </section>
 
-    <!-- Interaction -->
+    <!-- ── Interaction ───────────────────────────────────────── -->
     <section class="ds-section">
       <h2 class="ds-h2">Interaction</h2>
       <div class="ds-interaction-grid">
@@ -242,47 +316,42 @@ const IconLogout = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none">
           <p class="ds-interaction-card__title">Mouse</p>
           <ul class="ds-usage-list">
             <li>Click a breadcrumb ancestor to navigate to that level</li>
-            <li>Click <strong>?</strong> to open or close the help dropdown</li>
-            <li>Click the user button to open or close the profile dropdown</li>
-            <li>Click anywhere outside a dropdown to dismiss it</li>
+            <li>Click bell / help / user / company buttons — each fires its event</li>
+            <li>Click outside an open dropdown to dismiss it (parent responsibility)</li>
           </ul>
         </div>
         <div class="ds-interaction-card">
           <p class="ds-interaction-card__title">Keyboard</p>
           <ul class="ds-usage-list">
-            <li><kbd>Tab</kbd> — moves focus through breadcrumb links, then the icon buttons</li>
+            <li><kbd>Tab</kbd> — moves focus through breadcrumb links, then action buttons</li>
             <li><kbd>Enter</kbd> or <kbd>Space</kbd> — activates the focused button or link</li>
-            <li><kbd>Esc</kbd> — closes the open dropdown and returns focus to the trigger</li>
-            <li><kbd>↓</kbd> / <kbd>↑</kbd> — moves between items inside an open dropdown</li>
+            <li><kbd>Esc</kbd> — parent should close the active dropdown on this key</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <!-- Tokens -->
+    <!-- ── Tokens ────────────────────────────────────────────── -->
     <section class="ds-section">
       <h2 class="ds-h2">Tokens</h2>
       <div class="ds-table-wrap">
         <table class="ds-guide-table">
           <thead>
-            <tr>
-              <th>Element</th>
-              <th>Property</th>
-              <th>CSS variable</th>
-              <th>Value</th>
-            </tr>
+            <tr><th>Element</th><th>Property</th><th>Token</th><th>Value</th></tr>
           </thead>
           <tbody>
-            <tr><td>Top bar</td><td>Background</td><td><code>—</code></td><td>#ffffff</td></tr>
+            <tr><td>Top bar</td><td>Background</td><td><code>--color-surface-default</code></td><td>#ffffff</td></tr>
+            <tr><td>Top bar</td><td>Height</td><td>—</td><td>56 px</td></tr>
             <tr><td>Top bar</td><td>Border bottom</td><td><code>--grey-20</code></td><td>#e6e6e7</td></tr>
-            <tr><td>Top bar</td><td>Height</td><td><code>—</code></td><td>48px</td></tr>
             <tr><td>Breadcrumb — ancestor</td><td>Color</td><td><code>--grey-60</code></td><td>#9c9ea3</td></tr>
             <tr><td>Breadcrumb — current</td><td>Color</td><td><code>--grey-90</code></td><td>#36383b</td></tr>
-            <tr><td>Breadcrumb separator</td><td>Color</td><td><code>--grey-40</code></td><td>#c6c8cc</td></tr>
-            <tr><td>Help / bell button</td><td>Variant</td><td><code>—</code></td><td>AppButton quiet sm</td></tr>
-            <tr><td>User button</td><td>Variant</td><td><code>—</code></td><td>AppButton tertiary sm</td></tr>
-            <tr><td>Dropdown</td><td>Border</td><td><code>--grey-20</code></td><td>#e6e6e7</td></tr>
-            <tr><td>Dropdown item — danger</td><td>Color</td><td><code>--red-80</code></td><td>#b91c1c</td></tr>
+            <tr><td>Search input</td><td>Border (default)</td><td><code>--grey-30</code></td><td>#d8d8da</td></tr>
+            <tr><td>Search input</td><td>Border (focus, 2 px)</td><td><code>--grey-80</code></td><td>#5d6065</td></tr>
+            <tr><td>Icon buttons</td><td>Color</td><td><code>--grey-70</code></td><td>#6f7176</td></tr>
+            <tr><td>Icon buttons</td><td>Hover bg</td><td><code>--grey-20</code></td><td>#e6e6e7</td></tr>
+            <tr><td>User name</td><td>Color</td><td><code>--grey-80</code></td><td>#5d6065</td></tr>
+            <tr><td>User role</td><td>Color</td><td><code>--grey-70</code></td><td>#6f7176</td></tr>
+            <tr><td>Dividers</td><td>Color</td><td><code>--grey-20</code></td><td>#e6e6e7</td></tr>
           </tbody>
         </table>
       </div>
@@ -306,72 +375,151 @@ const IconLogout = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none">
 .ds-lead    { font-size: 16px; color: var(--grey-70); margin-top: -8px; }
 .ds-body    { font-size: 14px; color: var(--grey-70); line-height: 1.6; }
 
-/* ── Top bar shell ───────────────────────────────────────────── */
-.tpb-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 48px;
-  padding: 0 16px;
-  background: #fff;
-  box-shadow: inset 0 -1px 0 var(--grey-20);
+/* ── Interactive demo ────────────────────────────────────────── */
+.tpb-demo-wrap {
+  border: 1px solid var(--grey-20);
+  border-radius: 8px;
+  overflow: visible;
+  position: relative;
 }
 
-.tpb-right {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
+.tpb-demo-topbar {
+  border-radius: 8px 8px 0 0;
+  overflow: hidden;
 }
 
-/* Icon button override — makes quiet buttons circular */
-.tpb-icon-btn {
-  width: 32px !important;
-  height: 32px !important;
-  padding: 0 !important;
-  border-radius: 50% !important;
-  box-shadow: inset 0 0 0 1px var(--grey-20) !important;
-}
-
-/* User button with stacked role line */
-.tpb-user-btn--with-role {
-  height: 36px !important;
-}
-.tpb-user-line {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1px;
-}
-.tpb-user-main    { font-size: 13px; font-weight: 500; color: var(--grey-90); line-height: 1.2; }
-.tpb-user-role    { font-size: 11px; font-weight: 400; color: var(--grey-70); line-height: 1.2; }
-.tpb-company-name { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--grey-70); line-height: 1.2; }
-
-/* Popover anchor */
-.tpb-popover-wrap { position: relative; }
-
-/* User header inside menu */
-.tpb-user-header { padding: 12px 12px 10px; }
-.tpb-user-name   { font-size: 13px; font-weight: 600; color: var(--grey-100); margin-bottom: 2px; }
-.tpb-user-email  { font-size: 12px; color: var(--grey-70); }
-.tpb-divider     { height: 1px; background: var(--grey-10); margin: 4px 0; }
-
-/* Demo wrapper */
-.tpb-demo-wrap { border: 1px solid var(--grey-20); border-radius: 8px; overflow: visible; }
-.tpb-demo-wrap > .tpb-bar { border-radius: 8px 8px 0 0; }
 .tpb-demo-hint {
-  padding: 20px;
+  padding: 16px 20px;
   font-size: 13px;
   color: var(--grey-70);
   background: var(--grey-05);
   border-top: 1px solid var(--grey-10);
   border-radius: 0 0 8px 8px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.tpb-last-event {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--grey-60);
+}
+.tpb-last-event code {
+  font-size: 11px;
+  font-family: 'SFMono-Regular', 'Consolas', monospace;
+  background: var(--grey-10);
+  padding: 2px 5px;
+  border-radius: 3px;
+  color: var(--grey-80);
 }
 
-/* Variants */
-.tpb-variants-list { display: flex; flex-direction: column; gap: 12px; }
-.tpb-variant-card { border: 1px solid var(--grey-20); border-radius: 8px; overflow: hidden; }
-.tpb-variant-card > .tpb-bar { box-shadow: none; border-bottom: 1px solid var(--grey-10); }
+/* ── Dropdown simulation ─────────────────────────────────────── */
+.tpb-dropdown-zone {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 16px;
+}
+
+.tpb-dropdown {
+  position: absolute;
+  top: 4px;
+  right: 16px;
+  background: #fff;
+  border: 1px solid var(--grey-20);
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.14);
+  padding: 4px;
+  z-index: 10;
+  min-width: 200px;
+}
+.tpb-dropdown--help { min-width: 220px; }
+.tpb-dropdown--user { min-width: 220px; }
+
+.tpb-dropdown-item {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 8px;
+  border-radius: 3px;
+  font-size: 13px;
+  color: var(--grey-90);
+  cursor: pointer;
+  text-decoration: none;
+  gap: 10px;
+  transition: background 80ms;
+}
+.tpb-dropdown-item:hover { background: var(--grey-05); }
+.tpb-dropdown-item--danger { color: var(--red-70); }
+
+.tpb-dropdown-icon-right {
+  margin-left: auto;
+  color: var(--grey-50);
+  display: inline-flex;
+  align-items: center;
+}
+.tpb-dropdown-icon {
+  display: inline-flex;
+  align-items: center;
+  color: var(--grey-60);
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+.tpb-dropdown-item--danger .tpb-dropdown-icon { color: var(--red-70); }
+
+/* ── Account menu variant selector ──────────────────────────── */
+.tpb-account-wrap {
+  position: absolute;
+  top: 4px;
+  right: 16px;
+  z-index: 10;
+}
+
+.tpb-account-tabs {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--grey-20);
+  border-radius: 6px 6px 0 0;
+  border-bottom: none;
+  overflow: hidden;
+  width: fit-content;
+  background: var(--grey-05);
+}
+.tpb-account-tab {
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 400;
+  font-family: 'Inter', sans-serif;
+  color: var(--grey-60);
+  background: none;
+  border: none;
+  border-right: 1px solid var(--grey-20);
+  cursor: pointer;
+  transition: background 100ms, color 100ms;
+  white-space: nowrap;
+}
+.tpb-account-tab:last-child { border-right: none; }
+.tpb-account-tab:hover { background: var(--grey-10); color: var(--grey-80); }
+.tpb-account-tab--active {
+  background: #fff;
+  color: var(--grey-90);
+  font-weight: 500;
+}
+
+/* acm border-radius override: top-left is square when tabs sit above */
+.tpb-account-wrap .acm { border-radius: 0 4px 4px 4px; }
+
+/* ── Variants ────────────────────────────────────────────────── */
+.tpb-variants { display: flex; flex-direction: column; gap: 12px; }
+
+.tpb-variant {
+  border: 1px solid var(--grey-20);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
 .tpb-variant-label {
   font-size: 11px;
   font-weight: 600;
@@ -380,70 +528,26 @@ const IconLogout = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none">
   color: var(--grey-70);
   background: var(--grey-05);
   padding: 8px 16px;
+  border-bottom: 1px solid var(--grey-10);
 }
 
-
-/* ── Menu — matches ds-menu* from MenuPage ───────────────────── */
-.ds-menu {
-  display: inline-flex;
-  flex-direction: column;
-  background: #fff;
-  border: 1px solid #e6e6e7;
-  border-radius: 4px;
-  box-shadow: 0 4px 7.5px rgba(0,0,0,.24);
-  padding: 4px;
-  min-width: 180px;
-}
-.ds-menu--wide { min-width: 220px; }
-.ds-menu--positioned { position: absolute; top: calc(100% + 4px); left: 0; z-index: 100; }
-.ds-menu--right      { left: auto; right: 0; }
-
-.ds-menu-item {
-  display: flex;
-  align-items: center;
-  height: 30px;
-  padding: 8px;
-  border-radius: 2px;
-  font-size: 14px;
-  color: #36383b;
-  font-family: 'Inter', sans-serif;
-  cursor: pointer;
-  gap: 0;
-  flex-shrink: 0;
-  width: 100%;
-  transition: background 80ms;
-  box-sizing: border-box;
-  user-select: none;
-  text-decoration: none;
-}
-.ds-menu-item:hover            { background: #f1f1f2; }
-.ds-menu-item--icon-left       { gap: 12px; }
-.ds-menu-item--danger          { color: #b91c1c; }
-.ds-menu-item--icon-left > :not(.ds-menu-item__icon):not(.ds-menu-item__icon-right) { flex: 1; min-width: 0; }
-
-.ds-menu-item__icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 16px;
-  height: 16px;
-  flex-shrink: 0;
-  color: #5d6065;
-}
-.ds-menu-item--danger .ds-menu-item__icon { color: #b91c1c; }
-
-.ds-menu-item__icon-right {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  margin-left: auto;
-  color: #9c9ea3;
+/* ── Required badge ──────────────────────────────────────────── */
+.ds-required {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: var(--red-70);
+  background: var(--red-10);
+  padding: 1px 5px;
+  border-radius: 3px;
+  margin-left: 5px;
+  vertical-align: middle;
 }
 
-/* ── Usage cards ─────────────────────────────────────────────── */
-.ds-usage-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.ds-usage-card { background: #fff; border: 1px solid var(--grey-20); border-radius: 8px; padding: 20px; padding-top: 0; overflow: hidden; }
+/* ── Usage / Formatting / Interaction ────────────────────────── */
+.ds-usage-grid       { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.ds-usage-card       { background: #fff; border: 1px solid var(--grey-20); border-radius: 8px; padding: 20px; padding-top: 0; overflow: hidden; }
 .ds-usage-card--do   { border-top: 3px solid var(--green-60); }
 .ds-usage-card--dont { border-top: 3px solid var(--red-60); }
 .ds-usage-card__label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; padding-top: 16px; }
@@ -453,16 +557,24 @@ const IconLogout = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none">
 .ds-usage-list li { font-size: 13px; color: var(--grey-80); line-height: 1.5; padding-left: 14px; position: relative; }
 .ds-usage-list li::before { content: '·'; position: absolute; left: 0; color: var(--grey-50); }
 
-/* ── Formatting & Interaction ────────────────────────────────── */
-.ds-formatting-body { display: flex; flex-direction: column; gap: 12px; }
+.ds-formatting-body  { display: flex; flex-direction: column; gap: 12px; }
 .ds-interaction-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .ds-interaction-card { background: #fff; border: 1px solid var(--grey-20); border-radius: 8px; padding: 20px; }
 .ds-interaction-card__title { font-size: 13px; font-weight: 600; color: var(--grey-90); margin-bottom: 12px; }
-kbd { display: inline-block; font-size: 11px; font-family: 'SFMono-Regular', 'Consolas', monospace; background: var(--grey-10); border: 1px solid var(--grey-30); border-radius: 3px; padding: 1px 5px; color: var(--grey-80); }
+kbd {
+  display: inline-block;
+  font-size: 11px;
+  font-family: 'SFMono-Regular', 'Consolas', monospace;
+  background: var(--grey-10);
+  border: 1px solid var(--grey-30);
+  border-radius: 3px;
+  padding: 1px 5px;
+  color: var(--grey-80);
+}
 
 /* ── Tokens table ────────────────────────────────────────────── */
-.ds-table-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--grey-20); }
-.ds-guide-table { width: 100%; border-collapse: collapse; background: #fff; font-size: 13px; }
+.ds-table-wrap   { overflow-x: auto; border-radius: 8px; border: 1px solid var(--grey-20); }
+.ds-guide-table  { width: 100%; border-collapse: collapse; background: #fff; font-size: 13px; }
 .ds-guide-table thead th { background: var(--grey-05); border-bottom: 1px solid var(--grey-20); padding: 10px 16px; text-align: left; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--grey-70); white-space: nowrap; }
 .ds-guide-table tbody td { padding: 12px 16px; border-bottom: 1px solid var(--grey-10); vertical-align: middle; color: var(--grey-80); }
 .ds-guide-table tbody tr:last-child td { border-bottom: none; }

@@ -823,11 +823,11 @@ const totalCount = GROUPS.reduce((sum, g) => sum + g.icons.length, 0)
         <h3 class="mp-sub-h3">Sizes</h3>
         <div class="spinner-row">
           <div class="spinner-item">
-            <AppSpinner :size="24" />
+            <AppSpinner name="spinner" :size="24" />
             <span class="spinner-label">md · 24 px</span>
           </div>
           <div class="spinner-item">
-            <AppSpinner :size="16" />
+            <AppSpinner name="spinner" :size="16" />
             <span class="spinner-label">sm · 16 px</span>
           </div>
         </div>
@@ -844,7 +844,7 @@ const totalCount = GROUPS.reduce((sum, g) => sum + g.icons.length, 0)
             { id: 'disabled', label: 'Disabled', note: 'Paused, muted palette' },
           ]" :key="st.id" class="spinner-state-card">
             <div class="spinner-state-preview">
-              <AppSpinner :size="24" :forcedState="st.id === 'default' ? null : st.id" />
+              <AppSpinner name="spinner" :size="24" :forcedState="st.id === 'default' ? null : st.id" />
             </div>
             <span class="spinner-state-name">{{ st.label }}</span>
             <span class="spinner-state-note">{{ st.note }}</span>
@@ -855,12 +855,13 @@ const totalCount = GROUPS.reduce((sum, g) => sum + g.icons.length, 0)
       <!-- Usage code -->
       <div class="usage-card">
         <p class="usage-label">Vue 3</p>
-        <pre class="usage-code">import AppSpinner from '../components/icons.vue'
+        <pre class="usage-code">import AppIcon from '../components/icons.vue'
 
-&lt;AppSpinner /&gt;                        &lt;!-- md (24 px), default --&gt;
-&lt;AppSpinner :size="16" /&gt;             &lt;!-- sm (16 px) --&gt;
-&lt;AppSpinner disabled /&gt;               &lt;!-- paused, muted --&gt;
-&lt;AppSpinner forcedState="disabled" /&gt; &lt;!-- docs-only forced state --&gt;</pre>
+&lt;AppIcon name="spinner" /&gt;                        &lt;!-- md (24 px), default --&gt;
+&lt;AppIcon name="spinner" :size="16" /&gt;             &lt;!-- sm (16 px) --&gt;
+&lt;AppIcon name="spinner" disabled /&gt;               &lt;!-- paused, muted --&gt;
+&lt;AppIcon name="search" /&gt;                         &lt;!-- any registry icon --&gt;
+&lt;AppIcon name="search" forcedState="disabled" /&gt;  &lt;!-- docs-only forced state --&gt;</pre>
       </div>
     </section>
 
