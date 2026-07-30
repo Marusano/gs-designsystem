@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { GROUPS } from '../components/icons/index.js'
+import AppSpinner from '../components/icons.vue'
 
 /* ─── Map Pointer data ───────────────────────────────────────── */
 // Colors sourced from Figma tokens:
@@ -806,6 +807,63 @@ const totalCount = GROUPS.reduce((sum, g) => sum + g.icons.length, 0)
       </div>
     </section>
 
+    <!-- Spinner -->
+    <section class="ds-section">
+      <div class="group-header">
+        <h2 class="ds-h2">Spinner</h2>
+        <span class="group-count">animated</span>
+      </div>
+      <p class="ds-body">
+        Animated loading indicator for async operations. Available in two sizes matching
+        the icon size tokens (<code>size.icon.sm</code> = 16 px, <code>size.icon.lg</code> = 24 px).
+      </p>
+
+      <!-- Sizes -->
+      <div class="spinner-subsection">
+        <h3 class="mp-sub-h3">Sizes</h3>
+        <div class="spinner-row">
+          <div class="spinner-item">
+            <AppSpinner :size="24" />
+            <span class="spinner-label">md · 24 px</span>
+          </div>
+          <div class="spinner-item">
+            <AppSpinner :size="16" />
+            <span class="spinner-label">sm · 16 px</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- States -->
+      <div class="spinner-subsection">
+        <h3 class="mp-sub-h3">States</h3>
+        <div class="spinner-states">
+          <div v-for="st in [
+            { id: 'default',  label: 'Default',  note: 'Spinning, normal palette' },
+            { id: 'hover',    label: 'Hover',    note: 'Darker arc' },
+            { id: 'active',   label: 'Active',   note: 'Muted arc' },
+            { id: 'disabled', label: 'Disabled', note: 'Paused, muted palette' },
+          ]" :key="st.id" class="spinner-state-card">
+            <div class="spinner-state-preview">
+              <AppSpinner :size="24" :forcedState="st.id === 'default' ? null : st.id" />
+            </div>
+            <span class="spinner-state-name">{{ st.label }}</span>
+            <span class="spinner-state-note">{{ st.note }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Usage code -->
+      <div class="usage-card">
+        <p class="usage-label">Vue 3</p>
+        <pre class="usage-code">import AppSpinner from '../components/icons.vue'
+
+&lt;AppSpinner /&gt;                        &lt;!-- md (24 px), default --&gt;
+&lt;AppSpinner :size="16" /&gt;             &lt;!-- sm (16 px) --&gt;
+&lt;AppSpinner disabled /&gt;               &lt;!-- paused, muted --&gt;
+&lt;AppSpinner forcedState="disabled" /&gt; &lt;!-- docs-only forced state --&gt;</pre>
+      </div>
+    </section>
+
     <!-- Usage -->
     <section class="ds-section">
       <h2 class="ds-h2">Usage</h2>
@@ -1268,6 +1326,71 @@ const totalCount = GROUPS.reduce((sum, g) => sum + g.icons.length, 0)
 .mp-state-hover-subtle:hover {
   filter: drop-shadow(0 6px 18px rgba(54,56,59,0.32));
   transform: translateY(-3px) scale(1.08);
+}
+
+/* ── Spinner section ─────────────────────────────────────────── */
+.spinner-subsection { display: flex; flex-direction: column; gap: 12px; }
+
+.spinner-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 32px;
+  padding: 24px;
+  background: var(--grey-00);
+  border: 1px solid var(--grey-20);
+  border-radius: 8px;
+}
+
+.spinner-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.spinner-label {
+  font-size: 11px;
+  color: var(--grey-60);
+  font-weight: 500;
+}
+
+.spinner-states {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: var(--grey-00);
+  border: 1px solid var(--grey-20);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.spinner-state-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 20px 16px;
+  border-right: 1px solid var(--grey-10);
+}
+.spinner-state-card:last-child { border-right: none; }
+
+.spinner-state-preview {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner-state-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--grey-90);
+}
+
+.spinner-state-note {
+  font-size: 11px;
+  color: var(--grey-60);
+  text-align: center;
+  line-height: 1.4;
 }
 
 /* ── Usage ───────────────────────────────────────────────────── */
