@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue'
+import AppButton from '../components/ui/AppButton.vue'
 import AppIcon from '../components/ui/AppIcon.vue'
 import logoMarkUrl    from '../assets/logo-mark.svg'
 import logoWordmarkUrl from '../assets/logo-wordmark.svg'
@@ -143,12 +144,12 @@ const LEVELS = [
 ]
 
 const STATES = [
-  { label: 'Default',  cls: '',                      icon: 'truck',    itemLabel: 'Fleet' },
-  { label: 'Hover',    cls: 'snp-item--hover',        icon: 'user',     itemLabel: 'Drivers' },
-  { label: 'Active',   cls: 'snp-item--active',       icon: 'devices',  itemLabel: 'Devices' },
-  { label: 'Disabled', cls: 'snp-item--disabled',     icon: 'insights', itemLabel: 'Insights' },
+  { label: 'Default',  icon: 'truck',    itemLabel: 'Fleet' },
+  { label: 'Hover',    icon: 'user',     itemLabel: 'Drivers',  forcedState: 'hover' },
+  { label: 'Selected', icon: 'devices',  itemLabel: 'Devices',  selected: true },
+  { label: 'Disabled', icon: 'insights', itemLabel: 'Insights', disabled: true },
   {
-    label: 'Expanded', cls: 'snp-item--expanded',     icon: 'settings', itemLabel: 'Settings',
+    label: 'Expanded',  icon: 'settings', itemLabel: 'Settings',
     showChevUp: true,
     subs: ['Customization', 'General', 'Group management', 'Integrations', 'Users'], activeSub: 'General',
   },
@@ -231,12 +232,9 @@ const TOKENS = [
           <!-- Header -->
           <div class="snp-nav-header">
             <template v-if="navType === 'collapsed'">
-              <div class="snp-logo-mark-center">
-                <img :src="logoMarkUrl" width="28" height="28" alt="GSFleet" />
+              <div class="snp-logo-mark-center" @click="navType = 'fixed'" title="Expand">
+                <img :src="logoMarkUrl" width="36" height="36" alt="GSFleet" />
               </div>
-              <button class="snp-collapse-btn" @click="navType = 'fixed'" title="Expand">
-                <AppIcon name="chevron-double-right" :size="14" />
-              </button>
             </template>
             <template v-else>
               <div class="snp-header-left">
@@ -257,22 +255,32 @@ const TOKENS = [
           <!-- Body -->
           <div class="snp-nav-body">
             <template v-for="item in navConfig.items" :key="item.key">
-              <div :class="['snp-item', {
-                'snp-item--active':   !item.children && activeKey === item.key,
-                'snp-item--expanded': item.children && isExpanded(item.key),
-              }]" @click="activate(item)" :title="navType === 'collapsed' ? item.label : undefined">
-                <span class="snp-item-icon">
-                  <AppIcon :name="item.icon" :size="16" />
-                </span>
-                <span v-if="navType !== 'collapsed'" class="snp-item-label">{{ item.label }}</span>
-                <span v-if="item.children && navType !== 'collapsed'" class="snp-item-chevron">
+              <AppButton
+                variant="quiet"
+                :size="navType === 'collapsed' ? 'md' : 'sm'"
+                class="snp-item"
+                :class="{
+                  'snp-item--selected': !item.children && activeKey === item.key,
+                  'snp-item--expanded': item.children && isExpanded(item.key),
+                }"
+                @click="activate(item)"
+                :title="navType === 'collapsed' ? item.label : undefined"
+              >
+                <template #icon-left><AppIcon :name="item.icon" :size="16" /></template>
+                <template v-if="navType !== 'collapsed'">{{ item.label }}</template>
+                <template v-if="item.children && navType !== 'collapsed'" #icon-right>
                   <AppIcon :name="isExpanded(item.key) ? 'chevron-up' : 'chevron-down'" :size="12" />
-                </span>
-              </div>
+                </template>
+              </AppButton>
               <template v-if="item.children && isExpanded(item.key) && navType !== 'collapsed'">
-                <div v-for="sub in item.children" :key="sub"
-                  :class="['snp-subitem', { 'snp-subitem--active': activeKey === `${item.key}:${sub}` }]"
-                  @click="activeKey = `${item.key}:${sub}`">{{ sub }}</div>
+                <AppButton
+                  v-for="sub in item.children" :key="sub"
+                  variant="quiet"
+                  size="xs"
+                  class="snp-subitem"
+                  :class="{ 'snp-subitem--selected': activeKey === `${item.key}:${sub}` }"
+                  @click="activeKey = `${item.key}:${sub}`"
+                >{{ sub }}</AppButton>
               </template>
             </template>
           </div>
@@ -519,19 +527,30 @@ const TOKENS = [
       <div class="snp-states-grid">
         <div v-for="st in STATES" :key="st.label" class="snp-state-demo">
           <div class="snp-state-nav">
-            <div :class="['snp-item', st.cls]" style="cursor:default">
-              <span class="snp-item-icon">
-                <AppIcon :name="st.icon" :size="16" />
-              </span>
-              <span class="snp-item-label">{{ st.itemLabel }}</span>
-              <span v-if="st.showChevUp" class="snp-item-chevron">
+            <AppButton
+              variant="quiet"
+              size="sm"
+              class="snp-item"
+              :class="{ 'snp-item--selected': st.selected, 'snp-item--expanded': st.showChevUp }"
+              :forcedState="st.forcedState ?? null"
+              :disabled="!!st.disabled"
+              style="cursor:default; pointer-events:none;"
+            >
+              <template #icon-left><AppIcon :name="st.icon" :size="16" /></template>
+              {{ st.itemLabel }}
+              <template v-if="st.showChevUp" #icon-right>
                 <AppIcon name="chevron-up" :size="12" />
-              </span>
-            </div>
+              </template>
+            </AppButton>
             <template v-if="st.subs">
-              <div v-for="s in st.subs" :key="s"
-                :class="['snp-subitem', { 'snp-subitem--active': st.activeSub === s }]"
-                style="cursor:default">{{ s }}</div>
+              <AppButton
+                v-for="s in st.subs" :key="s"
+                variant="quiet"
+                size="xs"
+                class="snp-subitem"
+                :class="{ 'snp-subitem--selected': st.activeSub === s }"
+                style="cursor:default; pointer-events:none;"
+              >{{ s }}</AppButton>
             </template>
           </div>
           <span class="snp-state-label">{{ st.label }}</span>
@@ -677,6 +696,8 @@ code {
 .snp-logo-mark-center {
   display: flex; align-items: center; justify-content: center; flex: 1;
 }
+.snp-nav--collapsed .snp-nav-header { padding: 0; cursor: pointer; }
+.snp-nav--collapsed .snp-logo-mark-center { width: 100%; height: 100%; }
 .snp-wordmark-img {
   width: auto;
   height: 18px;
@@ -713,47 +734,60 @@ code {
 .snp-nav-body::-webkit-scrollbar { width: 4px; }
 .snp-nav-body::-webkit-scrollbar-thumb { background: var(--grey-30); border-radius: 2px; }
 
-/* Primary items */
+/* Primary items — AppButton quiet override for nav context */
 .snp-item {
-  display: flex; align-items: center; gap: 8px;
-  height: 36px; padding: 0 8px;
-  border-radius: 4px; cursor: pointer;
-  transition: background 80ms;
-  position: relative; flex-shrink: 0; overflow: hidden;
+  width: 100% !important;
+  justify-content: flex-start !important;
+  border-radius: 4px !important;
+  flex-shrink: 0;
 }
-.snp-item:hover, .snp-item--hover { background: var(--grey-10); }
-.snp-item--active {
-  background: var(--blue-azure-10);
-  box-shadow: inset 2px 0 0 var(--blue-azure-50);
+.snp-item :deep(.btn__label) {
+  flex: 1 !important;
+  text-align: left !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  color: var(--grey-80) !important;
 }
-.snp-item--disabled { opacity: .4; cursor: not-allowed; pointer-events: none; }
+.snp-item :deep(.btn__icon--left) { color: var(--grey-60) !important; }
+.snp-item :deep(.btn__icon--right) { color: var(--grey-50) !important; }
 
-.snp-item-icon {
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; width: 16px; height: 16px;
-  color: var(--grey-60);
+/* Selected state */
+.snp-item--selected {
+  background-color: var(--blue-azure-10) !important;
+  box-shadow: inset 2px 0 0 var(--blue-azure-50) !important;
 }
-.snp-item--active .snp-item-icon { color: var(--grey-90); }
-
-.snp-item-label {
-  flex: 1; font-size: 13px; font-weight: 400; color: var(--grey-80);
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+.snp-item--selected :deep(.btn__label) {
+  color: var(--grey-100) !important;
+  font-weight: 500 !important;
 }
-.snp-item--active .snp-item-label { color: var(--grey-100); font-weight: 500; }
+.snp-item--selected :deep(.btn__icon--left) { color: var(--grey-90) !important; }
 
-.snp-item-chevron {
-  display: flex; align-items: center; color: var(--grey-50); flex-shrink: 0;
+/* Collapsed — icon-only, 40×40, centered */
+.snp-nav--collapsed .snp-item {
+  width: 40px !important;
+  margin: 0 auto !important;
 }
 
-/* Subitems */
+/* Subitems — AppButton quiet xs override */
 .snp-subitem {
-  height: 32px; display: flex; align-items: center;
-  padding: 0 8px 0 32px; border-radius: 4px;
-  font-size: 13px; color: var(--grey-70); cursor: pointer;
-  transition: background 80ms, color 80ms; flex-shrink: 0;
+  width: 100% !important;
+  justify-content: flex-start !important;
+  border-radius: 4px !important;
+  padding-left: 32px !important;
+  flex-shrink: 0;
 }
-.snp-subitem:hover { background: var(--grey-10); color: var(--grey-90); }
-.snp-subitem--active { color: var(--grey-100); font-weight: 500; }
+.snp-subitem :deep(.btn__label) {
+  text-align: left !important;
+  font-size: 13px !important;
+  color: var(--grey-70) !important;
+}
+.snp-subitem--selected :deep(.btn__label) {
+  color: var(--grey-100) !important;
+  font-weight: 500 !important;
+}
 
 /* Footer */
 .snp-nav-footer {
