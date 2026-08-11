@@ -62,26 +62,26 @@ const NAV_CONFIGS = {
   'partner:external': {
     header: 'gsfleet',
     items: [
-      { key: 'fleet',     icon: 'truck',       label: 'Fleet' },
-      { key: 'drivers',   icon: 'user',        label: 'Drivers' },
+      { key: 'overview',  icon: 'placeholder', label: 'Overview' },
       { key: 'devices',   icon: 'devices',     label: 'Devices' },
+      { key: 'insights',  icon: 'insights',    label: 'Insights' },
       { key: 'settings',  icon: 'settings',    label: 'Settings',
         children: ['Customization', 'General', 'Group management', 'Integrations', 'Users'] },
     ],
     footer: { initials: 'NP', name: 'Nice Partner', code: 'DK12345678' },
-    defaultActive: 'fleet',
+    defaultActive: 'overview',
   },
   'partner:internal': {
     header: 'back-home',
     items: [
-      { key: 'fleet',     icon: 'truck',       label: 'Fleet' },
-      { key: 'drivers',   icon: 'user',        label: 'Drivers' },
+      { key: 'overview',  icon: 'placeholder', label: 'Overview' },
       { key: 'devices',   icon: 'devices',     label: 'Devices' },
+      { key: 'insights',  icon: 'insights',    label: 'Insights' },
       { key: 'settings',  icon: 'settings',    label: 'Settings',
         children: ['Customization', 'General', 'Group management', 'Integrations', 'Users'] },
     ],
     footer: { initials: 'NP', name: 'Nice Partner', code: 'DK12345678', viewing: true },
-    defaultActive: 'fleet',
+    defaultActive: 'overview',
   },
   'company:external': {
     header: 'gsfleet',
