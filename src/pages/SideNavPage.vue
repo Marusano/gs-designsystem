@@ -757,7 +757,6 @@ code {
 /* Selected state */
 .snp-item--selected {
   background-color: var(--blue-azure-10) !important;
-  box-shadow: inset 2px 0 0 var(--blue-azure-50) !important;
 }
 .snp-item--selected :deep(.btn__label) {
   color: var(--grey-100) !important;
