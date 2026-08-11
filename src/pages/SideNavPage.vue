@@ -233,7 +233,10 @@ const TOKENS = [
           <div class="snp-nav-header">
             <template v-if="navType === 'collapsed'">
               <div class="snp-logo-mark-center" @click="navType = 'fixed'" title="Expand">
-                <img :src="logoMarkUrl" width="36" height="36" alt="GSFleet" />
+                <img :src="logoMarkUrl" width="36" height="36" alt="GSFleet" class="snp-logo-default" />
+                <div class="snp-logo-hover" aria-hidden="true">
+                  <AppIcon name="chevron-double-right" :size="16" />
+                </div>
               </div>
             </template>
             <template v-else>
@@ -697,7 +700,23 @@ code {
   display: flex; align-items: center; justify-content: center; flex: 1;
 }
 .snp-nav--collapsed .snp-nav-header { padding: 0; cursor: pointer; }
-.snp-nav--collapsed .snp-logo-mark-center { width: 100%; height: 100%; }
+.snp-nav--collapsed .snp-logo-mark-center { width: 100%; height: 100%; position: relative; }
+
+.snp-logo-default { transition: opacity 120ms; }
+.snp-logo-hover {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 36px; height: 36px;
+  border-radius: 4px;
+  background: linear-gradient(135deg, #17294F 0%, #39ade3 100%);
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0;
+  transition: opacity 120ms;
+}
+.snp-logo-mark-center:hover .snp-logo-default { opacity: 0; }
+.snp-logo-mark-center:hover .snp-logo-hover   { opacity: 1; }
 .snp-wordmark-img {
   width: auto;
   height: 18px;
