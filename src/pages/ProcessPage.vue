@@ -220,7 +220,7 @@
         <div class="ds-use-card">
           <div class="ds-use-card__role ds-use-card__role--developer">Developer</div>
           <ul class="ds-use-list">
-            <li>Import from <code>src/components/ui/</code> — <code>AppButton</code>, <code>AppInput</code>, <code>AppSelect</code>, <code>AppTag</code></li>
+            <li>Import from <code>src/components/ui/</code> — <code>AppButton</code>, <code>AppInput</code>, <code>AppSelect</code>, <code>AppTag</code>, <code>AppCheckbox</code>, <code>AppRadio</code>, <code>AppToggle</code>, <code>AppTabs</code>, <code>AppTooltip</code>, <code>AppIcon</code>, <code>AppMenu</code>, <code>AppTopBar</code>, <code>AppAccountMenu</code>, <code>AppBreadcrumbs</code>, <code>AppNotificationBubble</code>, <code>AppLegend</code></li>
             <li>Pass only documented props; use slots for icons and custom content</li>
             <li>Never hardcode hex values — always reference a CSS custom property</li>
             <li>Check the token table on each component's doc page before adding custom CSS</li>

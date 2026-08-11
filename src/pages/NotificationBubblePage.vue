@@ -16,7 +16,47 @@ const IconBell = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><p
         (light blue, for white/light surfaces) and <strong>flat</strong> (dark, for dark or
         image surfaces).
       </p>
+    </section>
 
+    <!-- ── Component demo ────────────────────────────────── -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Component Usage</h2>
+      <p class="ds-body">AppNotificationBubble in use — on an icon and standalone.</p>
+      <div class="ds-card ds-demo-flex">
+        <div class="ds-demo-item">
+          <div class="demo-icon-wrap">
+            <span v-html="IconBell" />
+            <AppNotificationBubble :count="3" variant="elevated" style="position:absolute;top:-4px;right:-4px;" />
+          </div>
+          <span class="ds-state-label">Elevated · count</span>
+        </div>
+        <div class="ds-demo-item">
+          <div class="demo-icon-wrap" style="background: var(--indigo-100); border-radius: 8px; padding: 6px;">
+            <span v-html="IconBell" style="color:#fff" />
+            <AppNotificationBubble :count="12" variant="flat" style="position:absolute;top:-4px;right:-4px;" />
+          </div>
+          <span class="ds-state-label">Flat · count</span>
+        </div>
+        <div class="ds-demo-item">
+          <div class="demo-icon-wrap">
+            <span v-html="IconBell" />
+            <AppNotificationBubble dot variant="elevated" style="position:absolute;top:-2px;right:-2px;" />
+          </div>
+          <span class="ds-state-label">Dot indicator</span>
+        </div>
+        <div class="ds-demo-item">
+          <AppNotificationBubble :count="99" variant="elevated" />
+          <span class="ds-state-label">Max count</span>
+        </div>
+        <div class="ds-demo-item">
+          <AppNotificationBubble :count="142" variant="elevated" />
+          <span class="ds-state-label">Over 99</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Variants / examples / tokens ──────────────────── -->
+    <section class="ds-section">
       <!-- Variants -->
       <div class="ds-state-row">
         <div class="ds-state-cell">
@@ -103,43 +143,6 @@ const IconBell = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><p
           <div class="ds-swatch ds-swatch--none"></div>
           <code class="ds-token-val">24 × 24 px</code>
           <span>Count bubble · border-radius 12px · Inter SemiBold 14px</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── Component demo ────────────────────────────────── -->
-    <section class="ds-section">
-      <h2 class="ds-h2">Component</h2>
-      <p class="ds-body">AppNotificationBubble in use — on an icon and standalone.</p>
-      <div class="ds-card ds-demo-flex">
-        <div class="ds-demo-item">
-          <div class="demo-icon-wrap">
-            <span v-html="IconBell" />
-            <AppNotificationBubble :count="3" variant="elevated" style="position:absolute;top:-4px;right:-4px;" />
-          </div>
-          <span class="ds-state-label">Elevated · count</span>
-        </div>
-        <div class="ds-demo-item">
-          <div class="demo-icon-wrap" style="background: var(--indigo-100); border-radius: 8px; padding: 6px;">
-            <span v-html="IconBell" style="color:#fff" />
-            <AppNotificationBubble :count="12" variant="flat" style="position:absolute;top:-4px;right:-4px;" />
-          </div>
-          <span class="ds-state-label">Flat · count</span>
-        </div>
-        <div class="ds-demo-item">
-          <div class="demo-icon-wrap">
-            <span v-html="IconBell" />
-            <AppNotificationBubble dot variant="elevated" style="position:absolute;top:-2px;right:-2px;" />
-          </div>
-          <span class="ds-state-label">Dot indicator</span>
-        </div>
-        <div class="ds-demo-item">
-          <AppNotificationBubble :count="99" variant="elevated" />
-          <span class="ds-state-label">Max count</span>
-        </div>
-        <div class="ds-demo-item">
-          <AppNotificationBubble :count="142" variant="elevated" />
-          <span class="ds-state-label">Over 99</span>
         </div>
       </div>
     </section>

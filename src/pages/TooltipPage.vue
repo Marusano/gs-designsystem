@@ -19,7 +19,7 @@ import AppIcon    from '../components/ui/AppIcon.vue'
 
     <!-- ── Variants ───────────────────────────────────────── -->
     <section class="ds-section">
-      <h2 class="ds-h2">Variants</h2>
+      <h2 class="ds-h2">Component Usage</h2>
       <p class="ds-body">
         Tooltip is available in two visual variants — light and dark. The light variant is the
         default and works well on most UI backgrounds.

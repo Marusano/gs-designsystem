@@ -21,7 +21,7 @@ const demoFleet = ref('gps')
 
     <!-- ── Component demo ────────────────────────────────── -->
     <section class="ds-section">
-      <h2 class="ds-h2">Component</h2>
+      <h2 class="ds-h2">Component Usage</h2>
       <p class="ds-body">Select a tracking method — only one option can be active at a time.</p>
       <div class="ds-card ds-demo-row">
         <AppRadio v-model="demoFleet" value="gps"      label="GPS tracking"      name="demo-fleet" />

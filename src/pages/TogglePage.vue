@@ -23,7 +23,7 @@ const demoReports       = ref(true)
 
     <!-- ── Component demo ────────────────────────────────── -->
     <section class="ds-section">
-      <h2 class="ds-h2">Component</h2>
+      <h2 class="ds-h2">Component Usage</h2>
       <p class="ds-body">Click each toggle to turn it on or off.</p>
       <div class="ds-card ds-demo-row">
         <AppToggle v-model="demoNotifications" label="Push notifications" />

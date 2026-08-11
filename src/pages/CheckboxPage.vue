@@ -26,7 +26,7 @@ const demoC = ref(false)
 
     <!-- ── Component demo ────────────────────────────────── -->
     <section class="ds-section">
-      <h2 class="ds-h2">Component</h2>
+      <h2 class="ds-h2">Component Usage</h2>
       <p class="ds-body">Click the checkboxes below to toggle their state.</p>
       <div class="ds-card ds-demo-row">
         <AppCheckbox v-model="demoA" label="Receive email notifications" />

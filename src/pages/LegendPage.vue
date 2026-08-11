@@ -27,7 +27,7 @@ const activityItems = [
 
     <!-- Component preview -->
     <section class="ds-section">
-      <h2 class="ds-h2">Overview</h2>
+      <h2 class="ds-h2">Component Usage</h2>
       <div class="lg-preview">
         <AppLegend :items="statusItems" />
         <AppLegend :items="activityItems" />
