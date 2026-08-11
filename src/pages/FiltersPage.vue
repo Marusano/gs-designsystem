@@ -98,7 +98,7 @@ const IconChevronDown  = `<svg width="12" height="12" viewBox="0 0 12 12" fill="
 
     <!-- ── Example ─────────────────────────────────────────────── -->
     <section class="ds-section">
-      <h2 class="ds-h2">Example</h2>
+      <h2 class="ds-h2">Component Usage</h2>
 
       <div class="ds-frame">
         <!-- Top bar -->

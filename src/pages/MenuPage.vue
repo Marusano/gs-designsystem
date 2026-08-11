@@ -78,7 +78,7 @@ const IconChevronDown  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="
 
     <!-- ── Component demo ────────────────────────────────── -->
     <section class="ds-section">
-      <h2 class="ds-h2">Component</h2>
+      <h2 class="ds-h2">Component Usage</h2>
       <p class="ds-body">AppMenu manages open/close state and emits a <code>select</code> event. Click the button to open the menu.</p>
       <div class="ds-card" style="display:flex;align-items:center;gap:24px;flex-wrap:wrap;">
         <AppMenu v-model:open="cmOpen" :items="cmItems" @select="cmSelected = $event.label">

@@ -31,7 +31,7 @@ const IconExternal = `<svg width="11" height="11" viewBox="0 0 11 11" fill="none
 
     <!-- ── Interactive example ──────────────────────────────── -->
     <section class="ds-section">
-      <h2 class="ds-h2">Example</h2>
+      <h2 class="ds-h2">Component Usage</h2>
 
       <div class="tpb-demo-wrap">
         <!-- Live component -->
