@@ -87,7 +87,6 @@ onUnmounted(close)
       @click="toggle"
     >
       {{ label }}
-      <span v-if="modelValue.length" class="fmenu__badge">{{ modelValue.length }}</span>
       <template #icon-right>
         <AppIcon :name="chevron" :size="12" />
       </template>
@@ -129,21 +128,6 @@ onUnmounted(close)
 .fmenu__btn--active.btn--tertiary:hover {
   background: var(--blue-azure-10);
   opacity: 0.88;
-}
-
-/* ── Selection count badge ──────────────────────────────────── */
-.fmenu__badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 16px;
-  height: 16px;
-  padding: 0 4px;
-  background: var(--blue-azure-70);
-  color: var(--grey-00);
-  font-size: 10px;
-  font-weight: 700;
-  border-radius: 8px;
 }
 
 /* ── Dropdown panel ─────────────────────────────────────────── */
