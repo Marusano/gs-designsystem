@@ -14,5 +14,8 @@ export { default as AppBreadcrumbs }        from './components/ui/AppBreadcrumbs
 export { default as AppLegend }             from './components/ui/AppLegend.vue'
 export { default as AppNotificationBubble } from './components/ui/AppNotificationBubble.vue'
 export { default as AppIcon }               from './components/ui/AppIcon.vue'
+export { default as AppSideNavigation }     from './components/ui/AppSideNavigation.vue'
+export { default as AppTopBar }             from './components/ui/AppTopBar.vue'
+export { default as AppAccountMenu }        from './components/ui/AppAccountMenu.vue'
 
 export { ICONS, GROUPS } from './components/icons/index.js'
