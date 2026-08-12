@@ -5,6 +5,7 @@ import AppTag      from '../components/ui/AppTag.vue'
 import AppInput    from '../components/ui/AppInput.vue'
 import AppCheckbox from '../components/ui/AppCheckbox.vue'
 import AppIcon     from '../components/ui/AppIcon.vue'
+import AppTopBar   from '../components/ui/AppTopBar.vue'
 
 /* ── Filter definitions ──────────────────────────────────────── */
 const FILTER_DEFS = [
@@ -96,24 +97,16 @@ function resetOverflow()     { overflowChips.value = [...OVERFLOW_INIT] }
       <div class="ds-frame">
 
         <!-- Top bar -->
-        <div class="ds-topbar">
-          <div class="ds-breadcrumb">
-            <span>Settings</span>
-            <span class="ds-breadcrumb__sep"><AppIcon name="chevron-right" :size="12" /></span>
-            <span>User Management</span>
-            <span class="ds-breadcrumb__sep"><AppIcon name="chevron-right" :size="12" /></span>
-            <span class="ds-breadcrumb__active">Aaro Saarinen</span>
-          </div>
-          <div class="ds-topbar__right">
-            <AppButton variant="tertiary" size="sm">
-              <template #icon-left><AppIcon name="help" :size="14" /></template>
-            </AppButton>
-            <AppButton variant="tertiary" size="sm">
-              Aaro Saarinen
-              <template #icon-right><AppIcon name="chevron-down" :size="12" /></template>
-            </AppButton>
-          </div>
-        </div>
+        <AppTopBar
+          class="fp-topbar"
+          userName="Aaro Saarinen"
+          :showHelp="true"
+          :breadcrumbs="[
+            { label: 'Settings' },
+            { label: 'User Management' },
+            { label: 'Aaro Saarinen' },
+          ]"
+        />
 
         <!-- Page header -->
         <div class="ds-page-header">
@@ -135,12 +128,9 @@ function resetOverflow()     { overflowChips.value = [...OVERFLOW_INIT] }
 
         <!-- Filter toolbar: [search] [chip container if active] [filter buttons right] -->
         <div class="ds-toolbar-row">
-          <AppInput
-            type="search"
-            placeholder="Search"
-            v-model="searchText"
-            style="--field-height: 36px; width: 180px; flex-shrink: 0;"
-          />
+          <div class="fp-search-wrap">
+            <AppInput type="search" placeholder="Search" v-model="searchText" />
+          </div>
 
           <!-- Chip container: inline between search and filter buttons -->
           <div v-if="hasFilters" class="ds-chip-container">
@@ -211,7 +201,7 @@ function resetOverflow()     { overflowChips.value = [...OVERFLOW_INIT] }
         </p>
         <div class="ds-mock ds-mock--col">
           <div class="ds-mock-row">
-            <AppInput type="search" placeholder="Search" style="--field-height: 36px; width: 180px; flex-shrink: 0;" />
+            <div class="fp-search-wrap"><AppInput type="search" placeholder="Search" /></div>
             <div class="ds-filterbar">
               <AppButton variant="tertiary" size="sm" v-for="n in 3" :key="n">
                 Filter label
@@ -233,7 +223,7 @@ function resetOverflow()     { overflowChips.value = [...OVERFLOW_INIT] }
         </p>
         <div class="ds-mock ds-mock--col">
           <div class="ds-mock-row ds-mock-row--top">
-            <AppInput type="search" placeholder="Search" style="--field-height: 36px; width: 180px; flex-shrink: 0;" />
+            <div class="fp-search-wrap"><AppInput type="search" placeholder="Search" /></div>
             <div class="ds-filterbar" style="align-items: flex-start">
               <AppButton variant="tertiary" size="sm">
                 Filter label
@@ -280,7 +270,7 @@ function resetOverflow()     { overflowChips.value = [...OVERFLOW_INIT] }
         </p>
         <div class="ds-mock ds-mock--col">
           <div class="ds-mock-row">
-            <AppInput type="search" placeholder="Search" style="--field-height: 36px; width: 180px; flex-shrink: 0;" />
+            <div class="fp-search-wrap"><AppInput type="search" placeholder="Search" /></div>
             <div v-if="state3chips.length" class="ds-chip-container">
               <button class="ds-clear-icon" @click="resetState3" title="Clear all filters">
                 <span class="ds-clear-icon__default"><AppIcon name="filter" :size="14" /></span>
@@ -315,7 +305,7 @@ function resetOverflow()     { overflowChips.value = [...OVERFLOW_INIT] }
       <div class="ds-mock ds-mock--col">
         <!-- Row 1: search + filter buttons -->
         <div class="ds-mock-row">
-          <AppInput type="search" placeholder="Search" style="--field-height: 36px; width: 180px; flex-shrink: 0;" />
+          <div class="fp-search-wrap"><AppInput type="search" placeholder="Search" /></div>
           <div class="ds-filterbar">
             <AppButton variant="tertiary" size="sm" v-for="n in 3" :key="n">
               Filter label
@@ -419,28 +409,11 @@ function resetOverflow()     { overflowChips.value = [...OVERFLOW_INIT] }
   overflow: visible;
 }
 
-/* ── Top bar ────────────────────────────────────────────────── */
-.ds-topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 20px;
-  height: 48px;
-  background: var(--color-surface-default);
-  border-bottom: 1px solid var(--grey-10);
-  border-radius: 8px 8px 0 0;
-  gap: 12px;
-}
-.ds-breadcrumb {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 13px;
-  color: var(--grey-60);
-}
-.ds-breadcrumb__sep { display: flex; align-items: center; color: var(--grey-30); }
-.ds-breadcrumb__active { color: var(--grey-90); font-weight: 500; }
-.ds-topbar__right { display: flex; align-items: center; gap: 6px; }
+/* ── AppTopBar inside frame: round top corners ──────────────── */
+.fp-topbar { border-radius: 8px 8px 0 0; }
+
+/* ── Search wrapper: controls width without polluting AppInput attrs ── */
+.fp-search-wrap { width: 180px; flex-shrink: 0; }
 
 /* ── Page header ────────────────────────────────────────────── */
 .ds-page-header {
