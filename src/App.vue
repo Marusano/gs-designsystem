@@ -22,6 +22,8 @@ import LegendPage        from './pages/LegendPage.vue'
 import TabsPage          from './pages/TabsPage.vue'
 import SideNavPage       from './pages/SideNavPage.vue'
 import PlaygroundTestPage from './pages/PlaygroundTestPage.vue'
+import PageHeaderPage        from './pages/PageHeaderPage.vue'
+import ContextualHeaderPage from './pages/ContextualHeaderPage.vue'
 
 const page = ref('buttons')
 
@@ -45,6 +47,8 @@ const IconTooltip    = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
 const IconLegend     = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="4" width="3" height="3" rx="0.5" fill="currentColor" opacity="0.4"/><path d="M6 5.5h7" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><rect x="1" y="8" width="3" height="3" rx="0.5" fill="currentColor"/><path d="M6 9.5h7" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>`
 const IconTabs       = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="5" width="12" height="8" rx="1.5" stroke="currentColor" stroke-width="1.1"/><rect x="1" y="1" width="4" height="5" rx="1" fill="currentColor"/><rect x="6" y="2" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.1"/></svg>`
 const IconTopBar     = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1.5" stroke="currentColor" stroke-width="1.1"/><path d="M1 5h12" stroke="currentColor" stroke-width="1.1"/><path d="M3.5 3.5h4" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><circle cx="11" cy="3.5" r=".75" fill="currentColor"/></svg>`
+const IconPageHeader        = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1.5" stroke="currentColor" stroke-width="1.1"/><path d="M1 6.5h12" stroke="currentColor" stroke-width="1.1"/><path d="M3 4.5h5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><path d="M10.5 4h1" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>`
+const IconContextualHeader = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1.5" stroke="currentColor" stroke-width="1.1"/><path d="M1 6.5h12" stroke="currentColor" stroke-width="1.1"/><path d="M3 8.5h2M6.5 8.5h2M10 8.5h1" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><path d="M3 4.5h3" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>`
 const IconSideNav    = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1.5" stroke="currentColor" stroke-width="1.1"/><path d="M4.5 2v10" stroke="currentColor" stroke-width="1.1"/><path d="M2 5.5h1.5M2 8h1.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>`
 const IconPlayground = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 11.5L5.5 5l2 3 1.5-2.5L12 11.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="3" r="1.25" stroke="currentColor" stroke-width="1.1"/></svg>`
 </script>
@@ -175,6 +179,14 @@ const IconPlayground = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
             <span class="ds-sidebar__item-icon" v-html="IconTopBar" />
             Top bar
           </button>
+          <button @click="page = 'page-header'" :class="['ds-sidebar__item', { active: page === 'page-header' }]">
+            <span class="ds-sidebar__item-icon" v-html="IconPageHeader" />
+            Page header
+          </button>
+          <button @click="page = 'contextual-header'" :class="['ds-sidebar__item', { active: page === 'contextual-header' }]">
+            <span class="ds-sidebar__item-icon" v-html="IconContextualHeader" />
+            Contextual header
+          </button>
           <button @click="page = 'sidenav'" :class="['ds-sidebar__item', { active: page === 'sidenav' }]">
             <span class="ds-sidebar__item-icon" v-html="IconSideNav" />
             Side navigation
@@ -213,6 +225,8 @@ const IconPlayground = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
         <TabsPage         v-if="page === 'tabs'" />
         <ProcessPage    v-if="page === 'process'" />
         <PlaygroundTestPage v-if="page === 'playground-test'" />
+        <PageHeaderPage        v-if="page === 'page-header'" />
+        <ContextualHeaderPage  v-if="page === 'contextual-header'" />
       </div>
 
     </div>

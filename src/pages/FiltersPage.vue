@@ -6,6 +6,7 @@ import AppInput       from '../components/ui/AppInput.vue'
 import AppIcon        from '../components/ui/AppIcon.vue'
 import AppTopBar      from '../components/ui/AppTopBar.vue'
 import AppFilterMenu  from '../components/ui/AppFilterMenu.vue'
+import AppPageHeader  from '../components/ui/AppPageHeader.vue'
 
 /* ── Filter definitions ──────────────────────────────────────── */
 const FILTER_DEFS = [
@@ -90,12 +91,8 @@ function resetOverflow()     { overflowChips.value = [...OVERFLOW_INIT] }
         />
 
         <!-- Page header -->
-        <div class="ds-page-header">
-          <div>
-            <h2 class="ds-page-header__title">Hello, Anna</h2>
-            <p class="ds-page-header__sub">Welcome back to Fleet Manager</p>
-          </div>
-          <div class="ds-page-header__actions">
+        <AppPageHeader type="primary" state="welcome" title="Hello, Aaro" subtitle="Welcome back to Fleet Manager">
+          <template #actions>
             <AppButton variant="secondary" size="sm">
               <template #icon-left><AppIcon name="plus" :size="14" /></template>
               Button label here
@@ -104,8 +101,8 @@ function resetOverflow()     { overflowChips.value = [...OVERFLOW_INIT] }
               Button
               <template #icon-right><AppIcon name="chevron-down" :size="12" /></template>
             </AppButton>
-          </div>
-        </div>
+          </template>
+        </AppPageHeader>
 
         <!-- Filter toolbar: [search] [chip container if active] [filter buttons right] -->
         <div class="ds-toolbar-row">
@@ -337,20 +334,6 @@ function resetOverflow()     { overflowChips.value = [...OVERFLOW_INIT] }
 
 /* ── Search wrapper: controls width without polluting AppInput attrs ── */
 .fp-search-wrap { width: 180px; flex-shrink: 0; }
-
-/* ── Page header ────────────────────────────────────────────── */
-.ds-page-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 20px;
-  background: var(--color-surface-default);
-  border-bottom: 1px solid var(--grey-10);
-  gap: 12px;
-}
-.ds-page-header__title { font-size: 22px; font-weight: 700; color: var(--grey-100); }
-.ds-page-header__sub   { font-size: 13px; color: var(--grey-60); margin-top: 2px; }
-.ds-page-header__actions { display: flex; align-items: center; gap: 8px; }
 
 /* ── Toolbar ────────────────────────────────────────────────── */
 .ds-toolbar-row {
