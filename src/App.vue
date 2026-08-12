@@ -24,6 +24,7 @@ import SideNavPage       from './pages/SideNavPage.vue'
 import PlaygroundTestPage from './pages/PlaygroundTestPage.vue'
 import PageHeaderPage        from './pages/PageHeaderPage.vue'
 import ContextualHeaderPage from './pages/ContextualHeaderPage.vue'
+import DataTablePage        from './pages/DataTablePage.vue'
 
 const page = ref('buttons')
 
@@ -49,6 +50,7 @@ const IconTabs       = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
 const IconTopBar     = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1.5" stroke="currentColor" stroke-width="1.1"/><path d="M1 5h12" stroke="currentColor" stroke-width="1.1"/><path d="M3.5 3.5h4" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><circle cx="11" cy="3.5" r=".75" fill="currentColor"/></svg>`
 const IconPageHeader        = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1.5" stroke="currentColor" stroke-width="1.1"/><path d="M1 6.5h12" stroke="currentColor" stroke-width="1.1"/><path d="M3 4.5h5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><path d="M10.5 4h1" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>`
 const IconContextualHeader = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1.5" stroke="currentColor" stroke-width="1.1"/><path d="M1 6.5h12" stroke="currentColor" stroke-width="1.1"/><path d="M3 8.5h2M6.5 8.5h2M10 8.5h1" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><path d="M3 4.5h3" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>`
+const IconDataTable        = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1.5" stroke="currentColor" stroke-width="1.1"/><path d="M1 5.5h12" stroke="currentColor" stroke-width="1.1"/><path d="M5 5.5v6.5M5 2v3.5" stroke="currentColor" stroke-width="1.1"/></svg>`
 const IconSideNav    = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1.5" stroke="currentColor" stroke-width="1.1"/><path d="M4.5 2v10" stroke="currentColor" stroke-width="1.1"/><path d="M2 5.5h1.5M2 8h1.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>`
 const IconPlayground = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 11.5L5.5 5l2 3 1.5-2.5L12 11.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="3" r="1.25" stroke="currentColor" stroke-width="1.1"/></svg>`
 </script>
@@ -191,6 +193,10 @@ const IconPlayground = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
             <span class="ds-sidebar__item-icon" v-html="IconSideNav" />
             Side navigation
           </button>
+          <button @click="page = 'data-table'" :class="['ds-sidebar__item', { active: page === 'data-table' }]">
+            <span class="ds-sidebar__item-icon" v-html="IconDataTable" />
+            Data table
+          </button>
         </div>
 
         <div class="ds-sidebar__group">
@@ -227,6 +233,7 @@ const IconPlayground = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
         <PlaygroundTestPage v-if="page === 'playground-test'" />
         <PageHeaderPage        v-if="page === 'page-header'" />
         <ContextualHeaderPage  v-if="page === 'contextual-header'" />
+        <DataTablePage         v-if="page === 'data-table'" />
       </div>
 
     </div>
