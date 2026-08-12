@@ -7,8 +7,9 @@
  * @prop {boolean} disabled    - disables the button
  * @prop {boolean} loading     - shows loading state (inherits disabled appearance)
  * @prop {string}  as          - HTML tag override (default 'button')
+ * @prop {boolean} selected    - marks the button as persistently selected (tertiary & quiet only)
  * @prop {string}  forcedState - dev-only: force a visual state for documentation
- *                               'hover' | 'focus' | 'active' | 'disabled'
+ *                               'hover' | 'focus' | 'active' | 'disabled' | 'selected'
  *
  * Slots:
  *   default    — button label text
@@ -37,6 +38,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  selected: {
+    type: Boolean,
+    default: false,
+  },
   as: {
     type: String,
     default: 'button',
@@ -45,7 +50,7 @@ const props = defineProps({
   forcedState: {
     type: String,
     default: null,
-    validator: (v) => [null, 'hover', 'focus', 'active', 'disabled'].includes(v),
+    validator: (v) => [null, 'hover', 'focus', 'active', 'disabled', 'selected'].includes(v),
   },
 })
 
@@ -55,7 +60,8 @@ const classes = computed(() => [
   'btn',
   `btn--${props.variant}`,
   `btn--${props.size}`,
-  props.forcedState && `is-${props.forcedState}`,
+  (props.selected || props.forcedState === 'selected') && 'is-selected',
+  props.forcedState && props.forcedState !== 'selected' && `is-${props.forcedState}`,
 ])
 </script>
 
@@ -264,6 +270,12 @@ const classes = computed(() => [
   box-shadow: inset 0 0 0 3px var(--btn-tertiary-ring-active);
 }
 
+.btn--tertiary.is-selected {
+  background-color: var(--btn-tertiary-selected-bg);
+  color: var(--btn-tertiary-selected-text);
+  box-shadow: inset 0 0 0 1px var(--btn-tertiary-selected-bg);
+}
+
 .btn--tertiary:disabled,
 .btn--tertiary.is-disabled {
   background-color: var(--btn-disabled-bg);
@@ -303,6 +315,12 @@ const classes = computed(() => [
   background-color: var(--btn-quiet-active-bg);
   color: var(--btn-quiet-active-text);
   box-shadow: inset 0 0 0 3px var(--btn-quiet-ring-active);
+}
+
+.btn--quiet.is-selected {
+  background-color: var(--btn-quiet-selected-bg);
+  color: var(--btn-quiet-selected-text);
+  box-shadow: none;
 }
 
 .btn--quiet:disabled,

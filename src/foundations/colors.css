@@ -161,29 +161,33 @@
   --btn-secondary-disabled-border: var(--grey-20);
 
   /* Button tokens — Tertiary */
-  --btn-tertiary-bg:           transparent;
-  --btn-tertiary-hover-bg:     var(--grey-10);
-  --btn-tertiary-focus-bg:     var(--grey-10);
-  --btn-tertiary-active-bg:    var(--grey-20);
-  --btn-tertiary-text:         var(--grey-70);
-  --btn-tertiary-hover-text:   var(--grey-70);
-  --btn-tertiary-focus-text:   var(--grey-90);
-  --btn-tertiary-active-text:  var(--grey-90);
-  --btn-tertiary-border:       var(--grey-30);
-  --btn-tertiary-ring-focus:   var(--blue-azure-30);
-  --btn-tertiary-ring-active:  var(--blue-azure-40);
+  --btn-tertiary-bg:            transparent;
+  --btn-tertiary-hover-bg:      var(--grey-10);
+  --btn-tertiary-focus-bg:      var(--grey-10);
+  --btn-tertiary-active-bg:     var(--grey-20);
+  --btn-tertiary-selected-bg:   var(--grey-20);
+  --btn-tertiary-text:          var(--grey-70);
+  --btn-tertiary-hover-text:    var(--grey-70);
+  --btn-tertiary-focus-text:    var(--grey-90);
+  --btn-tertiary-active-text:   var(--grey-90);
+  --btn-tertiary-selected-text: var(--grey-90);
+  --btn-tertiary-border:        var(--grey-30);
+  --btn-tertiary-ring-focus:    var(--blue-azure-30);
+  --btn-tertiary-ring-active:   var(--blue-azure-40);
 
   /* Button tokens — Quiet */
-  --btn-quiet-bg:          transparent;
-  --btn-quiet-hover-bg:    var(--grey-20);
-  --btn-quiet-focus-bg:    var(--grey-10);
-  --btn-quiet-active-bg:   var(--grey-20);
-  --btn-quiet-text:        var(--grey-70);
-  --btn-quiet-hover-text:  var(--grey-90);
-  --btn-quiet-focus-text:  var(--grey-90);
-  --btn-quiet-active-text: var(--grey-90);
-  --btn-quiet-ring-focus:  var(--blue-azure-30);
-  --btn-quiet-ring-active: var(--blue-azure-40);
+  --btn-quiet-bg:            transparent;
+  --btn-quiet-hover-bg:      var(--grey-20);
+  --btn-quiet-focus-bg:      var(--grey-10);
+  --btn-quiet-active-bg:     var(--grey-20);
+  --btn-quiet-selected-bg:   var(--blue-azure-20);
+  --btn-quiet-text:          var(--grey-70);
+  --btn-quiet-hover-text:    var(--grey-90);
+  --btn-quiet-focus-text:    var(--grey-90);
+  --btn-quiet-active-text:   var(--grey-90);
+  --btn-quiet-selected-text: var(--grey-90);
+  --btn-quiet-ring-focus:    var(--blue-azure-30);
+  --btn-quiet-ring-active:   var(--blue-azure-40);
 
   /* Button tokens — Danger */
   --btn-danger-bg:          var(--red-70);

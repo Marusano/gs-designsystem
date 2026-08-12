@@ -75,6 +75,26 @@ const IconX        = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none
       </div>
     </section>
 
+    <!-- Selected state -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Selected State</h2>
+      <p class="ds-body">The <code>selected</code> state is available on <strong>Tertiary</strong> and <strong>Quiet</strong> variants only. Use it to indicate a persistently active choice — for example a toggled filter, a currently active tab trigger, or a toolbar action that is "on".</p>
+      <div class="ds-selected-row">
+        <div class="ds-selected-item">
+          <p class="ds-selected-item__label">Tertiary — selected</p>
+          <AppButton variant="tertiary" size="md" forced-state="selected">Button label</AppButton>
+        </div>
+        <div class="ds-selected-item">
+          <p class="ds-selected-item__label">Quiet — selected</p>
+          <AppButton variant="quiet" size="md" forced-state="selected">Button label</AppButton>
+        </div>
+        <div class="ds-selected-item">
+          <p class="ds-selected-item__label">Quiet — selected (sm)</p>
+          <AppButton variant="quiet" size="sm" forced-state="selected">Button label</AppButton>
+        </div>
+      </div>
+    </section>
+
     <!-- Variants guidance table -->
     <section class="ds-section">
       <h2 class="ds-h2">Variants usage</h2>
@@ -296,7 +316,7 @@ const IconX        = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none
               <td><code>forcedState</code></td>
               <td>String</td>
               <td><code>null</code></td>
-              <td>Forces a visual state for documentation: <code>hover</code> · <code>focus</code> · <code>active</code> · <code>disabled</code></td>
+              <td>Forces a visual state for documentation: <code>hover</code> · <code>focus</code> · <code>active</code> · <code>disabled</code> · <code>selected</code> (tertiary &amp; quiet only)</td>
             </tr>
           </tbody>
         </table>
@@ -486,18 +506,22 @@ const IconX        = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none
                 <tr><td>Active ring</td> <td><code>--btn-secondary-ring-active</code></td>   <td><span class="swatch" style="background:#61bde9"></span>#61bde9</td></tr>
               </template>
               <template v-if="variant === 'tertiary'">
-                <tr><td>Main border</td><td><code>--btn-tertiary-border</code></td>         <td><span class="swatch" style="background:#d8d8da"></span>#d8d8da</td></tr>
-                <tr><td>Hover bg</td>   <td><code>--btn-tertiary-hover-bg</code></td>       <td><span class="swatch" style="background:#f1f1f2;border:1px solid #d8d8da"></span>#f1f1f2</td></tr>
-                <tr><td>Active bg</td>  <td><code>--btn-tertiary-active-bg</code></td>      <td><span class="swatch" style="background:#e6e6e7;border:1px solid #d8d8da"></span>#e6e6e7</td></tr>
-                <tr><td>Focus ring</td> <td><code>--btn-tertiary-ring-focus</code></td>     <td><span class="swatch" style="background:#b3e1f7"></span>#b3e1f7</td></tr>
-                <tr><td>Active ring</td><td><code>--btn-tertiary-ring-active</code></td>    <td><span class="swatch" style="background:#61bde9"></span>#61bde9</td></tr>
+                <tr><td>Main border</td>   <td><code>--btn-tertiary-border</code></td>          <td><span class="swatch" style="background:#d8d8da"></span>#d8d8da</td></tr>
+                <tr><td>Hover bg</td>      <td><code>--btn-tertiary-hover-bg</code></td>        <td><span class="swatch" style="background:#f1f1f2;border:1px solid #d8d8da"></span>#f1f1f2</td></tr>
+                <tr><td>Active bg</td>     <td><code>--btn-tertiary-active-bg</code></td>       <td><span class="swatch" style="background:#e6e6e7;border:1px solid #d8d8da"></span>#e6e6e7</td></tr>
+                <tr><td>Selected bg</td>   <td><code>--btn-tertiary-selected-bg</code></td>     <td><span class="swatch" style="background:#e6e6e7;border:1px solid #d8d8da"></span>#e6e6e7</td></tr>
+                <tr><td>Selected text</td> <td><code>--btn-tertiary-selected-text</code></td>   <td><span class="swatch" style="background:#36383b"></span>#36383b</td></tr>
+                <tr><td>Focus ring</td>    <td><code>--btn-tertiary-ring-focus</code></td>      <td><span class="swatch" style="background:#b3e1f7"></span>#b3e1f7</td></tr>
+                <tr><td>Active ring</td>   <td><code>--btn-tertiary-ring-active</code></td>     <td><span class="swatch" style="background:#61bde9"></span>#61bde9</td></tr>
               </template>
               <template v-if="variant === 'quiet'">
-                <tr><td>Main</td>       <td><code>--btn-quiet-bg</code></td>               <td><span class="swatch" style="background:transparent;border:1px solid #d8d8da"></span>transparent</td></tr>
-                <tr><td>Hover bg</td>   <td><code>--btn-quiet-hover-bg</code></td>         <td><span class="swatch" style="background:#e6e6e7"></span>#e6e6e7</td></tr>
-                <tr><td>Focus bg</td>   <td><code>--btn-quiet-focus-bg</code></td>         <td><span class="swatch" style="background:#f1f1f2;border:1px solid #d8d8da"></span>#f1f1f2</td></tr>
-                <tr><td>Focus ring</td> <td><code>--btn-quiet-ring-focus</code></td>       <td><span class="swatch" style="background:#b3e1f7"></span>#b3e1f7</td></tr>
-                <tr><td>Active ring</td><td><code>--btn-quiet-ring-active</code></td>      <td><span class="swatch" style="background:#61bde9"></span>#61bde9</td></tr>
+                <tr><td>Main</td>          <td><code>--btn-quiet-bg</code></td>                <td><span class="swatch" style="background:transparent;border:1px solid #d8d8da"></span>transparent</td></tr>
+                <tr><td>Hover bg</td>      <td><code>--btn-quiet-hover-bg</code></td>          <td><span class="swatch" style="background:#e6e6e7"></span>#e6e6e7</td></tr>
+                <tr><td>Focus bg</td>      <td><code>--btn-quiet-focus-bg</code></td>          <td><span class="swatch" style="background:#f1f1f2;border:1px solid #d8d8da"></span>#f1f1f2</td></tr>
+                <tr><td>Selected bg</td>   <td><code>--btn-quiet-selected-bg</code></td>       <td><span class="swatch" style="background:#d7eff9"></span>#d7eff9</td></tr>
+                <tr><td>Selected text</td> <td><code>--btn-quiet-selected-text</code></td>     <td><span class="swatch" style="background:#36383b"></span>#36383b</td></tr>
+                <tr><td>Focus ring</td>    <td><code>--btn-quiet-ring-focus</code></td>        <td><span class="swatch" style="background:#b3e1f7"></span>#b3e1f7</td></tr>
+                <tr><td>Active ring</td>   <td><code>--btn-quiet-ring-active</code></td>       <td><span class="swatch" style="background:#61bde9"></span>#61bde9</td></tr>
               </template>
               <template v-if="variant === 'danger'">
                 <tr><td>Main</td>       <td><code>--btn-danger-bg</code></td>              <td><span class="swatch" style="background:#dc2626"></span>#dc2626</td></tr>
@@ -589,6 +613,11 @@ const IconX        = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none
 .ds-usage-list { padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; }
 .ds-usage-list li { font-size: 13px; color: var(--grey-80); line-height: 1.5; padding-left: 14px; position: relative; }
 .ds-usage-list li::before { content: '·'; position: absolute; left: 0; color: var(--grey-50); }
+
+/* Selected state showcase */
+.ds-selected-row { display: flex; align-items: flex-end; gap: 24px; flex-wrap: wrap; background: #fff; border: 1px solid var(--grey-20); border-radius: 8px; padding: 24px; }
+.ds-selected-item { display: flex; flex-direction: column; gap: 10px; }
+.ds-selected-item__label { font-size: 12px; font-weight: 600; color: var(--grey-70); text-transform: uppercase; letter-spacing: .06em; }
 
 /* Formatting */
 .ds-formatting-body { display: flex; flex-direction: column; gap: 12px; }

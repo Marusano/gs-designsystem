@@ -83,7 +83,7 @@ onUnmounted(close)
     <AppButton
       variant="tertiary"
       size="sm"
-      :class="{ 'fmenu__btn--active': isActive }"
+      :selected="isActive"
       @click="toggle"
     >
       {{ label }}
@@ -116,18 +116,6 @@ onUnmounted(close)
 .fmenu {
   position: relative;
   display: inline-flex;
-}
-
-/* ── Active state: azure tint ───────────────────────────────── */
-.fmenu__btn--active.btn--tertiary {
-  box-shadow: inset 0 0 0 1.5px var(--blue-azure-70);
-  background: var(--blue-azure-10);
-  color: var(--blue-azure-70);
-  font-weight: 500;
-}
-.fmenu__btn--active.btn--tertiary:hover {
-  background: var(--blue-azure-10);
-  opacity: 0.88;
 }
 
 /* ── Dropdown panel ─────────────────────────────────────────── */
