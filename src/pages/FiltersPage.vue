@@ -1,11 +1,11 @@
 <script setup>
 import { ref, computed } from 'vue'
-import AppButton   from '../components/ui/AppButton.vue'
-import AppTag      from '../components/ui/AppTag.vue'
-import AppInput    from '../components/ui/AppInput.vue'
-import AppCheckbox from '../components/ui/AppCheckbox.vue'
-import AppIcon     from '../components/ui/AppIcon.vue'
-import AppTopBar   from '../components/ui/AppTopBar.vue'
+import AppButton      from '../components/ui/AppButton.vue'
+import AppTag         from '../components/ui/AppTag.vue'
+import AppInput       from '../components/ui/AppInput.vue'
+import AppIcon        from '../components/ui/AppIcon.vue'
+import AppTopBar      from '../components/ui/AppTopBar.vue'
+import AppFilterMenu  from '../components/ui/AppFilterMenu.vue'
 
 /* ── Filter definitions ──────────────────────────────────────── */
 const FILTER_DEFS = [
@@ -15,27 +15,9 @@ const FILTER_DEFS = [
 ]
 
 /* ── Interactive demo state ─────────────────────────────────── */
-const searchText   = ref('')
-const openDropdown = ref(null)
-const pendingMap   = ref(Object.fromEntries(FILTER_DEFS.map(f => [f.key, []])))
-const appliedMap   = ref(Object.fromEntries(FILTER_DEFS.map(f => [f.key, []])))
+const searchText = ref('')
+const appliedMap = ref(Object.fromEntries(FILTER_DEFS.map(f => [f.key, []])))
 
-function openFilter(key) {
-  if (openDropdown.value === key) { openDropdown.value = null; return }
-  pendingMap.value[key] = [...(appliedMap.value[key] || [])]
-  openDropdown.value = key
-}
-function toggleOption(key, opt) {
-  const arr = pendingMap.value[key]
-  const i   = arr.indexOf(opt)
-  if (i === -1) arr.push(opt)
-  else          arr.splice(i, 1)
-}
-function applyChanges() {
-  if (!openDropdown.value) return
-  appliedMap.value[openDropdown.value] = [...pendingMap.value[openDropdown.value]]
-  openDropdown.value = null
-}
 function removeChip(key, opt) {
   appliedMap.value[key] = appliedMap.value[key].filter(o => o !== opt)
 }
@@ -49,7 +31,6 @@ const allChips   = computed(() =>
   )
 )
 const hasFilters = computed(() => allChips.value.length > 0)
-function filterCount(key) { return (appliedMap.value[key] || []).length }
 
 /* ── State 3 static chips ───────────────────────────────────── */
 const state3chips = ref(['Truck', 'Driving'])
@@ -149,36 +130,13 @@ function resetOverflow()     { overflowChips.value = [...OVERFLOW_INIT] }
           </div>
 
           <div class="ds-filterbar">
-            <div v-for="fd in FILTER_DEFS" :key="fd.key" class="ds-filter-btn-wrap">
-              <AppButton
-                variant="tertiary"
-                size="sm"
-                :class="{ 'ds-filter-btn--active': filterCount(fd.key) > 0 || openDropdown === fd.key }"
-                @click="openFilter(fd.key)"
-              >
-                {{ fd.label }}
-                <span v-if="filterCount(fd.key)" class="ds-filter-btn__badge">{{ filterCount(fd.key) }}</span>
-                <template #icon-right><AppIcon name="chevron-down" :size="12" /></template>
-              </AppButton>
-
-              <div v-if="openDropdown === fd.key" class="ds-dropdown">
-                <ul class="ds-dropdown__list">
-                  <li
-                    v-for="opt in fd.options"
-                    :key="opt"
-                    class="ds-dropdown__item"
-                  >
-                    <AppCheckbox
-                      :model-value="pendingMap[fd.key].includes(opt)"
-                      @update:model-value="toggleOption(fd.key, opt)"
-                    >{{ opt }}</AppCheckbox>
-                  </li>
-                </ul>
-                <div class="ds-dropdown__footer">
-                  <AppButton variant="primary" size="sm" style="width:100%" @click="applyChanges">Apply changes</AppButton>
-                </div>
-              </div>
-            </div>
+            <AppFilterMenu
+              v-for="fd in FILTER_DEFS"
+              :key="fd.key"
+              :label="fd.label"
+              :options="fd.options"
+              v-model="appliedMap[fd.key]"
+            />
           </div>
         </div>
 
@@ -203,10 +161,7 @@ function resetOverflow()     { overflowChips.value = [...OVERFLOW_INIT] }
           <div class="ds-mock-row">
             <div class="fp-search-wrap"><AppInput type="search" placeholder="Search" /></div>
             <div class="ds-filterbar">
-              <AppButton variant="tertiary" size="sm" v-for="n in 3" :key="n">
-                Filter label
-                <template #icon-right><AppIcon name="chevron-down" :size="12" /></template>
-              </AppButton>
+              <AppFilterMenu v-for="n in 3" :key="n" label="Filter label" :options="FILTER_DEFS[0].options" :model-value="[]" />
             </div>
           </div>
         </div>
@@ -225,35 +180,9 @@ function resetOverflow()     { overflowChips.value = [...OVERFLOW_INIT] }
           <div class="ds-mock-row ds-mock-row--top">
             <div class="fp-search-wrap"><AppInput type="search" placeholder="Search" /></div>
             <div class="ds-filterbar" style="align-items: flex-start">
-              <AppButton variant="tertiary" size="sm">
-                Filter label
-                <template #icon-right><AppIcon name="chevron-down" :size="12" /></template>
-              </AppButton>
-              <!-- Second button shown as active/open -->
-              <div class="ds-filter-btn-wrap">
-                <AppButton variant="tertiary" size="sm" class="ds-filter-btn--active">
-                  Filter label
-                  <template #icon-right><AppIcon name="chevron-up" :size="12" /></template>
-                </AppButton>
-                <div class="ds-dropdown ds-dropdown--static">
-                  <ul class="ds-dropdown__list">
-                    <li class="ds-dropdown__item"><AppCheckbox :model-value="false">Filter option 1</AppCheckbox></li>
-                    <li class="ds-dropdown__item"><AppCheckbox :model-value="false">Filter option 2</AppCheckbox></li>
-                    <li class="ds-dropdown__item"><AppCheckbox :model-value="true">Filter option 3</AppCheckbox></li>
-                    <li class="ds-dropdown__item"><AppCheckbox :model-value="false">Filter option 4</AppCheckbox></li>
-                    <li class="ds-dropdown__item"><AppCheckbox :model-value="false">Filter option 5</AppCheckbox></li>
-                    <li class="ds-dropdown__item"><AppCheckbox :model-value="true">Filter option 6</AppCheckbox></li>
-                    <li class="ds-dropdown__item"><AppCheckbox :model-value="false">Filter option 7</AppCheckbox></li>
-                  </ul>
-                  <div class="ds-dropdown__footer">
-                    <AppButton variant="primary" size="sm" style="width:100%">Apply changes</AppButton>
-                  </div>
-                </div>
-              </div>
-              <AppButton variant="tertiary" size="sm">
-                Filter label
-                <template #icon-right><AppIcon name="chevron-down" :size="12" /></template>
-              </AppButton>
+              <AppFilterMenu label="Filter label" :options="FILTER_DEFS[0].options" :model-value="[]" />
+              <AppFilterMenu label="Filter label" :options="FILTER_DEFS[0].options" :model-value="['Filter option 3', 'Filter option 6']" force-open />
+              <AppFilterMenu label="Filter label" :options="FILTER_DEFS[0].options" :model-value="[]" />
             </div>
           </div>
         </div>
@@ -280,10 +209,7 @@ function resetOverflow()     { overflowChips.value = [...OVERFLOW_INIT] }
               <AppTag v-for="c in state3chips" :key="c" type="neutral-outline" :dismissible="true" @dismiss="removeState3(c)">{{ c }}</AppTag>
             </div>
             <div class="ds-filterbar">
-              <AppButton variant="tertiary" size="sm" v-for="n in 3" :key="n">
-                Filter label
-                <template #icon-right><AppIcon name="chevron-down" :size="12" /></template>
-              </AppButton>
+              <AppFilterMenu v-for="n in 3" :key="n" label="Filter label" :options="FILTER_DEFS[0].options" :model-value="[]" />
             </div>
           </div>
           <div v-if="!state3chips.length" style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--color-surface-default)">
@@ -307,10 +233,7 @@ function resetOverflow()     { overflowChips.value = [...OVERFLOW_INIT] }
         <div class="ds-mock-row">
           <div class="fp-search-wrap"><AppInput type="search" placeholder="Search" /></div>
           <div class="ds-filterbar">
-            <AppButton variant="tertiary" size="sm" v-for="n in 3" :key="n">
-              Filter label
-              <template #icon-right><AppIcon name="chevron-down" :size="12" /></template>
-            </AppButton>
+            <AppFilterMenu v-for="n in 3" :key="n" label="Filter label" :options="FILTER_DEFS[0].options" :model-value="[]" />
           </div>
         </div>
         <!-- Row 2: chip container -->
@@ -447,74 +370,6 @@ function resetOverflow()     { overflowChips.value = [...OVERFLOW_INIT] }
   flex-shrink: 0;
   margin-left: auto;
 }
-.ds-filter-btn-wrap { position: relative; }
-
-/* Active filter button — tertiary with azure tint */
-.ds-filter-btn--active.btn--tertiary {
-  box-shadow: inset 0 0 0 1.5px var(--blue-azure-70);
-  background: var(--blue-azure-10);
-  color: var(--blue-azure-70);
-  font-weight: 500;
-}
-.ds-filter-btn--active.btn--tertiary:hover {
-  background: var(--blue-azure-10);
-  opacity: 0.88;
-}
-
-.ds-filter-btn__badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 16px;
-  height: 16px;
-  padding: 0 4px;
-  background: var(--blue-azure-70);
-  color: var(--grey-00);
-  font-size: 10px;
-  font-weight: 700;
-  border-radius: 8px;
-}
-
-/* ── Dropdown ───────────────────────────────────────────────── */
-.ds-dropdown {
-  position: absolute;
-  top: calc(100% + 4px);
-  right: 0;
-  z-index: 50;
-  min-width: 200px;
-  background: var(--color-surface-default);
-  border: 1px solid var(--grey-30);
-  border-radius: 8px;
-  box-shadow: 0 4px 16px rgba(0,0,0,.10);
-  overflow: hidden;
-}
-/* Static (non-positioned) dropdown for State 2 illustration */
-.ds-dropdown--static {
-  position: static;
-  box-shadow: 0 2px 8px rgba(0,0,0,.08);
-  margin-top: 4px;
-}
-
-.ds-dropdown__list { list-style: none; padding: 4px 0; margin: 0; }
-.ds-dropdown__item {
-  display: flex;
-  align-items: center;
-  padding: 0 14px;
-  cursor: pointer;
-  user-select: none;
-  transition: background 80ms;
-}
-.ds-dropdown__item:hover { background: var(--grey-05); }
-/* Make the AppCheckbox label fill the full item width */
-.ds-dropdown__item :deep(.cb-wrapper) {
-  width: 100%;
-  padding: 8px 0;
-}
-
-.ds-dropdown__footer {
-  border-top: 1px solid var(--grey-10);
-  padding: 8px 12px;
-}
 
 /* ── Chip container ─────────────────────────────────────────── */
 .ds-chip-container {
@@ -615,8 +470,11 @@ function resetOverflow()     { overflowChips.value = [...OVERFLOW_INIT] }
   background: var(--grey-05);
   border: 1px solid var(--grey-10);
   border-radius: 6px;
-  overflow: hidden;
+  overflow: visible;
 }
+/* Clip row backgrounds to the mock's rounded corners */
+.ds-mock-row:first-child { border-radius: 6px 6px 0 0; }
+.ds-mock-row:last-child  { border-radius: 0 0 6px 6px; }
 .ds-mock--col { display: flex; flex-direction: column; }
 .ds-mock-row {
   display: flex;
