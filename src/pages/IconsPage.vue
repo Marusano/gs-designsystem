@@ -22,6 +22,7 @@ const MP_TYPES = [
   { id: 'highlight',        label: 'Highlight',       outerFill: '#ffffff', innerFill: '#bea3fd', fg: '#553698' },
   { id: 'plain-inverted',   label: 'Plain Inverted',  outerFill: '#ffffff', innerFill: '#9c9ea3', fg: '#ffffff' },
   { id: 'plain-light',      label: 'Plain Light',     outerFill: '#9c9ea3', innerFill: '#ffffff', fg: '#9c9ea3' },
+  { id: 'medium',           label: 'Medium',          outerFill: '#ffffff', innerFill: '#ffe2cc', fg: '#d15801' },
 ]
 
 const MP_SIZES = [
@@ -125,6 +126,11 @@ function activityContent(activityId, fg) {
     case 'driver-rest': {
       const Ts = 'translate(16,16) scale(0.667) translate(-12,-12)'
       return `<g transform="${Ts}"><path d="M4.34375 2C4.86134 2.00022 5.28125 2.41986 5.28125 2.9375V10.4375H19.6562C20.174 10.4375 20.5938 10.8572 20.5938 11.375V21.0625C20.5938 21.5803 20.174 22 19.6562 22C19.1386 21.9999 18.7188 21.5802 18.7188 21.0625V12.3125H5.28125V21.0625C5.28125 21.5801 4.86134 21.9998 4.34375 22C3.82597 22 3.40625 21.5803 3.40625 21.0625V2.9375C3.40625 2.41972 3.82597 2 4.34375 2Z" fill="${fg}"/></g>`
+    }
+    // Figma node 2645:3084 — diagonal-cut square (driver available) — 14×14 → scaled to ~16px
+    case 'driver-available': {
+      const Ts = 'translate(16,16) scale(1.1429) translate(-7,-7)'
+      return `<g transform="${Ts}"><path d="M13.3438 0C13.7062 0 14 0.293813 14 0.65625V13.3438C14 13.7062 13.7062 14 13.3438 14H0.65625C0.293813 14 0 13.7062 0 13.3438V0.65625C0 0.293813 0.293813 0 0.65625 0H13.3438ZM2.2168 12.6875H12.6875V2.2168L2.2168 12.6875ZM1.3125 11.7354L11.7363 1.3125H1.3125V11.7354Z" fill="${fg}"/></g>`
     }
     default: return ''
   }
@@ -724,6 +730,124 @@ const totalCount = GROUPS.reduce((sum, g) => sum + g.icons.length, 0)
                 <circle cx="16" cy="16" r="6" fill="#D8D8DA"/>
               </svg>
               <span class="mp-act-label">Unknown</span>
+              <span class="mp-copied-badge">Copied!</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Medium pointer content — md -->
+      <div class="mp-subsection">
+        <h3 class="mp-sub-h3">Pointer content <span class="mp-sub-note">· medium · md · main</span></h3>
+        <div class="mp-pointer-cols">
+
+          <!-- No pointer -->
+          <div class="mp-pointer-col">
+            <p class="mp-pointer-variant-label">no</p>
+            <p class="mp-pointer-desc">Empty — no content displayed</p>
+            <button class="mp-icon-btn" :class="{ 'mp-copied': copiedPointerId === 'med-no' }"
+              title="Copy SVG" @click="copyPointer('med-no', makePointerSvg(mpType('medium')))">
+              <svg width="36" height="36" viewBox="0 0 32 32" fill="none"
+                style="filter:drop-shadow(0 2px 8px rgba(54,56,59,0.28))">
+                <circle cx="16" cy="16" r="13" fill="#ffffff"/>
+                <circle cx="16" cy="16" r="10.4" fill="#ffe2cc"/>
+              </svg>
+              <span class="mp-copied-badge">Copied!</span>
+            </button>
+          </div>
+
+          <!-- Yes number -->
+          <div class="mp-pointer-col">
+            <p class="mp-pointer-variant-label">yes · number</p>
+            <p class="mp-pointer-desc">Vehicle count or cluster number</p>
+            <button class="mp-icon-btn" :class="{ 'mp-copied': copiedPointerId === 'med-num' }"
+              title="Copy SVG" @click="copyPointer('med-num', makePointerSvg(mpType('medium'), { pointer: 'yes-number', number: 12 }))">
+              <svg width="36" height="36" viewBox="0 0 32 32" fill="none"
+                style="filter:drop-shadow(0 2px 8px rgba(54,56,59,0.28))">
+                <circle cx="16" cy="16" r="13" fill="#ffffff"/>
+                <circle cx="16" cy="16" r="10.4" fill="#ffe2cc"/>
+                <text x="16" y="20.5" text-anchor="middle" font-size="11" font-weight="700" fill="#d15801" font-family="Inter,sans-serif">12</text>
+              </svg>
+              <span class="mp-copied-badge">Copied!</span>
+            </button>
+          </div>
+
+          <!-- Yes symbol — driver-available -->
+          <div class="mp-pointer-col">
+            <p class="mp-pointer-variant-label">yes · symbol</p>
+            <p class="mp-pointer-desc">Activity state of the vehicle</p>
+            <button class="mp-icon-btn" :class="{ 'mp-copied': copiedPointerId === 'med-act' }"
+              title="Copy — Driver available"
+              @click="copyPointer('med-act', makePointerSvg(mpType('medium'), { pointer: 'yes-symbol', activity: 'driver-available' }))">
+              <svg width="36" height="36" viewBox="0 0 32 32" fill="none"
+                style="filter:drop-shadow(0 2px 8px rgba(54,56,59,0.28))">
+                <circle cx="16" cy="16" r="13" fill="#ffffff"/>
+                <circle cx="16" cy="16" r="10.4" fill="#ffe2cc"/>
+                <!-- driver-available: Figma node 2645:3084 — diagonal-cut square -->
+                <g transform="translate(16,16) scale(1.1429) translate(-7,-7)">
+                  <path d="M13.3438 0C13.7062 0 14 0.293813 14 0.65625V13.3438C14 13.7062 13.7062 14 13.3438 14H0.65625C0.293813 14 0 13.7062 0 13.3438V0.65625C0 0.293813 0.293813 0 0.65625 0H13.3438ZM2.2168 12.6875H12.6875V2.2168L2.2168 12.6875ZM1.3125 11.7354L11.7363 1.3125H1.3125V11.7354Z" fill="#d15801"/>
+                </g>
+              </svg>
+              <span class="mp-act-label">Driver available</span>
+              <span class="mp-copied-badge">Copied!</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Medium pointer content — sm -->
+      <div class="mp-subsection">
+        <h3 class="mp-sub-h3">Pointer content <span class="mp-sub-note">· medium · sm · main</span></h3>
+        <div class="mp-pointer-cols">
+
+          <!-- No pointer -->
+          <div class="mp-pointer-col">
+            <p class="mp-pointer-variant-label">no</p>
+            <p class="mp-pointer-desc">Empty — no content displayed</p>
+            <button class="mp-icon-btn" :class="{ 'mp-copied': copiedPointerId === 'med-sm-no' }"
+              title="Copy SVG" @click="copyPointer('med-sm-no', makePointerSvg(mpType('medium')))">
+              <svg width="26" height="26" viewBox="0 0 32 32" fill="none"
+                style="filter:drop-shadow(0 2px 8px rgba(54,56,59,0.28))">
+                <circle cx="16" cy="16" r="13" fill="#ffffff"/>
+                <circle cx="16" cy="16" r="10.4" fill="#ffe2cc"/>
+              </svg>
+              <span class="mp-copied-badge">Copied!</span>
+            </button>
+          </div>
+
+          <!-- Yes number -->
+          <div class="mp-pointer-col">
+            <p class="mp-pointer-variant-label">yes · number</p>
+            <p class="mp-pointer-desc">Vehicle count or cluster number</p>
+            <button class="mp-icon-btn" :class="{ 'mp-copied': copiedPointerId === 'med-sm-num' }"
+              title="Copy SVG" @click="copyPointer('med-sm-num', makePointerSvg(mpType('medium'), { pointer: 'yes-number', number: 12 }))">
+              <svg width="26" height="26" viewBox="0 0 32 32" fill="none"
+                style="filter:drop-shadow(0 2px 8px rgba(54,56,59,0.28))">
+                <circle cx="16" cy="16" r="13" fill="#ffffff"/>
+                <circle cx="16" cy="16" r="10.4" fill="#ffe2cc"/>
+                <text x="16" y="20.5" text-anchor="middle" font-size="11" font-weight="700" fill="#d15801" font-family="Inter,sans-serif">12</text>
+              </svg>
+              <span class="mp-copied-badge">Copied!</span>
+            </button>
+          </div>
+
+          <!-- Yes symbol — driver-available -->
+          <div class="mp-pointer-col">
+            <p class="mp-pointer-variant-label">yes · symbol</p>
+            <p class="mp-pointer-desc">Activity state of the vehicle</p>
+            <button class="mp-icon-btn" :class="{ 'mp-copied': copiedPointerId === 'med-sm-act' }"
+              title="Copy — Driver available"
+              @click="copyPointer('med-sm-act', makePointerSvg(mpType('medium'), { pointer: 'yes-symbol', activity: 'driver-available' }))">
+              <svg width="26" height="26" viewBox="0 0 32 32" fill="none"
+                style="filter:drop-shadow(0 2px 8px rgba(54,56,59,0.28))">
+                <circle cx="16" cy="16" r="13" fill="#ffffff"/>
+                <circle cx="16" cy="16" r="10.4" fill="#ffe2cc"/>
+                <!-- driver-available: Figma node 2645:3084 — diagonal-cut square -->
+                <g transform="translate(16,16) scale(1.1429) translate(-7,-7)">
+                  <path d="M13.3438 0C13.7062 0 14 0.293813 14 0.65625V13.3438C14 13.7062 13.7062 14 13.3438 14H0.65625C0.293813 14 0 13.7062 0 13.3438V0.65625C0 0.293813 0.293813 0 0.65625 0H13.3438ZM2.2168 12.6875H12.6875V2.2168L2.2168 12.6875ZM1.3125 11.7354L11.7363 1.3125H1.3125V11.7354Z" fill="#d15801"/>
+                </g>
+              </svg>
+              <span class="mp-act-label">Driver available</span>
               <span class="mp-copied-badge">Copied!</span>
             </button>
           </div>

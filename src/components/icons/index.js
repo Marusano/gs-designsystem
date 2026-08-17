@@ -78,6 +78,14 @@ export const GROUPS = [
       { name: 'placeholder', d: 'M4 2h16a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z' },
     ],
   },
+  {
+    id: 'pointers',
+    name: 'Pointers',
+    description: 'Map pointer activity symbols used inside map marker circles.',
+    icons: [
+      { name: 'medium', vb: '0 0 14 14', d: 'M13.3438 0C13.7062 0 14 0.293813 14 0.65625V13.3438C14 13.7062 13.7062 14 13.3438 14H0.65625C0.293813 14 0 13.7062 0 13.3438V0.65625C0 0.293813 0.293813 0 0.65625 0H13.3438ZM2.2168 12.6875H12.6875V2.2168L2.2168 12.6875ZM1.3125 11.7354L11.7363 1.3125H1.3125V11.7354Z' },
+    ],
+  },
 ]
 
 /** Flat lookup: icon name → icon data */
