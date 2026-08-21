@@ -354,13 +354,13 @@ import AppBreadcrumbs from '../components/ui/AppBreadcrumbs.vue'
 }
 .bc-link--focus {
   color: var(--grey-90);
-  outline: 2px solid var(--blue-azure-50);
+  outline: 2px solid var(--color-focus-ring);
   outline-offset: 2px;
   border-radius: 2px;
   text-decoration: none;
 }
 .bc-link:focus-visible {
-  outline: 2px solid var(--blue-azure-50);
+  outline: 2px solid var(--color-focus-ring);
   outline-offset: 2px;
   border-radius: 2px;
 }

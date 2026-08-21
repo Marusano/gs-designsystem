@@ -238,7 +238,7 @@ const tabsCompact = [
 .tb-tab:focus-visible {
   outline: none;
   background: var(--grey-10);
-  box-shadow: inset 0 0 0 2px var(--blue-azure-50);
+  box-shadow: inset 0 0 0 2px var(--color-focus-ring);
   color: var(--grey-90);
 }
 
