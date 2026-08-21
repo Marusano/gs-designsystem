@@ -170,7 +170,7 @@
   --btn-tertiary-focus-bg:      transparent;
   --btn-tertiary-active-bg:     transparent;
   --btn-tertiary-selected-bg:   var(--grey-20);
-  --btn-tertiary-text:          var(--grey-70);
+  --btn-tertiary-text:          var(--grey-80);
   --btn-tertiary-hover-text:    var(--grey-70);
   --btn-tertiary-focus-text:    var(--grey-90);
   --btn-tertiary-active-text:   var(--grey-90);
@@ -185,7 +185,7 @@
   --btn-quiet-focus-bg:      transparent;
   --btn-quiet-active-bg:     transparent;
   --btn-quiet-selected-bg:   var(--blue-azure-20);
-  --btn-quiet-text:          var(--grey-70);
+  --btn-quiet-text:          var(--grey-80);
   --btn-quiet-hover-text:    var(--grey-90);
   --btn-quiet-focus-text:    var(--grey-90);
   --btn-quiet-active-text:   var(--grey-90);
