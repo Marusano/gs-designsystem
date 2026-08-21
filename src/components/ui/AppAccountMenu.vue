@@ -161,7 +161,7 @@ const emit = defineEmits(['account-click', 'feedback-click', 'logout-click', 'sw
 }
 .acm__item:hover { background: var(--grey-10); }
 .acm__item:focus-visible {
-  outline: 2px solid var(--blue-azure-30);
+  outline: 2px solid var(--color-focus-ring);
   outline-offset: -1px;
 }
 
@@ -201,7 +201,7 @@ const emit = defineEmits(['account-click', 'feedback-click', 'logout-click', 'sw
 }
 .acm__context:hover { background: var(--grey-05); }
 .acm__context:focus-visible {
-  outline: 2px solid var(--blue-azure-30);
+  outline: 2px solid var(--color-focus-ring);
   outline-offset: -1px;
 }
 

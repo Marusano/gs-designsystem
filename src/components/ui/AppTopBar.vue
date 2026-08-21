@@ -301,7 +301,7 @@ function onSearchInput(e) {
 }
 
 .topbar__icon-btn:focus-visible {
-  outline: 2px solid var(--blue-azure-30);
+  outline: 2px solid var(--color-focus-ring);
   outline-offset: 1px;
 }
 
@@ -329,7 +329,7 @@ function onSearchInput(e) {
 
 .topbar__context-btn:hover { background: var(--grey-10); }
 .topbar__context-btn:focus-visible {
-  outline: 2px solid var(--blue-azure-30);
+  outline: 2px solid var(--color-focus-ring);
   outline-offset: 1px;
 }
 
@@ -377,7 +377,7 @@ function onSearchInput(e) {
 
 .topbar__user-btn:hover { background: var(--grey-10); }
 .topbar__user-btn:focus-visible {
-  outline: 2px solid var(--blue-azure-30);
+  outline: 2px solid var(--color-focus-ring);
   outline-offset: 1px;
 }
 .topbar__user-btn:active { background: var(--grey-20); }

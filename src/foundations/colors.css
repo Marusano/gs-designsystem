@@ -139,13 +139,16 @@
   --color-accent-main:  var(--blue-azure-50);
   --color-accent-hover: var(--blue-azure-60);
 
+  /* Semantic — Focus ring (single source of truth for all keyboard focus indicators) */
+  --color-focus-ring: var(--blue-vivid-60);
+
   /* Button tokens — Primary */
   --btn-primary-bg:           var(--indigo-100);
   --btn-primary-hover:        var(--grey-80);
   --btn-primary-focus-bg:     var(--grey-80);
   --btn-primary-active-bg:    var(--grey-80);
-  --btn-primary-ring-focus:   var(--blue-azure-30);
-  --btn-primary-ring-active:  var(--blue-azure-40);
+  --btn-primary-ring-focus:   var(--color-focus-ring);
+  --btn-primary-ring-active:  var(--color-focus-ring);
   --btn-primary-text:         #ffffff;
 
   /* Button tokens — Secondary */
@@ -156,8 +159,8 @@
   --btn-secondary-text:            var(--grey-90);
   --btn-secondary-border:          var(--grey-70);
   --btn-secondary-border-hover:    var(--grey-90);
-  --btn-secondary-ring-focus:      var(--blue-azure-30);
-  --btn-secondary-ring-active:     var(--blue-azure-40);
+  --btn-secondary-ring-focus:      var(--color-focus-ring);
+  --btn-secondary-ring-active:     var(--color-focus-ring);
   --btn-secondary-disabled-border: var(--grey-20);
 
   /* Button tokens — Tertiary */
@@ -172,8 +175,8 @@
   --btn-tertiary-active-text:   var(--grey-90);
   --btn-tertiary-selected-text: var(--grey-90);
   --btn-tertiary-border:        var(--grey-30);
-  --btn-tertiary-ring-focus:    var(--blue-azure-30);
-  --btn-tertiary-ring-active:   var(--blue-azure-40);
+  --btn-tertiary-ring-focus:    var(--color-focus-ring);
+  --btn-tertiary-ring-active:   var(--color-focus-ring);
 
   /* Button tokens — Quiet */
   --btn-quiet-bg:            transparent;
@@ -186,8 +189,8 @@
   --btn-quiet-focus-text:    var(--grey-90);
   --btn-quiet-active-text:   var(--grey-90);
   --btn-quiet-selected-text: var(--grey-90);
-  --btn-quiet-ring-focus:    var(--blue-azure-30);
-  --btn-quiet-ring-active:   var(--blue-azure-40);
+  --btn-quiet-ring-focus:    var(--color-focus-ring);
+  --btn-quiet-ring-active:   var(--color-focus-ring);
 
   /* Button tokens — Danger */
   --btn-danger-bg:          var(--red-70);

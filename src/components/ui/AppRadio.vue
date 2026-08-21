@@ -71,7 +71,7 @@ const checked = computed(() => props.modelValue === props.value)
 }
 
 .rb-input:focus-visible ~ .rb-dot {
-  outline: 2px solid var(--blue-azure-50);
+  outline: 2px solid var(--color-focus-ring);
   outline-offset: 2px;
 }
 

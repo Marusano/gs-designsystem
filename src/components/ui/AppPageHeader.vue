@@ -171,7 +171,7 @@ const emit = defineEmits(['back'])
 }
 
 .ph__back:focus-visible {
-  outline: 2px solid var(--blue-azure-30);
+  outline: 2px solid var(--color-focus-ring);
   outline-offset: 2px;
 }
 

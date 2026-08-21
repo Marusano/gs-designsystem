@@ -55,7 +55,7 @@ const IconChevron = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"
 }
 .bc-link:hover { color: var(--grey-90); text-decoration: underline; }
 .bc-link:focus-visible {
-  outline: 2px solid var(--blue-azure-50);
+  outline: 2px solid var(--color-focus-ring);
   outline-offset: 2px;
   border-radius: 2px;
 }

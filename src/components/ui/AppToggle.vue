@@ -92,7 +92,7 @@ const thumbClasses = computed(() => [
 .tog-track--sm.tog-track--disabled::before { background: #e6e6e7; }
 
 .tog-input:focus-visible ~ .tog-track {
-  outline: 2px solid var(--blue-azure-50);
+  outline: 2px solid var(--color-focus-ring);
   outline-offset: 2px;
 }
 
