@@ -146,8 +146,8 @@
   /* Button tokens — Primary */
   --btn-primary-bg:           var(--indigo-100);
   --btn-primary-hover:        var(--grey-80);
-  --btn-primary-focus-bg:     var(--grey-80);
-  --btn-primary-active-bg:    var(--grey-80);
+  --btn-primary-focus-bg:     var(--indigo-100);
+  --btn-primary-active-bg:    var(--indigo-100);
   --btn-primary-ring-focus:   var(--color-focus-ring);
   --btn-primary-ring-active:  var(--color-active-ring);
   --btn-primary-text:         #ffffff;
@@ -155,8 +155,8 @@
   /* Button tokens — Secondary */
   --btn-secondary-bg:              var(--grey-00);
   --btn-secondary-hover-bg:        var(--grey-10);
-  --btn-secondary-focus-bg:        var(--grey-10);
-  --btn-secondary-active-bg:       var(--grey-10);
+  --btn-secondary-focus-bg:        var(--grey-00);
+  --btn-secondary-active-bg:       var(--grey-00);
   --btn-secondary-text:            var(--grey-90);
   --btn-secondary-border:          var(--grey-70);
   --btn-secondary-border-hover:    var(--grey-90);
@@ -167,8 +167,8 @@
   /* Button tokens — Tertiary */
   --btn-tertiary-bg:            transparent;
   --btn-tertiary-hover-bg:      var(--grey-10);
-  --btn-tertiary-focus-bg:      var(--grey-10);
-  --btn-tertiary-active-bg:     var(--grey-20);
+  --btn-tertiary-focus-bg:      transparent;
+  --btn-tertiary-active-bg:     transparent;
   --btn-tertiary-selected-bg:   var(--grey-20);
   --btn-tertiary-text:          var(--grey-70);
   --btn-tertiary-hover-text:    var(--grey-70);
@@ -182,8 +182,8 @@
   /* Button tokens — Quiet */
   --btn-quiet-bg:            transparent;
   --btn-quiet-hover-bg:      var(--grey-20);
-  --btn-quiet-focus-bg:      var(--grey-10);
-  --btn-quiet-active-bg:     var(--grey-20);
+  --btn-quiet-focus-bg:      transparent;
+  --btn-quiet-active-bg:     transparent;
   --btn-quiet-selected-bg:   var(--blue-azure-20);
   --btn-quiet-text:          var(--grey-70);
   --btn-quiet-hover-text:    var(--grey-90);
