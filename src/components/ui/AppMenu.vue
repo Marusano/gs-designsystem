@@ -10,8 +10,13 @@
  *
  * Slot "trigger": the element that opens the menu
  * Emits: 'update:open', 'select' (item)
+ *
+ * Keyboard: Up/Down arrows move between items; Home/End jump to first/last;
+ * Enter/Space activates focused item; Tab or Escape closes and returns focus to trigger.
  */
-defineProps({
+import { ref, watch, nextTick } from 'vue'
+
+const props = defineProps({
   items: { type: Array, required: true },
   open:  { type: Boolean, default: false },
   align: { type: String, default: 'left', validator: (v) => ['left', 'right'].includes(v) },
@@ -19,22 +24,88 @@ defineProps({
 })
 const emit = defineEmits(['update:open', 'select'])
 
+const triggerRef = ref(null)
+const menuRef    = ref(null)
+
+function getItems() {
+  return menuRef.value
+    ? [...menuRef.value.querySelectorAll('[role="menuitem"]:not([aria-disabled="true"])')]
+    : []
+}
+
+function focusTrigger() {
+  const el = triggerRef.value?.querySelector('button:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])')
+  el?.focus()
+}
+
+watch(() => props.open, (val) => {
+  if (val) nextTick(() => getItems()[0]?.focus())
+})
+
 function select(item) {
   if (item.disabled || item.divider) return
   emit('select', item)
   emit('update:open', false)
 }
+
+function onMenuKeydown(e) {
+  const items = getItems()
+  if (!items.length) return
+  const cur = items.indexOf(document.activeElement)
+
+  switch (e.key) {
+    case 'ArrowDown':
+      e.preventDefault()
+      items[(cur + 1) % items.length].focus()
+      break
+    case 'ArrowUp':
+      e.preventDefault()
+      items[(cur - 1 + items.length) % items.length].focus()
+      break
+    case 'Home':
+      e.preventDefault()
+      items[0].focus()
+      break
+    case 'End':
+      e.preventDefault()
+      items[items.length - 1].focus()
+      break
+    case 'Enter':
+    case ' ':
+      e.preventDefault()
+      document.activeElement?.click()
+      break
+    case 'Escape':
+      e.preventDefault()
+      e.stopPropagation()
+      emit('update:open', false)
+      nextTick(focusTrigger)
+      break
+    case 'Tab':
+      e.preventDefault()
+      emit('update:open', false)
+      nextTick(focusTrigger)
+      break
+  }
+}
 </script>
 
 <template>
-  <div class="menu-wrap" @keydown.esc="emit('update:open', false)">
-    <div @click="emit('update:open', !open)">
+  <div class="menu-wrap">
+    <div
+      ref="triggerRef"
+      :aria-haspopup="'menu'"
+      :aria-expanded="open"
+      @click="emit('update:open', !open)"
+    >
       <slot name="trigger" />
     </div>
     <div
       v-if="open"
+      ref="menuRef"
       :class="['menu', align === 'right' ? 'menu--right' : '', wide ? 'menu--wide' : '']"
       role="menu"
+      @keydown="onMenuKeydown"
     >
       <template v-for="(item, i) in items" :key="i">
         <div v-if="item.divider" class="menu-divider" role="separator" />
@@ -42,7 +113,8 @@ function select(item) {
           v-else
           :class="['menu-item', item.icon ? 'menu-item--icon' : '', item.danger ? 'menu-item--danger' : '', item.disabled ? 'menu-item--disabled' : '']"
           role="menuitem"
-          :aria-disabled="item.disabled"
+          :aria-disabled="item.disabled || undefined"
+          :tabindex="item.disabled ? undefined : -1"
           @click="select(item)"
         >
           <span v-if="item.icon" class="menu-item__icon" v-html="item.icon" aria-hidden="true" />

@@ -18,7 +18,7 @@
  *   item-click        — { key: string, item: Object } — every time any item is activated
  */
 
-import { ref, computed } from 'vue'
+import { ref, computed, nextTick } from 'vue'
 import AppButton from './AppButton.vue'
 import AppIcon   from './AppIcon.vue'
 import logoMarkUrl     from '../../assets/logo-mark.svg'
@@ -81,6 +81,19 @@ function activateSub(item, sub) {
 
 function collapse() { emit('update:type', 'collapsed') }
 function expand()   { emit('update:type', 'fixed') }
+
+/* ── Keyboard navigation ─────────────────────────────────────── */
+const bodyRef = ref(null)
+
+function onBodyKeydown(e) {
+  if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return
+  e.preventDefault()
+  const items = [...bodyRef.value.querySelectorAll('button:not([disabled])')]
+  const cur = items.indexOf(document.activeElement)
+  if (cur === -1) { items[0]?.focus(); return }
+  if (e.key === 'ArrowDown') items[(cur + 1) % items.length]?.focus()
+  else items[(cur - 1 + items.length) % items.length]?.focus()
+}
 </script>
 
 <template>
@@ -94,12 +107,12 @@ function expand()   { emit('update:type', 'fixed') }
     <div class="snav__header">
       <!-- Collapsed: logo mark with expand-on-hover + click -->
       <template v-if="isCollapsed">
-        <div class="snav__logo-mark" @click="expand" title="Expand">
+        <button type="button" class="snav__logo-mark" @click="expand" aria-label="Expand navigation">
           <img :src="logoMarkUrl" width="36" height="36" alt="GSFleet" class="snav__logo-default" />
           <div class="snav__logo-hover" aria-hidden="true">
             <AppIcon name="chevron-double-right" :size="16" />
           </div>
-        </div>
+        </button>
       </template>
 
       <!-- Fixed: gsfleet wordmark or back-home + collapse button -->
@@ -113,14 +126,14 @@ function expand()   { emit('update:type', 'fixed') }
             <img :src="logoWordmarkUrl" height="18" alt="GSFleet" class="snav__wordmark" />
           </template>
         </div>
-        <button class="snav__collapse-btn" @click="collapse" title="Collapse" type="button">
+        <button class="snav__collapse-btn" @click="collapse" title="Collapse" aria-label="Collapse navigation" type="button">
           <AppIcon name="chevron-double-left" :size="14" />
         </button>
       </template>
     </div>
 
     <!-- ── Body ────────────────────────────────────────────────── -->
-    <div class="snav__body">
+    <div ref="bodyRef" class="snav__body" @keydown="onBodyKeydown">
       <template v-for="item in items" :key="item.key">
 
         <!-- Primary item -->
@@ -211,7 +224,7 @@ function expand()   { emit('update:type', 'fixed') }
   cursor: pointer;
 }
 
-/* Logo mark (collapsed header) */
+/* Logo mark (collapsed header) — is a <button>, reset native styles */
 .snav__logo-mark {
   width: 100%;
   height: 100%;
@@ -219,6 +232,10 @@ function expand()   { emit('update:type', 'fixed') }
   align-items: center;
   justify-content: center;
   position: relative;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
 }
 
 .snav__logo-default {

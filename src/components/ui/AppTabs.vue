@@ -5,8 +5,11 @@
  * @prop modelValue  Currently selected tab value
  * @prop items       Array<{ label: string, value: string | number, disabled?: boolean }>
  * @prop variant     'contained' (default) | 'borderless'
+ *
+ * Keyboard: Left/Right arrows move between tabs (roving tabindex).
+ * Home/End jump to first/last. Selected tab is the tab-stop; others use tabindex="-1".
  */
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
 const props = defineProps({
   modelValue: { required: true },
@@ -15,20 +18,42 @@ const props = defineProps({
 })
 const emit = defineEmits(['update:modelValue'])
 
-const tabsClasses = computed(() => [
-  'tabs',
-  `tabs--${props.variant}`,
-])
+const tabsClasses = computed(() => ['tabs', `tabs--${props.variant}`])
+
+const listRef = ref(null)
+
+function onKeydown(e) {
+  const keys = ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End']
+  if (!keys.includes(e.key)) return
+  e.preventDefault()
+
+  const enabled = props.items.filter(t => !t.disabled)
+  if (!enabled.length) return
+  const cur = enabled.findIndex(t => t.value === props.modelValue)
+
+  let next = cur
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = (cur + 1) % enabled.length
+  else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = (cur - 1 + enabled.length) % enabled.length
+  else if (e.key === 'Home') next = 0
+  else if (e.key === 'End') next = enabled.length - 1
+
+  if (next !== cur) {
+    emit('update:modelValue', enabled[next].value)
+    const btns = listRef.value?.querySelectorAll('[role="tab"]:not([disabled])')
+    btns?.[next]?.focus()
+  }
+}
 </script>
 
 <template>
-  <div :class="tabsClasses" role="tablist">
+  <div :class="tabsClasses" role="tablist" ref="listRef" @keydown="onKeydown">
     <button
       v-for="item in items"
       :key="item.value"
       :class="['tab', { 'tab--selected': modelValue === item.value }]"
       role="tab"
       :aria-selected="modelValue === item.value"
+      :tabindex="modelValue === item.value ? 0 : -1"
       :disabled="item.disabled"
       @click="!item.disabled && emit('update:modelValue', item.value)"
     >

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, watch, onUnmounted } from 'vue'
+import { ref, computed, watch, nextTick, onUnmounted } from 'vue'
 import AppButton   from './AppButton.vue'
 import AppCheckbox from './AppCheckbox.vue'
 import AppIcon     from './AppIcon.vue'
@@ -14,6 +14,9 @@ import AppIcon     from './AppIcon.vue'
  * @prop {boolean}  forceOpen  - Keep panel open (docs / demo only)
  *
  * Emits: update:modelValue (Array) — when user clicks "Apply changes"
+ *
+ * Keyboard: Up/Down arrows move between checkboxes; Tab/Shift+Tab cycles within the panel
+ * (focus trap); Escape closes and returns focus to trigger.
  */
 
 const props = defineProps({
@@ -29,10 +32,11 @@ const normalised = computed(() =>
   props.options.map(o => typeof o === 'string' ? { value: o, label: o } : o)
 )
 
-const root    = ref(null)
-const open    = ref(false)
+const root     = ref(null)
+const panelRef = ref(null)
+const open     = ref(false)
 // When forced open for docs, initialise pending from modelValue immediately
-const pending = ref(props.forceOpen ? [...props.modelValue] : [])
+const pending  = ref(props.forceOpen ? [...props.modelValue] : [])
 
 const isOpen   = computed(() => props.forceOpen || open.value)
 const isActive = computed(() => props.modelValue.length > 0 || isOpen.value)
@@ -53,6 +57,13 @@ function close() {
   document.removeEventListener('click', onOutside, true)
 }
 
+function closeAndReturnFocus() {
+  close()
+  nextTick(() => {
+    root.value?.querySelector('button:not([disabled])')?.focus()
+  })
+}
+
 function onOutside(e) {
   if (root.value && !root.value.contains(e.target)) close()
 }
@@ -65,25 +76,67 @@ function toggleOpt(value) {
 
 function apply() {
   emit('update:modelValue', [...pending.value])
-  close()
+  closeAndReturnFocus()
 }
+
+// Focus first checkbox when panel opens (skip when forceOpen is docs mode)
+watch(open, (val) => {
+  if (val && !props.forceOpen) {
+    nextTick(() => panelRef.value?.querySelector('input[type="checkbox"]')?.focus())
+  }
+})
 
 // Keep pending in sync when modelValue changes while forced-open (docs use-case)
 watch(() => props.modelValue, (val) => {
   if (props.forceOpen) pending.value = [...val]
 })
 
+function onPanelKeydown(e) {
+  if (e.key === 'Escape') {
+    e.stopPropagation()
+    closeAndReturnFocus()
+    return
+  }
+
+  const focusable = [...panelRef.value.querySelectorAll(
+    'input[type="checkbox"]:not([disabled]), button:not([disabled])'
+  )]
+  const checkboxes = focusable.filter(el => el.type === 'checkbox')
+  const cur = focusable.indexOf(document.activeElement)
+
+  if (e.key === 'ArrowDown') {
+    e.preventDefault()
+    const curCb = checkboxes.indexOf(document.activeElement)
+    if (curCb === -1) { checkboxes[0]?.focus(); return }
+    checkboxes[(curCb + 1) % checkboxes.length].focus()
+  } else if (e.key === 'ArrowUp') {
+    e.preventDefault()
+    const curCb = checkboxes.indexOf(document.activeElement)
+    if (curCb === -1) { checkboxes[checkboxes.length - 1]?.focus(); return }
+    checkboxes[(curCb - 1 + checkboxes.length) % checkboxes.length].focus()
+  } else if (e.key === 'Tab') {
+    // Focus trap: wrap at boundaries
+    if (e.shiftKey) {
+      if (cur === 0) { e.preventDefault(); focusable[focusable.length - 1]?.focus() }
+    } else {
+      if (cur === focusable.length - 1) { e.preventDefault(); focusable[0]?.focus() }
+    }
+  }
+}
+
 onUnmounted(close)
 </script>
 
 <template>
-  <div ref="root" class="fmenu" @keydown.esc.stop="close">
+  <div ref="root" class="fmenu">
 
     <!-- Trigger button -->
     <AppButton
       variant="tertiary"
       size="sm"
       :selected="isActive"
+      :aria-expanded="isOpen"
+      aria-haspopup="dialog"
       @click="toggle"
     >
       {{ label }}
@@ -93,7 +146,7 @@ onUnmounted(close)
     </AppButton>
 
     <!-- Dropdown panel -->
-    <div v-if="isOpen" class="fmenu__panel">
+    <div v-if="isOpen" ref="panelRef" class="fmenu__panel" @keydown="onPanelKeydown">
       <ul class="fmenu__list">
         <li v-for="opt in normalised" :key="opt.value" class="fmenu__item">
           <AppCheckbox
