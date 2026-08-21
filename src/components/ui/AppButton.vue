@@ -348,13 +348,13 @@ const classes = computed(() => [
 .btn--danger:focus:not(:disabled):not(.is-disabled),
 .btn--danger.is-focus {
   background-color: var(--btn-danger-focus-bg);
-  box-shadow: inset 0 0 0 3px var(--btn-danger-ring-focus);
+  box-shadow: 0 0 0 3px var(--btn-danger-ring-focus);
 }
 
 .btn--danger:active:not(:disabled):not(.is-disabled),
 .btn--danger.is-active {
   background-color: var(--btn-danger-active-bg);
-  box-shadow: inset 0 0 0 3px var(--btn-danger-ring-active);
+  box-shadow: 0 0 0 3px var(--btn-danger-ring-active);
 }
 
 .btn--danger:disabled,

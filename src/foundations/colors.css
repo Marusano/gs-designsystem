@@ -198,8 +198,8 @@
   --btn-danger-focus-bg:    var(--red-60);
   --btn-danger-active-bg:   var(--red-70);
   --btn-danger-text:        #ffffff;
-  --btn-danger-ring-focus:  var(--red-30);
-  --btn-danger-ring-active: var(--red-40);
+  --btn-danger-ring-focus:  var(--red-90);
+  --btn-danger-ring-active: var(--red-60);
 
   /* Shared disabled tokens */
   --btn-disabled-bg:   var(--grey-10);
