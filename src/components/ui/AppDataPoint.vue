@@ -150,8 +150,8 @@ const rootClass = computed(() => ({
             class="dp__edit-field"
           />
           <div class="dp__save-actions">
-            <AppButton variant="primary" size="sm" @click="save">Save</AppButton>
-            <AppButton variant="tertiary" size="sm" @click="cancel">Cancel</AppButton>
+            <AppButton variant="quiet" size="sm" @click="save">Save</AppButton>
+            <AppButton variant="quiet" size="sm" @click="cancel">Cancel</AppButton>
           </div>
         </div>
       </template>
@@ -211,14 +211,17 @@ const rootClass = computed(() => ({
 
 /* ── Card variant ─────────────────────────────────────────────── */
 .dp--card {
-  background: var(--color-surface-default);
+  background: var(--color-surface-tertiary);
   border-radius: 6px;
   padding: 12px 14px;
   gap: 3px;
+  transition: box-shadow 120ms ease;
 }
 
-/* Editable card: 2 px dark border (box-shadow = no layout shift) */
-.dp--card.dp--editable {
+/* Dark border on hover only (and while editing) */
+.dp--card.dp--editable:hover,
+.dp--card.dp--editable.is-hover,
+.dp--card.dp--editing {
   box-shadow: inset 0 0 0 2px var(--grey-90);
 }
 

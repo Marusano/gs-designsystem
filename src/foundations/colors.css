@@ -124,6 +124,7 @@
   --color-surface-default:  var(--grey-00);
   --color-surface-subtle:   var(--grey-05);
   --color-surface-muted:    var(--grey-10);
+  --color-surface-tertiary: var(--grey-10);
 
   /* Semantic — Text */
   --color-text-primary:    var(--grey-100);
