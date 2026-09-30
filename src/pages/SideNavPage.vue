@@ -27,7 +27,7 @@ const ENTITY_OPTIONS = [
   { value: 'root',    label: 'Root',    access: ['internal'] },
   { value: 'partner', label: 'Partner', access: ['external', 'internal'] },
   { value: 'company', label: 'Company', access: ['external', 'internal'] },
-  { value: 'user',    label: 'User',    access: ['external'] },
+  { value: 'member',  label: 'Member',  access: ['external'] },
 ]
 
 function selectEntity(val) {
@@ -108,7 +108,7 @@ const NAV_CONFIGS = {
     footer: { initials: 'NC', name: 'Nice Company', code: 'DK12345678', viewing: true },
     defaultActive: 'overview',
   },
-  'user:external': {
+  'member:external': {
     header: 'gsfleet',
     items: [
       { key: 'fleet',     icon: 'truck',       label: 'My Fleet' },
@@ -323,7 +323,7 @@ const TOKENS = [
         <div class="snp-dim-row">
           <code>entity</code>
           <div class="snp-pills">
-            <span v-for="v in ['any','root','partner','company','company-view','user']" :key="v" class="snp-pill">{{ v }}</span>
+            <span v-for="v in ['any','root','partner','company','company-view','member']" :key="v" class="snp-pill">{{ v }}</span>
           </div>
           <span>Controls which nav items appear and which header/footer is shown.</span>
         </div>
@@ -377,7 +377,7 @@ const TOKENS = [
           <span>Entity name + code · Viewing label (int)</span>
         </div>
         <div class="snp-matrix-row">
-          <strong>User</strong>
+          <strong>Member</strong>
           <span class="snp-abadge snp-abadge--ext">external only</span>
           <span class="snp-mono">GSFleet logo</span>
           <span>Entity name + code</span>

@@ -1,8 +1,9 @@
 <script setup>
 import { ref } from 'vue'
 import AppButton from '../components/ui/AppButton.vue'
-import AppTag   from '../components/ui/AppTag.vue'
-import AppMenu  from '../components/ui/AppMenu.vue'
+import AppTag    from '../components/ui/AppTag.vue'
+import AppMenu   from '../components/ui/AppMenu.vue'
+import AppIcon   from '../components/ui/AppIcon.vue'
 
 defineEmits(['navigate'])
 
@@ -34,25 +35,12 @@ const accountTab = ref('default')
 const cmOpen      = ref(false)
 const cmSelected  = ref(null)
 const cmItems = [
-  { label: 'Edit',       icon: `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M11 2l3 3L5 14H2v-3L11 2z" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>` },
-  { label: 'Export',     icon: `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v8M5 5l3-3 3 3M3 10v3.5h10V10" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>` },
-  { label: 'Assign to',  icon: `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5.5" r="2.5" stroke="currentColor" stroke-width="1.25"/><path d="M3 13c0-2.76 2.24-5 5-5s5 2.24 5 5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>` },
+  { label: 'Edit',      icon: 'edit' },
+  { label: 'Export',    icon: 'export' },
+  { label: 'Assign to', icon: 'user' },
   { divider: true },
-  { label: 'Delete', danger: true, icon: `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M5 4V2h6v2M6 7v5M10 7v5M3 4l1 9h8l1-9" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>` },
+  { label: 'Delete', danger: true, icon: 'trash' },
 ]
-
-/* ── Icons ───────────────────────────────────────────── */
-const IconChevronRight = `<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 3l3 3-3 3" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>`
-const IconCheck        = `<svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l4 4 6-8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`
-const IconPlaceholder  = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" fill="#9c9ea3"/></svg>`
-const IconUser         = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5.5" r="2.5" stroke="currentColor" stroke-width="1.25"/><path d="M3 13c0-2.76 2.24-5 5-5s5 2.24 5 5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>`
-const IconSend         = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M14 2L2 7l5 2 2 5 5-12z" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>`
-const IconLogout       = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 11v2.5H2V2.5h8V5M7 8h7M14 8l-2-2M14 8l-2 2" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>`
-const IconEdit         = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M11 2l3 3L5 14H2v-3L11 2z" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>`
-const IconTrash        = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M5 4V2h6v2M3 4l1 10h8l1-10M6 7v4M10 7v4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>`
-const IconExport       = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v8M5 5l3-3 3 3M3 10v3.5h10V10" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>`
-const IconHelp         = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.25"/><path d="M6.5 6.5a1.5 1.5 0 0 1 3 .5c0 1-1.5 1.5-1.5 2.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/><circle cx="8" cy="11.5" r=".75" fill="currentColor"/></svg>`
-const IconChevronDown  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>`
 </script>
 
 <template>
@@ -85,7 +73,7 @@ const IconChevronDown  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="
           <template #trigger>
             <AppButton variant="tertiary" size="sm">
               Bulk actions
-              <template #icon-right><span v-html="IconChevronDown" /></template>
+              <template #icon-right><AppIcon name="chevron-down" :size="14" /></template>
             </AppButton>
           </template>
         </AppMenu>
@@ -114,7 +102,7 @@ const IconChevronDown  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="
           <span class="ds-state-col__label">Selected</span>
           <div class="ds-menu-item ds-menu-item--selected">
             Option here
-            <span class="ds-menu-item__icon-right" v-html="IconCheck" />
+            <span class="ds-menu-item__icon-right"><AppIcon name="check" :size="12" /></span>
           </div>
         </div>
         <!-- Danger -->
@@ -126,7 +114,7 @@ const IconChevronDown  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="
         <div class="ds-state-col">
           <span class="ds-state-col__label">Left icon</span>
           <div class="ds-menu-item ds-menu-item--icon-left">
-            <span class="ds-menu-item__icon" v-html="IconEdit" />
+            <span class="ds-menu-item__icon"><AppIcon name="edit" :size="16" /></span>
             Option here
           </div>
         </div>
@@ -135,7 +123,7 @@ const IconChevronDown  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="
           <span class="ds-state-col__label">Right icon</span>
           <div class="ds-menu-item">
             Option here
-            <span class="ds-menu-item__icon-right" v-html="IconChevronRight" />
+            <span class="ds-menu-item__icon-right"><AppIcon name="chevron-right" :size="12" /></span>
           </div>
         </div>
       </div>
@@ -145,21 +133,21 @@ const IconChevronDown  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="
         <p class="ds-example-label">Icon variants — both sides</p>
         <div class="ds-menu-item-row">
           <div class="ds-menu-item ds-menu-item--icon-left">
-            <span class="ds-menu-item__icon" v-html="IconPlaceholder" />
+            <span class="ds-menu-item__icon"><AppIcon name="placeholder" :size="16" /></span>
             Icon left
           </div>
           <div class="ds-menu-item ds-menu-item--selected">
             Icon left + check
-            <span class="ds-menu-item__icon-right" v-html="IconCheck" />
+            <span class="ds-menu-item__icon-right"><AppIcon name="check" :size="12" /></span>
           </div>
           <div class="ds-menu-item">
             Submenu
-            <span class="ds-menu-item__icon-right" v-html="IconChevronRight" />
+            <span class="ds-menu-item__icon-right"><AppIcon name="chevron-right" :size="12" /></span>
           </div>
           <div class="ds-menu-item ds-menu-item--icon-left">
-            <span class="ds-menu-item__icon" v-html="IconPlaceholder" />
+            <span class="ds-menu-item__icon"><AppIcon name="placeholder" :size="16" /></span>
             Both sides
-            <span class="ds-menu-item__icon-right" v-html="IconChevronRight" />
+            <span class="ds-menu-item__icon-right"><AppIcon name="chevron-right" :size="12" /></span>
           </div>
         </div>
       </div>
@@ -177,7 +165,7 @@ const IconChevronDown  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="
             Option here
           </div>
           <div class="ds-menu-item ds-menu-item--multi">
-            <div class="ds-cb-sm ds-cb-sm--checked"><span v-html="IconCheck" /></div>
+            <div class="ds-cb-sm ds-cb-sm--checked"><AppIcon name="check" :size="12" /></div>
             Option here
           </div>
         </div>
@@ -212,16 +200,16 @@ const IconChevronDown  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="
           <p class="ds-example-label">Left icons</p>
           <div class="ds-menu">
             <div class="ds-menu-item ds-menu-item--icon-left">
-              <span class="ds-menu-item__icon" v-html="IconEdit" />Edit
+              <span class="ds-menu-item__icon"><AppIcon name="edit" :size="16" /></span>Edit
             </div>
             <div class="ds-menu-item ds-menu-item--icon-left">
-              <span class="ds-menu-item__icon" v-html="IconExport" />Export
+              <span class="ds-menu-item__icon"><AppIcon name="export" :size="16" /></span>Export
             </div>
             <div class="ds-menu-item ds-menu-item--hover ds-menu-item--icon-left">
-              <span class="ds-menu-item__icon" v-html="IconUser" />Assign
+              <span class="ds-menu-item__icon"><AppIcon name="user" :size="16" /></span>Assign
             </div>
             <div class="ds-menu-item ds-menu-item--icon-left ds-menu-item--danger">
-              <span class="ds-menu-item__icon" v-html="IconTrash" />Delete
+              <span class="ds-menu-item__icon"><AppIcon name="trash" :size="16" /></span>Delete
             </div>
           </div>
         </div>
@@ -232,12 +220,12 @@ const IconChevronDown  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="
           <div class="ds-menu">
             <div class="ds-menu-item ds-menu-item--selected">
               Option here
-              <span class="ds-menu-item__icon-right" v-html="IconCheck" />
+              <span class="ds-menu-item__icon-right"><AppIcon name="check" :size="12" /></span>
             </div>
             <div class="ds-menu-item">Option here</div>
             <div class="ds-menu-item">
               More options
-              <span class="ds-menu-item__icon-right" v-html="IconChevronRight" />
+              <span class="ds-menu-item__icon-right"><AppIcon name="chevron-right" :size="12" /></span>
             </div>
             <div class="ds-menu-item">Option here</div>
             <div class="ds-menu-item ds-menu-item--danger">Delete permanently</div>
@@ -251,21 +239,21 @@ const IconChevronDown  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="
         <div class="ds-demo-area">
           <div class="ds-demo-trigger-wrap">
             <AppButton variant="tertiary" size="sm" @click="demoOpen = !demoOpen">
-              <template #icon-right><span v-html="IconChevronDown" /></template>
+              <template #icon-right><AppIcon name="chevron-down" :size="14" /></template>
               Bulk actions
             </AppButton>
             <div v-if="demoOpen" class="ds-menu ds-menu--positioned">
               <div class="ds-menu-item ds-menu-item--icon-left" @click="pickOption('edit')">
-                <span class="ds-menu-item__icon" v-html="IconEdit" />Edit
+                <span class="ds-menu-item__icon"><AppIcon name="edit" :size="16" /></span>Edit
               </div>
               <div class="ds-menu-item ds-menu-item--icon-left" @click="pickOption('export')">
-                <span class="ds-menu-item__icon" v-html="IconExport" />Export
+                <span class="ds-menu-item__icon"><AppIcon name="export" :size="16" /></span>Export
               </div>
               <div class="ds-menu-item ds-menu-item--icon-left" @click="pickOption('user')">
-                <span class="ds-menu-item__icon" v-html="IconUser" />Assign to
+                <span class="ds-menu-item__icon"><AppIcon name="user" :size="16" /></span>Assign to
               </div>
               <div class="ds-menu-item ds-menu-item--icon-left ds-menu-item--danger" @click="pickOption('delete')">
-                <span class="ds-menu-item__icon" v-html="IconTrash" />Delete
+                <span class="ds-menu-item__icon"><AppIcon name="trash" :size="16" /></span>Delete
               </div>
             </div>
           </div>
@@ -290,13 +278,13 @@ const IconChevronDown  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="
           <p class="ds-example-label">No actions (5 items)</p>
           <div class="ds-menu">
             <div class="ds-menu-item ds-menu-item--multi">
-              <div class="ds-cb-sm ds-cb-sm--checked"><span v-html="IconCheck" /></div>Option 1
+              <div class="ds-cb-sm ds-cb-sm--checked"><AppIcon name="check" :size="12" /></div>Option 1
             </div>
             <div class="ds-menu-item ds-menu-item--multi">
               <div class="ds-cb-sm"></div>Option 2
             </div>
             <div class="ds-menu-item ds-menu-item--multi">
-              <div class="ds-cb-sm ds-cb-sm--checked"><span v-html="IconCheck" /></div>Option 3
+              <div class="ds-cb-sm ds-cb-sm--checked"><AppIcon name="check" :size="12" /></div>Option 3
             </div>
             <div class="ds-menu-item ds-menu-item--multi">
               <div class="ds-cb-sm"></div>Option 4
@@ -313,13 +301,13 @@ const IconChevronDown  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="
           <div class="ds-menu ds-menu--w-footer">
             <div class="ds-menu__body">
               <div class="ds-menu-item ds-menu-item--multi">
-                <div class="ds-cb-sm ds-cb-sm--checked"><span v-html="IconCheck" /></div>Option 1
+                <div class="ds-cb-sm ds-cb-sm--checked"><AppIcon name="check" :size="12" /></div>Option 1
               </div>
               <div class="ds-menu-item ds-menu-item--multi">
                 <div class="ds-cb-sm"></div>Option 2
               </div>
               <div class="ds-menu-item ds-menu-item--multi">
-                <div class="ds-cb-sm ds-cb-sm--checked"><span v-html="IconCheck" /></div>Option 3
+                <div class="ds-cb-sm ds-cb-sm--checked"><AppIcon name="check" :size="12" /></div>Option 3
               </div>
               <div class="ds-menu-item ds-menu-item--multi">
                 <div class="ds-cb-sm"></div>Option 4
@@ -342,7 +330,7 @@ const IconChevronDown  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="
             <div class="ds-menu__body">
               <div v-for="n in 7" :key="n" class="ds-menu-item ds-menu-item--multi">
                 <div class="ds-cb-sm" :class="{'ds-cb-sm--checked': n===2||n===5}">
-                  <span v-if="n===2||n===5" v-html="IconCheck" />
+                  <AppIcon v-if="n===2||n===5" name="check" :size="12" />
                 </div>Option {{ n }}
               </div>
             </div>
@@ -360,13 +348,13 @@ const IconChevronDown  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="
           <div class="ds-demo-trigger-wrap">
             <AppButton variant="tertiary" size="sm" @click="multiOpen = !multiOpen">
               Filter
-              <template #icon-right><span v-html="IconChevronDown" /></template>
+              <template #icon-right><AppIcon name="chevron-down" :size="14" /></template>
             </AppButton>
             <div v-if="multiOpen" class="ds-menu ds-menu--positioned ds-menu--w-footer">
               <div class="ds-menu__body">
                 <div v-for="opt in MULTI_OPTS" :key="opt" class="ds-menu-item ds-menu-item--multi" @click="toggleMulti(opt)">
                   <div class="ds-cb-sm" :class="{'ds-cb-sm--checked': multiSel.includes(opt)}">
-                    <span v-if="multiSel.includes(opt)" v-html="IconCheck" />
+                    <AppIcon v-if="multiSel.includes(opt)" name="check" :size="12" />
                   </div>
                   {{ opt }}
                 </div>
@@ -421,16 +409,16 @@ const IconChevronDown  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="
           </div>
           <div class="ds-account-menu__body">
             <div class="ds-menu-item ds-menu-item--icon-left">
-              <span class="ds-menu-item__icon" v-html="IconUser" />My account
+              <span class="ds-menu-item__icon"><AppIcon name="user" :size="16" /></span>My account
             </div>
             <div class="ds-menu-item ds-menu-item--icon-left">
-              <span class="ds-menu-item__icon" v-html="IconSend" />Send feedback
+              <span class="ds-menu-item__icon"><AppIcon name="send" :size="16" /></span>Send feedback
             </div>
           </div>
           <div class="ds-account-menu__divider"></div>
           <div class="ds-account-menu__body">
             <div class="ds-menu-item ds-menu-item--icon-left">
-              <span class="ds-menu-item__icon" v-html="IconLogout" />Logout
+              <span class="ds-menu-item__icon"><AppIcon name="logout" :size="16" /></span>Logout
             </div>
           </div>
         </div>
@@ -454,16 +442,16 @@ const IconChevronDown  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="
           <div class="ds-account-menu__divider"></div>
           <div class="ds-account-menu__body">
             <div class="ds-menu-item ds-menu-item--icon-left">
-              <span class="ds-menu-item__icon" v-html="IconUser" />My account
+              <span class="ds-menu-item__icon"><AppIcon name="user" :size="16" /></span>My account
             </div>
             <div class="ds-menu-item ds-menu-item--icon-left">
-              <span class="ds-menu-item__icon" v-html="IconSend" />Send feedback
+              <span class="ds-menu-item__icon"><AppIcon name="send" :size="16" /></span>Send feedback
             </div>
           </div>
           <div class="ds-account-menu__divider"></div>
           <div class="ds-account-menu__body">
             <div class="ds-menu-item ds-menu-item--icon-left">
-              <span class="ds-menu-item__icon" v-html="IconLogout" />Logout
+              <span class="ds-menu-item__icon"><AppIcon name="logout" :size="16" /></span>Logout
             </div>
           </div>
         </div>
@@ -484,21 +472,21 @@ const IconChevronDown  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="
               <span class="ds-account-menu__context-company">NICE COMPANY</span>
               <span class="ds-account-menu__context-role">Module / Role here</span>
             </div>
-            <span class="ds-account-menu__context-chevron" v-html="IconChevronRight" />
+            <span class="ds-account-menu__context-chevron"><AppIcon name="chevron-right" :size="12" /></span>
           </div>
           <div class="ds-account-menu__divider"></div>
           <div class="ds-account-menu__body">
             <div class="ds-menu-item ds-menu-item--icon-left">
-              <span class="ds-menu-item__icon" v-html="IconUser" />My account
+              <span class="ds-menu-item__icon"><AppIcon name="user" :size="16" /></span>My account
             </div>
             <div class="ds-menu-item ds-menu-item--icon-left">
-              <span class="ds-menu-item__icon" v-html="IconSend" />Send feedback
+              <span class="ds-menu-item__icon"><AppIcon name="send" :size="16" /></span>Send feedback
             </div>
           </div>
           <div class="ds-account-menu__divider"></div>
           <div class="ds-account-menu__body">
             <div class="ds-menu-item ds-menu-item--icon-left">
-              <span class="ds-menu-item__icon" v-html="IconLogout" />Logout
+              <span class="ds-menu-item__icon"><AppIcon name="logout" :size="16" /></span>Logout
             </div>
           </div>
         </div>

@@ -3,7 +3,7 @@
  * AppMenu
  * A dropdown menu positioned relative to a trigger.
  *
- * @prop items   Array<{ label: string, icon?: string (svg html), danger?: boolean, divider?: boolean, disabled?: boolean }>
+ * @prop items   Array<{ label: string, icon?: string (AppIcon name), danger?: boolean, divider?: boolean, disabled?: boolean }>
  * @prop open    v-model for open state
  * @prop align   'left' (default) | 'right'
  * @prop wide    Wider min-width (220px)
@@ -15,6 +15,7 @@
  * Enter/Space activates focused item; Tab or Escape closes and returns focus to trigger.
  */
 import { ref, watch, nextTick } from 'vue'
+import AppIcon from './AppIcon.vue'
 
 const props = defineProps({
   items: { type: Array, required: true },
@@ -117,7 +118,9 @@ function onMenuKeydown(e) {
           :tabindex="item.disabled ? undefined : -1"
           @click="select(item)"
         >
-          <span v-if="item.icon" class="menu-item__icon" v-html="item.icon" aria-hidden="true" />
+          <span v-if="item.icon" class="menu-item__icon" aria-hidden="true">
+            <AppIcon :name="item.icon" :size="16" />
+          </span>
           {{ item.label }}
         </div>
       </template>
