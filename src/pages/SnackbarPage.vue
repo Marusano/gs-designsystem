@@ -8,11 +8,12 @@ import AppIcon     from '../components/ui/AppIcon.vue'
 const activeSnackbar = ref(null)
 let snackbarKey = 0
 
-function triggerSnackbar(type, message, opts = {}) {
+function triggerSnackbar(type, action, detail, opts = {}) {
   activeSnackbar.value = {
     key: ++snackbarKey,
     type,
-    message,
+    action,
+    detail,
     dismissible: opts.dismissible ?? false,
     persistent:  opts.persistent  ?? false,
   }
@@ -25,29 +26,34 @@ function onDismiss() {
 /* ── Static inline catalog ───────────────────────────────────── */
 const CATALOG = [
   {
-    type: 'success',
-    label: 'Success',
-    example: 'Route created. "Helsinki to Tampere" was added to the schedule.',
+    type:   'success',
+    label:  'Success',
+    action: 'Route created.',
+    detail: '"Helsinki to Tampere" was added to the schedule.',
   },
   {
-    type: 'warning',
-    label: 'Warning',
-    example: 'Unsaved changes. Leave now and your changes will be lost.',
+    type:   'warning',
+    label:  'Warning',
+    action: 'Unsaved changes.',
+    detail: 'Leave now and your changes will be lost.',
   },
   {
-    type: 'danger',
-    label: 'Danger',
-    example: 'Action failed. Unable to assign driver — check connection and retry.',
+    type:   'danger',
+    label:  'Danger',
+    action: 'Action failed.',
+    detail: 'Unable to assign driver — check connection and retry.',
   },
   {
-    type: 'neutral',
-    label: 'Neutral',
-    example: 'Export started. Your report will be ready in a few minutes.',
+    type:   'neutral',
+    label:  'Neutral',
+    action: 'Export started.',
+    detail: 'Your report will be ready in a few minutes.',
   },
   {
-    type: 'informational',
-    label: 'Informational',
-    example: 'Step 1 of 3. Fill in the vehicle details before adding the driver.',
+    type:   'informational',
+    label:  'Informational',
+    action: 'Step 1 of 3.',
+    detail: 'Fill in the vehicle details before adding the driver.',
   },
 ]
 
@@ -85,8 +91,8 @@ const showInlineError = ref(true)
       <div class="sb-catalog">
         <div v-for="item in CATALOG" :key="item.type" class="sb-catalog__row">
           <span class="sb-catalog__label">{{ item.label }}</span>
-          <AppSnackbar :type="item.type" :inline="true" :persistent="true" class="sb-catalog__snackbar">
-            {{ item.example }}
+          <AppSnackbar :type="item.type" :inline="true" :persistent="true" :action="item.action" class="sb-catalog__snackbar">
+            {{ item.detail }}
           </AppSnackbar>
         </div>
       </div>
@@ -107,9 +113,10 @@ const showInlineError = ref(true)
           :inline="true"
           :persistent="true"
           :dismissible="true"
+          action="Action failed."
           @dismiss="showDismissible = false"
         >
-          Action failed. Unable to delete the route — it has active trips attached.
+          Unable to delete the route — it has active trips attached.
         </AppSnackbar>
         <div v-else class="sb-dismissed-state">
           <span class="sb-dismissed-state__text">Dismissed</span>
@@ -130,42 +137,42 @@ const showInlineError = ref(true)
       <div class="sb-trigger-grid">
         <AppButton
           variant="secondary" size="sm"
-          @click="triggerSnackbar('success', 'Driver assigned. Sam Lee is now assigned to route 42.')"
+          @click="triggerSnackbar('success', 'Driver assigned.', 'Sam Lee is now assigned to route 42.')"
         >
           <template #icon-left><AppIcon name="success" :size="16" /></template>
           Success
         </AppButton>
         <AppButton
           variant="secondary" size="sm"
-          @click="triggerSnackbar('warning', 'GPS signal lost. Location data may be inaccurate for vehicle #208.')"
+          @click="triggerSnackbar('warning', 'GPS signal lost.', 'Location data may be inaccurate for vehicle #208.')"
         >
           <template #icon-left><AppIcon name="warning" :size="16" /></template>
           Warning
         </AppButton>
         <AppButton
           variant="secondary" size="sm"
-          @click="triggerSnackbar('danger', 'Save failed. Your changes could not be saved — please retry.')"
+          @click="triggerSnackbar('danger', 'Save failed.', 'Your changes could not be saved — please retry.')"
         >
           <template #icon-left><AppIcon name="error" :size="16" /></template>
           Danger
         </AppButton>
         <AppButton
           variant="secondary" size="sm"
-          @click="triggerSnackbar('neutral', 'Export queued. Your CSV will download shortly.')"
+          @click="triggerSnackbar('neutral', 'Export queued.', 'Your CSV will download shortly.')"
         >
           <template #icon-left><AppIcon name="info" :size="16" /></template>
           Neutral
         </AppButton>
         <AppButton
           variant="secondary" size="sm"
-          @click="triggerSnackbar('informational', 'Step 2 of 3. Confirm vehicle details before continuing.')"
+          @click="triggerSnackbar('informational', 'Step 2 of 3.', 'Confirm vehicle details before continuing.')"
         >
           <template #icon-left><AppIcon name="info" :size="16" /></template>
           Informational
         </AppButton>
         <AppButton
           variant="secondary" size="sm"
-          @click="triggerSnackbar('danger', 'Session expired. Please log in again to continue.', { dismissible: true, persistent: true })"
+          @click="triggerSnackbar('danger', 'Session expired.', 'Please log in again to continue.', { dismissible: true, persistent: true })"
         >
           <template #icon-left><AppIcon name="close" :size="16" /></template>
           Dismissible (persistent)
@@ -195,8 +202,9 @@ const showInlineError = ref(true)
             type="informational"
             :inline="true"
             :persistent="true"
+            action="Step 1 of 3."
           >
-            Step 1 of 3. Select a driver before setting departure time.
+            Select a driver before setting departure time.
           </AppSnackbar>
 
           <div class="sb-card__form-row">
@@ -216,9 +224,10 @@ const showInlineError = ref(true)
             :inline="true"
             :persistent="true"
             :dismissible="true"
+            action="Conflict detected."
             @dismiss="showInlineError = false"
           >
-            Conflict detected. Sam Lee is already assigned to Route 17 at this time.
+            Sam Lee is already assigned to Route 17 at this time.
           </AppSnackbar>
         </div>
       </div>
@@ -243,6 +252,12 @@ const showInlineError = ref(true)
             <td>String</td>
             <td><code>'neutral'</code></td>
             <td>success · warning · danger · neutral · informational</td>
+          </tr>
+          <tr>
+            <td><code>action</code></td>
+            <td>String</td>
+            <td><code>null</code></td>
+            <td>Bold leading sentence (H6 / SemiBold 14px) — e.g. "Route created."</td>
           </tr>
           <tr>
             <td><code>dismissible</code></td>
@@ -282,12 +297,13 @@ const showInlineError = ref(true)
       v-if="activeSnackbar"
       :key="activeSnackbar.key"
       :type="activeSnackbar.type"
+      :action="activeSnackbar.action"
       :dismissible="activeSnackbar.dismissible"
       :persistent="activeSnackbar.persistent"
       :duration="20000"
       @dismiss="onDismiss"
     >
-      {{ activeSnackbar.message }}
+      {{ activeSnackbar.detail }}
     </AppSnackbar>
 
   </div>

@@ -3,6 +3,7 @@
  * AppSnackbar — GSFleet Design System
  *
  * @prop type        - 'success' | 'warning' | 'danger' | 'neutral' | 'informational'
+ * @prop action      - bold leading sentence, e.g. "Route created." (H6 / SemiBold 14px)
  * @prop dismissible - shows × button, emits 'dismiss' on click
  * @prop inline      - renders in document flow (no fixed overlay, no shadow, no auto-dismiss)
  * @prop persistent  - disables auto-dismiss when in global mode
@@ -19,6 +20,7 @@ const props = defineProps({
     default: 'neutral',
     validator: (v) => ['success', 'warning', 'danger', 'neutral', 'informational'].includes(v),
   },
+  action:      { type: String,  default: null },
   dismissible: { type: Boolean, default: false },
   inline:      { type: Boolean, default: false },
   persistent:  { type: Boolean, default: false },
@@ -66,7 +68,7 @@ function dismiss() {
         <AppIcon :name="iconName" :size="24" />
       </span>
       <span class="snackbar__message">
-        <slot />
+        <strong v-if="action" class="snackbar__action">{{ action }} </strong><slot />
       </span>
       <button
         v-if="dismissible"
@@ -146,6 +148,11 @@ function dismiss() {
 .snackbar__message {
   flex: 1;
   min-width: 0;
+  line-height: 16px;
+}
+
+.snackbar__action {
+  font-weight: 600;
 }
 
 /* ── Dismiss button ──────────────────────────────────────────── */
