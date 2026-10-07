@@ -102,6 +102,18 @@
   --indigo-90:  #02005f;
   --indigo-100: #010028;
 
+  /* Primitives — Purple */
+  --purple-10:  #eef2ff;
+  --purple-20:  #e0e7ff;
+  --purple-30:  #c7d2fe;
+  --purple-40:  #a5b4fc;
+  --purple-50:  #6366f1;
+  --purple-60:  #4f46e5;
+  --purple-70:  #4338ca;
+  --purple-80:  #3730a3;
+  --purple-90:  #02005f;
+  --purple-100: #010028;
+
   /* Primitives — Pink */
   --pink-10:  #fff3fa;
   --pink-20:  #f8e3ee;
@@ -131,10 +143,20 @@
   --color-text-secondary:  var(--grey-70);
   --color-text-disabled:   var(--grey-50);
   --color-text-inverse:    var(--grey-00);
+  --color-text-link:       var(--blue-azure-80);
+  --color-text-error:      var(--red-80);
+  --color-text-label:      var(--grey-60);
 
   /* Semantic — Border */
   --color-border-default:  var(--grey-20);
   --color-border-strong:   var(--grey-40);
+  --color-border-subtle:   var(--grey-20);
+  --color-border-focus:    var(--blue-azure-30);
+
+  /* Semantic — Brand */
+  --color-brand-navy:      var(--indigo-100);
+  --color-brand-azure:     var(--blue-azure-40);
+  --color-brand-neutral:   var(--grey-60);
 
   /* Semantic — Accent */
   --color-accent-main:  var(--blue-azure-50);
