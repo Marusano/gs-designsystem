@@ -258,6 +258,21 @@
   --field-disabled-border: var(--grey-20);
   --field-disabled-text:   var(--grey-50);
   --field-disabled-label:  var(--grey-60);
+
+  /* ── Snackbar / Notification tokens ────────────────────────── */
+  --snackbar-success-bg:    var(--green-10);
+  --snackbar-success-icon:  var(--green-90);
+  --snackbar-warning-bg:    var(--orange-10);
+  --snackbar-warning-icon:  var(--orange-60);
+  --snackbar-danger-bg:     var(--red-10);
+  --snackbar-danger-icon:   var(--red-70);
+  --snackbar-neutral-bg:    var(--grey-05);
+  --snackbar-neutral-icon:  var(--grey-70);
+  --snackbar-info-bg:       var(--blue-azure-10);
+  --snackbar-info-icon:     var(--blue-azure-70);
+  --snackbar-text:          var(--grey-90);
+  --snackbar-radius:        4px;
+  --snackbar-shadow:        0 4px 12.5px rgba(57, 57, 57, 0.2);
 }
 
 *, *::before, *::after {
