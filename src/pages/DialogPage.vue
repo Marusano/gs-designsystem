@@ -134,7 +134,7 @@ function closeDemo() {
         </div>
         <div class="dlg-type-card">
           <div class="dlg-type-label">Change</div>
-          <p class="dlg-type-desc">Asks the user to review and save a change to an existing record. Often includes a form row or select showing the current and new value.</p>
+          <p class="dlg-type-desc">Asks the user to review and change existing setup and then save a change to an existing record. Often includes information about existing state and a form row or dropdown showing new value options. Once selected, change is applied after confirmation.</p>
         </div>
         <div class="dlg-type-card">
           <div class="dlg-type-label">Danger</div>
