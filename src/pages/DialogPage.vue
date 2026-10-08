@@ -110,8 +110,16 @@ function closeDemo() {
       <p class="ds-lead">3 types · 4 info states · confirm / change / danger</p>
       <p class="ds-body">
         Dialogs interrupt the current flow to request user confirmation or collect a critical input
-        before proceeding. They block interaction with the rest of the page and require an explicit
-        choice — confirm, save, or cancel — before control returns to the caller.
+        before proceeding. They appear on top of the main page content, block the rest of the UI with
+        a semi-transparent overlay, and remain visible until the user makes a deliberate choice. The
+        purpose of a dialog should be immediately apparent, with a clear and obvious path to completion.
+        Changes are never applied without an explicit confirmation step — there is always a way back.
+      </p>
+      <p class="ds-body">
+        Dialogs work best for short, focused tasks: warnings, double-confirmations, and actions that
+        have significant consequences for the user or affect several entities (e.g. changing a system
+        role, linking a device, or reassigning a driver). They are not used for creating new entities
+        or when a large amount of data needs to be filled in or reviewed.
       </p>
     </section>
 
@@ -231,6 +239,7 @@ function closeDemo() {
             <li>Use the Change type when the user needs to see current state before confirming.</li>
             <li>Use the Danger type for permanent deletions — reinforce with a bold confirmation sentence.</li>
             <li>Use info panels to surface active conditions or constraints the user may not be aware of.</li>
+            <li>Trigger dialogs from a user action (button, link). Indirect triggers are fine too — e.g. a "you have unsaved changes" dialog when closing a tab.</li>
           </ul>
         </div>
         <div class="ds-usage-card ds-usage-card--dont">
@@ -240,7 +249,32 @@ function closeDemo() {
             <li>Don't stack dialogs — resolve the current one before triggering another.</li>
             <li>Don't put long forms inside a dialog — use a dedicated page or drawer for complex inputs.</li>
             <li>Don't make the confirm label generic ("OK", "Yes") — describe the action being taken.</li>
+            <li>Don't open a dialog when the user needs to consult information outside it — navigate to a full page instead.</li>
+            <li>Don't trigger dialogs from background processes. If the system needs to surface an alert without a user action, use a snackbar notification.</li>
           </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Behaviour ────────────────────────────────────────── -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Behaviour</h2>
+      <div class="dlg-behaviour-grid">
+        <div class="dlg-bh">
+          <div class="dlg-bh__title">Trigger</div>
+          <p class="dlg-bh__desc">Dialogs are always triggered by a user's action — a button click, a link, or an indirect consequence of a user action (e.g. closing a tab with unsaved content). They are never opened automatically by background system processes; use a snackbar for those.</p>
+        </div>
+        <div class="dlg-bh">
+          <div class="dlg-bh__title">Focus</div>
+          <p class="dlg-bh__desc">When the dialog opens, focus moves to the first focusable element inside it. Focus is trapped inside the dialog until it is closed — the user cannot tab to elements behind the overlay. After the dialog closes, focus returns to the element that triggered it.</p>
+        </div>
+        <div class="dlg-bh">
+          <div class="dlg-bh__title">Scrolling</div>
+          <p class="dlg-bh__desc">Each dialog size has a fixed max-height. When content exceeds it, the body section scrolls vertically while the header and footer (actions) remain fixed. If the content is so long that scrolling feels necessary, consider navigating to a full page instead.</p>
+        </div>
+        <div class="dlg-bh">
+          <div class="dlg-bh__title">Validation</div>
+          <p class="dlg-bh__desc">Validate user entries before the dialog closes. If any field is invalid, keep the dialog open, mark the field with an error state, and show an inline message explaining what went wrong and how to resolve it. Use selection controls and bound inputs (dropdowns, radios) to minimise the chance of invalid data in the first place.</p>
         </div>
       </div>
     </section>
@@ -269,6 +303,30 @@ function closeDemo() {
       </div>
     </section>
 
+    <!-- ── Close & Dismiss ──────────────────────────────────── -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Close &amp; dismiss</h2>
+      <p class="ds-body">There are several ways to exit a dialog without confirming the action. All of them leave the underlying content unchanged.</p>
+      <div class="dlg-dismiss-grid">
+        <div class="dlg-dm">
+          <div class="dlg-dm__key">× icon</div>
+          <p class="dlg-dm__desc">Clicking the close icon in the upper-right corner closes the dialog without submitting any data.</p>
+        </div>
+        <div class="dlg-dm">
+          <div class="dlg-dm__key">Cancel button</div>
+          <p class="dlg-dm__desc">Clicking Cancel closes the dialog and undoes any applied changes. Cancel is always the left-most button.</p>
+        </div>
+        <div class="dlg-dm">
+          <div class="dlg-dm__key">Click outside</div>
+          <p class="dlg-dm__desc">Clicking anywhere outside the dialog (on the backdrop) closes it, equivalent to Cancel.</p>
+        </div>
+        <div class="dlg-dm">
+          <div class="dlg-dm__key"><code>ESC</code></div>
+          <p class="dlg-dm__desc">Pressing Escape on the keyboard closes the dialog without confirming.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- ── Interaction ───────────────────────────────────────── -->
     <section class="ds-section">
       <h2 class="ds-h2">Interaction</h2>
@@ -285,6 +343,19 @@ function closeDemo() {
           <div class="dlg-ic__title">Backdrop</div>
           <p class="dlg-ic__desc">Clicking outside the dialog triggers Cancel. The dialog does not close on Escape by default — add a keydown handler in the parent if needed.</p>
         </div>
+      </div>
+      <h3 class="ds-h3">Keyboard navigation</h3>
+      <div class="ds-table-wrap">
+        <table class="ds-token-table">
+          <thead><tr><th>Key</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td><code>ESC</code></td><td>Close the dialog (cancel)</td></tr>
+            <tr><td><code>Tab</code></td><td>Move focus to the next interactive element inside the dialog</td></tr>
+            <tr><td><code>Shift + Tab</code></td><td>Move focus to the previous interactive element</td></tr>
+            <tr><td><code>Space</code></td><td>Trigger the currently focused element (button, checkbox, etc.)</td></tr>
+            <tr><td><code>Enter</code></td><td>Trigger the currently focused element</td></tr>
+          </tbody>
+        </table>
       </div>
     </section>
 
@@ -705,6 +776,56 @@ function closeDemo() {
   font-family: 'Inter', monospace;
 }
 
+/* ── Behaviour grid ──────────────────────────────────────────── */
+.dlg-behaviour-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 16px;
+}
+.dlg-bh {
+  background: var(--grey-00);
+  box-shadow: inset 0 0 0 1px var(--grey-20);
+  border-radius: 6px;
+  padding: 16px;
+}
+.dlg-bh__title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--grey-90);
+  margin-bottom: 6px;
+}
+.dlg-bh__desc {
+  font-size: 13px;
+  color: var(--grey-70);
+  line-height: 1.5;
+}
+
+/* ── Close & dismiss grid ────────────────────────────────────── */
+.dlg-dismiss-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 16px;
+}
+.dlg-dm {
+  background: var(--grey-00);
+  box-shadow: inset 0 0 0 1px var(--grey-20);
+  border-radius: 6px;
+  padding: 16px;
+}
+.dlg-dm__key {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--grey-90);
+  margin-bottom: 6px;
+}
+.dlg-dm__desc {
+  font-size: 13px;
+  color: var(--grey-70);
+  line-height: 1.5;
+}
+
 /* ── Interaction grid ────────────────────────────────────────── */
 .dlg-interaction-grid {
   display: grid;
@@ -728,6 +849,14 @@ function closeDemo() {
   font-size: 13px;
   color: var(--grey-70);
   line-height: 1.5;
+}
+
+/* ── h3 subheading (keyboard nav) ────────────────────────────── */
+.ds-h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--grey-90);
+  margin: 24px 0 0;
 }
 
 /* ── Token table ─────────────────────────────────────────────── */
