@@ -114,7 +114,7 @@ const IconDots        = `<svg width="16" height="16" viewBox="0 0 16 16" fill="c
 
 <style scoped>
 .ch-page {
-  padding: 40px;
+  padding: 48px 40px 80px;
   max-width: 1200px;
 }
 
@@ -123,16 +123,17 @@ const IconDots        = `<svg width="16" height="16" viewBox="0 0 16 16" fill="c
 }
 
 .ch-page__title {
-  font-size: 28px;
-  font-weight: 600;
+  font-size: 32px;
+  font-weight: 700;
   color: var(--grey-100);
-  margin-bottom: 8px;
+  line-height: 1.1;
+  margin-bottom: 4px;
 }
 
 .ch-page__desc {
-  font-size: 14px;
+  font-size: 16px;
   color: var(--grey-70);
-  line-height: 20px;
+  line-height: 1.6;
   max-width: 640px;
 }
 

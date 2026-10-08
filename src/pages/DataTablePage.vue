@@ -166,7 +166,7 @@ const selectedFour   = ref([])
 
 <style scoped>
 .dt-page {
-  padding: 40px;
+  padding: 48px 40px 80px;
   max-width: 1100px;
 }
 
@@ -175,16 +175,17 @@ const selectedFour   = ref([])
 }
 
 .dt-page__title {
-  font-size: 28px;
-  font-weight: 600;
+  font-size: 32px;
+  font-weight: 700;
   color: var(--grey-100);
-  margin-bottom: 8px;
+  line-height: 1.1;
+  margin-bottom: 4px;
 }
 
 .dt-page__desc {
-  font-size: 14px;
+  font-size: 16px;
   color: var(--grey-70);
-  line-height: 20px;
+  line-height: 1.6;
   max-width: 680px;
 }
 

@@ -175,14 +175,14 @@ const IconPlayground = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
             <span class="ds-sidebar__item-icon" v-html="IconSnackbar" />
             Snackbar
           </button>
-          <button @click="page = 'dialog'" :class="['ds-sidebar__item', { active: page === 'dialog' }]">
-            <span class="ds-sidebar__item-icon" v-html="IconDialog" />
-            Dialog
-          </button>
         </div>
 
         <div class="ds-sidebar__group">
           <p class="ds-sidebar__group-label">Design blocks</p>
+          <button @click="page = 'dialog'" :class="['ds-sidebar__item', { active: page === 'dialog' }]">
+            <span class="ds-sidebar__item-icon" v-html="IconDialog" />
+            Dialog
+          </button>
           <button @click="page = 'filters'" :class="['ds-sidebar__item', { active: page === 'filters' }]">
             <span class="ds-sidebar__item-icon" v-html="IconFilters" />
             Filters

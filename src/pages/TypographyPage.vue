@@ -414,7 +414,7 @@ const SEVERITY_STYLES = [
 
 /* ── Shared with other pages ────────────────────────────────── */
 .ds-page-header { display: flex; flex-direction: column; gap: 6px; }
-.ds-h1   { font-size: 28px; font-weight: 700; color: var(--grey-100); }
+.ds-h1   { font-size: 32px; font-weight: 700; color: var(--grey-100); line-height: 1.1; margin-bottom: 4px; }
 .ds-h2   { font-size: 20px; font-weight: 600; color: var(--grey-90); }
 .ds-lead { font-size: 16px; color: var(--grey-70); }
 .ds-body { font-size: 14px; color: var(--grey-70); line-height: 1.6; }
