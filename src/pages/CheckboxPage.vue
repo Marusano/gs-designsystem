@@ -109,6 +109,41 @@ const demoC = ref(false)
       </div>
     </section>
 
+    <!-- ── Usage ───────────────────────────────────────────── -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Usage</h2>
+      <div class="ds-usage-grid">
+
+        <div class="ds-usage-card ds-usage-card--do">
+          <p class="ds-usage-card__label ds-usage-card__label--do">Use when</p>
+          <ul class="ds-usage-list">
+            <li>
+              <strong>Forms &amp; dialogs</strong> — can be used in forms on a full page, in modals, or menus.
+            </li>
+            <li>
+              <strong>Filtering</strong> — used to filter data on a page, in a menu, or within a component. Also found in data tables for batch editing.
+            </li>
+            <li>
+              <strong>Agreements</strong> — terms &amp; conditions, "Remember me", and similar toggles where the user explicitly opts in or out.
+            </li>
+            <li>
+              <strong>Lists with sub-selections</strong> — used when there is a parent and child relationship. The parent checkbox makes a bulk selection; unchecking it deselects all children. Selecting children individually when the parent is unchecked triggers the indeterminate state.
+            </li>
+          </ul>
+        </div>
+
+        <div class="ds-usage-card ds-usage-card--dont">
+          <p class="ds-usage-card__label ds-usage-card__label--dont">Do not use when</p>
+          <ul class="ds-usage-list">
+            <li>
+              <strong>Only one option can be selected</strong> — use radio buttons instead. Checkboxes allow multiple selections; radio buttons allow exactly one.
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
     <!-- ── Formatting ─────────────────────────────────────── -->
     <section class="ds-section">
       <h2 class="ds-h2">Formatting</h2>
@@ -173,41 +208,6 @@ const demoC = ref(false)
               </label>
             </div>
           </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ── Usage ───────────────────────────────────────────── -->
-    <section class="ds-section">
-      <h2 class="ds-h2">Usage</h2>
-      <div class="ds-usage-grid">
-
-        <div class="ds-usage-card ds-usage-card--do">
-          <p class="ds-usage-card__label ds-usage-card__label--do">Use when</p>
-          <ul class="ds-usage-list">
-            <li>
-              <strong>Forms &amp; dialogs</strong> — can be used in forms on a full page, in modals, or menus.
-            </li>
-            <li>
-              <strong>Filtering</strong> — used to filter data on a page, in a menu, or within a component. Also found in data tables for batch editing.
-            </li>
-            <li>
-              <strong>Agreements</strong> — terms &amp; conditions, "Remember me", and similar toggles where the user explicitly opts in or out.
-            </li>
-            <li>
-              <strong>Lists with sub-selections</strong> — used when there is a parent and child relationship. The parent checkbox makes a bulk selection; unchecking it deselects all children. Selecting children individually when the parent is unchecked triggers the indeterminate state.
-            </li>
-          </ul>
-        </div>
-
-        <div class="ds-usage-card ds-usage-card--dont">
-          <p class="ds-usage-card__label ds-usage-card__label--dont">Do not use when</p>
-          <ul class="ds-usage-list">
-            <li>
-              <strong>Only one option can be selected</strong> — use radio buttons instead. Checkboxes allow multiple selections; radio buttons allow exactly one.
-            </li>
-          </ul>
         </div>
 
       </div>

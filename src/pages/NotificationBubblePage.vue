@@ -1,149 +1,302 @@
 <script setup>
 import AppNotificationBubble from '../components/ui/AppNotificationBubble.vue'
 
-const IconBell = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" stroke="#5d6065" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M13.73 21a2 2 0 0 1-3.46 0" stroke="#5d6065" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+const IconBell = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M13.73 21a2 2 0 0 1-3.46 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+const IconMessage = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`
 </script>
 
 <template>
   <main class="ds-main">
 
-    <!-- ── Header ─────────────────────────────────────────── -->
+    <!-- ── Title ─────────────────────────────────────────────── -->
     <section class="ds-section">
-      <h1 class="ds-h1">Notification bubble</h1>
+      <h1 class="ds-h1">Notification Bubble</h1>
+      <p class="ds-lead">2 variants · 2 shapes · count overflow at 99+</p>
       <p class="ds-body">
-        A compact count indicator that sits on top of icons, avatars, or navigation items to
-        signal pending notifications or unread items. Two variants: <strong>elevated</strong>
-        (light blue, for white/light surfaces) and <strong>flat</strong> (dark, for dark or
-        image surfaces).
+        A compact count indicator placed on top of icons, avatars, or navigation items to signal
+        pending notifications or unread items. Two variants adapt to light and dark surfaces.
+        The bubble is purely informational — it carries no click target of its own.
       </p>
     </section>
 
-    <!-- ── Component demo ────────────────────────────────── -->
+    <!-- ── Types ─────────────────────────────────────────────── -->
     <section class="ds-section">
-      <h2 class="ds-h2">Component Usage</h2>
-      <p class="ds-body">AppNotificationBubble in use — on an icon and standalone.</p>
-      <div class="ds-card ds-demo-flex">
-        <div class="ds-demo-item">
-          <div class="demo-icon-wrap">
-            <span v-html="IconBell" />
-            <AppNotificationBubble :count="3" variant="elevated" style="position:absolute;top:-4px;right:-4px;" />
+      <h2 class="ds-h2">Types</h2>
+      <p class="ds-body">
+        Two variants cover the two primary surface contexts. Use <strong>Elevated</strong> on white
+        or light-grey backgrounds, and <strong>Flat</strong> on dark fills or image surfaces where
+        the light bubble would be invisible.
+      </p>
+      <div class="ds-types-grid">
+
+        <div class="ds-type-card">
+          <div class="ds-type-card__demo">
+            <div class="ds-icon-host">
+              <span class="ds-icon-svg" v-html="IconBell" />
+              <AppNotificationBubble :count="4" variant="elevated" style="position:absolute;top:-6px;right:-8px;" />
+            </div>
           </div>
-          <span class="ds-state-label">Elevated · count</span>
-        </div>
-        <div class="ds-demo-item">
-          <div class="demo-icon-wrap" style="background: var(--indigo-100); border-radius: 8px; padding: 6px;">
-            <span v-html="IconBell" style="color:#fff" />
-            <AppNotificationBubble :count="12" variant="flat" style="position:absolute;top:-4px;right:-4px;" />
+          <div class="ds-type-card__body">
+            <p class="ds-type-card__name">Elevated</p>
+            <p class="ds-body">Light azure background (<code>blue-azure-20</code>) with dark text. Use on white and light-grey surfaces — the default variant in most contexts.</p>
           </div>
-          <span class="ds-state-label">Flat · count</span>
         </div>
-        <div class="ds-demo-item">
-          <div class="demo-icon-wrap">
-            <span v-html="IconBell" />
-            <AppNotificationBubble dot variant="elevated" style="position:absolute;top:-2px;right:-2px;" />
+
+        <div class="ds-type-card">
+          <div class="ds-type-card__demo ds-type-card__demo--dark">
+            <div class="ds-icon-host">
+              <span class="ds-icon-svg ds-icon-svg--light" v-html="IconBell" />
+              <AppNotificationBubble :count="4" variant="flat" style="position:absolute;top:-6px;right:-8px;" />
+            </div>
           </div>
-          <span class="ds-state-label">Dot indicator</span>
+          <div class="ds-type-card__body">
+            <p class="ds-type-card__name">Flat</p>
+            <p class="ds-body">Dark background (<code>grey-100</code>) with white text. Use on dark navigation bars, image thumbnails, or dark-fill avatars.</p>
+          </div>
         </div>
-        <div class="ds-demo-item">
+
+        <div class="ds-type-card">
+          <div class="ds-type-card__demo">
+            <div class="ds-icon-host">
+              <span class="ds-icon-svg" v-html="IconBell" />
+              <AppNotificationBubble dot variant="elevated" style="position:absolute;top:-2px;right:-2px;" />
+            </div>
+          </div>
+          <div class="ds-type-card__body">
+            <p class="ds-type-card__name">Dot — Elevated</p>
+            <p class="ds-body">8 × 8 px dot. Use when the presence of new activity matters but the count does not — e.g. any unread notification without a specific number.</p>
+          </div>
+        </div>
+
+        <div class="ds-type-card">
+          <div class="ds-type-card__demo ds-type-card__demo--dark">
+            <div class="ds-icon-host">
+              <span class="ds-icon-svg ds-icon-svg--light" v-html="IconBell" />
+              <AppNotificationBubble dot variant="flat" style="position:absolute;top:-2px;right:-2px;" />
+            </div>
+          </div>
+          <div class="ds-type-card__body">
+            <p class="ds-type-card__name">Dot — Flat</p>
+            <p class="ds-body">Dark dot on dark surfaces. Same semantic as Elevated dot, adapted for the dark surface context.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── States ────────────────────────────────────────────── -->
+    <section class="ds-section">
+      <h2 class="ds-h2">States</h2>
+      <p class="ds-body">The bubble renders in three count states. Counts above 99 are capped at <strong>99+</strong> to keep the pill width predictable.</p>
+      <div class="ds-states-row">
+        <div class="ds-state-item">
+          <AppNotificationBubble :count="1" variant="elevated" />
+          <span class="ds-state-label">Single digit</span>
+        </div>
+        <div class="ds-state-item">
+          <AppNotificationBubble :count="12" variant="elevated" />
+          <span class="ds-state-label">Double digit</span>
+        </div>
+        <div class="ds-state-item">
           <AppNotificationBubble :count="99" variant="elevated" />
           <span class="ds-state-label">Max count</span>
         </div>
-        <div class="ds-demo-item">
+        <div class="ds-state-item">
           <AppNotificationBubble :count="142" variant="elevated" />
-          <span class="ds-state-label">Over 99</span>
+          <span class="ds-state-label">Over 99 → 99+</span>
+        </div>
+        <div class="ds-state-item">
+          <AppNotificationBubble dot variant="elevated" />
+          <span class="ds-state-label">Dot (no count)</span>
+        </div>
+        <div class="ds-state-item" style="background:var(--grey-90);padding:12px;border-radius:8px;">
+          <AppNotificationBubble :count="7" variant="flat" />
+          <span class="ds-state-label" style="color:var(--grey-30)">Flat · dark bg</span>
         </div>
       </div>
     </section>
 
-    <!-- ── Variants / examples / tokens ──────────────────── -->
+    <!-- ── Usage ──────────────────────────────────────────────── -->
     <section class="ds-section">
-      <!-- Variants -->
-      <div class="ds-state-row">
-        <div class="ds-state-cell">
-          <div class="ds-bubble ds-bubble--elevated">2</div>
-          <span class="ds-state-label">Elevated</span>
+      <h2 class="ds-h2">Usage Examples</h2>
+      <p class="ds-body">The bubble is absolutely positioned relative to its parent. Wrap the host icon in a <code>position: relative</code> container, then place the bubble at a negative offset from the top-right corner.</p>
+      <div class="ds-card ds-demo-flex">
+        <div class="ds-demo-item">
+          <div class="ds-icon-host">
+            <span class="ds-icon-svg" v-html="IconBell" />
+            <AppNotificationBubble :count="3" variant="elevated" style="position:absolute;top:-6px;right:-8px;" />
+          </div>
+          <span class="ds-state-label">Elevated on icon</span>
         </div>
-        <div class="ds-state-cell">
-          <div class="ds-bubble ds-bubble--flat">2</div>
-          <span class="ds-state-label">Flat</span>
+        <div class="ds-demo-item">
+          <div class="ds-icon-host ds-icon-host--dark">
+            <span class="ds-icon-svg ds-icon-svg--light" v-html="IconBell" />
+            <AppNotificationBubble :count="12" variant="flat" style="position:absolute;top:-6px;right:-8px;" />
+          </div>
+          <span class="ds-state-label">Flat on dark icon</span>
         </div>
-        <div class="ds-state-cell">
-          <div class="ds-bubble ds-bubble--elevated">12</div>
-          <span class="ds-state-label">Multi-digit</span>
+        <div class="ds-demo-item">
+          <div class="ds-icon-host">
+            <span class="ds-icon-svg" v-html="IconMessage" />
+            <AppNotificationBubble dot variant="elevated" style="position:absolute;top:-2px;right:-2px;" />
+          </div>
+          <span class="ds-state-label">Dot on message</span>
         </div>
-        <div class="ds-state-cell">
-          <div class="ds-bubble ds-bubble--elevated ds-bubble--dot"></div>
-          <span class="ds-state-label">Dot (elevated)</span>
+        <div class="ds-demo-item">
+          <div class="ds-avatar ds-avatar--demo">
+            <span>AS</span>
+            <AppNotificationBubble :count="5" variant="elevated" style="position:absolute;top:-4px;right:-6px;" />
+          </div>
+          <span class="ds-state-label">On avatar</span>
         </div>
-        <div class="ds-state-cell">
-          <div class="ds-bubble ds-bubble--flat ds-bubble--dot"></div>
-          <span class="ds-state-label">Dot (flat)</span>
+        <div class="ds-demo-item">
+          <div class="ds-avatar ds-avatar--demo ds-avatar--dark">
+            <span>RK</span>
+            <AppNotificationBubble :count="7" variant="flat" style="position:absolute;top:-4px;right:-6px;" />
+          </div>
+          <span class="ds-state-label">Flat on dark avatar</span>
         </div>
       </div>
+    </section>
 
-      <!-- In-context example -->
-      <div class="ds-example-card">
-        <p class="ds-example-label">Example</p>
-        <div class="ds-bubble-examples">
-          <div class="ds-bubble-example">
-            <div class="ds-icon-wrap">
-              <span v-html="IconBell"></span>
-              <div class="ds-bubble ds-bubble--elevated ds-bubble--sm">4</div>
-            </div>
-            <span class="ds-state-label">Icon + elevated</span>
-          </div>
-          <div class="ds-bubble-example">
-            <div class="ds-icon-wrap">
-              <div class="ds-avatar">AS</div>
-              <div class="ds-bubble ds-bubble--flat ds-bubble--sm">7</div>
-            </div>
-            <span class="ds-state-label">Avatar + flat</span>
-          </div>
-          <div class="ds-bubble-example">
-            <div class="ds-icon-wrap">
-              <span v-html="IconBell"></span>
-              <div class="ds-bubble ds-bubble--elevated ds-bubble--dot ds-bubble--sm-dot"></div>
-            </div>
-            <span class="ds-state-label">Icon + dot</span>
-          </div>
+    <!-- ── Formatting ────────────────────────────────────────── -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Formatting</h2>
+      <p class="ds-body">
+        The bubble is always absolutely positioned at the top-right of its host element using
+        negative offsets. The standard offset for a count bubble on a 22–24 px icon is
+        <code>top: -6px; right: -8px</code>. Dot indicators use a tighter offset
+        (<code>top: -2px; right: -2px</code>) since they are smaller.
+      </p>
+      <div class="ds-format-table-wrap">
+        <table class="ds-format-table">
+          <thead>
+            <tr><th>Shape</th><th>Min width</th><th>Height</th><th>Border-radius</th><th>Font</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Count bubble</td><td>24 px</td><td>24 px</td><td>12 px (pill)</td><td>Inter SemiBold 14 px</td></tr>
+            <tr><td>Dot</td><td>8 px</td><td>8 px</td><td>50%</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── Interaction ────────────────────────────────────────── -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Interaction</h2>
+      <p class="ds-body">
+        The notification bubble itself is <strong>non-interactive</strong> — it carries no click target.
+        Clicking the host icon (bell, avatar, nav item) opens the notification panel or relevant view.
+        The bubble count updates reactively when the underlying unread count changes; it disappears
+        automatically when the count reaches zero.
+      </p>
+      <div class="ds-interaction-cards">
+        <div class="ds-interaction-card">
+          <span class="ds-ic-title">Show</span>
+          <p class="ds-body">Display the bubble whenever the unread count is greater than zero. Never show a bubble with <code>:count="0"</code> — pass a falsy count or omit the component entirely.</p>
+        </div>
+        <div class="ds-interaction-card">
+          <span class="ds-ic-title">Update</span>
+          <p class="ds-body">The count prop is reactive. Bind it to a live data source; the bubble re-renders automatically. Do not animate the number change — keep it instant for simplicity.</p>
+        </div>
+        <div class="ds-interaction-card">
+          <span class="ds-ic-title">Dot vs count</span>
+          <p class="ds-body">Use <code>dot</code> when you know there is activity but have no count (e.g. "any unread"). Switch to a numeric bubble as soon as a count is available — it is more informative.</p>
         </div>
       </div>
+    </section>
 
-      <!-- Tokens -->
-      <div class="ds-token-table">
-        <div class="ds-token-row ds-token-row--head">
-          <span>Token</span><span></span><span>Value</span><span>Usage</span>
-        </div>
-        <div class="ds-token-row">
-          <code class="ds-token-name">blue-azure / 20</code>
-          <div class="ds-swatch" style="background:#d7eff9"></div>
-          <code class="ds-token-val">#d7eff9</code>
-          <span>Elevated background</span>
-        </div>
-        <div class="ds-token-row">
-          <code class="ds-token-name">grey / 100</code>
-          <div class="ds-swatch" style="background:#1f2124"></div>
-          <code class="ds-token-val">#1f2124</code>
-          <span>Flat background</span>
-        </div>
-        <div class="ds-token-row">
-          <code class="ds-token-name">font-color / body</code>
-          <div class="ds-swatch" style="background:#36383b"></div>
-          <code class="ds-token-val">#36383b</code>
-          <span>Elevated text</span>
-        </div>
-        <div class="ds-token-row">
-          <code class="ds-token-name">font-color / title-strong</code>
-          <div class="ds-swatch" style="background:#fff;border:1px solid #d8d8da"></div>
-          <code class="ds-token-val">#ffffff</code>
-          <span>Flat text</span>
-        </div>
-        <div class="ds-token-row">
-          <code class="ds-token-name">size</code>
-          <div class="ds-swatch ds-swatch--none"></div>
-          <code class="ds-token-val">24 × 24 px</code>
-          <span>Count bubble · border-radius 12px · Inter SemiBold 14px</span>
-        </div>
+    <!-- ── Props ──────────────────────────────────────────────── -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Props</h2>
+      <div class="ds-table-wrap">
+        <table class="ds-props-table">
+          <thead>
+            <tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>variant</code></td>
+              <td><code>'elevated' | 'flat'</code></td>
+              <td><code>'elevated'</code></td>
+              <td>Visual style. Use <code>elevated</code> on light surfaces, <code>flat</code> on dark ones.</td>
+            </tr>
+            <tr>
+              <td><code>count</code></td>
+              <td><code>number</code></td>
+              <td>—</td>
+              <td>The number to display. Values above 99 render as <code>99+</code>.</td>
+            </tr>
+            <tr>
+              <td><code>dot</code></td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
+              <td>Renders an 8 × 8 px dot instead of a count bubble. Overrides <code>count</code>.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── Token Reference ────────────────────────────────────── -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Token Reference</h2>
+      <div class="ds-table-wrap">
+        <table class="ds-token-table">
+          <thead>
+            <tr><th>Token / Property</th><th>Value</th><th>Primitive</th><th>Used for</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Elevated background</td>
+              <td><span class="swatch" style="background:var(--blue-azure-20)"></span><code>--blue-azure-20</code></td>
+              <td>#d7eff9</td>
+              <td>Elevated bubble fill</td>
+            </tr>
+            <tr>
+              <td>Elevated text</td>
+              <td><span class="swatch" style="background:var(--grey-90)"></span><code>--grey-90</code></td>
+              <td>#36383b</td>
+              <td>Elevated count text</td>
+            </tr>
+            <tr>
+              <td>Flat background</td>
+              <td><span class="swatch" style="background:var(--grey-100)"></span><code>--grey-100</code></td>
+              <td>#1f2124</td>
+              <td>Flat bubble fill</td>
+            </tr>
+            <tr>
+              <td>Flat text</td>
+              <td><span class="swatch" style="background:var(--grey-00);border:1px solid var(--grey-20)"></span><code>--grey-00</code></td>
+              <td>#ffffff</td>
+              <td>Flat count text</td>
+            </tr>
+            <tr>
+              <td>Height (count)</td>
+              <td>—</td>
+              <td>24 px</td>
+              <td>Bubble height · min-width matches height</td>
+            </tr>
+            <tr>
+              <td>Border-radius (count)</td>
+              <td>—</td>
+              <td>12 px</td>
+              <td>Pill shape for count bubble</td>
+            </tr>
+            <tr>
+              <td>Dot size</td>
+              <td>—</td>
+              <td>8 × 8 px</td>
+              <td>Width and height of dot variant</td>
+            </tr>
+            <tr>
+              <td>Font</td>
+              <td>—</td>
+              <td>Inter SemiBold 14 px</td>
+              <td>Count number typography</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </section>
 
@@ -163,34 +316,74 @@ const IconBell = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><p
 .ds-section { display: flex; flex-direction: column; gap: 20px; }
 .ds-h1  { font-size: 32px; font-weight: 700; color: var(--grey-100); line-height: 1.1; margin-bottom: 4px; }
 .ds-h2  { font-size: 20px; font-weight: 600; color: var(--grey-90); }
+.ds-lead { font-size: 16px; color: var(--grey-70); margin-top: -8px; }
 .ds-body { font-size: 14px; color: var(--grey-70); line-height: 1.6; }
-.ds-card       { background: #fff; border: 1px solid var(--grey-20); border-radius: 8px; padding: 20px; }
-.ds-demo-flex  { display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-end; }
-.ds-demo-item  { display: flex; flex-direction: column; align-items: center; gap: 8px; }
-.demo-icon-wrap { position: relative; display: inline-flex; }
-.ds-state-label { font-size: 11px; color: var(--grey-60); text-align: center; }
+.ds-card { background: #fff; border: 1px solid var(--grey-20); border-radius: 8px; padding: 24px; }
 
 code {
-  font-family: 'Fira Code', 'Courier New', monospace;
+  font-family: 'SFMono-Regular', 'Consolas', monospace;
   font-size: 12px;
-  background: var(--grey-05);
-  border: 1px solid var(--grey-10);
+  background: var(--grey-10);
   border-radius: 3px;
   padding: 1px 5px;
   color: var(--grey-80);
 }
 
-/* ── State row ───────────────────────────────────────────────── */
-.ds-state-row {
+/* ── Types grid ──────────────────────────────────────────────── */
+.ds-types-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+.ds-type-card {
+  background: #fff;
+  border: 1px solid var(--grey-20);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.ds-type-card__demo {
+  background: var(--grey-05);
+  padding: 32px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ds-type-card__demo--dark { background: var(--grey-90); }
+.ds-type-card__body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.ds-type-card__name { font-size: 14px; font-weight: 600; color: var(--grey-90); }
+
+/* ── Icon host (relative container for bubble) ───────────────── */
+.ds-icon-host {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.ds-icon-host--dark {
+  background: var(--indigo-100);
+  border-radius: 8px;
+  padding: 6px;
+}
+.ds-icon-svg { display: inline-flex; color: var(--grey-70); }
+.ds-icon-svg--light { color: var(--grey-00); }
+
+/* ── States row ──────────────────────────────────────────────── */
+.ds-states-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 28px;
+  align-items: flex-end;
+  gap: 32px;
   padding: 28px 24px;
   background: #fff;
   border: 1px solid var(--grey-20);
   border-radius: 8px;
 }
-.ds-state-cell {
+.ds-state-item {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -200,150 +393,116 @@ code {
   font-size: 11px;
   color: var(--grey-50);
   white-space: nowrap;
-  font-family: 'Inter', sans-serif;
 }
 
-/* ── Example card ────────────────────────────────────────────── */
-.ds-example-card {
-  background: var(--grey-05);
-  border: 1px solid var(--grey-10);
-  border-radius: 8px;
-  padding: 16px 20px;
-}
-.ds-example-label {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--grey-50);
-  text-transform: uppercase;
-  letter-spacing: .06em;
-  margin-bottom: 16px;
-  font-family: 'Inter', sans-serif;
-}
+/* ── Demo flex (usage examples) ──────────────────────────────── */
+.ds-demo-flex { display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-end; }
+.ds-demo-item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
 
-/* ── Token table ─────────────────────────────────────────────── */
-.ds-token-table {
-  border: 1px solid var(--grey-20);
-  border-radius: 8px;
-  overflow: hidden;
-  background: #fff;
-}
-.ds-token-row {
-  display: grid;
-  grid-template-columns: 2fr 24px 96px 1fr;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 16px;
-  border-bottom: 1px solid var(--grey-10);
-  font-size: 13px;
-  color: var(--grey-70);
-  font-family: 'Inter', sans-serif;
-}
-.ds-token-row:last-child { border-bottom: none; }
-.ds-token-row--head {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--grey-50);
-  text-transform: uppercase;
-  letter-spacing: .06em;
-  background: var(--grey-05);
-}
-.ds-token-name { font-size: 12px; color: var(--grey-80); background: none; border: none; padding: 0; }
-.ds-token-val  { font-size: 12px; color: var(--grey-60); background: none; border: none; padding: 0; }
-.ds-swatch {
-  width: 20px; height: 20px;
-  border-radius: 4px;
-  border: 1px solid rgba(0,0,0,.08);
-  flex-shrink: 0;
-}
-.ds-swatch--none { background: transparent; border: none; }
-
-/* ── Notification bubble ─────────────────────────────────────── */
-.ds-bubble {
-  min-width: 24px;
-  height: 24px;
-  border-radius: 12px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 5px;
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1;
-  white-space: nowrap;
-}
-.ds-bubble--elevated { background: #d7eff9; color: #36383b; }
-.ds-bubble--flat     { background: #1f2124; color: #fff; }
-.ds-bubble--dot {
-  min-width: 8px;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  padding: 0;
-}
-.ds-bubble--dot.ds-bubble--elevated { background: #d7eff9; }
-.ds-bubble--dot.ds-bubble--flat     { background: #1f2124; }
-
-/* in-context examples */
-.ds-bubble-examples {
-  display: flex;
-  gap: 40px;
-  flex-wrap: wrap;
-  align-items: flex-start;
-}
-.ds-bubble-example {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-.ds-icon-wrap {
+/* ── Avatar demo ─────────────────────────────────────────────── */
+.ds-avatar--demo {
   position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-/* small bubble variant used on icons */
-.ds-bubble--sm {
-  position: absolute;
-  top: -8px;
-  right: -10px;
-  min-width: 20px;
-  height: 20px;
-  border-radius: 10px;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 0 4px;
-}
-.ds-bubble--sm-dot {
-  position: absolute;
-  top: -2px;
-  right: -2px;
-  width: 8px;
-  height: 8px;
-  min-width: 8px;
-  border-radius: 50%;
-  padding: 0;
-}
-
-.ds-avatar {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: #e8f5ff;
-  color: #0369a1;
-  font-size: 13px;
-  font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  background: var(--blue-azure-10);
+  color: var(--blue-azure-80);
+}
+.ds-avatar--demo span { line-height: 1; }
+.ds-avatar--demo.ds-avatar--dark { background: var(--indigo-90); color: var(--grey-00); }
+
+/* ── Formatting table ────────────────────────────────────────── */
+.ds-format-table-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--grey-20); }
+.ds-format-table { width: 100%; border-collapse: collapse; background: #fff; font-size: 13px; }
+.ds-format-table thead th {
+  background: var(--grey-05);
+  border-bottom: 1px solid var(--grey-20);
+  padding: 10px 16px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--grey-70);
+  white-space: nowrap;
+}
+.ds-format-table td { padding: 10px 16px; border-bottom: 1px solid var(--grey-10); color: var(--grey-80); }
+.ds-format-table tr:last-child td { border-bottom: none; }
+
+/* ── Interaction cards ───────────────────────────────────────── */
+.ds-interaction-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.ds-interaction-card {
+  background: #fff;
+  border: 1px solid var(--grey-20);
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ds-ic-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--grey-90);
+}
+
+/* ── Props / Token tables ────────────────────────────────────── */
+.ds-table-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--grey-20); }
+.ds-props-table,
+.ds-token-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  font-size: 13px;
+}
+.ds-props-table thead th,
+.ds-token-table thead th {
+  background: var(--grey-05);
+  border-bottom: 1px solid var(--grey-20);
+  padding: 10px 16px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--grey-70);
+  white-space: nowrap;
+}
+.ds-props-table td,
+.ds-token-table td {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--grey-10);
+  color: var(--grey-80);
+  vertical-align: middle;
+}
+.ds-props-table tr:last-child td,
+.ds-token-table tr:last-child td { border-bottom: none; }
+.ds-props-table tr:hover td,
+.ds-token-table tr:hover td { background: var(--grey-05); }
+
+.swatch {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  vertical-align: middle;
+  margin-right: 6px;
+  flex-shrink: 0;
 }
 
 /* ── Responsive ──────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .ds-main { padding: 32px 20px 60px; }
-  .ds-token-row { grid-template-columns: 1fr 24px 80px; }
-  .ds-token-row > span:last-child { display: none; }
+  .ds-types-grid { grid-template-columns: 1fr; }
+  .ds-interaction-cards { grid-template-columns: 1fr; }
 }
 </style>

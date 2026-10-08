@@ -352,40 +352,6 @@ const IconX        = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none
       </div>
     </section>
 
-    <!-- Formatting -->
-    <section class="ds-section">
-      <h2 class="ds-h2">Formatting</h2>
-      <div class="ds-formatting-body">
-        <p class="ds-body"><strong>Label alignment.</strong> Labels are always horizontally centered within the button — never left- or right-aligned. Icon slots are placed flush against the label, not at the edges.</p>
-        <p class="ds-body"><strong>Sentence case.</strong> Use sentence case for all button labels: "Save changes", not "Save Changes" or "SAVE CHANGES". The only exception is proper nouns.</p>
-        <p class="ds-body"><strong>Icon-only buttons.</strong> When a button has no visible label text, it must carry an <code>aria-label</code> that describes the action (e.g. <code>aria-label="Delete vehicle"</code>).</p>
-        <p class="ds-body"><strong>Visual hierarchy.</strong> Avoid placing buttons of very different visual weights side-by-side without a clear hierarchy reason — a quiet button next to a primary creates an unbalanced focal point.</p>
-      </div>
-    </section>
-
-    <!-- Interaction -->
-    <section class="ds-section">
-      <h2 class="ds-h2">Interaction</h2>
-      <div class="ds-interaction-grid">
-        <div class="ds-interaction-card">
-          <p class="ds-interaction-card__title">Mouse</p>
-          <ul class="ds-usage-list">
-            <li><strong>Click</strong> — triggers the button's action</li>
-            <li><strong>Hover</strong> — reveals the hover state</li>
-            <li>Disabled buttons do not respond to clicks or hover</li>
-          </ul>
-        </div>
-        <div class="ds-interaction-card">
-          <p class="ds-interaction-card__title">Keyboard</p>
-          <ul class="ds-usage-list">
-            <li><kbd>Tab</kbd> — moves focus to the button</li>
-            <li><kbd>Enter</kbd> or <kbd>Space</kbd> — triggers the action</li>
-            <li>Disabled buttons cannot receive keyboard focus</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
     <!-- Usage examples -->
     <section class="ds-section">
       <h2 class="ds-h2">Usage Examples</h2>
@@ -477,6 +443,40 @@ const IconX        = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none
             <li><strong>Don't use danger for actions that can be undone</strong> — reserve it for permanent deletions or actions with strong consequences.</li>
             <li><strong>Don't mix sizes within the same action group.</strong> Buttons that appear side-by-side should share a size.</li>
             <li>Do not use buttons as navigational elements. Use links instead.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Formatting -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Formatting</h2>
+      <div class="ds-formatting-body">
+        <p class="ds-body"><strong>Label alignment.</strong> Labels are always horizontally centered within the button — never left- or right-aligned. Icon slots are placed flush against the label, not at the edges.</p>
+        <p class="ds-body"><strong>Sentence case.</strong> Use sentence case for all button labels: "Save changes", not "Save Changes" or "SAVE CHANGES". The only exception is proper nouns.</p>
+        <p class="ds-body"><strong>Icon-only buttons.</strong> When a button has no visible label text, it must carry an <code>aria-label</code> that describes the action (e.g. <code>aria-label="Delete vehicle"</code>).</p>
+        <p class="ds-body"><strong>Visual hierarchy.</strong> Avoid placing buttons of very different visual weights side-by-side without a clear hierarchy reason — a quiet button next to a primary creates an unbalanced focal point.</p>
+      </div>
+    </section>
+
+    <!-- Interaction -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Interaction</h2>
+      <div class="ds-interaction-grid">
+        <div class="ds-interaction-card">
+          <p class="ds-interaction-card__title">Mouse</p>
+          <ul class="ds-usage-list">
+            <li><strong>Click</strong> — triggers the button's action</li>
+            <li><strong>Hover</strong> — reveals the hover state</li>
+            <li>Disabled buttons do not respond to clicks or hover</li>
+          </ul>
+        </div>
+        <div class="ds-interaction-card">
+          <p class="ds-interaction-card__title">Keyboard</p>
+          <ul class="ds-usage-list">
+            <li><kbd>Tab</kbd> — moves focus to the button</li>
+            <li><kbd>Enter</kbd> or <kbd>Space</kbd> — triggers the action</li>
+            <li>Disabled buttons cannot receive keyboard focus</li>
           </ul>
         </div>
       </div>

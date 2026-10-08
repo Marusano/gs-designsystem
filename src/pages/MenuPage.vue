@@ -508,6 +508,79 @@ const cmItems = [
       </div>
     </section>
 
+    <!-- ── Formatting ───────────────────────────────────────── -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Formatting</h2>
+      <p class="ds-body">
+        Menu containers have a minimum width of 180 px and expand to fit content.
+        All items are a fixed 30 px tall with 8 px padding — do not mix row heights.
+        Group related actions with dividers. Dangerous actions (Delete, Remove) always go last,
+        separated by a divider. Limit single-select menus to 8 items; beyond that introduce a
+        scrollable container or sub-menu. Multi-select menus always include a footer with at
+        least one action button.
+      </p>
+      <div class="ds-format-row">
+        <div class="ds-format-card">
+          <p class="ds-example-label">✓ Do — danger last</p>
+          <div class="ds-menu" style="width:180px">
+            <div class="ds-menu-item ds-menu-item--icon-left">
+              <span class="ds-menu-item__icon"><AppIcon name="edit" :size="16" /></span>Edit
+            </div>
+            <div class="ds-menu-item ds-menu-item--icon-left">
+              <span class="ds-menu-item__icon"><AppIcon name="export" :size="16" /></span>Export
+            </div>
+            <div style="height:1px;background:var(--grey-20);margin:4px 0"></div>
+            <div class="ds-menu-item ds-menu-item--icon-left ds-menu-item--danger">
+              <span class="ds-menu-item__icon"><AppIcon name="trash" :size="16" /></span>Delete
+            </div>
+          </div>
+        </div>
+        <div class="ds-format-card">
+          <p class="ds-example-label">✗ Don't — danger first</p>
+          <div class="ds-menu" style="width:180px">
+            <div class="ds-menu-item ds-menu-item--icon-left ds-menu-item--danger">
+              <span class="ds-menu-item__icon"><AppIcon name="trash" :size="16" /></span>Delete
+            </div>
+            <div class="ds-menu-item ds-menu-item--icon-left">
+              <span class="ds-menu-item__icon"><AppIcon name="edit" :size="16" /></span>Edit
+            </div>
+            <div class="ds-menu-item ds-menu-item--icon-left">
+              <span class="ds-menu-item__icon"><AppIcon name="export" :size="16" /></span>Export
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Interaction ──────────────────────────────────────── -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Interaction</h2>
+      <p class="ds-body">
+        Single-select menus open on click and close immediately after an item is selected, the user
+        clicks outside, or presses <kbd>Escape</kbd>. Multi-select menus stay open until the footer
+        action is triggered. Focus returns to the trigger element on close.
+      </p>
+      <div class="ds-interaction-grid">
+        <div class="ds-interaction-card">
+          <span class="ds-state-col__label">Open / Close</span>
+          <p class="ds-body">Click the trigger to open. Click outside the menu or press <kbd>Escape</kbd> to close without selecting. Single-select: selecting an item closes immediately and focus returns to the trigger.</p>
+        </div>
+        <div class="ds-interaction-card">
+          <span class="ds-state-col__label">Keyboard</span>
+          <p class="ds-body">
+            <kbd>↑</kbd> / <kbd>↓</kbd> moves between items.
+            <kbd>Enter</kbd> selects the focused item.
+            <kbd>Escape</kbd> closes and returns focus to the trigger.
+            <kbd>Tab</kbd> closes the menu and advances focus.
+          </p>
+        </div>
+        <div class="ds-interaction-card">
+          <span class="ds-state-col__label">Multi-select</span>
+          <p class="ds-body">Clicking a checkbox item toggles it without closing the menu. Apply commits the selection and closes. Cancel discards pending changes. The trigger can show a count badge reflecting active selections.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- ── Tokens ──────────────────────────────────────── -->
     <section class="ds-section">
       <h2 class="ds-h2">Tokens</h2>
@@ -981,11 +1054,45 @@ const cmItems = [
 }
 .ds-swatch--none { background: transparent; border: none; }
 
+/* ── Formatting examples ─────────────────────────────────────── */
+.ds-format-row { display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start; }
+.ds-format-card { display: flex; flex-direction: column; gap: 8px; }
+
+/* ── Interaction grid ────────────────────────────────────────── */
+.ds-interaction-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.ds-interaction-card {
+  background: #fff;
+  border: 1px solid var(--grey-20);
+  border-radius: 8px;
+  padding: 20px 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+kbd {
+  display: inline-block;
+  font-family: 'SFMono-Regular', 'Consolas', monospace;
+  font-size: 11px;
+  background: var(--grey-10);
+  border: 1px solid var(--grey-30);
+  border-bottom-width: 2px;
+  border-radius: 3px;
+  padding: 1px 5px;
+  color: var(--grey-80);
+}
+
 /* ── Responsive ──────────────────────────────────────────────── */
 @media (max-width: 900px) {
   .ds-header-cols { grid-template-columns: 1fr; }
+  .ds-interaction-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 768px) {
   .ds-main { padding: 32px 20px 60px; }
+  .ds-interaction-grid { grid-template-columns: 1fr; }
 }
 </style>

@@ -25,6 +25,27 @@ const activityItems = [
       <p class="ds-body">Legend items communicate the meaning of colors and symbols used in data visualisations, schedules, and timeline views. Each item pairs a visual marker with a label to help users identify categories at a glance.</p>
     </section>
 
+    <!-- Types -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Types</h2>
+      <div class="lg-types-grid">
+        <div class="lg-type-card">
+          <div class="lg-type-demo">
+            <span class="lg-dot" style="background:var(--green-30)"></span>
+          </div>
+          <p class="lg-type-name">Solid dot</p>
+          <p class="ds-body">Used for categorical states or activity types where a filled circle represents membership in a group (normal, drive, rest).</p>
+        </div>
+        <div class="lg-type-card">
+          <div class="lg-type-demo">
+            <span class="lg-dash" style="background:var(--grey-100)"></span>
+          </div>
+          <p class="lg-type-name">Dashed line</p>
+          <p class="ds-body">Used for activities rendered as dashed lines in timeline charts (e.g., "work" shown as a dark dashed segment).</p>
+        </div>
+      </div>
+    </section>
+
     <!-- Component preview -->
     <section class="ds-section">
       <h2 class="ds-h2">Component Usage</h2>
@@ -144,6 +165,31 @@ const activityItems = [
 .ds-h2      { font-size: 20px; font-weight: 600; color: var(--grey-90); }
 .ds-lead    { font-size: 16px; color: var(--grey-70); margin-top: -8px; }
 .ds-body    { font-size: 14px; color: var(--grey-70); line-height: 1.6; }
+
+/* Types grid */
+.lg-types-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.lg-type-card {
+  background: var(--grey-05);
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.lg-type-demo {
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+.lg-type-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--grey-90);
+}
 
 /* Legend preview */
 .lg-preview {

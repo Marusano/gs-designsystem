@@ -422,6 +422,76 @@ const TOKENS = [
       </div>
     </section>
 
+    <!-- ── Interaction & States ─────────────────────────────────── -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Interaction & States</h2>
+      <p class="ds-body">Navigation items respond to pointer interaction. The active page is always clearly highlighted via a background tint and a 2 px left indicator.</p>
+
+      <div class="snp-states-grid">
+        <div v-for="st in STATES" :key="st.label" class="snp-state-demo">
+          <div class="snp-state-nav">
+            <AppButton
+              variant="quiet"
+              size="sm"
+              class="snp-item"
+              :class="{ 'snp-item--selected': st.selected, 'snp-item--expanded': st.showChevUp }"
+              :forcedState="st.forcedState ?? null"
+              :disabled="!!st.disabled"
+              style="cursor:default; pointer-events:none;"
+            >
+              <template #icon-left><AppIcon :name="st.icon" :size="16" /></template>
+              {{ st.itemLabel }}
+              <template v-if="st.showChevUp" #icon-right>
+                <AppIcon name="chevron-up" :size="12" />
+              </template>
+            </AppButton>
+            <template v-if="st.subs">
+              <AppButton
+                v-for="s in st.subs" :key="s"
+                variant="quiet"
+                size="xs"
+                class="snp-subitem"
+                :class="{ 'snp-subitem--selected': st.activeSub === s }"
+                style="cursor:default; pointer-events:none;"
+              >{{ s }}</AppButton>
+            </template>
+          </div>
+          <span class="snp-state-label">{{ st.label }}</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Usage ────────────────────────────────────────────────── -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Usage</h2>
+      <div class="snp-usage-cols">
+        <div class="snp-usage-card snp-usage-card--do">
+          <span class="snp-usage-badge snp-usage-badge--do">Do</span>
+          <ul class="snp-usage-list">
+            <li>Include an icon for every primary-level item — required when collapsed.</li>
+            <li>Keep primary labels short (1–2 words). Shorten the copy if it would truncate.</li>
+            <li>Show "Back home" header when internal users are viewing a child entity.</li>
+            <li>Auto-expand a primary group if it has only one sub-item.</li>
+            <li>Show entity name and code in SideNavFooter for all entities that have one.</li>
+            <li>Add the "Viewing" label when an internal admin is viewing another entity's nav.</li>
+            <li>Order items by frequency — most-used sections first, Settings last.</li>
+            <li>Add <code>aria-current="page"</code> to the active item for screen readers.</li>
+          </ul>
+        </div>
+        <div class="snp-usage-card snp-usage-card--dont">
+          <span class="snp-usage-badge snp-usage-badge--dont">Don't</span>
+          <ul class="snp-usage-list">
+            <li>Don't add icons to sub-items — secondary and tertiary levels are text-only.</li>
+            <li>Don't hide temporarily unavailable items — show them as disabled instead.</li>
+            <li>Don't place actions (delete, export) in the nav — it is navigation only.</li>
+            <li>Don't show "Back home" for external users — always use the GSFleet logo header.</li>
+            <li>Don't nest beyond two levels. If you need a third, reconsider the IA.</li>
+            <li>Don't allow multiple expanded groups if the nav body would overflow.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
     <!-- ── Formatting ───────────────────────────────────────────── -->
     <section class="ds-section">
       <h2 class="ds-h2">Formatting</h2>
@@ -518,76 +588,6 @@ const TOKENS = [
             <p>{{ lv.desc }}</p>
             <code class="snp-level-rule">{{ lv.rule }}</code>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── Interaction & States ─────────────────────────────────── -->
-    <section class="ds-section">
-      <h2 class="ds-h2">Interaction & States</h2>
-      <p class="ds-body">Navigation items respond to pointer interaction. The active page is always clearly highlighted via a background tint and a 2 px left indicator.</p>
-
-      <div class="snp-states-grid">
-        <div v-for="st in STATES" :key="st.label" class="snp-state-demo">
-          <div class="snp-state-nav">
-            <AppButton
-              variant="quiet"
-              size="sm"
-              class="snp-item"
-              :class="{ 'snp-item--selected': st.selected, 'snp-item--expanded': st.showChevUp }"
-              :forcedState="st.forcedState ?? null"
-              :disabled="!!st.disabled"
-              style="cursor:default; pointer-events:none;"
-            >
-              <template #icon-left><AppIcon :name="st.icon" :size="16" /></template>
-              {{ st.itemLabel }}
-              <template v-if="st.showChevUp" #icon-right>
-                <AppIcon name="chevron-up" :size="12" />
-              </template>
-            </AppButton>
-            <template v-if="st.subs">
-              <AppButton
-                v-for="s in st.subs" :key="s"
-                variant="quiet"
-                size="xs"
-                class="snp-subitem"
-                :class="{ 'snp-subitem--selected': st.activeSub === s }"
-                style="cursor:default; pointer-events:none;"
-              >{{ s }}</AppButton>
-            </template>
-          </div>
-          <span class="snp-state-label">{{ st.label }}</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── Usage ────────────────────────────────────────────────── -->
-    <section class="ds-section">
-      <h2 class="ds-h2">Usage</h2>
-      <div class="snp-usage-cols">
-        <div class="snp-usage-card snp-usage-card--do">
-          <span class="snp-usage-badge snp-usage-badge--do">Do</span>
-          <ul class="snp-usage-list">
-            <li>Include an icon for every primary-level item — required when collapsed.</li>
-            <li>Keep primary labels short (1–2 words). Shorten the copy if it would truncate.</li>
-            <li>Show "Back home" header when internal users are viewing a child entity.</li>
-            <li>Auto-expand a primary group if it has only one sub-item.</li>
-            <li>Show entity name and code in SideNavFooter for all entities that have one.</li>
-            <li>Add the "Viewing" label when an internal admin is viewing another entity's nav.</li>
-            <li>Order items by frequency — most-used sections first, Settings last.</li>
-            <li>Add <code>aria-current="page"</code> to the active item for screen readers.</li>
-          </ul>
-        </div>
-        <div class="snp-usage-card snp-usage-card--dont">
-          <span class="snp-usage-badge snp-usage-badge--dont">Don't</span>
-          <ul class="snp-usage-list">
-            <li>Don't add icons to sub-items — secondary and tertiary levels are text-only.</li>
-            <li>Don't hide temporarily unavailable items — show them as disabled instead.</li>
-            <li>Don't place actions (delete, export) in the nav — it is navigation only.</li>
-            <li>Don't show "Back home" for external users — always use the GSFleet logo header.</li>
-            <li>Don't nest beyond two levels. If you need a third, reconsider the IA.</li>
-            <li>Don't allow multiple expanded groups if the nav body would overflow.</li>
-          </ul>
         </div>
       </div>
     </section>

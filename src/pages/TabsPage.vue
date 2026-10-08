@@ -33,6 +33,42 @@ const tabsCompact = [
       <p class="ds-body">Tabs are used to group different but related content, allowing users to navigate views without leaving the page. Tabs can be used on full page layouts or in components such as modals.</p>
     </section>
 
+    <!-- Variants -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Variants</h2>
+      <div class="tb-variants-grid">
+
+        <div class="tb-variant-card">
+          <p class="tb-variant-card__label">Contained</p>
+          <p class="ds-body tb-variant-desc">Tabs sit inside a bordered container. Use in cards, panels, modals, and data tables.</p>
+          <AppTabs v-model="demoTab1" :items="tabsContained" variant="contained" />
+          <div class="tb-panel">
+            <p class="ds-body" style="color: var(--grey-50)">
+              {{ { monitoring: 'Monitoring view content', 'asset-details': 'Asset details content', history: 'History content' }[demoTab1] }}
+            </p>
+          </div>
+        </div>
+
+        <div class="tb-variant-card">
+          <p class="tb-variant-card__label">Borderless</p>
+          <p class="ds-body tb-variant-desc">No outer container border. Use on full-page layouts where tabs sit directly on the page surface.</p>
+          <AppTabs v-model="demoTab2" :items="tabsBorderless" variant="borderless" />
+          <div class="tb-panel tb-panel--borderless">
+            <p class="ds-body" style="color: var(--grey-50)">
+              {{ { overview: 'Overview content', details: 'Details content', settings: 'Settings content' }[demoTab2] }}
+            </p>
+          </div>
+        </div>
+
+        <div class="tb-variant-card">
+          <p class="tb-variant-card__label">Compact (2 tabs)</p>
+          <p class="ds-body tb-variant-desc">Minimum of two tabs. Common in side panels and compact modal headers.</p>
+          <AppTabs v-model="demoTab3" :items="tabsCompact" variant="contained" />
+        </div>
+
+      </div>
+    </section>
+
     <!-- States -->
     <section class="ds-section">
       <h2 class="ds-h2">States</h2>
@@ -70,42 +106,6 @@ const tabsCompact = [
             <button class="tb-tab" disabled>Tab 3</button>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- Variants -->
-    <section class="ds-section">
-      <h2 class="ds-h2">Variants</h2>
-      <div class="tb-variants-grid">
-
-        <div class="tb-variant-card">
-          <p class="tb-variant-card__label">Contained</p>
-          <p class="ds-body tb-variant-desc">Tabs sit inside a bordered container. Use in cards, panels, modals, and data tables.</p>
-          <AppTabs v-model="demoTab1" :items="tabsContained" variant="contained" />
-          <div class="tb-panel">
-            <p class="ds-body" style="color: var(--grey-50)">
-              {{ { monitoring: 'Monitoring view content', 'asset-details': 'Asset details content', history: 'History content' }[demoTab1] }}
-            </p>
-          </div>
-        </div>
-
-        <div class="tb-variant-card">
-          <p class="tb-variant-card__label">Borderless</p>
-          <p class="ds-body tb-variant-desc">No outer container border. Use on full-page layouts where tabs sit directly on the page surface.</p>
-          <AppTabs v-model="demoTab2" :items="tabsBorderless" variant="borderless" />
-          <div class="tb-panel tb-panel--borderless">
-            <p class="ds-body" style="color: var(--grey-50)">
-              {{ { overview: 'Overview content', details: 'Details content', settings: 'Settings content' }[demoTab2] }}
-            </p>
-          </div>
-        </div>
-
-        <div class="tb-variant-card">
-          <p class="tb-variant-card__label">Compact (2 tabs)</p>
-          <p class="ds-body tb-variant-desc">Minimum of two tabs. Common in side panels and compact modal headers.</p>
-          <AppTabs v-model="demoTab3" :items="tabsCompact" variant="contained" />
-        </div>
-
       </div>
     </section>
 
@@ -168,10 +168,40 @@ const tabsCompact = [
       </div>
     </section>
 
+    <!-- ── Token Reference ─────────────────────────────────── -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Token Reference</h2>
+      <div class="ds-table-wrap">
+        <table class="ds-token-table">
+          <thead>
+            <tr><th>Property</th><th>Contained</th><th>Borderless</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Strip background</td><td><span class="swatch" style="background:#fff;border:1px solid var(--grey-20)"></span>white (<code>grey-00</code>)</td><td><span class="swatch" style="background:var(--grey-05)"></span><code>grey-05</code></td></tr>
+            <tr><td>Strip border</td><td><span class="swatch" style="background:var(--grey-20)"></span><code>grey-20</code></td><td>none</td></tr>
+            <tr><td>Tab text (inactive)</td><td colspan="2"><span class="swatch" style="background:var(--grey-70)"></span><code>grey-70</code></td></tr>
+            <tr><td>Tab text (selected)</td><td><span class="swatch" style="background:var(--grey-100)"></span><code>grey-100</code></td><td><span class="swatch" style="background:var(--grey-90)"></span><code>grey-90</code></td></tr>
+            <tr><td>Tab selected background</td><td colspan="2"><span class="swatch" style="background:var(--grey-10)"></span><code>grey-10</code></td></tr>
+            <tr><td>Tab height</td><td>36 px</td><td>40 px</td></tr>
+            <tr><td>Tab padding</td><td colspan="2">0 16 px</td></tr>
+            <tr><td>Font size</td><td colspan="2">14 px</td></tr>
+            <tr><td>Focus ring</td><td colspan="2"><code>--color-focus-ring</code> (2 px inset shadow)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
   </main>
 </template>
 
 <style scoped>
+.swatch { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: middle; margin-right: 6px; }
+.ds-table-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--grey-20); }
+.ds-token-table { width: 100%; border-collapse: collapse; background: #fff; font-size: 13px; }
+.ds-token-table thead th { background: var(--grey-05); border-bottom: 1px solid var(--grey-20); padding: 10px 16px; text-align: left; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--grey-70); white-space: nowrap; }
+.ds-token-table td { padding: 9px 16px; border-bottom: 1px solid var(--grey-10); color: var(--grey-80); vertical-align: middle; }
+.ds-token-table tr:last-child td { border-bottom: none; }
+.ds-token-table tr:hover td { background: var(--grey-05); }
 .ds-main {
   max-width: 1400px;
   margin: 0 auto;

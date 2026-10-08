@@ -255,6 +255,27 @@ function resetOverflow()     { overflowChips.value = [...OVERFLOW_INIT] }
       </div>
     </section>
 
+    <!-- ── Formatting ────────────────────────────────────────── -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Formatting</h2>
+      <p class="ds-body">
+        Place the filter toolbar directly above the content it filters — never below or in a sidebar.
+        Show the filter icon button first, followed by active chips left-to-right in the order they were applied.
+        Limit visible chips to the available width; overflow chips collapse into a "+N more" count badge.
+        Keep the "Clear all filters" link at the far right of the toolbar row, visible only when filters are active.
+      </p>
+      <div class="ds-format-row">
+        <div class="ds-format-card">
+          <p class="ds-format-label ds-format-label--do">✓ Do — chips inline, clear action far right</p>
+          <p class="ds-body">Chips appear immediately after the filter trigger. The clear action is at the end of the row so it doesn't compete with individual chip dismiss.</p>
+        </div>
+        <div class="ds-format-card">
+          <p class="ds-format-label ds-format-label--dont">✗ Don't — place filters below the table or in a sidebar</p>
+          <p class="ds-body">Filters separated from the content they control force users to shift attention. Inline placement makes the cause-and-effect relationship immediate.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- ── Interaction guidelines ─────────────────────────────── -->
     <section class="ds-section">
       <h2 class="ds-h2">Interaction guidelines</h2>
@@ -282,10 +303,88 @@ function resetOverflow()     { overflowChips.value = [...OVERFLOW_INIT] }
       </ul>
     </section>
 
+    <!-- ── Token Reference ────────────────────────────────────── -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Token Reference</h2>
+      <div class="ds-table-wrap">
+        <table class="ds-token-table">
+          <thead>
+            <tr><th>Property</th><th>Token</th><th>Value</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Toolbar background</td><td><code>--color-surface-default</code></td><td><span class="swatch" style="background:#fff"></span>#fff</td></tr>
+            <tr><td>Toolbar border</td><td><code>--color-border-default</code> / <code>--grey-20</code></td><td><span class="swatch" style="background:var(--grey-20)"></span>#e6e6e7</td></tr>
+            <tr><td>Filter icon button bg</td><td><code>--grey-05</code></td><td><span class="swatch" style="background:var(--grey-05)"></span>#f7f7f8</td></tr>
+            <tr><td>Filter icon button bg (active)</td><td><code>--blue-azure-10</code></td><td><span class="swatch" style="background:var(--blue-azure-10)"></span>#e8f6ff</td></tr>
+            <tr><td>Chip background</td><td><code>--blue-azure-10</code></td><td><span class="swatch" style="background:var(--blue-azure-10)"></span>#e8f6ff</td></tr>
+            <tr><td>Chip text</td><td><code>--blue-azure-70</code></td><td><span class="swatch" style="background:var(--blue-azure-70)"></span>#0a74a6</td></tr>
+            <tr><td>Chip dismiss icon</td><td><code>--blue-azure-70</code></td><td><span class="swatch" style="background:var(--blue-azure-70)"></span>#0a74a6</td></tr>
+            <tr><td>Dropdown panel background</td><td><code>--color-surface-default</code></td><td><span class="swatch" style="background:#fff"></span>#fff</td></tr>
+            <tr><td>Dropdown panel shadow</td><td>elevation-sm (4px blur)</td><td>—</td></tr>
+            <tr><td>Dropdown item text</td><td><code>--color-text-primary</code> / <code>--grey-100</code></td><td><span class="swatch" style="background:var(--grey-100)"></span>#1f2124</td></tr>
+            <tr><td>Dropdown item hover bg</td><td><code>--grey-05</code></td><td><span class="swatch" style="background:var(--grey-05)"></span>#f7f7f8</td></tr>
+            <tr><td>Clear all text</td><td><code>--blue-azure-70</code></td><td><span class="swatch" style="background:var(--blue-azure-70)"></span>#0a74a6</td></tr>
+            <tr><td>Chip height</td><td>—</td><td>28px</td></tr>
+            <tr><td>Chip font size</td><td>—</td><td>13px</td></tr>
+            <tr><td>Chip border-radius</td><td>—</td><td>4px</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
   </main>
 </template>
 
 <style scoped>
+/* ── Formatting cards ──────────────────────────────────────── */
+.ds-format-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.ds-format-card {
+  background: var(--grey-05);
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ds-format-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+.ds-format-label--do   { color: var(--green-90); }
+.ds-format-label--dont { color: var(--red-80); }
+
+/* ── Token table ────────────────────────────────────────────── */
+.swatch {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  vertical-align: middle;
+  margin-right: 6px;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.12);
+}
+.ds-table-wrap { overflow-x: auto; }
+.ds-token-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.ds-token-table th,
+.ds-token-table td {
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--grey-10);
+  color: var(--grey-90);
+}
+.ds-token-table th { font-weight: 600; background: var(--grey-05); color: var(--grey-70); }
+.ds-token-table code { font-size: 12px; background: var(--grey-10); padding: 2px 5px; border-radius: 3px; }
+
 /* ── Layout ─────────────────────────────────────────────────── */
 .ds-main {
   max-width: 1200px;

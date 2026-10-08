@@ -223,6 +223,53 @@ const SearchIconAdd = `<svg width="16" height="16" viewBox="0 0 16 16" fill="non
       </div>
     </section>
 
+    <!-- ── Formatting ────────────────────────────────────────── -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Formatting</h2>
+      <p class="ds-body">
+        Every field requires a visible label above it — never rely on placeholder text alone.
+        Mark optional fields with <code>:optional="true"</code>; required fields are the default expectation.
+        Hint text provides supplementary guidance below the field and is hidden when an error is shown.
+        Match field width to expected content length — narrow for short values, full-width for free text.
+      </p>
+      <div class="ds-do-dont">
+        <div class="ds-usage-card ds-usage-card--do">
+          <p class="ds-usage-card__label ds-usage-card__label--do">Do</p>
+          <div class="ds-usage-demo">
+            <AppInput label="Registration" placeholder="e.g. ABC-1234" style="max-width:240px" />
+            <AppInput label="Notes" :optional="true" placeholder="Add a note…" style="max-width:240px" />
+          </div>
+          <p class="ds-body">Visible label above every field. Optional indicator where relevant.</p>
+        </div>
+        <div class="ds-usage-card ds-usage-card--dont">
+          <p class="ds-usage-card__label ds-usage-card__label--dont">Don't</p>
+          <div class="ds-usage-demo">
+            <AppInput label="" placeholder="Registration number *" style="max-width:240px" />
+          </div>
+          <p class="ds-body">Placeholder-only labelling. The hint vanishes when typing begins, leaving no label.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Interaction ───────────────────────────────────────── -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Interaction</h2>
+      <div class="states-grid">
+        <div class="state-card">
+          <span class="state-badge">Focus</span>
+          <p class="ds-body">Click or tab into a field. The border darkens to <code>grey-80</code>, background returns to white, and a 1 px outline ring confirms keyboard focus. Tab advances to the next field in document order.</p>
+        </div>
+        <div class="state-card">
+          <span class="state-badge state-badge--error">Validation</span>
+          <p class="ds-body">Errors fire on submit by default. Each invalid field shows a red border and an error message below it. Focus moves to the first invalid field automatically. Correct the value and re-submit to clear.</p>
+        </div>
+        <div class="state-card">
+          <span class="state-badge state-badge--muted">Disabled</span>
+          <p class="ds-body">Disabled fields are excluded from the tab order and cannot receive focus. Use only when a field is unavailable given the current form state — not as a default for empty optional fields.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- ── Form example ─────────────────────────────────────── -->
     <section class="ds-section">
       <h2 class="ds-h2">Usage Example — Add Vehicle</h2>
@@ -500,6 +547,25 @@ const SearchIconAdd = `<svg width="16" height="16" viewBox="0 0 16 16" fill="non
   flex-shrink: 0;
 }
 
+/* ── Do / Don't ──────────────────────────────────────────────── */
+.ds-do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.ds-usage-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid var(--grey-20);
+  border-top: 3px solid transparent;
+}
+.ds-usage-card--do   { border-top-color: var(--green-60); }
+.ds-usage-card--dont { border-top-color: var(--red-60); }
+.ds-usage-card__label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+.ds-usage-card__label--do   { color: var(--green-90); }
+.ds-usage-card__label--dont { color: var(--red-80); }
+.ds-usage-demo { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start; }
+
 /* ── Responsive ──────────────────────────────────────────────── */
 @media (max-width: 900px) {
   .states-grid { grid-template-columns: 1fr 1fr; }
@@ -508,5 +574,6 @@ const SearchIconAdd = `<svg width="16" height="16" viewBox="0 0 16 16" fill="non
   .ds-main     { padding: 32px 20px 60px; }
   .states-grid { grid-template-columns: 1fr; }
   .form-grid   { grid-template-columns: 1fr; }
+  .ds-do-dont  { grid-template-columns: 1fr; }
 }
 </style>

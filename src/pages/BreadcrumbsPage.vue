@@ -287,10 +287,39 @@ import AppBreadcrumbs from '../components/ui/AppBreadcrumbs.vue'
       </div>
     </section>
 
+    <!-- ── Token Reference ─────────────────────────────────── -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Token Reference</h2>
+      <div class="bc-table-wrap">
+        <table class="bc-token-table">
+          <thead>
+            <tr><th>Property</th><th>Token</th><th>Value</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Link text (default)</td><td><code>--grey-60</code></td><td><span class="swatch" style="background:var(--grey-60)"></span>#9c9ea3</td></tr>
+            <tr><td>Link text (hover)</td><td><code>--grey-90</code></td><td><span class="swatch" style="background:var(--grey-90)"></span>#36383b</td></tr>
+            <tr><td>Current page text</td><td><code>--grey-90</code></td><td><span class="swatch" style="background:var(--grey-90)"></span>#36383b</td></tr>
+            <tr><td>Separator</td><td><code>--grey-40</code></td><td><span class="swatch" style="background:var(--grey-40)"></span>#c0c2c6</td></tr>
+            <tr><td>Focus ring</td><td><code>--color-focus-ring</code></td><td>2 px outline</td></tr>
+            <tr><td>Font size</td><td>—</td><td>14 px</td></tr>
+            <tr><td>Font weight</td><td>—</td><td>400 (regular)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
   </main>
 </template>
 
 <style scoped>
+.swatch { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: middle; margin-right: 6px; }
+.bc-table-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--grey-20); }
+.bc-token-table { width: 100%; border-collapse: collapse; background: #fff; font-size: 13px; }
+.bc-token-table thead th { background: var(--grey-05); border-bottom: 1px solid var(--grey-20); padding: 10px 16px; text-align: left; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--grey-70); white-space: nowrap; }
+.bc-token-table td { padding: 9px 16px; border-bottom: 1px solid var(--grey-10); color: var(--grey-80); vertical-align: middle; }
+.bc-token-table tr:last-child td { border-bottom: none; }
+.bc-token-table tr:hover td { background: var(--grey-05); }
+
 .ds-main {
   max-width: 1100px;
   margin: 0 auto;

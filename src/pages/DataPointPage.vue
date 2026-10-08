@@ -244,6 +244,74 @@ const categoryOptions = [
       </div>
     </section>
 
+    <!-- ── Formatting ────────────────────────────────────────── -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Formatting</h2>
+      <p class="ds-body">
+        Use the <strong>Card</strong> variant as the default for asset detail pages and form-like layouts
+        where each data point occupies its own cell. Use <strong>Contextual</strong> in condensed
+        panels, side drawers, or overview rows where vertical space is scarce.
+        Group related data points in a grid — 2 or 3 columns for card variant, 1 column for contextual.
+        Keep sizes consistent within a group; never mix card sizes in the same section.
+      </p>
+      <div class="ds-format-cards">
+        <div class="ds-format-card">
+          <p class="ds-format-label">Card variant — 3-column grid</p>
+          <p class="ds-body">Best for structured detail views. Each card communicates one attribute clearly with label above value.</p>
+        </div>
+        <div class="ds-format-card">
+          <p class="ds-format-label">Contextual variant — single column</p>
+          <p class="ds-body">Best for compact rows in side panels or tables. Label and value share the same horizontal line.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Interaction ────────────────────────────────────────── -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Interaction</h2>
+      <p class="ds-body">
+        Read-only data points carry no interaction. Editable data points show an edit control on hover;
+        clicking enters editing mode. Confirm with the checkmark or press <kbd>Enter</kbd>;
+        cancel with the × button or press <kbd>Escape</kbd>.
+      </p>
+      <div class="ds-interaction-grid">
+        <div class="ds-ic-card">
+          <p class="ds-ic-title">Read-only</p>
+          <p class="ds-body">No hover state, no focus ring. Link values (<code>--blue-azure-70</code>) are navigable via Tab and activated with Enter.</p>
+        </div>
+        <div class="ds-ic-card">
+          <p class="ds-ic-title">Editable — hover</p>
+          <p class="ds-body">Edit actions appear (opacity 0 → 1). A 2 px dark inset shadow confirms the field is editable. Tab moves focus into the input.</p>
+        </div>
+        <div class="ds-ic-card">
+          <p class="ds-ic-title">Editable — editing</p>
+          <p class="ds-body"><kbd>Enter</kbd> confirms the new value. <kbd>Escape</kbd> cancels and reverts. Focus returns to the card after confirmation or cancellation.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Token Reference ────────────────────────────────────── -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Token Reference</h2>
+      <div class="ds-table-wrap">
+        <table class="ds-token-table">
+          <thead>
+            <tr><th>Property</th><th>Token</th><th>Value</th><th>Context</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Card background</td><td><code>--color-surface-tertiary</code></td><td><span class="swatch" style="background:var(--grey-10)"></span>grey-10</td><td>Card variant fill</td></tr>
+            <tr><td>Label text</td><td><code>--color-text-secondary</code></td><td><span class="swatch" style="background:var(--grey-70)"></span>grey-70</td><td>Label above value</td></tr>
+            <tr><td>Value text</td><td><code>--color-text-primary</code></td><td><span class="swatch" style="background:var(--grey-100)"></span>grey-100</td><td>Primary value</td></tr>
+            <tr><td>Empty text</td><td><code>--color-text-disabled</code></td><td><span class="swatch" style="background:var(--grey-50)"></span>grey-50</td><td>Placeholder when value absent</td></tr>
+            <tr><td>Link value</td><td><code>--blue-azure-70</code></td><td><span class="swatch" style="background:var(--blue-azure-70)"></span>#0a74a6</td><td>Navigable value text</td></tr>
+            <tr><td>Link value (hover)</td><td><code>--blue-azure-100</code></td><td><span class="swatch" style="background:var(--blue-azure-100)"></span>#013b57</td><td>Link hover state</td></tr>
+            <tr><td>Edit ring (card border)</td><td><code>--grey-90</code></td><td><span class="swatch" style="background:var(--grey-90)"></span>#36383b</td><td>2 px inset box-shadow on edit</td></tr>
+            <tr><td>Separator (contextual)</td><td><code>--color-border-default</code></td><td><span class="swatch" style="background:var(--grey-20)"></span>grey-20</td><td>Bottom divider between contextual rows</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
   </main>
 </template>
 
@@ -269,6 +337,83 @@ const categoryOptions = [
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 8px;
 }
+
+/* Formatting section */
+.ds-format-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.ds-format-card {
+  background: var(--grey-05);
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ds-format-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--grey-90);
+}
+
+/* Interaction section */
+.ds-interaction-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.ds-ic-card {
+  background: var(--grey-05);
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ds-ic-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--grey-90);
+}
+kbd {
+  display: inline-block;
+  font-family: 'SFMono-Regular', 'Consolas', monospace;
+  font-size: 11px;
+  background: var(--grey-10);
+  box-shadow: inset 0 0 0 1px var(--grey-30);
+  border-bottom: 2px solid var(--grey-30);
+  border-radius: 3px;
+  padding: 1px 5px;
+  color: var(--grey-80);
+}
+
+/* Token table */
+.swatch {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  vertical-align: middle;
+  margin-right: 6px;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.12);
+}
+.ds-table-wrap { overflow-x: auto; }
+.ds-token-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.ds-token-table th,
+.ds-token-table td {
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--grey-10);
+  color: var(--grey-90);
+}
+.ds-token-table th { font-weight: 600; background: var(--grey-05); color: var(--grey-70); }
+.ds-token-table code { font-size: 12px; background: var(--grey-10); padding: 2px 5px; border-radius: 3px; }
 
 /* States grid */
 .dp-states-grid {

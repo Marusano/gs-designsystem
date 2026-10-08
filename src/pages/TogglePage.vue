@@ -89,6 +89,32 @@ const demoReports       = ref(true)
       </div>
     </section>
 
+    <!-- ── Usage ───────────────────────────────────────────── -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Usage</h2>
+      <div class="ds-usage-grid">
+
+        <div class="ds-usage-card ds-usage-card--do">
+          <p class="ds-usage-card__label ds-usage-card__label--do">Use when</p>
+          <ul class="ds-usage-list">
+            <li>Turning a single option on or off that affects the system or page settings.</li>
+            <li>Ideal for settings or preferences that can be <strong>immediately applied</strong>.</li>
+            <li>Recommended for actions where the change is <strong>reversible</strong> without additional confirmation.</li>
+          </ul>
+        </div>
+
+        <div class="ds-usage-card ds-usage-card--dont">
+          <p class="ds-usage-card__label ds-usage-card__label--dont">Do not use when</p>
+          <ul class="ds-usage-list">
+            <li>The action requires <strong>confirmation</strong> before applying (e.g. deleting a file).</li>
+            <li>There are <strong>more than two options</strong> — use a dropdown, radio button, or checkbox instead.</li>
+            <li>The setting is <strong>not binary</strong> or doesn't provide instant application — use a checkbox, button, or combination.</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
     <!-- ── Formatting ─────────────────────────────────────── -->
     <section class="ds-section">
       <h2 class="ds-h2">Formatting</h2>
@@ -152,32 +178,6 @@ const demoReports       = ref(true)
       <div class="ds-spec-note">
         <div class="ds-spec-note__item"><strong>sm</strong> container 36 × 20 px · track 36 × 14 px · thumb 20 × 20 px</div>
         <div class="ds-spec-note__item"><strong>md</strong> container 36 × 20 px · track 36 × 20 px · thumb 16 × 16 px</div>
-      </div>
-    </section>
-
-    <!-- ── Usage ───────────────────────────────────────────── -->
-    <section class="ds-section">
-      <h2 class="ds-h2">Usage</h2>
-      <div class="ds-usage-grid">
-
-        <div class="ds-usage-card ds-usage-card--do">
-          <p class="ds-usage-card__label ds-usage-card__label--do">Use when</p>
-          <ul class="ds-usage-list">
-            <li>Turning a single option on or off that affects the system or page settings.</li>
-            <li>Ideal for settings or preferences that can be <strong>immediately applied</strong>.</li>
-            <li>Recommended for actions where the change is <strong>reversible</strong> without additional confirmation.</li>
-          </ul>
-        </div>
-
-        <div class="ds-usage-card ds-usage-card--dont">
-          <p class="ds-usage-card__label ds-usage-card__label--dont">Do not use when</p>
-          <ul class="ds-usage-list">
-            <li>The action requires <strong>confirmation</strong> before applying (e.g. deleting a file).</li>
-            <li>There are <strong>more than two options</strong> — use a dropdown, radio button, or checkbox instead.</li>
-            <li>The setting is <strong>not binary</strong> or doesn't provide instant application — use a checkbox, button, or combination.</li>
-          </ul>
-        </div>
-
       </div>
     </section>
 

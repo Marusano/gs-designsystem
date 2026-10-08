@@ -101,6 +101,35 @@ const demoFleet = ref('gps')
       </div>
     </section>
 
+    <!-- ── Usage ───────────────────────────────────────────── -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Usage</h2>
+      <div class="ds-usage-grid">
+
+        <div class="ds-usage-card ds-usage-card--do">
+          <p class="ds-usage-card__label ds-usage-card__label--do">Use when</p>
+          <ul class="ds-usage-list">
+            <li>
+              <strong>Forms</strong> — can be used in data tables, cards, modals, side panels, and in forms on full pages.
+            </li>
+            <li>
+              <strong>Settings</strong> — used to change from one setting to another in a menu, page, or component. Can act as a filtering mechanism when only a single option is supported.
+            </li>
+          </ul>
+        </div>
+
+        <div class="ds-usage-card ds-usage-card--dont">
+          <p class="ds-usage-card__label ds-usage-card__label--dont">Do not use when</p>
+          <ul class="ds-usage-list">
+            <li>
+              <strong>Multiple selections are allowed</strong> — use checkboxes instead. Radio buttons allow the user to select only one item in a set whereas checkboxes allow the user to select multiple items.
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
     <!-- ── Formatting ─────────────────────────────────────── -->
     <section class="ds-section">
       <h2 class="ds-h2">Formatting</h2>
@@ -172,35 +201,6 @@ const demoFleet = ref('gps')
               <span class="ds-field-text">Monthly</span>
             </label>
           </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ── Usage ───────────────────────────────────────────── -->
-    <section class="ds-section">
-      <h2 class="ds-h2">Usage</h2>
-      <div class="ds-usage-grid">
-
-        <div class="ds-usage-card ds-usage-card--do">
-          <p class="ds-usage-card__label ds-usage-card__label--do">Use when</p>
-          <ul class="ds-usage-list">
-            <li>
-              <strong>Forms</strong> — can be used in data tables, cards, modals, side panels, and in forms on full pages.
-            </li>
-            <li>
-              <strong>Settings</strong> — used to change from one setting to another in a menu, page, or component. Can act as a filtering mechanism when only a single option is supported.
-            </li>
-          </ul>
-        </div>
-
-        <div class="ds-usage-card ds-usage-card--dont">
-          <p class="ds-usage-card__label ds-usage-card__label--dont">Do not use when</p>
-          <ul class="ds-usage-list">
-            <li>
-              <strong>Multiple selections are allowed</strong> — use checkboxes instead. Radio buttons allow the user to select only one item in a set whereas checkboxes allow the user to select multiple items.
-            </li>
-          </ul>
         </div>
 
       </div>
