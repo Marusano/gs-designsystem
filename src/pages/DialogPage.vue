@@ -1,20 +1,8 @@
 <script setup>
 import { ref } from 'vue'
-import AppDialog  from '../components/ui/AppDialog.vue'
-import AppButton  from '../components/ui/AppButton.vue'
-import AppSelect  from '../components/ui/AppSelect.vue'
-
-/* ── Live demo state ─────────────────────────────────────────── */
-const open = ref(false)
-const demoType  = ref('confirm')
-const demoState = ref('plain')
-
-const roleOptions = [
-  { value: 'manager',  label: 'Fleet manager' },
-  { value: 'driver',   label: 'Driver' },
-  { value: 'viewer',   label: 'Read-only viewer' },
-]
-const roleValue = ref('manager')
+import AppDialog    from '../components/ui/AppDialog.vue'
+import AppButton    from '../components/ui/AppButton.vue'
+import AppDataPoint from '../components/ui/AppDataPoint.vue'
 
 /* ── Catalog ─────────────────────────────────────────────────── */
 const VARIANTS = [
@@ -160,23 +148,17 @@ function closeDemo() {
                 <div v-if="v.confirmQuestion" class="dlg-preview__question">{{ v.confirmQuestion }}</div>
               </div>
               <div v-if="v.hasBody" class="dlg-preview__body">
-                <div class="dlg-preview__row">
-                  <span class="dlg-preview__row-label">Current role</span>
-                  <span class="dlg-preview__row-value">Fleet manager</span>
-                </div>
-                <div class="dlg-preview__row">
-                  <span class="dlg-preview__row-label">New role</span>
-                  <span class="dlg-preview__row-value dlg-preview__row-value--accent">Driver</span>
-                </div>
+                <AppDataPoint variant="contextual" label="Current role" model-value="Fleet manager" />
+                <AppDataPoint variant="contextual" label="New role" model-value="Driver" />
               </div>
               <div v-if="v.infoText" :class="['dlg-preview__info', `dlg-preview__info--${v.state}`]">
                 {{ v.infoText }}
               </div>
               <div class="dlg-preview__actions">
-                <div class="dlg-preview__btn dlg-preview__btn--secondary">Cancel</div>
-                <div :class="['dlg-preview__btn', v.type === 'danger' ? 'dlg-preview__btn--danger' : 'dlg-preview__btn--primary']">
+                <AppButton variant="secondary" size="md" :tabindex="-1">Cancel</AppButton>
+                <AppButton :variant="v.type === 'danger' ? 'danger' : 'primary'" size="md" :tabindex="-1">
                   {{ v.type === 'danger' ? 'Yes, permanently delete' : v.type === 'change' ? 'Save changes' : 'Confirm' }}
-                </div>
+                </AppButton>
               </div>
             </div>
 
@@ -366,19 +348,9 @@ function closeDemo() {
     @cancel="closeDemo"
   >
     <template v-if="openVariant.hasBody" #default>
-      <div class="live-body">
-        <div class="live-row">
-          <span class="live-row__label">Current role</span>
-          <span class="live-row__value">Fleet manager</span>
-        </div>
-        <div class="live-row">
-          <span class="live-row__label">New role</span>
-          <AppSelect
-            v-model="roleValue"
-            :options="roleOptions"
-            style="flex:1"
-          />
-        </div>
+      <div class="dlg-live-rows">
+        <AppDataPoint variant="contextual" label="Current role" model-value="Fleet manager" />
+        <AppDataPoint variant="contextual" label="New role" model-value="Driver" />
       </div>
     </template>
     <template v-if="openVariant.infoText" #info>
@@ -388,6 +360,26 @@ function closeDemo() {
 </template>
 
 <style scoped>
+/* ── Page layout ─────────────────────────────────────────────── */
+.ds-main {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 48px 40px 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+.ds-section { display: flex; flex-direction: column; gap: 20px; }
+.ds-h1      { font-size: 32px; font-weight: 700; color: var(--grey-100); line-height: 1.1; margin-bottom: 4px; }
+.ds-h2      { font-size: 20px; font-weight: 600; color: var(--grey-90); }
+.ds-lead    { font-size: 16px; color: var(--grey-70); margin-top: -8px; }
+.ds-body    { font-size: 14px; color: var(--grey-70); line-height: 1.6; }
+.ds-body code { font-family: 'SFMono-Regular', 'Consolas', monospace; background: var(--grey-10); padding: 1px 5px; border-radius: 3px; color: var(--grey-90); }
+
+@media (max-width: 768px) {
+  .ds-main { padding: 32px 20px 60px; }
+}
+
 /* ── Type cards ──────────────────────────────────────────────── */
 .dlg-type-grid {
   display: grid;
@@ -470,6 +462,8 @@ function closeDemo() {
   width: 486px;
   max-width: 100%;
   font-family: 'Inter', sans-serif;
+  pointer-events: none;
+  user-select: none;
 }
 .dlg-preview__head {
   padding: 20px 24px 16px;
@@ -492,29 +486,8 @@ function closeDemo() {
   margin-top: 10px;
 }
 .dlg-preview__body {
-  padding: 0 24px 8px;
-}
-.dlg-preview__row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  height: 48px;
-  box-shadow: inset 0 -1px 0 var(--dlg-row-border);
-  font-size: 14px;
-}
-.dlg-preview__row:last-child {
-  box-shadow: none;
-}
-.dlg-preview__row-label {
-  width: 120px;
-  color: var(--grey-70);
-  flex-shrink: 0;
-}
-.dlg-preview__row-value {
-  color: var(--grey-90);
-}
-.dlg-preview__row-value--accent {
-  color: var(--blue-azure-70);
+  /* No horizontal padding — DataPoint contextual handles its own 14px indent */
+  padding: 0 0 0;
 }
 .dlg-preview__info {
   margin: 0 24px 8px;
@@ -541,30 +514,6 @@ function closeDemo() {
   display: flex;
   justify-content: flex-end;
   gap: 8px;
-}
-.dlg-preview__btn {
-  height: 36px;
-  padding: 0 14px;
-  border-radius: 4px;
-  font-size: 14px;
-  font-weight: 500;
-  display: inline-flex;
-  align-items: center;
-  cursor: default;
-  user-select: none;
-}
-.dlg-preview__btn--secondary {
-  background: var(--grey-00);
-  color: var(--grey-90);
-  box-shadow: inset 0 0 0 1px var(--grey-20);
-}
-.dlg-preview__btn--primary {
-  background: var(--blue-azure-70);
-  color: var(--grey-00);
-}
-.dlg-preview__btn--danger {
-  background: var(--red-70);
-  color: var(--grey-00);
 }
 
 /* ── States grid ─────────────────────────────────────────────── */
@@ -725,28 +674,11 @@ function closeDemo() {
   font-size: 12px;
 }
 
-/* ── Live dialog body ────────────────────────────────────────── */
-.live-body {
-  display: flex;
-  flex-direction: column;
+/* ── Live dialog body rows ────────────────────────────────────── */
+/* Negative margin cancels the dialog's 24px body padding so     */
+/* DataPoint contextual rows bleed edge-to-edge as in Figma.     */
+.dlg-live-rows {
+  margin: 0 -24px;
 }
-.live-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  height: 52px;
-  box-shadow: inset 0 -1px 0 var(--dlg-row-border);
-  font-size: 14px;
-}
-.live-row:last-child {
-  box-shadow: none;
-}
-.live-row__label {
-  width: 120px;
-  color: var(--grey-70);
-  flex-shrink: 0;
-}
-.live-row__value {
-  color: var(--grey-90);
-}
+
 </style>
