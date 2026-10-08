@@ -56,7 +56,13 @@ const VARIANTS = [
     title: 'Update fleet region',
     description: 'The fleet region determines which routes and drivers are visible to this manager.',
     hasBody: true,
-    infoText: 'Changing the region will update visibility settings for all members of this fleet group.',
+    bodyValueOverride: 'Member',
+    infoHeading: 'What changes when you apply this',
+    infoBullets: [
+      'Access changes will apply to the users listed above.',
+      'Added managers gain full access to this group. Removed managers lose access to this group only.',
+      'Changes take effect on next login.',
+    ],
   },
   {
     id: 'danger-context',
@@ -159,7 +165,7 @@ function closeDemo() {
               </div>
               <div v-if="v.hasBody" class="dlg-preview__body">
                 <AppDataPoint variant="contextual" label="Current role" model-value="Fleet manager" />
-                <AppDataPoint variant="contextual" label="New role" model-value="Driver" />
+                <AppDataPoint variant="contextual" label="New role" :model-value="v.bodyValueOverride || 'Driver'" />
               </div>
               <div v-if="v.infoText || v.infoHeading" :class="['dlg-preview__info', `dlg-preview__info--${v.state}`]">
                 <template v-if="v.infoHeading">
@@ -366,7 +372,7 @@ function closeDemo() {
     <template v-if="openVariant.hasBody" #default>
       <div class="dlg-live-rows">
         <AppDataPoint variant="contextual" label="Current role" model-value="Fleet manager" />
-        <AppDataPoint variant="contextual" label="New role" model-value="Driver" />
+        <AppDataPoint variant="contextual" label="New role" :model-value="openVariant.bodyValueOverride || 'Driver'" />
       </div>
     </template>
     <template v-if="openVariant.infoText || openVariant.infoHeading" #info>
