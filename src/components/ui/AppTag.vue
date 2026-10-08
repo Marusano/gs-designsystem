@@ -120,7 +120,7 @@ const classes = computed(() => [
 }
 .tag__card-body  { display: flex; flex-direction: column; gap: 11px; }
 .tag__card-title { font-size: 12px; font-weight: 400; line-height: 1; }
-.tag__card-sub   { font-size: 12px; font-weight: 400; line-height: 1; color: #36383b; }
+.tag__card-sub   { font-size: 12px; font-weight: 400; line-height: 1; color: var(--grey-90); }
 
 /* ── Icon ──────────────────────────────────────────────────── */
 .tag__icon {
@@ -153,58 +153,58 @@ const classes = computed(() => [
 .tag__close:focus-visible { outline: 2px solid currentColor; outline-offset: 1px; }
 
 /* ── Type — Neutral ────────────────────────────────────────── */
-.tag--neutral { background: #e6e6e7; color: #5d6065; }
-.tag--neutral:hover { border-color: #c0c2c6; color: #36383b; }
+.tag--neutral { background: var(--grey-20); color: var(--grey-80); }
+.tag--neutral:hover { border-color: var(--grey-40); color: var(--grey-90); }
 
 /* ── Type — Neutral Outline ────────────────────────────────── */
-.tag--neutral-outline { background: #ffffff; color: #6f7176; border-color: #c0c2c6; }
-.tag--neutral-outline:hover { background: #f7f7f8; color: #36383b; }
+.tag--neutral-outline { background: var(--grey-00); color: var(--grey-70); border-color: var(--grey-40); }
+.tag--neutral-outline:hover { background: var(--grey-05); color: var(--grey-90); }
 
 /* ── Type — Neutral Inverted ───────────────────────────────── */
-.tag--neutral-inverted { background: #6f7176; color: #f1f1f2; }
-.tag--neutral-inverted:hover { background: #5d6065; border-color: #6f7176; }
+.tag--neutral-inverted { background: var(--grey-70); color: var(--grey-10); }
+.tag--neutral-inverted:hover { background: var(--grey-80); border-color: var(--grey-70); }
 
 /* ── Type — Success ────────────────────────────────────────── */
-.tag--success { background: #c5f2cb; color: #12591c; }
-.tag--success:hover { background: #a8ebb2; border-color: #64d074; }
+.tag--success { background: var(--green-30); color: var(--green-100); }
+.tag--success:hover { background: var(--green-40); border-color: var(--green-60); }
 
 /* ── Type — Success Strong ─────────────────────────────────── */
-.tag--success-strong { background: #247a31; color: #f1fcf2; }
-.tag--success-strong:hover { background: #12591c; border-color: #469852; }
+.tag--success-strong { background: var(--green-90); color: var(--green-10); }
+.tag--success-strong:hover { background: var(--green-100); border-color: var(--green-80); }
 
 /* ── Type — Informational ──────────────────────────────────── */
-.tag--informational { background: #b3e1f7; color: #013b57; }
-.tag--informational:hover { border-color: #61bde9; }
+.tag--informational { background: var(--blue-azure-30); color: var(--blue-azure-100); }
+.tag--informational:hover { border-color: var(--blue-azure-40); }
 
 /* ── Type — Informational Strong ───────────────────────────── */
-.tag--informational-strong { background: #39ade3; color: #ffffff; }
-.tag--informational-strong:hover { background: #138cc4; border-color: #61bde9; }
+.tag--informational-strong { background: var(--blue-azure-50); color: var(--grey-00); }
+.tag--informational-strong:hover { background: var(--blue-azure-60); border-color: var(--blue-azure-40); }
 
 /* ── Type — Informational Inverted ─────────────────────────── */
-.tag--informational-inverted { background: #075985; color: #ffffff; }
-.tag--informational-inverted:hover { background: #013b57; border-color: #138cc4; }
+.tag--informational-inverted { background: var(--blue-azure-90); color: var(--grey-00); }
+.tag--informational-inverted:hover { background: var(--blue-azure-100); border-color: var(--blue-azure-60); }
 
 /* ── Type — Danger ─────────────────────────────────────────── */
-.tag--danger { background: #fecaca; color: #781212; }
-.tag--danger:hover { border-color: #fca5a5; }
+.tag--danger { background: var(--red-30); color: var(--red-100); }
+.tag--danger:hover { border-color: var(--red-40); }
 
 /* ── Type — Warning ────────────────────────────────────────── */
-.tag--warning { background: #ffe2cc; color: #702822; }
-.tag--warning:hover { border-color: #ffa767; }
+.tag--warning { background: var(--orange-20); color: var(--orange-100); }
+.tag--warning:hover { border-color: var(--orange-40); }
 
 /* ── Type — Moderate ───────────────────────────────────────── */
-.tag--moderate { background: #ffeec7; color: #927302; }
-.tag--moderate:hover { border-color: #fde9b9; }
+.tag--moderate { background: var(--yellow-20); color: var(--yellow-100); }
+.tag--moderate:hover { border-color: var(--yellow-30); }
 
 /* ── Type — Highlight ──────────────────────────────────────── */
-.tag--highlight { background: #e4daff; color: #553698; }
-.tag--highlight:hover { border-color: #bea3fd; color: #02005f; }
+.tag--highlight { background: var(--indigo-20); color: var(--indigo-80); }
+.tag--highlight:hover { border-color: var(--indigo-40); color: var(--indigo-90); }
 
 /* ── MD card title color per type ──────────────────────────── */
-.tag--md.tag--highlight .tag__card-title { color: #553698; }
-.tag--md.tag--neutral   .tag__card-title { color: #5d6065; }
-.tag--md.tag--success   .tag__card-title { color: #12591c; }
-.tag--md.tag--informational          .tag__card-title { color: #013b57; }
-.tag--md.tag--informational-strong   .tag__card-title { color: #ffffff; }
-.tag--md.tag--informational-inverted .tag__card-title { color: #ffffff; }
+.tag--md.tag--highlight .tag__card-title { color: var(--indigo-80); }
+.tag--md.tag--neutral   .tag__card-title { color: var(--grey-80); }
+.tag--md.tag--success   .tag__card-title { color: var(--green-100); }
+.tag--md.tag--informational          .tag__card-title { color: var(--blue-azure-100); }
+.tag--md.tag--informational-strong   .tag__card-title { color: var(--grey-00); }
+.tag--md.tag--informational-inverted .tag__card-title { color: var(--grey-00); }
 </style>
