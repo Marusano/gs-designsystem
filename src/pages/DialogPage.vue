@@ -28,7 +28,12 @@ const VARIANTS = [
     title: 'Change departure time',
     description: 'Updating the departure time will reschedule all dependent stops.',
     hasBody: true,
-    infoText: 'This route is currently active. Changes may affect real-time tracking for drivers already on route.',
+    infoHeading: 'What changes when you apply this',
+    infoBullets: [
+      'Toby will be removed from Delivery crew entirely and will lose manager access immediately.',
+      'He will no longer see or manage any content in this group.',
+      "Toby's access reverts to his system role.",
+    ],
   },
   {
     id: 'change-moderate',
@@ -37,7 +42,12 @@ const VARIANTS = [
     title: 'Change vehicle assignment',
     description: 'The vehicle will be reassigned across all active routes for this period.',
     hasBody: true,
-    infoText: 'The vehicle has an upcoming service scheduled in 3 days. Consider timing this change accordingly.',
+    infoHeading: 'What changes when you apply this',
+    infoBullets: [
+      'Toby will be removed from Delivery crew entirely and will lose manager access immediately.',
+      'He will no longer see or manage any content in this group.',
+      "Toby's access reverts to his system role.",
+    ],
   },
   {
     id: 'change-info',
@@ -151,8 +161,14 @@ function closeDemo() {
                 <AppDataPoint variant="contextual" label="Current role" model-value="Fleet manager" />
                 <AppDataPoint variant="contextual" label="New role" model-value="Driver" />
               </div>
-              <div v-if="v.infoText" :class="['dlg-preview__info', `dlg-preview__info--${v.state}`]">
-                {{ v.infoText }}
+              <div v-if="v.infoText || v.infoHeading" :class="['dlg-preview__info', `dlg-preview__info--${v.state}`]">
+                <template v-if="v.infoHeading">
+                  <p class="dlg-info-heading">{{ v.infoHeading }}</p>
+                  <ul class="dlg-info-list">
+                    <li v-for="b in v.infoBullets" :key="b">{{ b }}</li>
+                  </ul>
+                </template>
+                <template v-else>{{ v.infoText }}</template>
               </div>
               <div class="dlg-preview__actions">
                 <AppButton variant="secondary" size="md" :tabindex="-1">Cancel</AppButton>
@@ -353,8 +369,14 @@ function closeDemo() {
         <AppDataPoint variant="contextual" label="New role" model-value="Driver" />
       </div>
     </template>
-    <template v-if="openVariant.infoText" #info>
-      {{ openVariant.infoText }}
+    <template v-if="openVariant.infoText || openVariant.infoHeading" #info>
+      <template v-if="openVariant.infoHeading">
+        <p class="dlg-info-heading">{{ openVariant.infoHeading }}</p>
+        <ul class="dlg-info-list">
+          <li v-for="b in openVariant.infoBullets" :key="b">{{ b }}</li>
+        </ul>
+      </template>
+      <template v-else>{{ openVariant.infoText }}</template>
     </template>
   </AppDialog>
 </template>
@@ -526,6 +548,28 @@ function closeDemo() {
   background: var(--dlg-info-info-bg);
   box-shadow: inset 0 0 0 1px var(--dlg-info-info-border);
 }
+
+/* Structured info content (heading + bullets) */
+.dlg-info-heading {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--grey-90);
+  margin: 0 0 8px;
+  line-height: 1.4;
+}
+.dlg-info-list {
+  margin: 0;
+  padding-left: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.dlg-info-list li {
+  font-size: 13px;
+  color: var(--grey-90);
+  line-height: 1.5;
+}
+
 .dlg-preview__actions {
   padding: 16px 24px 24px;
   display: flex;
