@@ -486,8 +486,25 @@ function closeDemo() {
   margin-top: 10px;
 }
 .dlg-preview__body {
-  /* No horizontal padding — DataPoint contextual handles its own 14px indent */
-  padding: 0 0 0;
+  padding: 0 24px 8px;
+}
+
+/* Collapse double-borders when rows stack and group border-radius */
+.dlg-preview__body :deep(.dp--contextual + .dp--contextual),
+.dlg-live-rows :deep(.dp--contextual + .dp--contextual) {
+  margin-top: -1px;
+}
+.dlg-preview__body :deep(.dp--contextual:not(:only-child):first-child),
+.dlg-live-rows :deep(.dp--contextual:not(:only-child):first-child) {
+  border-radius: 4px 4px 0 0;
+}
+.dlg-preview__body :deep(.dp--contextual:not(:only-child):last-child),
+.dlg-live-rows :deep(.dp--contextual:not(:only-child):last-child) {
+  border-radius: 0 0 4px 4px;
+}
+.dlg-preview__body :deep(.dp--contextual:not(:only-child):not(:first-child):not(:last-child)),
+.dlg-live-rows :deep(.dp--contextual:not(:only-child):not(:first-child):not(:last-child)) {
+  border-radius: 0;
 }
 .dlg-preview__info {
   margin: 0 24px 8px;
@@ -678,7 +695,8 @@ function closeDemo() {
 /* Negative margin cancels the dialog's 24px body padding so     */
 /* DataPoint contextual rows bleed edge-to-edge as in Figma.     */
 .dlg-live-rows {
-  margin: 0 -24px;
+  display: flex;
+  flex-direction: column;
 }
 
 </style>

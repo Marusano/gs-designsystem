@@ -239,12 +239,18 @@ const rootClass = computed(() => ({
 
 /* ── Contextual variant ───────────────────────────────────────── */
 .dp--contextual {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  display: flex;
+  flex-direction: row;
   align-items: center;
-  column-gap: 12px;
-  padding: 10px 14px;
-  box-shadow: inset 0 -1px 0 var(--color-border-default);
+  min-height: 48px;
+  padding: 12px 16px;
+  background: var(--grey-00);
+  box-shadow: inset 0 0 0 1px var(--grey-20);
+  border-radius: 4px;
+}
+
+.dp--contextual.is-hover {
+  background: var(--grey-05);
 }
 
 /* ── Label ────────────────────────────────────────────────────── */
@@ -257,9 +263,13 @@ const rootClass = computed(() => ({
 }
 
 .dp--contextual .dp__label {
-  font-size: 13px;
-  font-weight: 400;
-  color: var(--color-text-secondary);
+  flex: 1;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 0.25px;
+  color: var(--grey-60);
+  white-space: nowrap;
 }
 
 /* ── Description ──────────────────────────────────────────────── */
@@ -309,16 +319,28 @@ const rootClass = computed(() => ({
 
 /* Contextual primary value: bold */
 .dp--contextual .dp__value {
-  font-size: 13px;
+  flex: 1;
+  font-size: 14px;
   font-weight: 600;
-  color: var(--color-text-primary);
+  line-height: 20px;
+  color: var(--grey-90);
+  white-space: nowrap;
+}
+
+.dp--contextual .dp__value--empty {
+  font-weight: 400;
+  color: var(--grey-60);
+  font-style: normal;
 }
 
 /* ── Secondary (contextual only) ─────────────────────────────── */
 .dp__secondary {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 400;
-  color: var(--color-text-secondary);
+  line-height: 20px;
+  color: var(--grey-60);
+  white-space: nowrap;
+  text-align: right;
 }
 
 /* ── Actions (Edit button) ────────────────────────────────────── */
