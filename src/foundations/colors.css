@@ -295,6 +295,22 @@
   --snackbar-text:          var(--grey-90);
   --snackbar-radius:        4px;
   --snackbar-shadow:        0 4px 12.5px rgba(57, 57, 57, 0.2);
+
+  /* ── Dialog ─────────────────────────────────────────────── */
+  --dlg-bg:                 var(--grey-00);
+  --dlg-radius:             8px;
+  --dlg-shadow:             0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+  --dlg-width:              486px;
+  --dlg-title-color:        var(--grey-90);
+  --dlg-desc-color:         var(--grey-80);
+  --dlg-row-border:         var(--grey-20);
+  --dlg-info-warning-bg:    var(--orange-10);
+  --dlg-info-warning-border:var(--orange-30);
+  --dlg-info-moderate-bg:   var(--yellow-10);
+  --dlg-info-moderate-border:var(--yellow-50);
+  --dlg-info-info-bg:       var(--blue-vivid-10);
+  --dlg-info-info-border:   var(--blue-vivid-30);
+  --dlg-backdrop:           rgba(0,0,0,0.48);
 }
 
 *, *::before, *::after {

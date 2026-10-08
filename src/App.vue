@@ -27,6 +27,7 @@ import ContextualHeaderPage from './pages/ContextualHeaderPage.vue'
 import DataTablePage        from './pages/DataTablePage.vue'
 import DataPointPage        from './pages/DataPointPage.vue'
 import SnackbarPage         from './pages/SnackbarPage.vue'
+import DialogPage           from './pages/DialogPage.vue'
 
 const page = ref('buttons')
 
@@ -56,6 +57,7 @@ const IconDataTable        = `<svg width="14" height="14" viewBox="0 0 14 14" fi
 const IconDataPoint        = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="5" rx="1.5" stroke="currentColor" stroke-width="1.1"/><rect x="1" y="9" width="12" height="3" rx="1" stroke="currentColor" stroke-width="1.1"/><path d="M10 4.5h1.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>`
 const IconSideNav    = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1.5" stroke="currentColor" stroke-width="1.1"/><path d="M4.5 2v10" stroke="currentColor" stroke-width="1.1"/><path d="M2 5.5h1.5M2 8h1.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>`
 const IconSnackbar   = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="4" width="12" height="6" rx="1.5" stroke="currentColor" stroke-width="1.1"/><circle cx="3.5" cy="7" r="1" fill="currentColor"/><path d="M6 6h5M6 8h3" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>`
+const IconDialog     = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1.5" stroke="currentColor" stroke-width="1.1"/><path d="M1 8.5h12" stroke="currentColor" stroke-width="1.1"/><path d="M9 10.5h2.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><path d="M3 5h8M3 7h5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>`
 const IconPlayground = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 11.5L5.5 5l2 3 1.5-2.5L12 11.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="3" r="1.25" stroke="currentColor" stroke-width="1.1"/></svg>`
 </script>
 
@@ -173,6 +175,10 @@ const IconPlayground = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
             <span class="ds-sidebar__item-icon" v-html="IconSnackbar" />
             Snackbar
           </button>
+          <button @click="page = 'dialog'" :class="['ds-sidebar__item', { active: page === 'dialog' }]">
+            <span class="ds-sidebar__item-icon" v-html="IconDialog" />
+            Dialog
+          </button>
         </div>
 
         <div class="ds-sidebar__group">
@@ -248,6 +254,7 @@ const IconPlayground = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
         <DataTablePage         v-if="page === 'data-table'" />
         <DataPointPage         v-if="page === 'data-point'" />
         <SnackbarPage          v-if="page === 'snackbar'" />
+        <DialogPage            v-if="page === 'dialog'" />
       </div>
 
     </div>
