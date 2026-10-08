@@ -3,6 +3,15 @@ import { ref } from 'vue'
 import AppDialog    from '../components/ui/AppDialog.vue'
 import AppButton    from '../components/ui/AppButton.vue'
 import AppDataPoint from '../components/ui/AppDataPoint.vue'
+import AppSelect    from '../components/ui/AppSelect.vue'
+
+const roleOptions = [
+  { value: 'manager', label: 'Fleet manager' },
+  { value: 'driver',  label: 'Driver' },
+  { value: 'viewer',  label: 'Read-only viewer' },
+  { value: 'member',  label: 'Member' },
+]
+const liveSelectValue = ref('')
 
 /* ── Catalog ─────────────────────────────────────────────────── */
 const VARIANTS = [
@@ -56,7 +65,6 @@ const VARIANTS = [
     title: 'Update fleet region',
     description: 'The fleet region determines which routes and drivers are visible to this manager.',
     hasBody: true,
-    bodyValueOverride: 'Member',
     infoHeading: 'What changes when you apply this',
     infoBullets: [
       'Access changes will apply to the users listed above.',
@@ -86,6 +94,7 @@ const openVariant = ref(null)
 
 function openDemo(variant) {
   openVariant.value = variant
+  liveSelectValue.value = ''
 }
 function closeDemo() {
   openVariant.value = null
@@ -165,7 +174,9 @@ function closeDemo() {
               </div>
               <div v-if="v.hasBody" class="dlg-preview__body">
                 <AppDataPoint variant="contextual" label="Current role" model-value="Fleet manager" />
-                <AppDataPoint variant="contextual" label="New role" :model-value="v.bodyValueOverride || 'Driver'" />
+                <div class="dlg-preview__select-wrap">
+                  <AppSelect label="New role" :options="roleOptions" placeholder="Please select" />
+                </div>
               </div>
               <div v-if="v.infoText || v.infoHeading" :class="['dlg-preview__info', `dlg-preview__info--${v.state}`]">
                 <template v-if="v.infoHeading">
@@ -370,9 +381,18 @@ function closeDemo() {
     @cancel="closeDemo"
   >
     <template v-if="openVariant.hasBody" #default>
-      <div class="dlg-live-rows">
-        <AppDataPoint variant="contextual" label="Current role" model-value="Fleet manager" />
-        <AppDataPoint variant="contextual" label="New role" :model-value="openVariant.bodyValueOverride || 'Driver'" />
+      <div class="dlg-live-body">
+        <div class="dlg-live-rows">
+          <AppDataPoint variant="contextual" label="Current role" model-value="Fleet manager" />
+        </div>
+        <div class="dlg-live-select">
+          <AppSelect
+            v-model="liveSelectValue"
+            label="New role"
+            :options="roleOptions"
+            placeholder="Please select"
+          />
+        </div>
       </div>
     </template>
     <template v-if="openVariant.infoText || openVariant.infoHeading" #info>
@@ -515,6 +535,16 @@ function closeDemo() {
 }
 .dlg-preview__body {
   padding: 0 24px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Grey container for select field inside preview */
+.dlg-preview__select-wrap {
+  background: var(--grey-10);
+  border-radius: 4px;
+  padding: 11px 14px;
 }
 
 /* Collapse double-borders when rows stack and group border-radius */
@@ -744,9 +774,23 @@ function closeDemo() {
 /* ── Live dialog body rows ────────────────────────────────────── */
 /* Negative margin cancels the dialog's 24px body padding so     */
 /* DataPoint contextual rows bleed edge-to-edge as in Figma.     */
+/* Live dialog body wrapper — rows + select stacked with 8px gap */
+.dlg-live-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .dlg-live-rows {
   display: flex;
   flex-direction: column;
+}
+
+/* Grey container for select in live dialog */
+.dlg-live-select {
+  background: var(--grey-10);
+  border-radius: 4px;
+  padding: 11px 14px;
 }
 
 </style>
