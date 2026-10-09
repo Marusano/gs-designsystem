@@ -87,7 +87,7 @@ const emit = defineEmits(['back'])
         <!-- Viewing: two-tone "Viewing Entity" -->
         <div v-if="state === 'viewing'" class="ph__title ph__title--viewing">
           <span class="ph__viewing-prefix">Viewing</span>
-          <span class="ph__viewing-entity"> {{ title }}</span>
+          <span class="ph__viewing-entity">{{ title }}</span>
         </div>
 
         <!-- Welcome / main: plain title with per-state weight -->
@@ -207,6 +207,9 @@ const emit = defineEmits(['back'])
 
 /* viewing — two-tone spans */
 .ph__title--viewing {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
   font-weight: 400;
 }
 

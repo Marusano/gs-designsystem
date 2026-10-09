@@ -12,7 +12,7 @@ const SIZES = [
 
 const WEIGHTS = [
   { token: 'regular', label: 'Regular', weight: 400, style: 'normal'  },
-  { token: 'medium',  label: 'Medium',  weight: 600, style: 'normal'  },
+  { token: 'medium',  label: 'SemiBold', weight: 600, style: 'normal'  },
   { token: 'bold',    label: 'Bold',    weight: 700, style: 'normal'  },
 ]
 
@@ -40,7 +40,7 @@ const BODY_STYLES = [
 ]
 
 const BUTTON_STYLES = [
-  { label: 'Button md', size: 14, weight: 600, lh: 16, tracking: 0,      color: '#36383b', sample: 'Button label' },
+  { label: 'Button md', size: 14, weight: 500, lh: 16, tracking: 0,      color: '#36383b', sample: 'Button label' },
   { label: 'Button xl', size: 16, weight: 500, lh: 16, tracking: 0,      color: '#36383b', sample: 'Button label' },
 ]
 
