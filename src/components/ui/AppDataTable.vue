@@ -171,7 +171,7 @@ function rowClass(row) {
 .dt__header {
   display: flex;
   align-items: center;
-  height: 40px;
+  height: var(--size-height-sm);
   background: var(--grey-10);
   box-shadow: inset 0 -1px 0 var(--grey-20);
   user-select: none;
@@ -185,7 +185,7 @@ function rowClass(row) {
   font-weight: 600;
   line-height: 16px;
   letter-spacing: 0.25px;
-  color: var(--grey-80);
+  color: var(--grey-70);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

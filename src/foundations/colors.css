@@ -166,6 +166,9 @@
   --color-focus-ring:  var(--blue-vivid-60);
   --color-active-ring: var(--blue-vivid-70);
 
+  /* Size tokens */
+  --size-height-sm: 36px;
+
   /* Typography size tokens */
   --font-size-supporting-label: 12px;
 
