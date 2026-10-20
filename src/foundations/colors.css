@@ -166,6 +166,9 @@
   --color-focus-ring:  var(--blue-vivid-60);
   --color-active-ring: var(--blue-vivid-70);
 
+  /* Typography size tokens */
+  --font-size-supporting-label: 12px;
+
   /* Button tokens — Primary */
   --btn-primary-bg:           var(--indigo-100);
   --btn-primary-hover:        var(--grey-80);

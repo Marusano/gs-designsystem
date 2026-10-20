@@ -212,6 +212,15 @@ const selectedFour   = ref([])
         </div>
 
         <div class="dt-page__token-group">
+          <h3 class="dt-page__token-group-title">Typography</h3>
+          <div class="dt-page__token-row">
+            <span class="dt-page__token-label-preview">Aa</span>
+            <code class="dt-page__token-name">--font-size-supporting-label</code>
+            <span class="dt-page__token-desc">Header labels · 12px</span>
+          </div>
+        </div>
+
+        <div class="dt-page__token-group">
           <h3 class="dt-page__token-group-title">Borders &amp; dividers</h3>
           <div class="dt-page__token-row">
             <span class="dt-page__token-swatch" style="background: var(--grey-30);"></span>
@@ -330,6 +339,18 @@ const selectedFour   = ref([])
   width: 20px;
   height: 20px;
   border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.dt-page__token-label-preview {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-supporting-label);
+  font-weight: 600;
+  color: var(--grey-80);
   flex-shrink: 0;
 }
 

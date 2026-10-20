@@ -181,7 +181,7 @@ function rowClass(row) {
   flex: 1;
   min-width: 0;
   padding: 0 16px;
-  font-size: 14px;
+  font-size: var(--font-size-supporting-label);
   font-weight: 600;
   line-height: 16px;
   letter-spacing: 0.25px;
