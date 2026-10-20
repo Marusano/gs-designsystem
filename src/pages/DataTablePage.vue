@@ -205,18 +205,23 @@ const selectedFour   = ref([])
             <span class="dt-page__token-desc">Cell text · disabled</span>
           </div>
           <div class="dt-page__token-row">
-            <span class="dt-page__token-swatch" style="background: var(--grey-80);"></span>
-            <code class="dt-page__token-name">--grey-80</code>
+            <span class="dt-page__token-swatch" style="background: var(--grey-70);"></span>
+            <code class="dt-page__token-name">--grey-70</code>
             <span class="dt-page__token-desc">Header text (600 weight)</span>
           </div>
         </div>
 
         <div class="dt-page__token-group">
-          <h3 class="dt-page__token-group-title">Typography</h3>
+          <h3 class="dt-page__token-group-title">Typography &amp; sizing</h3>
           <div class="dt-page__token-row">
             <span class="dt-page__token-label-preview">Aa</span>
             <code class="dt-page__token-name">--font-size-supporting-label</code>
             <span class="dt-page__token-desc">Header labels · 12px</span>
+          </div>
+          <div class="dt-page__token-row">
+            <span class="dt-page__token-size-preview">36</span>
+            <code class="dt-page__token-name">--size-height-sm</code>
+            <span class="dt-page__token-desc">Header height · 36px</span>
           </div>
         </div>
 
@@ -351,6 +356,18 @@ const selectedFour   = ref([])
   font-size: var(--font-size-supporting-label);
   font-weight: 600;
   color: var(--grey-80);
+  flex-shrink: 0;
+}
+
+.dt-page__token-size-preview {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--grey-60);
   flex-shrink: 0;
 }
 
