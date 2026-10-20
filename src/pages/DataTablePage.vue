@@ -161,6 +161,66 @@ const selectedFour   = ref([])
       </div>
     </section>
 
+    <!-- ─── Color tokens ────────────────────────────────────── -->
+    <section class="dt-page__section">
+      <h2 class="dt-page__section-title">Color tokens</h2>
+      <p class="dt-page__section-desc">Token values used by the data table component, mapped from Figma design tokens.</p>
+
+      <div class="dt-page__tokens">
+        <div class="dt-page__token-group">
+          <h3 class="dt-page__token-group-title">Row backgrounds</h3>
+          <div class="dt-page__token-row">
+            <span class="dt-page__token-swatch" style="background: var(--grey-00); box-shadow: inset 0 0 0 1px var(--grey-20);"></span>
+            <code class="dt-page__token-name">--grey-00</code>
+            <span class="dt-page__token-desc">Main (default)</span>
+          </div>
+          <div class="dt-page__token-row">
+            <span class="dt-page__token-swatch" style="background: var(--grey-10);"></span>
+            <code class="dt-page__token-name">--grey-10</code>
+            <span class="dt-page__token-desc">Hover</span>
+          </div>
+          <div class="dt-page__token-row">
+            <span class="dt-page__token-swatch" style="background: var(--blue-azure-10);"></span>
+            <code class="dt-page__token-name">--blue-azure-10</code>
+            <span class="dt-page__token-desc">Selected</span>
+          </div>
+        </div>
+
+        <div class="dt-page__token-group">
+          <h3 class="dt-page__token-group-title">Text colors</h3>
+          <div class="dt-page__token-row">
+            <span class="dt-page__token-swatch" style="background: var(--grey-80);"></span>
+            <code class="dt-page__token-name">--grey-80</code>
+            <span class="dt-page__token-desc">Cell text · main</span>
+          </div>
+          <div class="dt-page__token-row">
+            <span class="dt-page__token-swatch" style="background: var(--grey-90);"></span>
+            <code class="dt-page__token-name">--grey-90</code>
+            <span class="dt-page__token-desc">Cell text · hover &amp; selected</span>
+          </div>
+          <div class="dt-page__token-row">
+            <span class="dt-page__token-swatch" style="background: var(--grey-50);"></span>
+            <code class="dt-page__token-name">--grey-50</code>
+            <span class="dt-page__token-desc">Cell text · disabled</span>
+          </div>
+          <div class="dt-page__token-row">
+            <span class="dt-page__token-swatch" style="background: var(--grey-80);"></span>
+            <code class="dt-page__token-name">--grey-80</code>
+            <span class="dt-page__token-desc">Header text (600 weight)</span>
+          </div>
+        </div>
+
+        <div class="dt-page__token-group">
+          <h3 class="dt-page__token-group-title">Borders &amp; dividers</h3>
+          <div class="dt-page__token-row">
+            <span class="dt-page__token-swatch" style="background: var(--grey-30);"></span>
+            <code class="dt-page__token-name">--grey-30</code>
+            <span class="dt-page__token-desc">Row divider · table outline (2px)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </div>
 </template>
 
@@ -235,6 +295,55 @@ const selectedFour   = ref([])
 .dt-page__note {
   margin-top: 8px;
   font-size: 12px;
+  color: var(--grey-70);
+}
+
+/* ─── Token docs ────────────────────────────────────────────── */
+.dt-page__tokens {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+
+.dt-page__token-group {
+  min-width: 260px;
+}
+
+.dt-page__token-group-title {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--grey-60);
+  margin-bottom: 10px;
+}
+
+.dt-page__token-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.dt-page__token-swatch {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.dt-page__token-name {
+  font-family: 'SFMono-Regular', 'Consolas', monospace;
+  font-size: 12px;
+  color: var(--grey-90);
+  background: var(--grey-10);
+  padding: 2px 6px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.dt-page__token-desc {
+  font-size: 13px;
   color: var(--grey-70);
 }
 </style>

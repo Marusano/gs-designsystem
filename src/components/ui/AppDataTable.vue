@@ -241,10 +241,18 @@ function rowClass(row) {
   font-size: 14px;
   font-weight: 400;
   line-height: 16px;
-  color: var(--grey-90);
+  color: var(--grey-80);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.dt__row--hover .dt__cell {
+  color: var(--grey-90);
+}
+
+.dt__row--selected .dt__cell {
+  color: var(--grey-90);
 }
 
 .dt__row--disabled .dt__cell {
