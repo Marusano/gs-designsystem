@@ -263,6 +263,10 @@ function rowClass(row) {
   font-weight: 600;
 }
 
+.dt__row--hover .dt__cell--bold {
+  text-decoration: underline;
+}
+
 .dt__cell--right {
   text-align: right;
 }

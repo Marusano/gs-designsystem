@@ -77,6 +77,7 @@ const selectedFour   = ref([])
     <!-- ─── Basic table ──────────────────────────────────────── -->
     <section class="dt-page__section">
       <h2 class="dt-page__section-title">Basic · 3 columns</h2>
+      <p class="dt-page__section-desc">Hover a row to see the primary identifier column underline — no color change, underline only.</p>
 
       <div class="dt-page__row">
         <span class="dt-page__row-label">No selection</span>
