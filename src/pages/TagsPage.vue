@@ -438,7 +438,7 @@ function resetFilters() {
           <table class="ds-token-table">
             <thead><tr><th>Property</th><th>Value</th></tr></thead>
             <tbody>
-              <tr><td>Background</td>  <td><span class="swatch" style="background:#b3e1f7"></span>#b3e1f7</td></tr>
+              <tr><td>Background</td>  <td><span class="swatch" style="background:#d7eff9"></span>#d7eff9</td></tr>
               <tr><td>Text</td>        <td><span class="swatch" style="background:#013b57"></span>#013b57</td></tr>
               <tr><td>Hover border</td><td><span class="swatch" style="background:#61bde9"></span>#61bde9</td></tr>
             </tbody>
@@ -450,10 +450,9 @@ function resetFilters() {
           <table class="ds-token-table">
             <thead><tr><th>Property</th><th>Value</th></tr></thead>
             <tbody>
-              <tr><td>Background</td>  <td><span class="swatch" style="background:#39ade3"></span>#39ade3</td></tr>
+              <tr><td>Background</td>  <td><span class="swatch" style="background:#075985"></span>#075985</td></tr>
               <tr><td>Text</td>        <td><span class="swatch" style="background:#ffffff;border:1px solid #d8d8da"></span>#ffffff</td></tr>
-              <tr><td>Hover bg</td>    <td><span class="swatch" style="background:#138cc4"></span>#138cc4</td></tr>
-              <tr><td>Hover border</td><td><span class="swatch" style="background:#61bde9"></span>#61bde9</td></tr>
+              <tr><td>Hover border</td><td><span class="swatch" style="background:#138cc4"></span>#138cc4</td></tr>
             </tbody>
           </table>
         </div>

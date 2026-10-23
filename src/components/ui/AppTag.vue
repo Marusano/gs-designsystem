@@ -162,7 +162,7 @@ const classes = computed(() => [
 
 /* ── Type — Neutral Inverted ───────────────────────────────── */
 .tag--neutral-inverted { background: var(--grey-70); color: var(--grey-10); }
-.tag--neutral-inverted:hover { background: var(--grey-80); border-color: var(--grey-70); }
+.tag--neutral-inverted:hover { background: var(--grey-80); border-color: var(--grey-70); color: var(--grey-00); }
 
 /* ── Type — Success ────────────────────────────────────────── */
 .tag--success { background: var(--green-30); color: var(--green-100); }
@@ -170,15 +170,15 @@ const classes = computed(() => [
 
 /* ── Type — Success Strong ─────────────────────────────────── */
 .tag--success-strong { background: var(--green-90); color: var(--green-10); }
-.tag--success-strong:hover { background: var(--green-100); border-color: var(--green-80); }
+.tag--success-strong:hover { background: var(--green-100); border-color: var(--green-80); color: var(--grey-00); }
 
 /* ── Type — Informational ──────────────────────────────────── */
-.tag--informational { background: var(--blue-azure-30); color: var(--blue-azure-100); }
+.tag--informational { background: var(--blue-azure-20); color: var(--blue-azure-100); }
 .tag--informational:hover { border-color: var(--blue-azure-40); }
 
 /* ── Type — Informational Strong ───────────────────────────── */
-.tag--informational-strong { background: var(--blue-azure-50); color: var(--grey-00); }
-.tag--informational-strong:hover { background: var(--blue-azure-60); border-color: var(--blue-azure-40); }
+.tag--informational-strong { background: var(--blue-azure-90); color: var(--grey-00); }
+.tag--informational-strong:hover { border-color: var(--blue-azure-60); }
 
 /* ── Type — Informational Inverted ─────────────────────────── */
 .tag--informational-inverted { background: var(--blue-azure-90); color: var(--grey-00); }
