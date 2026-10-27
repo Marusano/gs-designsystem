@@ -28,11 +28,14 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue', 'cancel'])
 
 const QUICK_LABELS = {
-  'today':      'Today',
-  'this-week':  'This week',
-  'this-month': 'This month',
+  'today':       'Today',
+  'this-week':   'This week',
+  'this-month':  'This month',
   'last-2-days': 'Last 2 days',
 }
+
+const MONTHS   = ['January','February','March','April','May','June','July','August','September','October','November','December']
+const WEEKDAYS = ['M','T','W','T','F','S','S']
 
 const normalizedQuick = computed(() =>
   props.quickSelections.map(q =>
@@ -40,32 +43,25 @@ const normalizedQuick = computed(() =>
   )
 )
 
-const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December']
-const DAYS   = ['M','T','W','T','F','S','S']
-
 const now = new Date()
 
 const todayStr = computed(() => {
-  const d = new Date()
-  const wd = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
-  const mo = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
-  return `${wd[d.getDay()]}, ${mo[d.getMonth()]} ${d.getDate()}`
+  const d   = new Date()
+  const wd  = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
+  const mon = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+  return `${wd[d.getDay()]}, ${mon[d.getMonth()]} ${d.getDate()}`
 })
 
-// Calendar navigation
 const viewYear  = ref(now.getFullYear())
 const viewMonth = ref(now.getMonth())
 
-// Pending selection
 const pendingFrom = ref(props.modelValue?.from ? new Date(props.modelValue.from) : null)
 const pendingTo   = ref(props.modelValue?.to   ? new Date(props.modelValue.to)   : null)
-const selecting   = ref('from') // 'from' | 'to'
+const selecting   = ref('from')
 
-// Time inputs
 const fromTime = ref('00:00')
 const toTime   = ref('24:00')
 
-// Active quick preset
 const activeQuick = ref(null)
 
 function getDays(year, month) {
@@ -74,16 +70,33 @@ function getDays(year, month) {
 
 function getFirstWeekday(year, month) {
   const d = new Date(year, month, 1).getDay()
-  return d === 0 ? 6 : d - 1 // Mon-based
+  return d === 0 ? 6 : d - 1
+}
+
+function isoWeek(date) {
+  const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()))
+  const day = d.getUTCDay() || 7
+  d.setUTCDate(d.getUTCDate() + 4 - day)
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1))
+  return Math.ceil((((d - yearStart) / 86400000) + 1) / 7)
 }
 
 function buildCal(year, month) {
-  const cells = []
-  const pad   = getFirstWeekday(year, month)
-  for (let i = 0; i < pad; i++) cells.push(null)
-  for (let d = 1; d <= getDays(year, month); d++) cells.push(new Date(year, month, d))
-  while (cells.length % 7 !== 0) cells.push(null)
-  return cells
+  const total    = getDays(year, month)
+  const firstDay = getFirstWeekday(year, month)
+  const flat     = []
+
+  for (let i = 0; i < firstDay; i++) flat.push(null)
+  for (let d = 1; d <= total; d++) flat.push(new Date(year, month, d))
+  while (flat.length % 7 !== 0) flat.push(null)
+
+  const rows = []
+  for (let i = 0; i < flat.length; i += 7) {
+    const days   = flat.slice(i, i + 7)
+    const anchor = days.find(d => d !== null)
+    rows.push({ weekNr: anchor ? isoWeek(anchor) : null, days })
+  }
+  return rows
 }
 
 const cal1 = computed(() => buildCal(viewYear.value, viewMonth.value))
@@ -102,13 +115,15 @@ const month2Label = computed(() => {
 
 function sameDay(a, b) {
   if (!a || !b) return false
-  return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate()
+  return a.getFullYear() === b.getFullYear() &&
+         a.getMonth()    === b.getMonth()    &&
+         a.getDate()     === b.getDate()
 }
 
 function dayClass(date) {
   if (!date) return 'tf__day tf__day--empty'
   const c = ['tf__day']
-  if (sameDay(date, now))           c.push('tf__day--today')
+  if (sameDay(date, now))               c.push('tf__day--today')
   if (sameDay(date, pendingFrom.value)) c.push('tf__day--start')
   if (sameDay(date, pendingTo.value))   c.push('tf__day--end')
   if (
@@ -148,7 +163,7 @@ function nextMonth() {
 
 function applyQuick(value) {
   activeQuick.value = value
-  const d = new Date(); d.setHours(0,0,0,0)
+  const d = new Date(); d.setHours(0, 0, 0, 0)
 
   if (value === 'today') {
     pendingFrom.value = new Date(d)
@@ -177,8 +192,8 @@ function applyQuick(value) {
 
 function fmtDate(date) {
   if (!date) return ''
-  const d = String(date.getDate()).padStart(2,'0')
-  const m = String(date.getMonth()+1).padStart(2,'0')
+  const d = String(date.getDate()).padStart(2, '0')
+  const m = String(date.getMonth() + 1).padStart(2, '0')
   return `${d}.${m}.${date.getFullYear()}`
 }
 
@@ -187,109 +202,163 @@ function cancel() { emit('cancel') }
 </script>
 
 <template>
-  <div class="tf__panel">
+  <div class="tf">
 
-    <!-- Quick selections -->
+    <!-- ── Quick presets ──────────────────────────────────────── -->
     <div v-if="showQuickSelections" class="tf__quick">
       <button
         v-for="q in normalizedQuick"
         :key="q.value"
-        :class="['tf__quick-btn', activeQuick === q.value && 'tf__quick-btn--active']"
+        :class="['tf__chip', activeQuick === q.value && 'tf__chip--active']"
         @click="applyQuick(q.value)"
       >{{ q.label }}</button>
     </div>
 
-    <!-- Current date -->
-    <p v-if="showCurrentDate && mode !== 'time'" class="tf__today">{{ todayStr }}</p>
+    <!-- ── Current date band ──────────────────────────────────── -->
+    <div v-if="showCurrentDate && mode !== 'time'" class="tf__date-band">
+      {{ todayStr }}
+    </div>
 
-    <!-- Date inputs -->
+    <!-- ── Date inputs ────────────────────────────────────────── -->
     <div v-if="mode === 'date' || mode === 'datetime'" class="tf__inputs">
       <div class="tf__input-col">
         <span class="tf__input-lbl">From</span>
         <div class="tf__input-field">
-          <svg class="tf__input-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="11" rx="1.5" stroke="currentColor" stroke-width="1.1"/><path d="M1 5.5h12" stroke="currentColor" stroke-width="1.1"/><path d="M4.5 1v2M9.5 1v2" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>
+          <svg class="tf__input-icon" width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <rect x="1" y="2" width="12" height="11" rx="1.5" stroke="currentColor" stroke-width="1.1"/>
+            <path d="M1 5.5h12" stroke="currentColor" stroke-width="1.1"/>
+            <path d="M4.5 1v2M9.5 1v2" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+          </svg>
           <span class="tf__input-val">{{ fmtDate(pendingFrom) || 'DD.MM.YYYY' }}</span>
         </div>
       </div>
       <div class="tf__input-col">
         <span class="tf__input-lbl">To</span>
         <div class="tf__input-field">
-          <svg class="tf__input-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="11" rx="1.5" stroke="currentColor" stroke-width="1.1"/><path d="M1 5.5h12" stroke="currentColor" stroke-width="1.1"/><path d="M4.5 1v2M9.5 1v2" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>
+          <svg class="tf__input-icon" width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <rect x="1" y="2" width="12" height="11" rx="1.5" stroke="currentColor" stroke-width="1.1"/>
+            <path d="M1 5.5h12" stroke="currentColor" stroke-width="1.1"/>
+            <path d="M4.5 1v2M9.5 1v2" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+          </svg>
           <span class="tf__input-val">{{ fmtDate(pendingTo) || 'DD.MM.YYYY' }}</span>
         </div>
       </div>
     </div>
 
-    <!-- Calendar(s) -->
+    <!-- ── Calendar(s) ────────────────────────────────────────── -->
     <div :class="['tf__cals', monthCount === 2 && 'tf__cals--dual']">
 
       <div class="tf__cal">
-        <div class="tf__cal-head">
-          <button class="tf__cal-nav" @click="prevMonth" aria-label="Previous month">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M7.5 9.5L4 6l3.5-3.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <span class="tf__cal-title">{{ month1Label }}</span>
-          <button v-if="monthCount === 1" class="tf__cal-nav" @click="nextMonth" aria-label="Next month">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 9.5L8 6 4.5 2.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <div v-else class="tf__cal-nav-placeholder" />
+        <!-- Nav: month label left, arrows right -->
+        <div class="tf__cal-nav-row">
+          <div class="tf__month-btn">
+            <span class="tf__month-label">{{ month1Label }}</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="tf__arrows">
+            <button class="tf__arrow" @click="prevMonth" aria-label="Previous month">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <button v-if="monthCount === 1" class="tf__arrow" @click="nextMonth" aria-label="Next month">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
         </div>
+
+        <!-- Grid header (week nr + weekday labels) -->
         <div class="tf__cal-grid">
-          <span v-for="(d,i) in DAYS" :key="i" class="tf__dh">{{ d }}</span>
-          <button
-            v-for="(date, i) in cal1"
-            :key="'c1-' + i"
-            :class="dayClass(date)"
-            :disabled="!date"
-            @click="selectDay(date)"
-          ><span class="tf__day-num">{{ date?.getDate() }}</span></button>
+          <span class="tf__wk-hdr"></span>
+          <span v-for="(d, i) in WEEKDAYS" :key="i" class="tf__dh">{{ d }}</span>
+
+          <!-- Data rows -->
+          <template v-for="row in cal1" :key="row.weekNr">
+            <span class="tf__wk">{{ row.weekNr }}</span>
+            <button
+              v-for="(date, i) in row.days"
+              :key="i"
+              :class="dayClass(date)"
+              :disabled="!date"
+              @click="selectDay(date)"
+            >
+              <span class="tf__day-bg" />
+              <span class="tf__day-num">{{ date?.getDate() }}</span>
+            </button>
+          </template>
         </div>
       </div>
 
+      <!-- Second calendar (dual mode) -->
       <div v-if="monthCount === 2" class="tf__cal">
-        <div class="tf__cal-head">
-          <div class="tf__cal-nav-placeholder" />
-          <span class="tf__cal-title">{{ month2Label }}</span>
-          <button class="tf__cal-nav" @click="nextMonth" aria-label="Next month">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 9.5L8 6 4.5 2.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
+        <div class="tf__cal-nav-row">
+          <div class="tf__month-btn">
+            <span class="tf__month-label">{{ month2Label }}</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="tf__arrows">
+            <button class="tf__arrow" @click="nextMonth" aria-label="Next month">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
         </div>
         <div class="tf__cal-grid">
-          <span v-for="(d,i) in DAYS" :key="i" class="tf__dh">{{ d }}</span>
-          <button
-            v-for="(date, i) in cal2"
-            :key="'c2-' + i"
-            :class="dayClass(date)"
-            :disabled="!date"
-            @click="selectDay(date)"
-          ><span class="tf__day-num">{{ date?.getDate() }}</span></button>
+          <span class="tf__wk-hdr"></span>
+          <span v-for="(d, i) in WEEKDAYS" :key="i" class="tf__dh">{{ d }}</span>
+          <template v-for="row in cal2" :key="row.weekNr">
+            <span class="tf__wk">{{ row.weekNr }}</span>
+            <button
+              v-for="(date, i) in row.days"
+              :key="i"
+              :class="dayClass(date)"
+              :disabled="!date"
+              @click="selectDay(date)"
+            >
+              <span class="tf__day-bg" />
+              <span class="tf__day-num">{{ date?.getDate() }}</span>
+            </button>
+          </template>
         </div>
       </div>
 
     </div>
 
-    <!-- Time inputs -->
+    <!-- ── Time inputs ────────────────────────────────────────── -->
     <div v-if="mode === 'datetime' || mode === 'time'" class="tf__inputs tf__inputs--time">
       <div class="tf__input-col">
         <span v-if="mode === 'time'" class="tf__input-lbl">From</span>
         <div class="tf__input-field">
-          <svg class="tf__input-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.1"/><path d="M7 4v3.5l2 1.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg class="tf__input-icon" width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.1"/>
+            <path d="M7 4v3.5l2 1.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
           <input class="tf__time-in" type="time" v-model="fromTime" />
         </div>
       </div>
       <div class="tf__input-col">
         <span v-if="mode === 'time'" class="tf__input-lbl">To</span>
         <div class="tf__input-field">
-          <svg class="tf__input-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.1"/><path d="M7 4v3.5l2 1.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg class="tf__input-icon" width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.1"/>
+            <path d="M7 4v3.5l2 1.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
           <input class="tf__time-in" type="time" v-model="toTime" />
         </div>
       </div>
     </div>
 
-    <!-- Footer -->
+    <!-- ── Footer ────────────────────────────────────────────── -->
     <div class="tf__footer">
-      <AppButton variant="secondary" size="sm" @click="cancel">Cancel</AppButton>
-      <AppButton variant="primary" size="sm" style="flex:1" @click="apply">Apply changes</AppButton>
+      <AppButton variant="secondary" size="md" style="width:108px" @click="cancel">Cancel</AppButton>
+      <AppButton variant="primary"   size="md" style="flex:1"     @click="apply">Apply changes</AppButton>
     </div>
 
   </div>
@@ -297,62 +366,87 @@ function cancel() { emit('cancel') }
 
 <style scoped>
 /* ── Panel ──────────────────────────────────────────────────── */
-.tf__panel {
+.tf {
   display: inline-flex;
   flex-direction: column;
+  gap: 8px;
+  width: 336px;
   background: var(--grey-00);
-  border-radius: 8px;
-  box-shadow: inset 0 0 0 1px var(--grey-20), 0 4px 20px rgba(0,0,0,0.10);
+  border-radius: 4px;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25);
   font-family: 'Inter', sans-serif;
-  min-width: 260px;
+  overflow: hidden;
 }
 
-/* ── Quick ─────────────────────────────────────────────────── */
+/* ── Quick presets ──────────────────────────────────────────── */
 .tf__quick {
   display: flex;
-  gap: 4px;
-  padding: 10px 12px 8px;
-  border-bottom: 1px solid var(--grey-10);
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 16px;
 }
 
-.tf__quick-btn {
-  height: 28px;
-  padding: 0 12px;
-  border-radius: 20px;
-  border: none;
-  background: var(--grey-10);
-  color: var(--grey-70);
+.tf__chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  padding: 4px 16px;
+  border-radius: 50px;
+  box-shadow: inset 0 0 0 1px var(--grey-30);
+  background: var(--grey-00);
+  color: var(--grey-90);
   font-family: 'Inter', sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   white-space: nowrap;
-  transition: background 100ms, color 100ms;
+  border: none;
+  transition: background 100ms, color 100ms, box-shadow 100ms;
 }
 
-.tf__quick-btn:hover       { background: var(--grey-20); color: var(--grey-90); }
-.tf__quick-btn--active     { background: var(--indigo-100); color: var(--grey-00); }
-.tf__quick-btn--active:hover { background: var(--indigo-100); color: var(--grey-00); }
+.tf__chip:hover {
+  background: var(--grey-05);
+}
 
-/* ── Today label ───────────────────────────────────────────── */
-.tf__today {
-  margin: 0;
-  padding: 8px 12px 2px;
-  font-size: 11px;
-  color: var(--grey-60);
+.tf__chip--active {
+  background: var(--indigo-100);
+  color: var(--grey-00);
+  box-shadow: none;
+}
+
+.tf__chip--active:hover {
+  background: var(--indigo-100);
+  color: var(--grey-00);
+}
+
+/* ── Current date band ──────────────────────────────────────── */
+.tf__date-band {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 32px;
+  padding: 0 16px;
+  background: var(--grey-05);
+  font-size: 14px;
   font-weight: 500;
-  letter-spacing: 0.01em;
+  color: var(--grey-90);
+  letter-spacing: 0.25px;
+  line-height: 20px;
+  /* Compensate for parent gap so band is flush */
+  margin-top: -8px;
 }
 
-/* ── Inputs ────────────────────────────────────────────────── */
+/* ── Date / time inputs ─────────────────────────────────────── */
 .tf__inputs {
   display: flex;
   gap: 8px;
-  padding: 6px 12px;
+  padding: 0 16px;
 }
 
 .tf__inputs--time {
-  border-top: 1px solid var(--grey-10);
+  padding-top: 4px;
 }
 
 .tf__input-col {
@@ -372,7 +466,7 @@ function cancel() { emit('cancel') }
   display: flex;
   align-items: center;
   gap: 6px;
-  height: 30px;
+  height: 32px;
   padding: 0 8px;
   box-shadow: inset 0 0 0 1px var(--grey-30);
   border-radius: 4px;
@@ -382,49 +476,69 @@ function cancel() { emit('cancel') }
 .tf__input-icon { color: var(--grey-50); flex-shrink: 0; }
 
 .tf__input-val {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--grey-70);
 }
 
 .tf__time-in {
   border: none;
   background: none;
-  font-size: 12px;
+  font-size: 13px;
   font-family: 'Inter', sans-serif;
   color: var(--grey-90);
   width: 100%;
   outline: none;
 }
 
-/* ── Calendars ─────────────────────────────────────────────── */
+/* ── Calendar container ─────────────────────────────────────── */
 .tf__cals {
-  padding: 4px 12px 6px;
+  padding: 0 8px;
 }
 
 .tf__cals--dual {
   display: flex;
-  gap: 20px;
+  gap: 16px;
 }
 
-/* ── Calendar ──────────────────────────────────────────────── */
-.tf__cal { }
-
-.tf__cal-head {
+/* ── Calendar nav row ───────────────────────────────────────── */
+.tf__cal-nav-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 2px 0 6px;
+  padding: 0 4px;
+  height: 40px;
 }
 
-.tf__cal-title {
-  font-size: 12px;
+.tf__month-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--grey-60);
+  transition: background 80ms;
+}
+
+.tf__month-btn:hover { background: var(--grey-05); }
+
+.tf__month-label {
+  font-size: 14px;
   font-weight: 600;
   color: var(--grey-90);
+  font-family: 'Inter', sans-serif;
 }
 
-.tf__cal-nav {
-  width: 22px;
-  height: 22px;
+.tf__month-btn svg { color: var(--grey-60); flex-shrink: 0; }
+
+.tf__arrows {
+  display: flex;
+  align-items: center;
+}
+
+.tf__arrow {
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -436,30 +550,48 @@ function cancel() { emit('cancel') }
   transition: background 80ms, color 80ms;
 }
 
-.tf__cal-nav:hover { background: var(--grey-10); color: var(--grey-90); }
-.tf__cal-nav-placeholder { width: 22px; }
+.tf__arrow:hover { background: var(--grey-05); color: var(--grey-90); }
 
-/* ── Grid ──────────────────────────────────────────────────── */
+/* ── Calendar grid ──────────────────────────────────────────── */
 .tf__cal-grid {
   display: grid;
-  grid-template-columns: repeat(7, 30px);
-  row-gap: 0;
+  grid-template-columns: 40px repeat(7, 40px); /* week-nr col + 7 day cols */
+}
+
+.tf__wk-hdr {
+  width: 40px;
+  height: 40px;
 }
 
 .tf__dh {
-  height: 24px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 10px;
-  font-weight: 600;
-  color: var(--grey-50);
-  letter-spacing: 0.02em;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--grey-90);
+  font-family: 'Inter', sans-serif;
 }
 
-/* ── Day cell ──────────────────────────────────────────────── */
+.tf__wk {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--grey-40);
+  font-family: 'Inter', sans-serif;
+}
+
+/* ── Day cell ───────────────────────────────────────────────── */
 .tf__day {
-  height: 28px;
+  width: 40px;
+  height: 40px;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -467,7 +599,6 @@ function cancel() { emit('cancel') }
   border: none;
   padding: 0;
   cursor: pointer;
-  position: relative;
 }
 
 .tf__day--empty,
@@ -476,71 +607,85 @@ function cancel() { emit('cancel') }
   cursor: default;
 }
 
-.tf__day-num {
-  width: 24px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  font-family: 'Inter', sans-serif;
-  color: var(--grey-80);
-  border-radius: 50%;
-  position: relative;
-  z-index: 1;
+/* Background circle (for selected states and range fill) */
+.tf__day-bg {
+  position: absolute;
+  inset: 0;
+  border-radius: 0;
+  pointer-events: none;
   transition: background 80ms;
 }
 
+/* Number label */
+.tf__day-num {
+  position: relative;
+  z-index: 1;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--grey-90);
+  border-radius: 50%;
+  font-family: 'Inter', sans-serif;
+  transition: background 80ms, color 80ms, box-shadow 80ms;
+}
+
+/* Hover on plain days */
 .tf__day:not(.tf__day--empty):not([disabled]):not(.tf__day--start):not(.tf__day--end):hover .tf__day-num {
   background: var(--grey-10);
 }
 
-/* today */
+/* Today: outline circle on the number */
 .tf__day--today .tf__day-num {
-  box-shadow: inset 0 0 0 1.5px var(--indigo-100);
-  font-weight: 600;
-  color: var(--indigo-100);
+  box-shadow: inset 0 0 0 2px var(--grey-50);
+  font-weight: 400;
 }
 
-/* in-range */
-.tf__day--range {
+/* Range interior: light blue tint across the full cell bg */
+.tf__day--range .tf__day-bg {
   background: var(--blue-azure-10);
 }
 
-.tf__day--range .tf__day-num { color: var(--blue-azure-80); }
+.tf__day--range .tf__day-num {
+  color: var(--grey-90);
+}
 
-/* start */
-.tf__day--start {
+/* Start: full circle on day-num, right-half range bg on cell */
+.tf__day--start .tf__day-bg {
   background: linear-gradient(to right, transparent 50%, var(--blue-azure-10) 50%);
 }
 
 .tf__day--start .tf__day-num {
   background: var(--indigo-100);
   color: var(--grey-00);
-  font-weight: 600;
+  font-weight: 400;
 }
 
-/* end */
-.tf__day--end {
+/* End: full circle on day-num, left-half range bg on cell */
+.tf__day--end .tf__day-bg {
   background: linear-gradient(to left, transparent 50%, var(--blue-azure-10) 50%);
 }
 
 .tf__day--end .tf__day-num {
   background: var(--indigo-100);
   color: var(--grey-00);
-  font-weight: 600;
+  font-weight: 400;
 }
 
-/* single-day selection: start === end */
-.tf__day--start.tf__day--end {
+/* Single-day selection: start === end, no half-bg */
+.tf__day--start.tf__day--end .tf__day-bg {
   background: none;
 }
 
-/* ── Footer ────────────────────────────────────────────────── */
+/* ── Footer ─────────────────────────────────────────────────── */
 .tf__footer {
   display: flex;
-  gap: 8px;
-  padding: 8px 12px 12px;
-  border-top: 1px solid var(--grey-10);
+  align-items: center;
+  gap: 16px;
+  padding: 8px 16px;
+  border-top: 1px solid var(--grey-20);
 }
 </style>
