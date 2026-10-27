@@ -28,6 +28,7 @@ import DataTablePage        from './pages/DataTablePage.vue'
 import DataPointPage        from './pages/DataPointPage.vue'
 import SnackbarPage         from './pages/SnackbarPage.vue'
 import DialogPage           from './pages/DialogPage.vue'
+import TimeFilterPage       from './pages/TimeFilterPage.vue'
 
 const page = ref('buttons')
 
@@ -45,6 +46,7 @@ const IconRadio      = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
 const IconToggle     = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="4" width="12" height="6" rx="3" stroke="currentColor" stroke-width="1.1"/><circle cx="9.5" cy="7" r="2" fill="currentColor"/></svg>`
 const IconBell       = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M13.73 21a2 2 0 0 1-3.46 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`
 const IconFilters    = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1.5 3.5h11M4 7h6M6 10.5h2" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>`
+const IconTimePicker = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.1"/><path d="M7 4v3.5l2 1.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>`
 const IconMenu       = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1.5" y="2.5" width="11" height="9" rx="1.5" stroke="currentColor" stroke-width="1.1"/><path d="M4 5.5h6M4 8.5h4" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>`
 const IconBreadcrumb = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1.5 7h3M5.5 7h3M9.5 7h3" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><path d="M4 5l2 2-2 2M8 5l2 2-2 2" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>`
 const IconTooltip    = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="3" width="12" height="7" rx="2" stroke="currentColor" stroke-width="1.1"/><path d="M5 11.5l2 1.5 2-1.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>`
@@ -187,6 +189,10 @@ const IconPlayground = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
             <span class="ds-sidebar__item-icon" v-html="IconFilters" />
             Filters
           </button>
+          <button @click="page = 'time-filter'" :class="['ds-sidebar__item', { active: page === 'time-filter' }]">
+            <span class="ds-sidebar__item-icon" v-html="IconTimePicker" />
+            Time filter
+          </button>
           <button @click="page = 'menu'" :class="['ds-sidebar__item', { active: page === 'menu' }]">
             <span class="ds-sidebar__item-icon" v-html="IconMenu" />
             Menu
@@ -255,6 +261,7 @@ const IconPlayground = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
         <DataPointPage         v-if="page === 'data-point'" />
         <SnackbarPage          v-if="page === 'snackbar'" />
         <DialogPage            v-if="page === 'dialog'" />
+        <TimeFilterPage        v-if="page === 'time-filter'" />
       </div>
 
     </div>
