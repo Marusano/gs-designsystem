@@ -14,6 +14,7 @@
  * @prop {string}  forcedState - docs only: 'hover' | 'focus'
  */
 import { computed, getCurrentInstance } from 'vue'
+import AppIcon from './AppIcon.vue'
 
 const props = defineProps({
   label:       String,
@@ -44,6 +45,13 @@ const inputId = computed(() => props.id || `gs-input-${uid}`)
 
 const hasError    = computed(() => !!props.error)
 const isSearch    = computed(() => props.type === 'search')
+const isDate      = computed(() => props.type === 'date')
+const isTime      = computed(() => props.type === 'time')
+const trailingIcon = computed(() => {
+  if (isDate.value) return 'calendar'
+  if (isTime.value) return 'time'
+  return null
+})
 
 const classes = computed(() => ({
   'field':           true,
@@ -78,10 +86,13 @@ const classes = computed(() => ({
         :aria-invalid="hasError ? true : undefined"
         :aria-describedby="(hasError && error ? `${inputId}-err` : null) || (hint ? `${inputId}-hint` : null) || undefined"
         class="field__input"
-        :class="isSearch && 'field__input--ico'"
+        :class="[isSearch && 'field__input--ico', trailingIcon && 'field__input--trail']"
         v-bind="$attrs"
         @input="emit('update:modelValue', $event.target.value)"
       />
+      <span v-if="trailingIcon" class="field__trail-ico" aria-hidden="true">
+        <AppIcon :name="trailingIcon" :size="16" />
+      </span>
     </div>
 
     <!-- Helper text -->
@@ -155,6 +166,25 @@ const classes = computed(() => ({
 
 .field__input::placeholder { color: var(--field-placeholder); }
 .field__input--ico          { padding-left: 34px; }
+.field__input--trail        { padding-right: 34px; }
+
+/* Suppress native browser calendar / clock picker icon */
+.field__input[type="date"]::-webkit-calendar-picker-indicator,
+.field__input[type="time"]::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+.field__trail-ico {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  color: var(--field-placeholder);
+  pointer-events: none;
+  z-index: 1;
+}
 
 /* ── Hover ──────────────────────────────────────────────────── */
 .field:not(.field--disabled):not(.field--error) .field__input:hover,

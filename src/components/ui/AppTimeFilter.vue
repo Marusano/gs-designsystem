@@ -19,11 +19,6 @@ const props = defineProps({
     type: Array,
     default: () => ['today', 'this-week', 'this-month'],
   },
-  monthCount: {
-    type: Number,
-    default: 1,
-    validator: v => [1, 2].includes(v),
-  },
 })
 
 const emit = defineEmits(['update:modelValue', 'cancel'])
@@ -101,18 +96,8 @@ function buildCal(year, month) {
 }
 
 const cal1 = computed(() => buildCal(viewYear.value, viewMonth.value))
-const cal2 = computed(() => {
-  const m = (viewMonth.value + 1) % 12
-  const y = viewMonth.value === 11 ? viewYear.value + 1 : viewYear.value
-  return buildCal(y, m)
-})
 
 const month1Label = computed(() => `${MONTHS[viewMonth.value]} ${viewYear.value}`)
-const month2Label = computed(() => {
-  const m = (viewMonth.value + 1) % 12
-  const y = viewMonth.value === 11 ? viewYear.value + 1 : viewYear.value
-  return `${MONTHS[m]} ${y}`
-})
 
 function sameDay(a, b) {
   if (!a || !b) return false
@@ -240,8 +225,8 @@ function cancel() { emit('cancel') }
       <AppInput label="To"   type="date" size="sm" v-model="toDateModel"   style="flex:1" />
     </div>
 
-    <!-- ── Calendar(s) ────────────────────────────────────────── -->
-    <div :class="['tf__cals', monthCount === 2 && 'tf__cals--dual']">
+    <!-- ── Calendar ─────────────────────────────────────────────── -->
+    <div class="tf__cals">
 
       <div class="tf__cal">
         <!-- Nav: month label left, arrows right -->
@@ -258,7 +243,7 @@ function cancel() { emit('cancel') }
                 <path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </button>
-            <button v-if="monthCount === 1" class="tf__arrow" @click="nextMonth" aria-label="Next month">
+            <button class="tf__arrow" @click="nextMonth" aria-label="Next month">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
@@ -273,42 +258,6 @@ function cancel() { emit('cancel') }
 
           <!-- Data rows -->
           <template v-for="row in cal1" :key="row.weekNr">
-            <span class="tf__wk">{{ row.weekNr }}</span>
-            <button
-              v-for="(date, i) in row.days"
-              :key="i"
-              :class="dayClass(date)"
-              :disabled="!date"
-              @click="selectDay(date)"
-            >
-              <span class="tf__day-bg" />
-              <span class="tf__day-num">{{ date?.getDate() }}</span>
-            </button>
-          </template>
-        </div>
-      </div>
-
-      <!-- Second calendar (dual mode) -->
-      <div v-if="monthCount === 2" class="tf__cal">
-        <div class="tf__cal-nav-row">
-          <div class="tf__month-btn">
-            <span class="tf__month-label">{{ month2Label }}</span>
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <div class="tf__arrows">
-            <button class="tf__arrow" @click="nextMonth" aria-label="Next month">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-          </div>
-        </div>
-        <div class="tf__cal-grid">
-          <span class="tf__wk-hdr"></span>
-          <span v-for="(d, i) in WEEKDAYS" :key="i" class="tf__dh">{{ d }}</span>
-          <template v-for="row in cal2" :key="row.weekNr">
             <span class="tf__wk">{{ row.weekNr }}</span>
             <button
               v-for="(date, i) in row.days"
@@ -429,11 +378,6 @@ function cancel() { emit('cancel') }
 /* ── Calendar container ─────────────────────────────────────── */
 .tf__cals {
   padding: 0 8px;
-}
-
-.tf__cals--dual {
-  display: flex;
-  gap: 16px;
 }
 
 /* ── Calendar nav row ───────────────────────────────────────── */

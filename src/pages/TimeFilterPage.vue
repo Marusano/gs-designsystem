@@ -7,7 +7,6 @@ const result2 = ref(null)
 const result3 = ref(null)
 const result4 = ref(null)
 const result5 = ref(null)
-const result6 = ref(null)
 
 function fmtRange(v) {
   if (!v?.from) return '—'
@@ -26,7 +25,7 @@ function fmtRange(v) {
       <div class="ds-header-cols">
         <p class="ds-body">
           A date-range picker panel for filtering data by time period. Supports quick presets,
-          single and dual calendar views, and date-only, date+time, or time-only modes.
+          and date-only, date+time, or time-only modes.
           Emits <code>update:modelValue</code> with <code>{ from, to }</code> on apply, and <code>cancel</code> on dismiss.
         </p>
       </div>
@@ -35,7 +34,7 @@ function fmtRange(v) {
     <!-- ── Variants ───────────────────────────────────────────── -->
     <section class="ds-section">
       <h2 class="ds-h2">Variants</h2>
-      <p class="ds-desc">Six configuration modes matching the Figma spec.</p>
+      <p class="ds-desc">Five configuration modes matching the Figma spec.</p>
 
       <div class="tf-grid">
 
@@ -49,21 +48,22 @@ function fmtRange(v) {
           <p class="tf-demo__out">{{ fmtRange(result1) }}</p>
         </div>
 
-        <!-- 2: Dual calendar -->
+        <!-- 2: No current date -->
         <div class="tf-demo">
-          <p class="tf-demo__label">Dual calendar (2 months)</p>
+          <p class="tf-demo__label">No current date display</p>
           <AppTimeFilter
-            :monthCount="2"
+            :showCurrentDate="false"
             @update:modelValue="result2 = $event"
             @cancel="result2 = null"
           />
           <p class="tf-demo__out">{{ fmtRange(result2) }}</p>
         </div>
 
-        <!-- 3: No current date -->
+        <!-- 3: No quick selections, no current date -->
         <div class="tf-demo">
-          <p class="tf-demo__label">No current date display</p>
+          <p class="tf-demo__label">Minimal (no quick, no date)</p>
           <AppTimeFilter
+            :showQuickSelections="false"
             :showCurrentDate="false"
             @update:modelValue="result3 = $event"
             @cancel="result3 = null"
@@ -71,39 +71,27 @@ function fmtRange(v) {
           <p class="tf-demo__out">{{ fmtRange(result3) }}</p>
         </div>
 
-        <!-- 4: No quick selections, no current date -->
+        <!-- 4: Date + time mode -->
         <div class="tf-demo">
-          <p class="tf-demo__label">Minimal (no quick, no date)</p>
+          <p class="tf-demo__label">Date & time mode</p>
           <AppTimeFilter
-            :showQuickSelections="false"
-            :showCurrentDate="false"
+            mode="datetime"
             @update:modelValue="result4 = $event"
             @cancel="result4 = null"
           />
           <p class="tf-demo__out">{{ fmtRange(result4) }}</p>
         </div>
 
-        <!-- 5: Date + time mode -->
-        <div class="tf-demo">
-          <p class="tf-demo__label">Date & time mode</p>
-          <AppTimeFilter
-            mode="datetime"
-            @update:modelValue="result5 = $event"
-            @cancel="result5 = null"
-          />
-          <p class="tf-demo__out">{{ fmtRange(result5) }}</p>
-        </div>
-
-        <!-- 6: Time only + custom quick selections -->
+        <!-- 5: Time only + custom quick selections -->
         <div class="tf-demo">
           <p class="tf-demo__label">Time only + custom presets</p>
           <AppTimeFilter
             mode="time"
             :quickSelections="['today', 'last-2-days', 'this-week']"
-            @update:modelValue="result6 = $event"
-            @cancel="result6 = null"
+            @update:modelValue="result5 = $event"
+            @cancel="result5 = null"
           />
-          <p class="tf-demo__out">{{ fmtRange(result6) }}</p>
+          <p class="tf-demo__out">{{ fmtRange(result5) }}</p>
         </div>
 
       </div>
@@ -152,12 +140,6 @@ function fmtRange(v) {
             <td><code>['today','this-week','this-month']</code></td>
             <td>Preset IDs or objects. Built-ins: <code>today</code>, <code>this-week</code>, <code>this-month</code>, <code>last-2-days</code></td>
           </tr>
-          <tr>
-            <td><code>monthCount</code></td>
-            <td><code>1 | 2</code></td>
-            <td><code>1</code></td>
-            <td>Show one or two calendar months side-by-side</td>
-          </tr>
         </tbody>
       </table>
     </section>
@@ -191,7 +173,6 @@ function fmtRange(v) {
         <pre><code>&lt;AppTimeFilter
   v-model="dateRange"
   mode="date"
-  :monthCount="1"
   :showQuickSelections="true"
   :showCurrentDate="true"
   :quickSelections="['today', 'this-week', 'this-month']"
@@ -205,15 +186,6 @@ function fmtRange(v) {
   v-model="range"
   mode="datetime"
   :quickSelections="['today', 'last-2-days', 'this-week']"
-/&gt;</code></pre>
-      </div>
-
-      <div class="ds-code-block">
-        <pre><code>&lt;!-- Two-month calendar --&gt;
-&lt;AppTimeFilter
-  v-model="range"
-  :monthCount="2"
-  :showCurrentDate="false"
 /&gt;</code></pre>
       </div>
     </section>
