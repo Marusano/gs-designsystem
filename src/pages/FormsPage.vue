@@ -124,6 +124,22 @@ const SearchIconAdd = `<svg width="16" height="16" viewBox="0 0 16 16" fill="non
       </div>
     </section>
 
+    <!-- ── Sizes ─────────────────────────────────────────────── -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Sizes</h2>
+      <p class="ds-body">Two sizes: <strong>md</strong> (default, 40px) and <strong>sm</strong> (36px). The sm size reduces the label to 12px semibold — useful in dense layouts such as filter panels.</p>
+      <div class="fp-sizes-row">
+        <div class="fp-size-demo">
+          <p class="fp-size-lbl">MD (default)</p>
+          <AppInput label="Label" placeholder="Type here" />
+        </div>
+        <div class="fp-size-demo">
+          <p class="fp-size-lbl">SM</p>
+          <AppInput label="Label" size="sm" placeholder="Type here" />
+        </div>
+      </div>
+    </section>
+
     <!-- ── Dropdown states ──────────────────────────────────── -->
     <section class="ds-section">
       <h2 class="ds-h2">Dropdown — States</h2>
@@ -565,6 +581,29 @@ const SearchIconAdd = `<svg width="16" height="16" viewBox="0 0 16 16" fill="non
 .ds-usage-card__label--do   { color: var(--green-90); }
 .ds-usage-card__label--dont { color: var(--red-80); }
 .ds-usage-demo { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start; }
+
+/* ── Sizes ───────────────────────────────────────────────────── */
+.fp-sizes-row {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+.fp-size-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 240px;
+}
+
+.fp-size-lbl {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--grey-50);
+  margin: 0;
+}
 
 /* ── Responsive ──────────────────────────────────────────────── */
 @media (max-width: 900px) {

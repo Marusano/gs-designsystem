@@ -224,21 +224,14 @@ const classes = computed(() => ({
 .field__hint { font-size: 13px; line-height: 1.4; color: var(--grey-60); }
 
 /* ── SM size ────────────────────────────────────────────────── */
-.field--sm {
-  gap: 4px;
-}
-
 .field--sm .field__label {
   font-size: 12px;
-  font-weight: 500;
-  line-height: 14px;
-  letter-spacing: 0.2px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 0.25px;
 }
 
 .field--sm .field__input {
-  height: 32px;
-  font-size: 13px;
-  padding-top: 6px;
-  padding-bottom: 6px;
+  height: 36px;
 }
 </style>
