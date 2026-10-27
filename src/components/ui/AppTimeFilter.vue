@@ -14,7 +14,6 @@ const props = defineProps({
     validator: v => ['date', 'datetime', 'time'].includes(v),
   },
   showQuickSelections: { type: Boolean, default: true },
-  showCurrentDate:     { type: Boolean, default: true },
   quickSelections: {
     type: Array,
     default: () => ['today', 'this-week', 'this-month'],
@@ -40,13 +39,6 @@ const normalizedQuick = computed(() =>
 )
 
 const now = new Date()
-
-const todayStr = computed(() => {
-  const d   = new Date()
-  const wd  = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
-  const mon = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
-  return `${wd[d.getDay()]}, ${mon[d.getMonth()]} ${d.getDate()}`
-})
 
 const viewYear  = ref(now.getFullYear())
 const viewMonth = ref(now.getMonth())
@@ -202,7 +194,7 @@ function cancel() { emit('cancel') }
 </script>
 
 <template>
-  <div class="tf">
+  <div :class="['tf', mode === 'datetime' && 'tf--datetime']">
 
     <!-- ── Quick presets ──────────────────────────────────────── -->
     <div v-if="showQuickSelections" class="tf__quick">
@@ -214,15 +206,22 @@ function cancel() { emit('cancel') }
       >{{ q.label }}</button>
     </div>
 
-    <!-- ── Current date band ──────────────────────────────────── -->
-    <div v-if="showCurrentDate && mode !== 'time'" class="tf__date-band">
-      {{ todayStr }}
-    </div>
-
-    <!-- ── Date inputs ────────────────────────────────────────── -->
-    <div v-if="mode === 'date' || mode === 'datetime'" class="tf__inputs">
+    <!-- ── Date-only: just date inputs ───────────────────────── -->
+    <div v-if="mode === 'date'" class="tf__inputs">
       <AppInput label="From" type="date" size="sm" v-model="fromDateModel" style="flex:1" />
       <AppInput label="To"   type="date" size="sm" v-model="toDateModel"   style="flex:1" />
+    </div>
+
+    <!-- ── Date+Time: grey band with date row + time row ─────── -->
+    <div v-if="mode === 'datetime'" class="tf__band">
+      <div class="tf__inputs tf__inputs--band-date">
+        <AppInput label="From" type="date" size="sm" v-model="fromDateModel" style="flex:1" />
+        <AppInput label="To"   type="date" size="sm" v-model="toDateModel"   style="flex:1" />
+      </div>
+      <div class="tf__inputs tf__inputs--band-time">
+        <AppInput label="" type="time" size="sm" v-model="fromTime" style="flex:1" />
+        <AppInput label="" type="time" size="sm" v-model="toTime"   style="flex:1" />
+      </div>
     </div>
 
     <!-- ── Calendar ─────────────────────────────────────────────── -->
@@ -275,10 +274,10 @@ function cancel() { emit('cancel') }
 
     </div>
 
-    <!-- ── Time inputs ────────────────────────────────────────── -->
-    <div v-if="mode === 'datetime' || mode === 'time'" class="tf__inputs tf__inputs--time">
-      <AppInput :label="mode === 'time' ? 'From' : ''" type="time" size="sm" v-model="fromTime" style="flex:1" />
-      <AppInput :label="mode === 'time' ? 'To'   : ''" type="time" size="sm" v-model="toTime"   style="flex:1" />
+    <!-- ── Time-only: time inputs below calendar ────────────── -->
+    <div v-if="mode === 'time'" class="tf__inputs tf__inputs--time">
+      <AppInput label="From" type="time" size="sm" v-model="fromTime" style="flex:1" />
+      <AppInput label="To"   type="time" size="sm" v-model="toTime"   style="flex:1" />
     </div>
 
     <!-- ── Footer ────────────────────────────────────────────── -->
@@ -347,32 +346,30 @@ function cancel() { emit('cancel') }
   color: var(--grey-00);
 }
 
-/* ── Current date band ──────────────────────────────────────── */
-.tf__date-band {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 32px;
-  padding: 0 16px;
-  background: var(--grey-05);
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--grey-90);
-  letter-spacing: 0.25px;
-  line-height: 20px;
-  /* Compensate for parent gap so band is flush */
-  margin-top: -8px;
+/* ── Date / time inputs ─────────────────────────────────────── */
+.tf--datetime {
+  gap: 0;
 }
 
-/* ── Date / time inputs ─────────────────────────────────────── */
 .tf__inputs {
   display: flex;
   gap: 8px;
   padding: 0 8px;
 }
 
-.tf__inputs--time {
-  padding-top: 4px;
+/* ── Date+Time grey band ────────────────────────────────────── */
+.tf__band {
+  background: var(--grey-05);
+  display: flex;
+  flex-direction: column;
+}
+
+.tf__inputs--band-date {
+  padding: 8px 8px 0;
+}
+
+.tf__inputs--band-time {
+  padding: 4px 8px 8px;
 }
 
 /* ── Calendar container ─────────────────────────────────────── */
