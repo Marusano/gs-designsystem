@@ -368,7 +368,7 @@ function cancel() { emit('cancel') }
 .tf__inputs {
   display: flex;
   gap: 8px;
-  padding: 0 16px;
+  padding: 0 8px;
 }
 
 .tf__inputs--time {
