@@ -25,6 +25,11 @@ const props = defineProps({
   disabled:    Boolean,
   type:        { type: String, default: 'text' },
   id:          String,
+  size: {
+    type: String,
+    default: 'md',
+    validator: v => ['md', 'sm'].includes(v),
+  },
   forcedState: {
     type: String,
     default: null,
@@ -42,6 +47,7 @@ const isSearch    = computed(() => props.type === 'search')
 
 const classes = computed(() => ({
   'field':           true,
+  'field--sm':       props.size === 'sm',
   'field--error':    hasError.value,
   'field--disabled': props.disabled,
   'is-hover':        props.forcedState === 'hover',
@@ -186,4 +192,23 @@ const classes = computed(() => ({
 /* ── Messages ───────────────────────────────────────────────── */
 .field__msg  { font-size: 13px; line-height: 1.4; color: var(--field-error-text); }
 .field__hint { font-size: 13px; line-height: 1.4; color: var(--grey-60); }
+
+/* ── SM size ────────────────────────────────────────────────── */
+.field--sm {
+  gap: 4px;
+}
+
+.field--sm .field__label {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 14px;
+  letter-spacing: 0.2px;
+}
+
+.field--sm .field__input {
+  height: 32px;
+  font-size: 13px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
 </style>

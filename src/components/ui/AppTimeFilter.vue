@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import AppButton from './AppButton.vue'
+import AppInput  from './AppInput.vue'
 
 const props = defineProps({
   modelValue: {
@@ -190,12 +191,26 @@ function applyQuick(value) {
   selecting.value = 'from'
 }
 
-function fmtDate(date) {
+function toISODate(date) {
   if (!date) return ''
-  const d = String(date.getDate()).padStart(2, '0')
+  const y = date.getFullYear()
   const m = String(date.getMonth() + 1).padStart(2, '0')
-  return `${d}.${m}.${date.getFullYear()}`
+  const d = String(date.getDate()).padStart(2, '0')
+  return `${y}-${m}-${d}`
 }
+
+const fromDateModel = computed({
+  get: () => toISODate(pendingFrom.value),
+  set: v => {
+    pendingFrom.value = v ? new Date(v + 'T00:00:00') : null
+    if (v) selecting.value = 'to'
+  },
+})
+
+const toDateModel = computed({
+  get: () => toISODate(pendingTo.value),
+  set: v => { pendingTo.value = v ? new Date(v + 'T00:00:00') : null },
+})
 
 function apply()  { emit('update:modelValue', { from: pendingFrom.value, to: pendingTo.value }) }
 function cancel() { emit('cancel') }
@@ -221,28 +236,8 @@ function cancel() { emit('cancel') }
 
     <!-- ── Date inputs ────────────────────────────────────────── -->
     <div v-if="mode === 'date' || mode === 'datetime'" class="tf__inputs">
-      <div class="tf__input-col">
-        <span class="tf__input-lbl">From</span>
-        <div class="tf__input-field">
-          <svg class="tf__input-icon" width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <rect x="1" y="2" width="12" height="11" rx="1.5" stroke="currentColor" stroke-width="1.1"/>
-            <path d="M1 5.5h12" stroke="currentColor" stroke-width="1.1"/>
-            <path d="M4.5 1v2M9.5 1v2" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
-          </svg>
-          <span class="tf__input-val">{{ fmtDate(pendingFrom) || 'DD.MM.YYYY' }}</span>
-        </div>
-      </div>
-      <div class="tf__input-col">
-        <span class="tf__input-lbl">To</span>
-        <div class="tf__input-field">
-          <svg class="tf__input-icon" width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <rect x="1" y="2" width="12" height="11" rx="1.5" stroke="currentColor" stroke-width="1.1"/>
-            <path d="M1 5.5h12" stroke="currentColor" stroke-width="1.1"/>
-            <path d="M4.5 1v2M9.5 1v2" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
-          </svg>
-          <span class="tf__input-val">{{ fmtDate(pendingTo) || 'DD.MM.YYYY' }}</span>
-        </div>
-      </div>
+      <AppInput label="From" type="date" size="sm" v-model="fromDateModel" style="flex:1" />
+      <AppInput label="To"   type="date" size="sm" v-model="toDateModel"   style="flex:1" />
     </div>
 
     <!-- ── Calendar(s) ────────────────────────────────────────── -->
@@ -333,26 +328,8 @@ function cancel() { emit('cancel') }
 
     <!-- ── Time inputs ────────────────────────────────────────── -->
     <div v-if="mode === 'datetime' || mode === 'time'" class="tf__inputs tf__inputs--time">
-      <div class="tf__input-col">
-        <span v-if="mode === 'time'" class="tf__input-lbl">From</span>
-        <div class="tf__input-field">
-          <svg class="tf__input-icon" width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.1"/>
-            <path d="M7 4v3.5l2 1.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <input class="tf__time-in" type="time" v-model="fromTime" />
-        </div>
-      </div>
-      <div class="tf__input-col">
-        <span v-if="mode === 'time'" class="tf__input-lbl">To</span>
-        <div class="tf__input-field">
-          <svg class="tf__input-icon" width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.1"/>
-            <path d="M7 4v3.5l2 1.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <input class="tf__time-in" type="time" v-model="toTime" />
-        </div>
-      </div>
+      <AppInput :label="mode === 'time' ? 'From' : ''" type="time" size="sm" v-model="fromTime" style="flex:1" />
+      <AppInput :label="mode === 'time' ? 'To'   : ''" type="time" size="sm" v-model="toTime"   style="flex:1" />
     </div>
 
     <!-- ── Footer ────────────────────────────────────────────── -->
@@ -447,47 +424,6 @@ function cancel() { emit('cancel') }
 
 .tf__inputs--time {
   padding-top: 4px;
-}
-
-.tf__input-col {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  flex: 1;
-}
-
-.tf__input-lbl {
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--grey-60);
-}
-
-.tf__input-field {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  height: 32px;
-  padding: 0 8px;
-  box-shadow: inset 0 0 0 1px var(--grey-30);
-  border-radius: 4px;
-  background: var(--grey-00);
-}
-
-.tf__input-icon { color: var(--grey-50); flex-shrink: 0; }
-
-.tf__input-val {
-  font-size: 13px;
-  color: var(--grey-70);
-}
-
-.tf__time-in {
-  border: none;
-  background: none;
-  font-size: 13px;
-  font-family: 'Inter', sans-serif;
-  color: var(--grey-90);
-  width: 100%;
-  outline: none;
 }
 
 /* ── Calendar container ─────────────────────────────────────── */
