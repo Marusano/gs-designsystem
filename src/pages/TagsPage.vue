@@ -5,7 +5,7 @@ import AppTag from '../components/ui/AppTag.vue'
 const types = [
   'neutral', 'neutral-outline', 'neutral-inverted',
   'success', 'success-strong',
-  'informational', 'informational-strong', 'informational-inverted',
+  'informational', 'informational-strong', 'info-outline',
   'danger', 'warning', 'moderate', 'highlight',
 ]
 
@@ -15,10 +15,10 @@ const typeLabels = {
   'neutral-inverted': 'Neutral Inverted',
   'success':          'Success',
   'success-strong':   'Success Strong',
-  'informational':          'Informational',
-  'informational-strong':   'Informational Strong',
-  'informational-inverted': 'Informational Inverted',
-  'danger':                 'Danger',
+  'informational':       'Informational',
+  'informational-strong':'Informational Strong',
+  'info-outline':        'Info Outline',
+  'danger':           'Danger',
   'warning':          'Warning',
   'moderate':         'Moderate',
   'highlight':        'Highlight',
@@ -30,10 +30,10 @@ const typeDescriptions = {
   'neutral-inverted': 'Dark background. Use on light surfaces for contrast.',
   'success':          'Active, online, healthy. Positive status.',
   'success-strong':   'Critical positive status. High contrast success.',
-  'informational':          'Informational. Sync in progress, pending review.',
-  'informational-strong':   'High-contrast informational. Prominent sync or active state.',
-  'informational-inverted': 'Dark informational. Use on light surfaces for strong contrast.',
-  'danger':                 'Error, offline, critical fault.',
+  'informational':       'Informational. Sync in progress, pending review.',
+  'informational-strong':'High-contrast informational. Prominent sync or active state.',
+  'info-outline':        'Outline informational. Transparent fill with blue border.',
+  'danger':           'Error, offline, critical fault.',
   'warning':          'Degraded, partially unavailable, recoverable warning.',
   'moderate':         'Idle, parked, moderate risk. Mid-range caution.',
   'highlight':        'Selected, featured, newly added.',
@@ -458,14 +458,14 @@ function resetFilters() {
         </div>
 
         <div class="ds-token-card">
-          <p class="ds-token-card__title">Informational Inverted</p>
+          <p class="ds-token-card__title">Info Outline</p>
           <table class="ds-token-table">
             <thead><tr><th>Property</th><th>Value</th></tr></thead>
             <tbody>
-              <tr><td>Background</td>  <td><span class="swatch" style="background:#075985"></span>#075985</td></tr>
-              <tr><td>Text</td>        <td><span class="swatch" style="background:#ffffff;border:1px solid #d8d8da"></span>#ffffff</td></tr>
-              <tr><td>Hover bg</td>    <td><span class="swatch" style="background:#013b57"></span>#013b57</td></tr>
-              <tr><td>Hover border</td><td><span class="swatch" style="background:#138cc4"></span>#138cc4</td></tr>
+              <tr><td>Background</td>  <td>transparent</td></tr>
+              <tr><td>Border</td>      <td><span class="swatch" style="background:#b3e1f7"></span>#b3e1f7</td></tr>
+              <tr><td>Text</td>        <td><span class="swatch" style="background:#075985"></span>#075985</td></tr>
+              <tr><td>Hover border</td><td><span class="swatch" style="background:#61bde9"></span>#61bde9</td></tr>
             </tbody>
           </table>
         </div>

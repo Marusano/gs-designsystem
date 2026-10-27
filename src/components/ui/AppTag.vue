@@ -23,7 +23,7 @@ const props = defineProps({
     validator: (v) => [
       'neutral', 'neutral-outline', 'neutral-inverted',
       'success', 'success-strong',
-      'informational', 'informational-strong', 'informational-inverted',
+      'informational', 'informational-strong', 'info-outline',
       'danger', 'warning', 'moderate', 'highlight',
     ].includes(v),
   },
@@ -98,15 +98,14 @@ const classes = computed(() => [
   line-height: 1;
   white-space: nowrap;
   border-radius: 4px;
-  border: 1px solid transparent;
-  transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease;
+  transition: background-color 120ms ease, box-shadow 120ms ease, color 120ms ease;
 }
 
 /* ── SM size (default) ─────────────────────────────────────── */
-.tag--sm              { height: 24px; padding: 6px 13px; }
-.tag--sm.tag--has-icon   { padding: 4px 8px 4px 4px; }
-.tag--sm.tag--icon-only  { padding: 4px; }
-.tag--sm.tag--dismissible { padding: 6px 6px 6px 8px; }
+.tag--sm               { height: 24px; padding: 6px 13px; }
+.tag--sm.tag--has-icon  { padding: 4px 8px 4px 4px; }
+.tag--sm.tag--icon-only { padding: 4px; }
+.tag--sm.tag--dismissible { padding: 6px 8px; }
 
 /* ── MD size (card tag) ─────────────────────────────────────── */
 .tag--md {
@@ -149,62 +148,62 @@ const classes = computed(() => [
   opacity: 0.65;
   transition: opacity 120ms ease;
 }
-.tag__close:hover        { opacity: 1; }
+.tag__close:hover         { opacity: 1; }
 .tag__close:focus-visible { outline: 2px solid currentColor; outline-offset: 1px; }
 
 /* ── Type — Neutral ────────────────────────────────────────── */
 .tag--neutral { background: var(--grey-20); color: var(--grey-80); }
-.tag--neutral:hover { border-color: var(--grey-40); color: var(--grey-90); }
+.tag--neutral:hover { box-shadow: inset 0 0 0 1px var(--grey-40); color: var(--grey-90); }
 
 /* ── Type — Neutral Outline ────────────────────────────────── */
-.tag--neutral-outline { background: var(--grey-00); color: var(--grey-70); border-color: var(--grey-40); }
+.tag--neutral-outline { background: var(--grey-00); color: var(--grey-70); box-shadow: inset 0 0 0 1px var(--grey-40); }
 .tag--neutral-outline:hover { background: var(--grey-05); color: var(--grey-90); }
 
 /* ── Type — Neutral Inverted ───────────────────────────────── */
 .tag--neutral-inverted { background: var(--grey-70); color: var(--grey-10); }
-.tag--neutral-inverted:hover { background: var(--grey-80); border-color: var(--grey-70); color: var(--grey-00); }
+.tag--neutral-inverted:hover { background: var(--grey-80); box-shadow: inset 0 0 0 1px var(--grey-70); color: var(--grey-00); }
 
 /* ── Type — Success ────────────────────────────────────────── */
 .tag--success { background: var(--green-30); color: var(--green-100); }
-.tag--success:hover { background: var(--green-40); border-color: var(--green-60); }
+.tag--success:hover { background: var(--green-40); box-shadow: inset 0 0 0 1px var(--green-60); }
 
 /* ── Type — Success Strong ─────────────────────────────────── */
 .tag--success-strong { background: var(--green-90); color: var(--green-10); }
-.tag--success-strong:hover { background: var(--green-100); border-color: var(--green-80); color: var(--grey-00); }
+.tag--success-strong:hover { background: var(--green-100); box-shadow: inset 0 0 0 1px var(--green-80); color: var(--grey-00); }
 
 /* ── Type — Informational ──────────────────────────────────── */
 .tag--informational { background: var(--blue-azure-20); color: var(--blue-azure-100); }
-.tag--informational:hover { border-color: var(--blue-azure-40); }
+.tag--informational:hover { box-shadow: inset 0 0 0 1px var(--blue-azure-40); }
 
 /* ── Type — Informational Strong ───────────────────────────── */
 .tag--informational-strong { background: var(--blue-azure-90); color: var(--grey-00); }
-.tag--informational-strong:hover { border-color: var(--blue-azure-60); }
+.tag--informational-strong:hover { box-shadow: inset 0 0 0 1px var(--blue-azure-60); }
 
-/* ── Type — Informational Inverted ─────────────────────────── */
-.tag--informational-inverted { background: var(--blue-azure-90); color: var(--grey-00); }
-.tag--informational-inverted:hover { background: var(--blue-azure-100); border-color: var(--blue-azure-60); }
+/* ── Type — Info Outline ────────────────────────────────────── */
+.tag--info-outline { background: transparent; box-shadow: inset 0 0 0 1px var(--blue-azure-30); color: var(--blue-azure-90); }
+.tag--info-outline:hover { box-shadow: inset 0 0 0 1px var(--blue-azure-40); }
 
 /* ── Type — Danger ─────────────────────────────────────────── */
 .tag--danger { background: var(--red-30); color: var(--red-100); }
-.tag--danger:hover { border-color: var(--red-40); }
+.tag--danger:hover { box-shadow: inset 0 0 0 1px var(--red-40); }
 
 /* ── Type — Warning ────────────────────────────────────────── */
 .tag--warning { background: var(--orange-20); color: var(--orange-100); }
-.tag--warning:hover { border-color: var(--orange-40); }
+.tag--warning:hover { box-shadow: inset 0 0 0 1px var(--orange-40); }
 
 /* ── Type — Moderate ───────────────────────────────────────── */
 .tag--moderate { background: var(--yellow-20); color: var(--yellow-100); }
-.tag--moderate:hover { border-color: var(--yellow-30); }
+.tag--moderate:hover { box-shadow: inset 0 0 0 1px var(--yellow-30); }
 
 /* ── Type — Highlight ──────────────────────────────────────── */
 .tag--highlight { background: var(--indigo-20); color: var(--indigo-80); }
-.tag--highlight:hover { border-color: var(--indigo-40); color: var(--indigo-90); }
+.tag--highlight:hover { box-shadow: inset 0 0 0 1px var(--indigo-40); color: var(--indigo-90); }
 
 /* ── MD card title color per type ──────────────────────────── */
-.tag--md.tag--highlight .tag__card-title { color: var(--indigo-80); }
-.tag--md.tag--neutral   .tag__card-title { color: var(--grey-80); }
-.tag--md.tag--success   .tag__card-title { color: var(--green-100); }
-.tag--md.tag--informational          .tag__card-title { color: var(--blue-azure-100); }
-.tag--md.tag--informational-strong   .tag__card-title { color: var(--grey-00); }
-.tag--md.tag--informational-inverted .tag__card-title { color: var(--grey-00); }
+.tag--md.tag--highlight          .tag__card-title { color: var(--indigo-80); }
+.tag--md.tag--neutral            .tag__card-title { color: var(--grey-80); }
+.tag--md.tag--success            .tag__card-title { color: var(--green-100); }
+.tag--md.tag--informational      .tag__card-title { color: var(--blue-azure-100); }
+.tag--md.tag--informational-strong .tag__card-title { color: var(--grey-00); }
+.tag--md.tag--info-outline       .tag__card-title { color: var(--blue-azure-90); }
 </style>
