@@ -354,7 +354,8 @@ function cancel() { emit('cancel') }
 .tf__inputs {
   display: flex;
   gap: 8px;
-  padding: 0 8px;
+  padding: 8px;
+  background: var(--grey-05);
 }
 
 /* ── Date+Time grey band ────────────────────────────────────── */
