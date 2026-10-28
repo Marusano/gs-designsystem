@@ -1,11 +1,25 @@
 <script setup>
 import { ref } from 'vue'
 import AppTimeFilter from '../components/ui/AppTimeFilter.vue'
+import AppPageHeader from '../components/ui/AppPageHeader.vue'
+import AppButton from '../components/ui/AppButton.vue'
+import AppIcon from '../components/ui/AppIcon.vue'
 
 const result1 = ref(null)
 const result2 = ref(null)
 const result3 = ref(null)
 const result4 = ref(null)
+
+// Usage example
+const showUsagePicker = ref(false)
+const usageRange = ref(null)
+
+function usageLabel() {
+  if (!usageRange.value?.from) return 'Today'
+  const f = usageRange.value.from.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })
+  const t = usageRange.value.to?.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) ?? f
+  return f === t ? f : `${f} – ${t}`
+}
 
 function fmtRange(v) {
   if (!v?.from) return '—'
@@ -40,34 +54,43 @@ function fmtRange(v) {
         the most recent period.
       </p>
 
-      <!-- Entry point example -->
+      <!-- Entry point example — live, interactive -->
       <div class="tf-entry-example">
-        <div class="tf-entry-topbar">
-          <span class="tf-entry-page-title">Fleet overview</span>
-          <button class="tf-entry-btn">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0">
-              <path d="M5 8H11M3 4H13M7 12H9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            Today
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0">
-              <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
+        <AppPageHeader type="secondary" title="Fleet overview">
+          <template #actions>
+            <AppButton variant="primary" size="md" @click="showUsagePicker = !showUsagePicker">
+              <template #icon-left><AppIcon name="calendar" :size="16" /></template>
+              {{ usageLabel() }}
+            </AppButton>
+          </template>
+        </AppPageHeader>
+        <div v-if="showUsagePicker" class="tf-usage-picker">
+          <AppTimeFilter
+            v-model="usageRange"
+            :quickSelections="['today', 'this-week', 'this-month']"
+            @update:modelValue="showUsagePicker = false"
+            @cancel="showUsagePicker = false"
+          />
         </div>
-        <p class="tf-entry-caption">Entry point — primary button, top-right of page header. Label reflects active selection.</p>
+        <p class="tf-entry-caption">Click the button to open the time filter. Label updates to reflect the selected range.</p>
       </div>
 
       <!-- Usage code example -->
       <div class="ds-code-block">
-        <pre><code>&lt;!-- Entry point: primary button triggers the picker panel --&gt;
-&lt;AppButton variant="primary" size="md" @click="showPicker = true"&gt;
-  {{ activeLabel }}  &lt;!-- e.g. "Today", "Last 7 days", "15 Jan – 22 Jan" --&gt;
-&lt;/AppButton&gt;
+        <pre><code>&lt;AppPageHeader type="secondary" title="Fleet overview"&gt;
+  &lt;template #actions&gt;
+    &lt;AppButton variant="primary" size="md" @click="showPicker = !showPicker"&gt;
+      &lt;template #icon-left&gt;&lt;AppIcon name="calendar" :size="16" /&gt;&lt;/template&gt;
+      {{ activeLabel }}  &lt;!-- e.g. "Today", "15 Jan – 22 Jan" --&gt;
+    &lt;/AppButton&gt;
+  &lt;/template&gt;
+&lt;/AppPageHeader&gt;
 
 &lt;AppTimeFilter
   v-if="showPicker"
   v-model="dateRange"
   :quickSelections="['today', 'this-week', 'this-month']"
+  @update:modelValue="showPicker = false"
   @cancel="showPicker = false"
 /&gt;</code></pre>
       </div>
@@ -319,37 +342,17 @@ function fmtRange(v) {
   display: flex;
   flex-direction: column;
   gap: 8px;
-}
-.tf-entry-topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 16px;
-  background: var(--grey-00);
   border-radius: 8px;
+  overflow: hidden;
   box-shadow: inset 0 0 0 1px var(--grey-20);
 }
-.tf-entry-page-title {
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--grey-90);
-}
-.tf-entry-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  height: 40px;
-  padding: 0 12px;
-  background: var(--btn-primary-bg);
-  color: #fff;
-  border: none;
-  border-radius: var(--btn-radius);
-  font-size: 14px;
-  font-weight: 500;
-  font-family: 'Inter', sans-serif;
-  cursor: default;
+.tf-usage-picker {
+  padding: 16px;
+  background: var(--grey-05);
+  border-top: 1px solid var(--grey-20);
 }
 .tf-entry-caption {
+  padding: 0 16px 12px;
   font-size: 12px;
   color: var(--grey-60);
   font-style: italic;
