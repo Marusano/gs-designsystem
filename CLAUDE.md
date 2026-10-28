@@ -148,10 +148,30 @@ Types: `text` · `email` · `password` · `search` (adds magnifier icon) · `dat
 
 | Prop | Values |
 |------|--------|
-| `type` | `neutral` `neutral-outline` `neutral-inverted` `success` `success-strong` `informational` `informational-strong` `informational-inverted` `danger` `warning` `moderate` `highlight` |
+| `type` | `neutral` `neutral-outline` `neutral-inverted` `success` `success-strong` `informational` `informational-strong` `info-outline` `danger` `warning` `moderate` `highlight` |
 | `size` | `sm` (24px, default) · `md` (56px card tag) |
 | `dismissible` | Boolean — shows × button, emits `dismiss` |
 | `cardTitle` | String — top label for md card variant |
+
+### `AppTimeFilter`
+
+```vue
+<AppTimeFilter
+  v-model="dateRange"
+  mode="date"
+  :quickSelections="['today', 'this-week', 'this-month']"
+  @cancel="closePicker"
+/>
+```
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `modelValue` | `{ from: Date\|null, to: Date\|null }` | `{ from: null, to: null }` | Applied date range (v-model) |
+| `mode` | `'date' \| 'datetime' \| 'time'` | `'date'` | Controls which inputs are shown |
+| `showQuickSelections` | Boolean | `true` | Show/hide the quick preset buttons row |
+| `quickSelections` | `string[] \| { label, value }[]` | `['today','this-week','this-month']` | Preset IDs or custom objects. Built-ins: `today`, `this-week`, `this-month`, `last-2-days` |
+
+Emits: `update:modelValue` (payload: `{ from: Date|null, to: Date|null }`) on apply · `cancel` on dismiss
 
 ---
 

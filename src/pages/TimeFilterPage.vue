@@ -174,12 +174,14 @@ function fmtRange(v) {
 </template>
 
 <style scoped>
-.ds-main   { padding: 40px 48px; max-width: 1200px; }
-.ds-section { margin-bottom: 48px; }
-.ds-h1     { font-size: 28px; font-weight: 700; color: var(--grey-100); margin: 0 0 16px; }
-.ds-h2     { font-size: 18px; font-weight: 600; color: var(--grey-90); margin: 0 0 12px; }
-.ds-desc   { font-size: 14px; color: var(--grey-70); margin: 0 0 20px; }
-.ds-body   { font-size: 14px; color: var(--grey-70); line-height: 1.6; margin: 0; }
+.ds-main    { max-width: 1200px; margin: 0 auto; padding: 48px 40px 80px; display: flex; flex-direction: column; gap: 56px; }
+.ds-section { display: flex; flex-direction: column; gap: 20px; }
+.ds-h1      { font-size: 32px; font-weight: 700; color: var(--grey-100); line-height: 1.1; margin-bottom: 4px; }
+.ds-h2      { font-size: 20px; font-weight: 600; color: var(--grey-90); }
+.ds-desc    { font-size: 14px; color: var(--grey-70); }
+.ds-body    { font-size: 14px; color: var(--grey-70); line-height: 1.6; }
+
+@media (max-width: 768px) { .ds-main { padding: 32px 20px 60px; } }
 
 .ds-header-cols { display: grid; grid-template-columns: 1fr; gap: 16px; }
 

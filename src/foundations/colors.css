@@ -331,3 +331,22 @@ body {
   color: var(--grey-90);
   -webkit-font-smoothing: antialiased;
 }
+
+/* ── Doc page layout baseline ─────────────────────────────────── */
+.ds-main {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 48px 40px 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+.ds-section { display: flex; flex-direction: column; gap: 20px; }
+.ds-h1      { font-size: 32px; font-weight: 700; color: var(--grey-100); line-height: 1.1; margin-bottom: 4px; }
+.ds-h2      { font-size: 20px; font-weight: 600; color: var(--grey-90); }
+.ds-lead    { font-size: 16px; color: var(--grey-70); margin-top: -8px; }
+.ds-body    { font-size: 14px; color: var(--grey-70); line-height: 1.6; }
+
+@media (max-width: 768px) {
+  .ds-main { padding: 32px 20px 60px; }
+}
