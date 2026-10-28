@@ -393,12 +393,8 @@ function cancel() { emit('cancel') }
   gap: 8px;
   padding: 8px 12px;
   border-radius: 4px;
-  cursor: pointer;
   color: var(--grey-60);
-  transition: background 80ms;
 }
-
-.tf__month-btn:hover { background: var(--grey-05); }
 
 .tf__month-label {
   font-size: 14px;
@@ -564,6 +560,6 @@ function cancel() { emit('cancel') }
   align-items: center;
   gap: 16px;
   padding: 8px 16px;
-  border-top: 1px solid var(--grey-20);
+  box-shadow: inset 0 1px 0 var(--grey-20);
 }
 </style>
