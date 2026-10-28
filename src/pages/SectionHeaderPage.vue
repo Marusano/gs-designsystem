@@ -38,7 +38,7 @@ const actionsExpanded  = ref(false)
         <div class="sh-demo-col">
           <p class="sh-demo-label">Collapsable — interactive</p>
           <AppSectionHeader
-            title="Driver information"
+            title="Elisabeth B. Keen"
             v-model:expanded="demoExpanded"
           />
           <div v-if="demoExpanded" class="sh-demo-body">
@@ -104,36 +104,32 @@ const actionsExpanded  = ref(false)
 
         <div class="sh-variant">
           <p class="sh-variant__label">Collapsable — collapsed</p>
-          <AppSectionHeader title="Driver information" :expanded="false" />
+          <AppSectionHeader title="Elisabeth B. Keen" :expanded="false" />
         </div>
 
         <div class="sh-variant">
           <p class="sh-variant__label">Collapsable — expanded</p>
           <AppSectionHeader
-            title="Asset activity"
+            title="Elisabeth B. Keen"
             v-model:expanded="varExpanded"
           />
         </div>
 
         <div class="sh-variant">
           <p class="sh-variant__label">Static</p>
-          <AppSectionHeader type="static" title="Legend" />
+          <AppSectionHeader type="static" title="Elisabeth B. Keen" />
         </div>
 
         <div class="sh-variant">
           <p class="sh-variant__label">With actions (hover to reveal)</p>
           <AppSectionHeader
-            title="Fleet overview"
+            title="Elisabeth B. Keen"
             v-model:expanded="actionsExpanded"
           >
             <template #actions>
               <AppButton variant="quiet" size="xs">
-                <template #icon-left><AppIcon name="export" :size="16" /></template>
-                Export
-              </AppButton>
-              <AppButton variant="quiet" size="xs">
-                <template #icon-left><AppIcon name="link" :size="16" /></template>
-                Share
+                <template #icon-left><AppIcon name="arrow-right" :size="16" /></template>
+                Go to driver
               </AppButton>
             </template>
           </AppSectionHeader>
@@ -251,7 +247,6 @@ const actionsExpanded  = ref(false)
   display: flex;
   flex-direction: column;
   gap: 0;
-  max-width: 520px;
 }
 
 .sh-demo-label {
@@ -286,13 +281,9 @@ const actionsExpanded  = ref(false)
 
 /* Variants grid */
 .sh-variants-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px 32px;
-}
-
-@media (max-width: 700px) {
-  .sh-variants-grid { grid-template-columns: 1fr; }
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 .sh-variant {
