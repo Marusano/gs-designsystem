@@ -127,10 +127,7 @@ const actionsExpanded  = ref(false)
             v-model:expanded="actionsExpanded"
           >
             <template #actions>
-              <AppButton variant="quiet" size="xs">
-                <template #icon-left><AppIcon name="arrow-right" :size="16" /></template>
-                Go to driver
-              </AppButton>
+              <AppButton variant="quiet" size="xs">Go to driver</AppButton>
             </template>
           </AppSectionHeader>
         </div>
