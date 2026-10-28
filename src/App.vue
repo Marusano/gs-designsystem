@@ -30,6 +30,7 @@ import SnackbarPage         from './pages/SnackbarPage.vue'
 import DialogPage           from './pages/DialogPage.vue'
 import TimeFilterPage        from './pages/TimeFilterPage.vue'
 import SectionHeaderPage    from './pages/SectionHeaderPage.vue'
+import StatsCardsPage       from './pages/StatsCardsPage.vue'
 
 const page = ref('buttons')
 
@@ -62,6 +63,7 @@ const IconSideNav    = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
 const IconSnackbar   = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="4" width="12" height="6" rx="1.5" stroke="currentColor" stroke-width="1.1"/><circle cx="3.5" cy="7" r="1" fill="currentColor"/><path d="M6 6h5M6 8h3" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>`
 const IconDialog        = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1.5" stroke="currentColor" stroke-width="1.1"/><path d="M1 8.5h12" stroke="currentColor" stroke-width="1.1"/><path d="M9 10.5h2.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><path d="M3 5h8M3 7h5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>`
 const IconSectionHeader = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="5" width="12" height="4" rx="1" stroke="currentColor" stroke-width="1.1"/><path d="M10.5 7h1" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/><path d="M3 7h5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>`
+const IconStatsCards    = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="3" width="12" height="8" rx="1" stroke="currentColor" stroke-width="1.1"/><path d="M4.5 3v8M7 3v8M9.5 3v8" stroke="currentColor" stroke-width="1.1"/></svg>`
 const IconPlayground = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 11.5L5.5 5l2 3 1.5-2.5L12 11.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="3" r="1.25" stroke="currentColor" stroke-width="1.1"/></svg>`
 </script>
 
@@ -227,6 +229,10 @@ const IconPlayground = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
             <span class="ds-sidebar__item-icon" v-html="IconSectionHeader" />
             Section header
           </button>
+          <button @click="page = 'stats-cards'" :class="['ds-sidebar__item', { active: page === 'stats-cards' }]">
+            <span class="ds-sidebar__item-icon" v-html="IconStatsCards" />
+            Stats cards
+          </button>
         </div>
 
         <div class="ds-sidebar__group">
@@ -269,6 +275,7 @@ const IconPlayground = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
         <DialogPage            v-if="page === 'dialog'" />
         <TimeFilterPage        v-if="page === 'time-filter'" />
         <SectionHeaderPage     v-if="page === 'section-header'" />
+        <StatsCardsPage        v-if="page === 'stats-cards'" />
       </div>
 
     </div>
