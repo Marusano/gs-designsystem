@@ -363,7 +363,7 @@ const IconExternal = `<svg width="11" height="11" viewBox="0 0 11 11" fill="none
 <style scoped>
 .ds-main {
   max-width: 1400px;
-  margin: 0 auto;
+  margin: 0;
   padding: 48px 40px 80px;
   display: flex;
   flex-direction: column;

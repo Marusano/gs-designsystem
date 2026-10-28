@@ -174,7 +174,7 @@ function fmtRange(v) {
 </template>
 
 <style scoped>
-.ds-main    { max-width: 1200px; margin: 0 auto; padding: 48px 40px 80px; display: flex; flex-direction: column; gap: 56px; }
+.ds-main    { max-width: none; margin: 0; padding: 48px 40px 80px; display: flex; flex-direction: column; gap: 56px; }
 .ds-section { display: flex; flex-direction: column; gap: 20px; }
 .ds-h1      { font-size: 32px; font-weight: 700; color: var(--grey-100); line-height: 1.1; margin-bottom: 4px; }
 .ds-h2      { font-size: 20px; font-weight: 600; color: var(--grey-90); }

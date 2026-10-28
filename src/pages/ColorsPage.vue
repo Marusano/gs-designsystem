@@ -211,7 +211,7 @@ function isLight(hex) {
 /* ─── Layout ────────────────────────────────────────────────── */
 .ds-main {
   max-width: 1400px;
-  margin: 0 auto;
+  margin: 0;
   padding: 48px 40px 80px;
   display: flex;
   flex-direction: column;

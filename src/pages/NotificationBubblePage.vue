@@ -307,7 +307,7 @@ const IconMessage = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"
 /* ── Layout ──────────────────────────────────────────────────── */
 .ds-main {
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 0;
   padding: 48px 40px 80px;
   display: flex;
   flex-direction: column;

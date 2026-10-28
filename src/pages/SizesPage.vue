@@ -242,7 +242,7 @@ const overlayTokens = [
 <style scoped>
 .sz-main {
   max-width: 920px;
-  margin: 0 auto;
+  margin: 0;
   padding: 48px 40px 96px;
   display: flex;
   flex-direction: column;

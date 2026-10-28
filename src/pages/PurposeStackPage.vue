@@ -150,7 +150,7 @@
 <style scoped>
 .ps-main {
   max-width: 880px;
-  margin: 0 auto;
+  margin: 0;
   padding: 48px 40px 96px;
   display: flex;
   flex-direction: column;
