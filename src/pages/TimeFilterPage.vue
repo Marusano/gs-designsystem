@@ -30,6 +30,72 @@ function fmtRange(v) {
       </div>
     </section>
 
+    <!-- ── Component usage ──────────────────────────────────────── -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Component usage</h2>
+      <p class="ds-body">
+        The time filter is triggered from a <strong>primary button</strong> placed in the top-right corner of a
+        main page header or secondary page header. The button label always reflects the currently selected
+        timeframe — never a static label like "Filter". The default state is <strong>"Today"</strong>, representing
+        the most recent period.
+      </p>
+
+      <!-- Entry point example -->
+      <div class="tf-entry-example">
+        <div class="tf-entry-topbar">
+          <span class="tf-entry-page-title">Fleet overview</span>
+          <button class="tf-entry-btn">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0">
+              <path d="M5 8H11M3 4H13M7 12H9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Today
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0">
+              <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+        <p class="tf-entry-caption">Entry point — primary button, top-right of page header. Label reflects active selection.</p>
+      </div>
+
+      <!-- Usage code example -->
+      <div class="ds-code-block">
+        <pre><code>&lt;!-- Entry point: primary button triggers the picker panel --&gt;
+&lt;AppButton variant="primary" size="md" @click="showPicker = true"&gt;
+  {{ activeLabel }}  &lt;!-- e.g. "Today", "Last 7 days", "15 Jan – 22 Jan" --&gt;
+&lt;/AppButton&gt;
+
+&lt;AppTimeFilter
+  v-if="showPicker"
+  v-model="dateRange"
+  :quickSelections="['today', 'this-week', 'this-month']"
+  @cancel="showPicker = false"
+/&gt;</code></pre>
+      </div>
+
+      <!-- Do / Don't -->
+      <div class="tf-dodonts">
+        <div class="tf-format-card">
+          <p class="tf-format-label tf-format-label--do">✓ Do</p>
+          <ul class="tf-rule-list">
+            <li>Always reflect the active selection in the button label — e.g. <em>"Today"</em>, <em>"This week"</em>, or <em>"15 Jan – 22 Jan"</em></li>
+            <li>Default to <em>"Today"</em> as the initial selection so the view is never empty on first load</li>
+            <li>Place the time filter button in the top-right area of the page or section header</li>
+            <li>Use the <strong>primary</strong> button variant for the main page time filter entry point</li>
+            <li>Provide quick-selection presets for the most common ranges relevant to the page context</li>
+          </ul>
+        </div>
+        <div class="tf-format-card">
+          <p class="tf-format-label tf-format-label--dont">✗ Don't</p>
+          <ul class="tf-rule-list">
+            <li>Don't use a static label like <em>"Time filter"</em> or <em>"Filter"</em> — the label must always show the active range</li>
+            <li>Don't leave the time range unset on page load — always initialise with a sensible default</li>
+            <li>Don't place more than one independent time filter on the same view — use a single authoritative control</li>
+            <li>Don't nest the time filter inside another dropdown or flyout menu — it needs a direct, visible trigger</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
     <!-- ── Variants ───────────────────────────────────────────── -->
     <section class="ds-section">
       <h2 class="ds-h2">Variants</h2>
@@ -246,6 +312,82 @@ function fmtRange(v) {
   padding: 1px 4px;
   border-radius: 3px;
   color: var(--grey-90);
+}
+
+/* ── Entry point example ────────────────────────────────────── */
+.tf-entry-example {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.tf-entry-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: var(--grey-00);
+  border-radius: 8px;
+  box-shadow: inset 0 0 0 1px var(--grey-20);
+}
+.tf-entry-page-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--grey-90);
+}
+.tf-entry-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 40px;
+  padding: 0 12px;
+  background: var(--btn-primary-bg);
+  color: #fff;
+  border: none;
+  border-radius: var(--btn-radius);
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  cursor: default;
+}
+.tf-entry-caption {
+  font-size: 12px;
+  color: var(--grey-60);
+  font-style: italic;
+}
+
+/* ── Do / Don't ─────────────────────────────────────────────── */
+.tf-dodonts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.tf-format-card {
+  background: var(--grey-05);
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.tf-format-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+.tf-format-label--do   { color: var(--green-90); }
+.tf-format-label--dont { color: var(--red-80); }
+.tf-rule-list {
+  margin: 0;
+  padding-left: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.tf-rule-list li {
+  font-size: 14px;
+  color: var(--grey-70);
+  line-height: 1.5;
 }
 
 /* Code blocks */
