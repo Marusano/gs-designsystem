@@ -89,7 +89,7 @@
           <div class="ds-step__body">
             <div class="ds-step__meta">
               <span class="ds-step__title">Implement in Vue</span>
-              <span class="ds-badge ds-badge--developer">Developer</span>
+              <span class="ds-badge ds-badge--both">Both</span>
             </div>
             <p class="ds-step__desc">
               Create <code>src/components/ui/App{Name}.vue</code> using the Composition API
@@ -108,7 +108,7 @@
           <div class="ds-step__body">
             <div class="ds-step__meta">
               <span class="ds-step__title">Document in this site</span>
-              <span class="ds-badge ds-badge--developer">Developer</span>
+              <span class="ds-badge ds-badge--both">Both</span>
             </div>
             <p class="ds-step__desc">
               Add <code>src/pages/{Name}Page.vue</code> with a live state grid, example card,
