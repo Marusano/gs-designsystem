@@ -56,11 +56,17 @@ function fmtRange(v) {
 
       <!-- Entry point example — live, interactive -->
       <div class="tf-entry-example">
-        <AppPageHeader type="secondary" title="Fleet overview">
+        <AppPageHeader type="secondary" title="The blue truck" subtitle="DK 123 24">
           <template #actions>
+            <AppButton variant="tertiary" size="md">
+              <template #icon-left><AppIcon name="export" :size="16" /></template>
+              Export as
+              <template #icon-right><AppIcon name="chevron-down" :size="16" /></template>
+            </AppButton>
             <AppButton variant="primary" size="md" @click="showUsagePicker = !showUsagePicker">
               <template #icon-left><AppIcon name="calendar" :size="16" /></template>
               {{ usageLabel() }}
+              <template #icon-right><AppIcon name="chevron-down" :size="16" /></template>
             </AppButton>
           </template>
         </AppPageHeader>
@@ -72,16 +78,22 @@ function fmtRange(v) {
             @cancel="showUsagePicker = false"
           />
         </div>
-        <p class="tf-entry-caption">Click the button to open the time filter. Label updates to reflect the selected range.</p>
+        <p class="tf-entry-caption">Click the time filter button to open the picker. Label updates to reflect the selected range.</p>
       </div>
 
       <!-- Usage code example -->
       <div class="ds-code-block">
-        <pre><code>&lt;AppPageHeader type="secondary" title="Fleet overview"&gt;
+        <pre><code>&lt;AppPageHeader type="secondary" title="The blue truck" subtitle="DK 123 24"&gt;
   &lt;template #actions&gt;
+    &lt;AppButton variant="tertiary" size="md"&gt;
+      &lt;template #icon-left&gt;&lt;AppIcon name="export" :size="16" /&gt;&lt;/template&gt;
+      Export as
+      &lt;template #icon-right&gt;&lt;AppIcon name="chevron-down" :size="16" /&gt;&lt;/template&gt;
+    &lt;/AppButton&gt;
     &lt;AppButton variant="primary" size="md" @click="showPicker = !showPicker"&gt;
       &lt;template #icon-left&gt;&lt;AppIcon name="calendar" :size="16" /&gt;&lt;/template&gt;
       {{ activeLabel }}  &lt;!-- e.g. "Today", "15 Jan – 22 Jan" --&gt;
+      &lt;template #icon-right&gt;&lt;AppIcon name="chevron-down" :size="16" /&gt;&lt;/template&gt;
     &lt;/AppButton&gt;
   &lt;/template&gt;
 &lt;/AppPageHeader&gt;
