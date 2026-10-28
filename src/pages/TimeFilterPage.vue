@@ -16,9 +16,35 @@ const usageRange = ref(null)
 
 function usageLabel() {
   if (!usageRange.value?.from) return 'Today'
-  const f = usageRange.value.from.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })
-  const t = usageRange.value.to?.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) ?? f
-  return f === t ? f : `${f} – ${t}`
+  const range = usageRange.value
+  const d = new Date(); d.setHours(0, 0, 0, 0)
+  const from = new Date(range.from); from.setHours(0, 0, 0, 0)
+  const toRaw = range.to ? new Date(range.to) : null
+  if (toRaw) toRaw.setHours(0, 0, 0, 0)
+  const to = toRaw
+
+  // today
+  if (from.getTime() === d.getTime() && (!to || to.getTime() === d.getTime())) return 'Today'
+
+  // this-week (Mon–Sun)
+  const dow = d.getDay() === 0 ? 6 : d.getDay() - 1
+  const mon = new Date(d); mon.setDate(d.getDate() - dow)
+  const sun = new Date(mon); sun.setDate(mon.getDate() + 6)
+  if (from.getTime() === mon.getTime() && to && to.getTime() === sun.getTime()) return 'This week'
+
+  // this-month
+  const mStart = new Date(d.getFullYear(), d.getMonth(), 1)
+  const mEnd   = new Date(d.getFullYear(), d.getMonth() + 1, 0)
+  if (from.getTime() === mStart.getTime() && to && to.getTime() === mEnd.getTime()) return 'This month'
+
+  // last-2-days
+  const ago = new Date(d); ago.setDate(d.getDate() - 2)
+  if (from.getTime() === ago.getTime() && to && to.getTime() === d.getTime()) return 'Last 2 days'
+
+  // custom range — format as dates
+  const f = range.from.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })
+  const t2 = range.to?.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) ?? f
+  return f === t2 ? f : `${f} – ${t2}`
 }
 
 function fmtRange(v) {
@@ -63,22 +89,24 @@ function fmtRange(v) {
               Export as
               <template #icon-right><AppIcon name="chevron-down" :size="16" /></template>
             </AppButton>
-            <AppButton variant="primary" size="md" @click="showUsagePicker = !showUsagePicker">
-              <template #icon-left><AppIcon name="calendar" :size="16" /></template>
-              {{ usageLabel() }}
-              <template #icon-right><AppIcon name="chevron-down" :size="16" /></template>
-            </AppButton>
+            <div class="tf-trigger-wrap">
+              <AppButton variant="primary" size="md" @click="showUsagePicker = !showUsagePicker">
+                <template #icon-left><AppIcon name="calendar" :size="16" /></template>
+                {{ usageLabel() }}
+                <template #icon-right><AppIcon name="chevron-down" :size="16" /></template>
+              </AppButton>
+              <div v-if="showUsagePicker" class="tf-usage-picker">
+                <AppTimeFilter
+                  v-model="usageRange"
+                  :quickSelections="['today', 'this-week', 'this-month']"
+                  @update:modelValue="showUsagePicker = false"
+                  @cancel="showUsagePicker = false"
+                />
+              </div>
+            </div>
           </template>
         </AppPageHeader>
-        <div v-if="showUsagePicker" class="tf-usage-picker">
-          <AppTimeFilter
-            v-model="usageRange"
-            :quickSelections="['today', 'this-week', 'this-month']"
-            @update:modelValue="showUsagePicker = false"
-            @cancel="showUsagePicker = false"
-          />
-        </div>
-        <p class="tf-entry-caption">Click the time filter button to open the picker. Label updates to reflect the selected range.</p>
+        <p class="tf-entry-caption">Click the time filter button to open the picker. Label updates to reflect the active selection.</p>
       </div>
 
       <!-- Usage code example -->
@@ -355,13 +383,16 @@ function fmtRange(v) {
   flex-direction: column;
   gap: 8px;
   border-radius: 8px;
-  overflow: hidden;
   box-shadow: inset 0 0 0 1px var(--grey-20);
 }
+.tf-trigger-wrap {
+  position: relative;
+}
 .tf-usage-picker {
-  padding: 16px;
-  background: var(--grey-05);
-  border-top: 1px solid var(--grey-20);
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 50;
 }
 .tf-entry-caption {
   padding: 0 16px 12px;
