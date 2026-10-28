@@ -62,12 +62,9 @@ const actionsExpanded  = ref(false)
 /&gt;
 
 &lt;!-- With actions (revealed on hover) --&gt;
-&lt;AppSectionHeader title="Asset activity" v-model:expanded="isExpanded"&gt;
+&lt;AppSectionHeader title="Elisabeth B. Keen" v-model:expanded="isExpanded"&gt;
   &lt;template #actions&gt;
-    &lt;AppButton variant="quiet" size="xs"&gt;
-      &lt;template #icon-left&gt;&lt;AppIcon name="export" :size="16" /&gt;&lt;/template&gt;
-      Export
-    &lt;/AppButton&gt;
+    &lt;AppButton variant="quiet" size="xs"&gt;Go to driver&lt;/AppButton&gt;
   &lt;/template&gt;
 &lt;/AppSectionHeader&gt;</code></pre>
       </div>
