@@ -136,10 +136,10 @@ function fmtRange(v) {
       </div>
 
       <!-- Do / Don't -->
-      <div class="tf-dodonts">
-        <div class="tf-format-card">
-          <p class="tf-format-label tf-format-label--do">✓ Do</p>
-          <ul class="tf-rule-list">
+      <div class="ds-usage-grid">
+        <div class="ds-usage-card ds-usage-card--do">
+          <p class="ds-usage-card__label ds-usage-card__label--do">Do</p>
+          <ul class="ds-usage-list">
             <li>Always reflect the active selection in the button label — e.g. <em>"Today"</em>, <em>"This week"</em>, or <em>"15 Jan – 22 Jan"</em></li>
             <li>Default to <em>"Today"</em> as the initial selection so the view is never empty on first load</li>
             <li>Place the time filter button in the top-right area of the page or section header</li>
@@ -147,9 +147,9 @@ function fmtRange(v) {
             <li>Provide quick-selection presets for the most common ranges relevant to the page context</li>
           </ul>
         </div>
-        <div class="tf-format-card">
-          <p class="tf-format-label tf-format-label--dont">✗ Don't</p>
-          <ul class="tf-rule-list">
+        <div class="ds-usage-card ds-usage-card--dont">
+          <p class="ds-usage-card__label ds-usage-card__label--dont">Don't</p>
+          <ul class="ds-usage-list">
             <li>Don't use a static label like <em>"Time filter"</em> or <em>"Filter"</em> — the label must always show the active range</li>
             <li>Don't leave the time range unset on page load — always initialise with a sensible default</li>
             <li>Don't place more than one independent time filter on the same view — use a single authoritative control</li>
@@ -299,6 +299,34 @@ function fmtRange(v) {
       </div>
     </section>
 
+    <!-- ── Tokens ─────────────────────────────────────────────── -->
+    <section class="ds-section">
+      <h2 class="ds-h2">Tokens</h2>
+      <div class="ds-table-wrap">
+        <table class="ds-guide-table">
+          <thead>
+            <tr><th>Element</th><th>Property</th><th>Token</th><th>Value</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Panel</td><td>Background</td><td><code>--color-surface-default</code></td><td>#ffffff</td></tr>
+            <tr><td>Panel</td><td>Border</td><td><code>--grey-20</code></td><td>#e6e6e7</td></tr>
+            <tr><td>Panel</td><td>Border radius</td><td>—</td><td>4 px</td></tr>
+            <tr><td>Quick preset button</td><td>Background (default)</td><td><code>--grey-05</code></td><td>#f7f7f8</td></tr>
+            <tr><td>Quick preset button</td><td>Background (active)</td><td><code>--blue-azure-10</code></td><td>#e8f6ff</td></tr>
+            <tr><td>Quick preset button</td><td>Text (active)</td><td><code>--blue-azure-70</code></td><td>#0a74a6</td></tr>
+            <tr><td>Date input</td><td>Border (default)</td><td><code>--grey-30</code></td><td>#d8d8da</td></tr>
+            <tr><td>Date input</td><td>Border (focus)</td><td><code>--grey-80</code></td><td>#5d6065</td></tr>
+            <tr><td>Calendar — day hover</td><td>Background</td><td><code>--grey-10</code></td><td>#f1f1f2</td></tr>
+            <tr><td>Calendar — selected range</td><td>Background</td><td><code>--blue-azure-10</code></td><td>#e8f6ff</td></tr>
+            <tr><td>Calendar — range endpoints</td><td>Background</td><td><code>--blue-azure-50</code></td><td>#39ade3</td></tr>
+            <tr><td>Calendar — today indicator</td><td>Border</td><td><code>--blue-azure-50</code></td><td>#39ade3</td></tr>
+            <tr><td>Footer — Apply button</td><td>Background</td><td><code>--btn-primary-bg</code> / <code>--indigo-100</code></td><td>#010028</td></tr>
+            <tr><td>Footer — Cancel button</td><td>Border</td><td><code>--grey-70</code></td><td>#6f7176</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
   </main>
 </template>
 
@@ -401,40 +429,25 @@ function fmtRange(v) {
   font-style: italic;
 }
 
-/* ── Do / Don't ─────────────────────────────────────────────── */
-.tf-dodonts {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-.tf-format-card {
-  background: var(--grey-05);
-  border-radius: 8px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.tf-format-label {
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .06em;
-}
-.tf-format-label--do   { color: var(--green-90); }
-.tf-format-label--dont { color: var(--red-80); }
-.tf-rule-list {
-  margin: 0;
-  padding-left: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.tf-rule-list li {
-  font-size: 14px;
-  color: var(--grey-70);
-  line-height: 1.5;
-}
+/* ── Do / Don't — matches TopBar / other pages ──────────────── */
+.ds-usage-grid       { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.ds-usage-card       { background: #fff; border: 1px solid var(--grey-20); border-radius: 8px; padding: 20px; padding-top: 0; overflow: hidden; }
+.ds-usage-card--do   { border-top: 3px solid var(--green-60); }
+.ds-usage-card--dont { border-top: 3px solid var(--red-60); }
+.ds-usage-card__label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; padding-top: 16px; }
+.ds-usage-card__label--do   { color: var(--green-90); }
+.ds-usage-card__label--dont { color: var(--red-70); }
+.ds-usage-list { padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.ds-usage-list li { font-size: 13px; color: var(--grey-80); line-height: 1.5; padding-left: 14px; position: relative; }
+.ds-usage-list li::before { content: '·'; position: absolute; left: 0; color: var(--grey-50); }
+
+/* ── Token table — matches TopBar / other pages ─────────────── */
+.ds-table-wrap  { overflow-x: auto; border-radius: 8px; border: 1px solid var(--grey-20); }
+.ds-guide-table { width: 100%; border-collapse: collapse; background: #fff; font-size: 13px; }
+.ds-guide-table thead th { background: var(--grey-05); border-bottom: 1px solid var(--grey-20); padding: 10px 16px; text-align: left; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--grey-70); white-space: nowrap; }
+.ds-guide-table tbody td { padding: 12px 16px; border-bottom: 1px solid var(--grey-10); vertical-align: middle; color: var(--grey-80); }
+.ds-guide-table tbody tr:last-child td { border-bottom: none; }
+.ds-guide-table code { font-size: 11px; font-family: 'SFMono-Regular', 'Consolas', monospace; color: var(--grey-80); background: var(--grey-05); padding: 2px 5px; border-radius: 3px; }
 
 /* Code blocks */
 .ds-code-block {
