@@ -24,16 +24,19 @@ const props = defineProps({
   subtitle2: { type: String, default: '' },
 })
 
-const headerBg = computed(() => ({
-  'driver-driving':   'var(--green-10)',
-  'asset-driving':    'var(--green-10)',
-  'asset-idling':     'var(--blue-azure-10)',
-  'asset-parking':    'var(--blue-azure-20)',
-  'asset-engineoff':  'var(--grey-05)',
-  'driver-rest':      'var(--grey-10)',
-  'driver-otherwork': 'var(--indigo-10)',
-  main:               'var(--grey-00)',
-})[props.status] ?? 'var(--grey-00)')
+const headerBg = computed(() => {
+  if (props.size === 'md') return 'var(--grey-00)'
+  return ({
+    'driver-driving':   'var(--green-10)',
+    'asset-driving':    'var(--green-10)',
+    'asset-idling':     'var(--blue-azure-10)',
+    'asset-parking':    'var(--blue-azure-20)',
+    'asset-engineoff':  'var(--grey-05)',
+    'driver-rest':      'var(--grey-10)',
+    'driver-otherwork': 'var(--indigo-10)',
+    main:               'var(--grey-00)',
+  })[props.status] ?? 'var(--grey-00)'
+})
 
 const tagConfig = computed(() => ({
   'driver-driving':   { label: 'Driving',    bg: 'var(--green-90)',       color: 'var(--green-10)',      icon: 'driving' },
