@@ -17,7 +17,7 @@ const props = defineProps({
   status: {
     type: String,
     default: 'main',
-    validator: v => ['main', 'driving', 'idling', 'off', 'parked', 'rest', 'otherwork', 'fleet', 'fleet-warning'].includes(v),
+    validator: v => ['main', 'driver-driving', 'driver-rest', 'driver-otherwork', 'asset-driving', 'asset-idling', 'asset-engineoff', 'asset-parking'].includes(v),
   },
   title:    { type: String, default: '' },
   subtitle: { type: String, default: '' },
@@ -25,26 +25,24 @@ const props = defineProps({
 })
 
 const headerBg = computed(() => ({
-  driving:        'var(--green-10)',
-  idling:         'var(--blue-azure-10)',
-  parked:         'var(--blue-azure-20)',
-  off:            'var(--grey-05)',
-  rest:           'var(--grey-10)',
-  otherwork:      'var(--indigo-10)',
-  main:           'var(--grey-00)',
-  fleet:          'var(--grey-00)',
-  'fleet-warning':'var(--grey-00)',
+  'driver-driving':   'var(--green-10)',
+  'asset-driving':    'var(--green-10)',
+  'asset-idling':     'var(--blue-azure-10)',
+  'asset-parking':    'var(--blue-azure-20)',
+  'asset-engineoff':  'var(--grey-05)',
+  'driver-rest':      'var(--grey-10)',
+  'driver-otherwork': 'var(--indigo-10)',
+  main:               'var(--grey-00)',
 })[props.status] ?? 'var(--grey-00)')
 
 const tagConfig = computed(() => ({
-  driving:        { label: 'Driving',    bg: 'var(--green-90)',       color: 'var(--green-10)',   icon: 'driving' },
-  idling:         { label: 'Idling',     bg: 'var(--blue-azure-90)',  color: 'var(--grey-00)',    icon: 'idling' },
-  parked:         { label: 'Parked',     bg: 'transparent',           color: 'var(--blue-azure-90)', icon: 'parked', shadow: 'inset 0 0 0 1px var(--blue-azure-30)' },
-  off:            { label: 'Engine off', bg: 'var(--grey-20)',        color: 'var(--grey-70)',    icon: 'off' },
-  rest:           { label: 'Resting',    bg: 'var(--grey-20)',        color: 'var(--grey-80)',    icon: 'rest' },
-  otherwork:      { label: 'Other work', bg: 'var(--indigo-20)',      color: 'var(--indigo-90)',  icon: 'otherwork' },
-  fleet:          { label: 'Driving',    bg: 'var(--green-90)',       color: 'var(--green-10)',   icon: 'driving' },
-  'fleet-warning':{ label: 'Driving',    bg: 'var(--green-90)',       color: 'var(--green-10)',   icon: 'driving' },
+  'driver-driving':   { label: 'Driving',    bg: 'var(--green-90)',       color: 'var(--green-10)',      icon: 'driving' },
+  'asset-driving':    { label: 'Driving',    bg: 'var(--green-90)',       color: 'var(--green-10)',      icon: 'driving' },
+  'asset-idling':     { label: 'Idling',     bg: 'var(--blue-azure-90)',  color: 'var(--grey-00)',       icon: 'idling' },
+  'asset-parking':    { label: 'Parked',     bg: 'transparent',           color: 'var(--blue-azure-90)', icon: 'parked', shadow: 'inset 0 0 0 1px var(--blue-azure-30)' },
+  'asset-engineoff':  { label: 'Engine off', bg: 'var(--grey-20)',        color: 'var(--grey-70)',       icon: 'off' },
+  'driver-rest':      { label: 'Resting',    bg: 'var(--grey-20)',        color: 'var(--grey-80)',       icon: 'rest' },
+  'driver-otherwork': { label: 'Other work', bg: 'var(--indigo-20)',      color: 'var(--indigo-90)',     icon: 'otherwork' },
 })[props.status] ?? null)
 
 const showTag = computed(() => props.type !== 'plain' && tagConfig.value !== null)

@@ -9,7 +9,7 @@ import AppButton            from '../components/ui/AppButton.vue'
     <!-- ── Header ──────────────────────────────────────────── -->
     <section class="ds-section">
       <h1 class="ds-h1">Contextual Overlay</h1>
-      <p class="ds-lead">4 types · 2 sizes · 9 statuses · optional actions</p>
+      <p class="ds-lead">4 types · 2 sizes · 8 statuses · optional actions</p>
       <p class="ds-body">
         Contextual overlays appear on the map view, anchored to a vehicle, driver, or trip marker.
         They show real-time status and key telemetry at a glance, with optional quick-action
@@ -63,7 +63,7 @@ import AppButton            from '../components/ui/AppButton.vue'
 &lt;AppContextualOverlay
   type="asset"
   size="sm"
-  status="driving"
+  status="asset-driving"
   title="Driving"
   subtitle="Elisabeth B. Keen"
 &gt;
@@ -95,7 +95,7 @@ import AppButton            from '../components/ui/AppButton.vue'
           <ul class="ds-usage-list">
             <li>Don't mix data types — asset overlays show vehicle data, driver overlays show activity data</li>
             <li>Don't omit the <code>status</code> prop for asset/driver types — the header color carries meaning</li>
-            <li>Don't use <code>type="plain"</code> with a status that implies entity context (driving, idling…)</li>
+            <li>Don't use <code>type="plain"</code> with a status that implies entity context (asset-driving, asset-idling…)</li>
             <li>Don't place form inputs inside overlays — they're display-only components</li>
           </ul>
         </div>
@@ -119,7 +119,7 @@ import AppButton            from '../components/ui/AppButton.vue'
           <AppContextualOverlay
             type="asset"
             size="md"
-            status="fleet"
+            status="asset-driving"
             title="The blue truck"
             subtitle="DK 124 24 / Truck"
             subtitle2="Tamperebe"
@@ -145,7 +145,7 @@ import AppButton            from '../components/ui/AppButton.vue'
           <AppContextualOverlay
             type="asset"
             size="md"
-            status="fleet"
+            status="asset-driving"
             title="The blue truck"
             subtitle="DK 124 24 / Truck"
             subtitle2="Current location"
@@ -182,7 +182,7 @@ import AppButton            from '../components/ui/AppButton.vue'
           <AppContextualOverlay
             type="asset"
             size="md"
-            status="fleet-warning"
+            status="asset-driving"
             title="The blue truck"
             subtitle="DK 124 24 / Truck"
             subtitle2="Current location"
@@ -257,7 +257,7 @@ import AppButton            from '../components/ui/AppButton.vue'
 
         <div class="co-variant">
           <p class="co-variant__label">Driving</p>
-          <AppContextualOverlay type="driver" size="sm" status="driving" title="Driving" subtitle="The blue truck #12">
+          <AppContextualOverlay type="driver" size="sm" status="driver-driving" title="Driving" subtitle="The blue truck #12">
             <template #body>
               <div class="co-data-row"><span class="co-data-label">Duration</span><span class="co-data-value">3h 30min</span></div>
               <div class="co-data-row"><span class="co-data-label">Start time</span><span class="co-data-value">09:00:15</span></div>
@@ -271,7 +271,7 @@ import AppButton            from '../components/ui/AppButton.vue'
 
         <div class="co-variant">
           <p class="co-variant__label">Resting</p>
-          <AppContextualOverlay type="driver" size="sm" status="rest" title="Resting" subtitle="The blue truck #12">
+          <AppContextualOverlay type="driver" size="sm" status="driver-rest" title="Resting" subtitle="The blue truck #12">
             <template #body>
               <div class="co-data-row"><span class="co-data-label">Duration</span><span class="co-data-value">3h 30min</span></div>
               <div class="co-data-row"><span class="co-data-label">Start time</span><span class="co-data-value">09:00:15</span></div>
@@ -285,7 +285,7 @@ import AppButton            from '../components/ui/AppButton.vue'
 
         <div class="co-variant">
           <p class="co-variant__label">Other work</p>
-          <AppContextualOverlay type="driver" size="sm" status="otherwork" title="Other work" subtitle="The blue truck #12">
+          <AppContextualOverlay type="driver" size="sm" status="driver-otherwork" title="Other work" subtitle="The blue truck #12">
             <template #body>
               <div class="co-data-row"><span class="co-data-label">Duration</span><span class="co-data-value">3h 30min</span></div>
               <div class="co-data-row"><span class="co-data-label">Start time</span><span class="co-data-value">09:00:15</span></div>
@@ -312,7 +312,7 @@ import AppButton            from '../components/ui/AppButton.vue'
 
         <div class="co-variant">
           <p class="co-variant__label">Driving</p>
-          <AppContextualOverlay type="asset" size="sm" status="driving" title="Driving" subtitle="Elisabeth B. Keen">
+          <AppContextualOverlay type="asset" size="sm" status="asset-driving" title="Driving" subtitle="Elisabeth B. Keen">
             <template #body>
               <div class="co-data-row"><span class="co-data-label">Duration</span><span class="co-data-value">3h 30min</span></div>
               <div class="co-data-row"><span class="co-data-label">Start time</span><span class="co-data-value">09:00:15</span></div>
@@ -329,7 +329,7 @@ import AppButton            from '../components/ui/AppButton.vue'
 
         <div class="co-variant">
           <p class="co-variant__label">Idling</p>
-          <AppContextualOverlay type="asset" size="sm" status="idling" title="Idling" subtitle="The blue truck">
+          <AppContextualOverlay type="asset" size="sm" status="asset-idling" title="Idling" subtitle="The blue truck">
             <template #body>
               <div class="co-data-row"><span class="co-data-label">Duration</span><span class="co-data-value">15min</span></div>
               <div class="co-data-row"><span class="co-data-label">Start time</span><span class="co-data-value">09:00:15</span></div>
@@ -343,7 +343,7 @@ import AppButton            from '../components/ui/AppButton.vue'
 
         <div class="co-variant">
           <p class="co-variant__label">Engine off</p>
-          <AppContextualOverlay type="asset" size="sm" status="off" title="Engine off" subtitle="The blue truck">
+          <AppContextualOverlay type="asset" size="sm" status="asset-engineoff" title="Engine off" subtitle="The blue truck">
             <template #body>
               <div class="co-data-row"><span class="co-data-label">Duration</span><span class="co-data-value">45min</span></div>
               <div class="co-data-row"><span class="co-data-label">Start time</span><span class="co-data-value">09:00:15</span></div>
@@ -357,7 +357,7 @@ import AppButton            from '../components/ui/AppButton.vue'
 
         <div class="co-variant">
           <p class="co-variant__label">Parked</p>
-          <AppContextualOverlay type="asset" size="sm" status="parked" title="Parked" subtitle="The blue truck">
+          <AppContextualOverlay type="asset" size="sm" status="asset-parking" title="Parked" subtitle="The blue truck">
             <template #body>
               <div class="co-data-row"><span class="co-data-label">Duration</span><span class="co-data-value">15min</span></div>
               <div class="co-data-row"><span class="co-data-label">Start time</span><span class="co-data-value">09:00:15</span></div>
@@ -381,9 +381,15 @@ import AppButton            from '../components/ui/AppButton.vue'
       </p>
 
       <div class="co-status-grid">
-        <div v-for="s in ['driving','idling','parked','off','rest','otherwork','fleet','fleet-warning','main']" :key="s" class="co-status-item">
+        <div v-for="s in ['driver-driving','asset-driving','asset-idling','asset-parking','asset-engineoff','driver-rest','driver-otherwork','main']" :key="s" class="co-status-item">
           <p class="co-variant__label">{{ s }}</p>
-          <AppContextualOverlay :type="['fleet','fleet-warning'].includes(s) ? 'asset' : s === 'main' ? 'plain' : 'asset'" size="sm" :status="s" :title="s === 'main' ? 'Title' : s.charAt(0).toUpperCase() + s.slice(1)" subtitle="The blue truck" />
+          <AppContextualOverlay
+            :type="s === 'main' ? 'plain' : s.startsWith('driver-') ? 'driver' : 'asset'"
+            size="sm"
+            :status="s"
+            :title="s === 'main' ? 'Title' : s.replace(/^(driver|asset)-/, '').replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())"
+            subtitle="The blue truck"
+          />
         </div>
       </div>
     </section>
@@ -411,7 +417,7 @@ import AppButton            from '../components/ui/AppButton.vue'
             </tr>
             <tr>
               <td><code>status</code></td>
-              <td><code>'main' | 'driving' | 'idling' | 'off' | 'parked' | 'rest' | 'otherwork' | 'fleet' | 'fleet-warning'</code></td>
+              <td><code>'main' | 'driver-driving' | 'driver-rest' | 'driver-otherwork' | 'asset-driving' | 'asset-idling' | 'asset-engineoff' | 'asset-parking'</code></td>
               <td><code>'main'</code></td>
               <td>Current entity status. Drives the header background color and auto-rendered status tag.</td>
             </tr>
@@ -481,15 +487,15 @@ import AppButton            from '../components/ui/AppButton.vue'
             <tr><td>Container</td><td>Width (sm)</td><td>—</td><td>232 px</td></tr>
             <tr><td>Container</td><td>Border radius</td><td>—</td><td>4 px</td></tr>
             <tr><td>Container</td><td>Drop shadow</td><td>—</td><td>0 4px 7.5px rgba(0,0,0,0.25)</td></tr>
-            <tr><td>Header (driving)</td><td>Background</td><td><code>--green-10</code></td><td>#f1fcf2</td></tr>
-            <tr><td>Header (idling)</td><td>Background</td><td><code>--blue-azure-10</code></td><td>#e8f6ff</td></tr>
-            <tr><td>Header (parked)</td><td>Background</td><td><code>--blue-azure-20</code></td><td>#d7eff9</td></tr>
-            <tr><td>Header (off)</td><td>Background</td><td><code>--grey-05</code></td><td>#f7f7f8</td></tr>
-            <tr><td>Header (rest)</td><td>Background</td><td><code>--grey-10</code></td><td>#f1f1f2</td></tr>
-            <tr><td>Header (otherwork)</td><td>Background</td><td><code>--indigo-10</code></td><td>#f1ecff</td></tr>
+            <tr><td>Header (driver-driving / asset-driving)</td><td>Background</td><td><code>--green-10</code></td><td>#f1fcf2</td></tr>
+            <tr><td>Header (asset-idling)</td><td>Background</td><td><code>--blue-azure-10</code></td><td>#e8f6ff</td></tr>
+            <tr><td>Header (asset-parking)</td><td>Background</td><td><code>--blue-azure-20</code></td><td>#d7eff9</td></tr>
+            <tr><td>Header (asset-engineoff)</td><td>Background</td><td><code>--grey-05</code></td><td>#f7f7f8</td></tr>
+            <tr><td>Header (driver-rest)</td><td>Background</td><td><code>--grey-10</code></td><td>#f1f1f2</td></tr>
+            <tr><td>Header (driver-otherwork)</td><td>Background</td><td><code>--indigo-10</code></td><td>#f1ecff</td></tr>
             <tr><td>Status tag (driving)</td><td>Background</td><td><code>--green-90</code></td><td>#247a31</td></tr>
-            <tr><td>Status tag (idling)</td><td>Background</td><td><code>--blue-azure-90</code></td><td>#075985</td></tr>
-            <tr><td>Status tag (otherwork)</td><td>Background</td><td><code>--indigo-20</code></td><td>#e4daff</td></tr>
+            <tr><td>Status tag (asset-idling)</td><td>Background</td><td><code>--blue-azure-90</code></td><td>#075985</td></tr>
+            <tr><td>Status tag (driver-otherwork)</td><td>Background</td><td><code>--indigo-20</code></td><td>#e4daff</td></tr>
             <tr><td>Divider</td><td>Color</td><td><code>--grey-20</code></td><td>#e6e6e7</td></tr>
             <tr><td>Title</td><td>Font size (md)</td><td>—</td><td>14 px / 500</td></tr>
             <tr><td>Title</td><td>Font size (sm)</td><td>—</td><td>12 px / 500</td></tr>
