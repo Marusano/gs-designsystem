@@ -37,7 +37,7 @@ const headerBg = computed(() => ({
 
 const tagConfig = computed(() => ({
   'driver-driving':   { label: 'Driving',    bg: 'var(--green-90)',       color: 'var(--green-10)',      icon: 'driving' },
-  'asset-driving':    { label: 'Driving',    bg: 'var(--green-90)',       color: 'var(--green-10)',      icon: 'driving' },
+  'asset-driving':    { label: 'Driving',    bg: 'var(--green-90)',       color: 'var(--green-10)',      icon: 'asset-driving' },
   'asset-idling':     { label: 'Idling',     bg: 'var(--blue-azure-90)',  color: 'var(--grey-00)',       icon: 'idling' },
   'asset-parking':    { label: 'Parked',     bg: 'transparent',           color: 'var(--blue-azure-90)', icon: 'parked', shadow: 'inset 0 0 0 1px var(--blue-azure-30)' },
   'asset-engineoff':  { label: 'Engine off', bg: 'var(--grey-20)',        color: 'var(--grey-70)',       icon: 'off' },
@@ -66,7 +66,8 @@ const showTag = computed(() => props.type !== 'plain' && tagConfig.value !== nul
           :class="['co__tag', size === 'sm' && tagConfig.icon && 'co__tag--icon-only']"
           :style="{ background: tagConfig.bg, color: tagConfig.color, boxShadow: tagConfig.shadow }"
         >
-          <img v-if="tagConfig.icon === 'driving'"   src="../../assets/overlay-icons/icon-driving.svg"   class="co__tag-icon" alt="" />
+          <img v-if="tagConfig.icon === 'driving'"       src="../../assets/overlay-icons/icon-driving.svg"       class="co__tag-icon" alt="" />
+          <img v-if="tagConfig.icon === 'asset-driving'" src="../../assets/overlay-icons/icon-asset-driving.svg" class="co__tag-icon" alt="" />
           <img v-if="tagConfig.icon === 'rest'"      src="../../assets/overlay-icons/icon-rest.svg"      class="co__tag-icon" alt="" />
           <img v-if="tagConfig.icon === 'otherwork'" src="../../assets/overlay-icons/icon-otherwork.svg" class="co__tag-icon" alt="" />
           <img v-if="tagConfig.icon === 'parked'"    src="../../assets/overlay-icons/icon-parked.svg"    class="co__tag-icon" alt="" />
