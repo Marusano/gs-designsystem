@@ -38,13 +38,13 @@ const headerBg = computed(() => ({
 
 const tagConfig = computed(() => ({
   driving:        { label: 'Driving',    bg: 'var(--green-90)',       color: 'var(--green-10)',   icon: 'driving' },
-  idling:         { label: 'Idling',     bg: 'var(--blue-azure-90)',  color: 'var(--grey-00)',    icon: null },
+  idling:         { label: 'Idling',     bg: 'var(--blue-azure-90)',  color: 'var(--grey-00)',    icon: 'idling' },
   parked:         { label: 'Parked',     bg: 'transparent',           color: 'var(--blue-azure-90)', icon: 'parked', shadow: 'inset 0 0 0 1px var(--blue-azure-30)' },
-  off:            { label: 'Engine off', bg: 'var(--grey-20)',        color: 'var(--grey-70)',    icon: null },
+  off:            { label: 'Engine off', bg: 'var(--grey-20)',        color: 'var(--grey-70)',    icon: 'off' },
   rest:           { label: 'Resting',    bg: 'var(--grey-20)',        color: 'var(--grey-80)',    icon: 'rest' },
   otherwork:      { label: 'Other work', bg: 'var(--indigo-20)',      color: 'var(--indigo-90)',  icon: 'otherwork' },
-  fleet:          { label: 'Driving',    bg: 'var(--green-90)',       color: 'var(--green-10)',   icon: null },
-  'fleet-warning':{ label: 'Driving',    bg: 'var(--green-90)',       color: 'var(--green-10)',   icon: null },
+  fleet:          { label: 'Driving',    bg: 'var(--green-90)',       color: 'var(--green-10)',   icon: 'driving' },
+  'fleet-warning':{ label: 'Driving',    bg: 'var(--green-90)',       color: 'var(--green-10)',   icon: 'driving' },
 })[props.status] ?? null)
 
 const showTag = computed(() => props.type !== 'plain' && tagConfig.value !== null)
@@ -72,6 +72,8 @@ const showTag = computed(() => props.type !== 'plain' && tagConfig.value !== nul
           <img v-if="tagConfig.icon === 'rest'"      src="../../assets/overlay-icons/icon-rest.svg"      class="co__tag-icon" alt="" />
           <img v-if="tagConfig.icon === 'otherwork'" src="../../assets/overlay-icons/icon-otherwork.svg" class="co__tag-icon" alt="" />
           <img v-if="tagConfig.icon === 'parked'"    src="../../assets/overlay-icons/icon-parked.svg"    class="co__tag-icon" alt="" />
+          <img v-if="tagConfig.icon === 'idling'"    src="../../assets/overlay-icons/icon-idling.svg"    class="co__tag-icon" alt="" />
+          <img v-if="tagConfig.icon === 'off'"       src="../../assets/overlay-icons/icon-off.svg"       class="co__tag-icon" alt="" />
           <span v-if="size === 'md' || !tagConfig.icon" class="co__tag-label">{{ tagConfig.label }}</span>
         </div>
       </slot>
