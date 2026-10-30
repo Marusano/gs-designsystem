@@ -65,14 +65,14 @@ const showTag = computed(() => props.type !== 'plain' && tagConfig.value !== nul
       <slot name="header-right">
         <div
           v-if="showTag"
-          class="co__tag"
+          :class="['co__tag', size === 'sm' && tagConfig.icon && 'co__tag--icon-only']"
           :style="{ background: tagConfig.bg, color: tagConfig.color, boxShadow: tagConfig.shadow }"
         >
           <img v-if="tagConfig.icon === 'driving'"   src="../../assets/overlay-icons/icon-driving.svg"   class="co__tag-icon" alt="" />
           <img v-if="tagConfig.icon === 'rest'"      src="../../assets/overlay-icons/icon-rest.svg"      class="co__tag-icon" alt="" />
           <img v-if="tagConfig.icon === 'otherwork'" src="../../assets/overlay-icons/icon-otherwork.svg" class="co__tag-icon" alt="" />
           <img v-if="tagConfig.icon === 'parked'"    src="../../assets/overlay-icons/icon-parked.svg"    class="co__tag-icon" alt="" />
-          <span class="co__tag-label">{{ tagConfig.label }}</span>
+          <span v-if="size === 'md' || !tagConfig.icon" class="co__tag-label">{{ tagConfig.label }}</span>
         </div>
       </slot>
     </div>
@@ -222,5 +222,13 @@ const showTag = computed(() => props.type !== 'plain' && tagConfig.value !== nul
   gap: 8px;
   padding: 4px 12px;
   min-height: 40px;
+}
+
+.co--sm .co__footer {
+  justify-content: center;
+}
+
+.co__tag--icon-only {
+  padding: 4px;
 }
 </style>
