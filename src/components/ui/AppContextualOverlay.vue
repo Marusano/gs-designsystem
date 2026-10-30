@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
 
 defineOptions({ name: 'AppContextualOverlay' })
 
@@ -49,6 +49,8 @@ const tagConfig = computed(() => ({
 })[props.status] ?? null)
 
 const showTag = computed(() => props.type !== 'plain' && tagConfig.value !== null)
+
+const sectionOpen = ref(false)
 </script>
 
 <template>
@@ -82,19 +84,45 @@ const showTag = computed(() => props.type !== 'plain' && tagConfig.value !== nul
     </div>
 
     <!-- Divider (shown when there is content below header) -->
-    <div v-if="$slots.body || $slots.section || $slots.footer" class="co__divider" />
+    <div v-if="$slots.body || $slots.section || $slots['section-detail'] || $slots['section-tag'] || $slots.footer" class="co__divider" />
 
     <!-- Body slot -->
     <div v-if="$slots.body" class="co__body">
       <slot name="body" />
     </div>
 
-    <!-- Section slot (grey bg, e.g. driver info in fleet expanded) -->
-    <slot name="section" />
+    <!-- Section area (grey bg, collapsible when section-detail provided) -->
+    <div v-if="$slots.section || $slots['section-detail'] || $slots['section-tag']" class="co__section">
+      <div
+        :class="['co__section-row', $slots['section-detail'] && 'co__section-row--toggle']"
+        @click="$slots['section-detail'] && (sectionOpen = !sectionOpen)"
+      >
+        <div class="co__section-left">
+          <slot name="section" />
+        </div>
+        <div v-if="$slots['section-detail'] || $slots['section-tag']" class="co__section-right">
+          <button
+            v-if="$slots['section-detail']"
+            :class="['co__section-chevron', sectionOpen && 'co__section-chevron--open']"
+            type="button"
+            @click.stop="sectionOpen = !sectionOpen"
+            aria-label="Toggle details"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7.20921 9.21967C7.4667 8.94931 7.87186 8.92851 8.15207 9.15728L8.21936 9.21967L12 13.1888L15.7806 9.21967C16.0381 8.94931 16.4433 8.92851 16.7235 9.15728L16.7908 9.21967C17.0483 9.49003 17.0681 9.91546 16.8502 10.2097L16.7908 10.2803L12.5051 14.7803C12.2476 15.0507 11.8424 15.0715 11.5622 14.8427L11.4949 14.7803L7.20921 10.2803C6.93026 9.98744 6.93026 9.51256 7.20921 9.21967Z" fill-rule="evenodd" clip-rule="evenodd" fill="currentColor"/>
+            </svg>
+          </button>
+          <slot name="section-tag" />
+        </div>
+      </div>
+      <div v-if="$slots['section-detail'] && sectionOpen" class="co__section-detail">
+        <slot name="section-detail" />
+      </div>
+    </div>
 
     <!-- Footer divider + footer -->
     <template v-if="$slots.footer">
-      <div v-if="$slots.body || $slots.section" class="co__divider" />
+      <div v-if="$slots.body || $slots.section || $slots['section-detail'] || $slots['section-tag']" class="co__divider" />
       <div class="co__footer">
         <slot name="footer" />
       </div>
@@ -213,6 +241,63 @@ const showTag = computed(() => props.type !== 'plain' && tagConfig.value !== nul
 .co__body {
   background: var(--grey-00);
   padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ── Section area ─────────────────────────────────────────── */
+.co__section {
+  background: var(--grey-05);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.co__section-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.co__section-row--toggle {
+  cursor: pointer;
+}
+
+.co__section-left {
+  flex: 1;
+  min-width: 0;
+}
+
+.co__section-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.co__section-chevron {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--grey-70);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  transition: transform 0.2s ease;
+}
+
+.co__section-chevron--open {
+  transform: rotate(180deg);
+}
+
+.co__section-detail {
+  margin-top: 8px;
   display: flex;
   flex-direction: column;
   gap: 8px;

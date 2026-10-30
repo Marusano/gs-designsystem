@@ -113,7 +113,7 @@ import AppButton            from '../components/ui/AppButton.vue'
 
       <div class="co-variants-row">
 
-        <!-- Collapsed fleet -->
+        <!-- Collapsed fleet (no section-detail → no chevron) -->
         <div class="co-variant">
           <p class="co-variant__label">Collapsed — fleet</p>
           <AppContextualOverlay
@@ -124,13 +124,14 @@ import AppButton            from '../components/ui/AppButton.vue'
             subtitle="DK 124 24 / Truck"
             subtitle2="Tamperebe"
           >
-            <template #body>
-              <div class="co-data-row">
-                <div class="co-data-point">
-                  <span class="co-data-point__label">Current driver</span>
-                  <span class="co-data-point__value">Elisabeth B. Keen</span>
-                </div>
+            <template #section>
+              <div class="co-data-point">
+                <span class="co-data-point__label">Current driver</span>
+                <span class="co-data-point__value">Elisabeth B. Keen</span>
               </div>
+            </template>
+            <template #section-tag>
+              <div class="co-section__tag">Driving</div>
             </template>
             <template #footer>
               <AppButton variant="quiet" size="sm">Go to asset</AppButton>
@@ -139,7 +140,7 @@ import AppButton            from '../components/ui/AppButton.vue'
           </AppContextualOverlay>
         </div>
 
-        <!-- Expanded fleet -->
+        <!-- Expandable fleet (chevron toggles remaining times) -->
         <div class="co-variant">
           <p class="co-variant__label">Expanded — fleet</p>
           <AppContextualOverlay
@@ -151,22 +152,22 @@ import AppButton            from '../components/ui/AppButton.vue'
             subtitle2="Current location"
           >
             <template #section>
-              <div class="co-section">
-                <div class="co-section__driver-row">
-                  <div class="co-data-point">
-                    <span class="co-data-point__label">Current driver</span>
-                    <span class="co-data-point__value">Name Surname Here</span>
-                  </div>
-                  <div class="co-section__tag">Driving</div>
-                </div>
-                <div class="co-severity co-severity--neutral">
-                  <span class="co-severity__label">Remaining drive time</span>
-                  <span class="co-severity__value">48:45</span>
-                </div>
-                <div class="co-severity co-severity--neutral">
-                  <span class="co-severity__label">Until next 15min break</span>
-                  <span class="co-severity__value">00:45</span>
-                </div>
+              <div class="co-data-point">
+                <span class="co-data-point__label">Current driver</span>
+                <span class="co-data-point__value">Name Surname Here</span>
+              </div>
+            </template>
+            <template #section-tag>
+              <div class="co-section__tag">Driving</div>
+            </template>
+            <template #section-detail>
+              <div class="co-severity co-severity--neutral">
+                <span class="co-severity__label">Remaining drive time</span>
+                <span class="co-severity__value">48:45</span>
+              </div>
+              <div class="co-severity co-severity--neutral">
+                <span class="co-severity__label">Until next 15min break</span>
+                <span class="co-severity__value">00:45</span>
               </div>
             </template>
             <template #footer>
@@ -176,7 +177,7 @@ import AppButton            from '../components/ui/AppButton.vue'
           </AppContextualOverlay>
         </div>
 
-        <!-- Expanded fleet-warning -->
+        <!-- Expandable fleet warning -->
         <div class="co-variant">
           <p class="co-variant__label">Expanded — fleet warning</p>
           <AppContextualOverlay
@@ -188,26 +189,26 @@ import AppButton            from '../components/ui/AppButton.vue'
             subtitle2="Current location"
           >
             <template #section>
-              <div class="co-section">
-                <div class="co-section__driver-row">
-                  <div class="co-data-point">
-                    <span class="co-data-point__label">Current driver</span>
-                    <span class="co-data-point__value">Name Surname Here</span>
-                  </div>
-                  <div class="co-section__tag">Driving</div>
-                </div>
-                <div class="co-severity co-severity--neutral">
-                  <span class="co-severity__label">Until next break</span>
-                  <span class="co-severity__value">00:15</span>
-                </div>
-                <div class="co-severity co-severity--warning">
-                  <span class="co-severity__label">Until next 15min break</span>
-                  <span class="co-severity__value co-severity__value--warning">00:45</span>
-                </div>
-                <div class="co-severity co-severity--danger">
-                  <span class="co-severity__label">Remaining drive time</span>
-                  <span class="co-severity__value co-severity__value--danger">48:45</span>
-                </div>
+              <div class="co-data-point">
+                <span class="co-data-point__label">Current driver</span>
+                <span class="co-data-point__value">Name Surname Here</span>
+              </div>
+            </template>
+            <template #section-tag>
+              <div class="co-section__tag">Driving</div>
+            </template>
+            <template #section-detail>
+              <div class="co-severity co-severity--neutral">
+                <span class="co-severity__label">Until next break</span>
+                <span class="co-severity__value">00:15</span>
+              </div>
+              <div class="co-severity co-severity--warning">
+                <span class="co-severity__label">Until next 15min break</span>
+                <span class="co-severity__value co-severity__value--warning">00:45</span>
+              </div>
+              <div class="co-severity co-severity--danger">
+                <span class="co-severity__label">Remaining drive time</span>
+                <span class="co-severity__value co-severity__value--danger">48:45</span>
               </div>
             </template>
             <template #footer>
@@ -605,21 +606,6 @@ import AppButton            from '../components/ui/AppButton.vue'
 }
 
 /* Section slot helper classes */
-.co-section {
-  background: var(--grey-05);
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.co-section__driver-row {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 8px;
-}
-
 .co-section__tag {
   background: var(--green-90);
   color: var(--green-10);
@@ -630,7 +616,6 @@ import AppButton            from '../components/ui/AppButton.vue'
   border-radius: 4px;
   white-space: nowrap;
   flex-shrink: 0;
-  align-self: flex-end;
 }
 
 /* Severity rows */
