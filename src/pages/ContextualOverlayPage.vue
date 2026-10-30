@@ -74,7 +74,7 @@ import AppButton            from '../components/ui/AppButton.vue'
     &lt;/div&gt;
   &lt;/template&gt;
   &lt;template #footer&gt;
-    &lt;AppButton variant="quiet" size="sm"&gt;Go to driver&lt;/AppButton&gt;
+    &lt;AppButton variant="quiet" size="xs"&gt;Go to driver&lt;/AppButton&gt;
   &lt;/template&gt;
 &lt;/AppContextualOverlay&gt;</code></pre>
       </div>
@@ -264,7 +264,7 @@ import AppButton            from '../components/ui/AppButton.vue'
               <div class="co-data-row"><span class="co-data-label">End time</span><span class="co-data-value">12:00:15</span></div>
             </template>
             <template #footer>
-              <AppButton variant="quiet" size="sm">Action here</AppButton>
+              <AppButton variant="quiet" size="xs">Action here</AppButton>
             </template>
           </AppContextualOverlay>
         </div>
@@ -278,7 +278,7 @@ import AppButton            from '../components/ui/AppButton.vue'
               <div class="co-data-row"><span class="co-data-label">End time</span><span class="co-data-value">12:00:15</span></div>
             </template>
             <template #footer>
-              <AppButton variant="quiet" size="sm">Action here</AppButton>
+              <AppButton variant="quiet" size="xs">Action here</AppButton>
             </template>
           </AppContextualOverlay>
         </div>
@@ -292,7 +292,7 @@ import AppButton            from '../components/ui/AppButton.vue'
               <div class="co-data-row"><span class="co-data-label">End time</span><span class="co-data-value">12:00:15</span></div>
             </template>
             <template #footer>
-              <AppButton variant="quiet" size="sm">Action here</AppButton>
+              <AppButton variant="quiet" size="xs">Action here</AppButton>
             </template>
           </AppContextualOverlay>
         </div>
@@ -322,7 +322,7 @@ import AppButton            from '../components/ui/AppButton.vue'
               <div class="co-data-row"><span class="co-data-label">Speed</span><span class="co-data-value">24km/h</span></div>
             </template>
             <template #footer>
-              <AppButton variant="quiet" size="sm">Go to driver</AppButton>
+              <AppButton variant="quiet" size="xs">Go to driver</AppButton>
             </template>
           </AppContextualOverlay>
         </div>
@@ -336,7 +336,7 @@ import AppButton            from '../components/ui/AppButton.vue'
               <div class="co-data-row"><span class="co-data-label">End time</span><span class="co-data-value">09:15:00</span></div>
             </template>
             <template #footer>
-              <AppButton variant="quiet" size="sm">Go to asset</AppButton>
+              <AppButton variant="quiet" size="xs">Go to asset</AppButton>
             </template>
           </AppContextualOverlay>
         </div>
@@ -350,7 +350,7 @@ import AppButton            from '../components/ui/AppButton.vue'
               <div class="co-data-row"><span class="co-data-label">End time</span><span class="co-data-value">09:15:00</span></div>
             </template>
             <template #footer>
-              <AppButton variant="quiet" size="sm">Go to asset</AppButton>
+              <AppButton variant="quiet" size="xs">Go to asset</AppButton>
             </template>
           </AppContextualOverlay>
         </div>
@@ -364,7 +364,7 @@ import AppButton            from '../components/ui/AppButton.vue'
               <div class="co-data-row"><span class="co-data-label">End time</span><span class="co-data-value">09:15:00</span></div>
             </template>
             <template #footer>
-              <AppButton variant="quiet" size="sm">Go to asset</AppButton>
+              <AppButton variant="quiet" size="xs">Go to asset</AppButton>
             </template>
           </AppContextualOverlay>
         </div>
@@ -461,7 +461,7 @@ import AppButton            from '../components/ui/AppButton.vue'
             </tr>
             <tr>
               <td><code>#footer</code></td>
-              <td>Action buttons (white bg, 12 px side padding, 4 px top/bottom). Use <code>&lt;AppButton variant="quiet" size="sm"&gt;</code>. Maximum 2 buttons.</td>
+              <td>Action buttons (white bg, 12 px side padding, 4 px top/bottom). Use <code>&lt;AppButton variant="quiet" size="sm"&gt;</code> (md overlay) or <code>&lt;AppButton variant="quiet" size="xs"&gt;</code> (sm overlay). Maximum 2 buttons.</td>
             </tr>
           </tbody>
         </table>
