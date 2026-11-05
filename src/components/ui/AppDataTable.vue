@@ -151,8 +151,8 @@ function rowClass(row) {
         <slot :name="`header-${col.key}`">
           <span class="dt__hcell-label">{{ col.label }}</span>
           <span v-if="col.sortable" :class="['dt__sort-icon', sortKey === col.key && 'dt__sort-icon--active']">
-            <AppIcon v-if="sortKey === col.key && sortDir === 'asc'"  name="chevron-up"   :size="16" />
-            <AppIcon v-else-if="sortKey === col.key && sortDir === 'desc'" name="chevron-down" :size="16" />
+            <AppIcon v-if="sortKey === col.key && sortDir === 'asc'"  name="arrow-up"   :size="16" />
+            <AppIcon v-else-if="sortKey === col.key && sortDir === 'desc'" name="arrow-down" :size="16" />
             <span v-else class="dt__sort-dash">–</span>
           </span>
         </slot>
