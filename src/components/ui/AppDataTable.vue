@@ -114,6 +114,12 @@ function isSelected(row) {
   return selectedSet.value.has(row[props.rowKey])
 }
 
+function sortLabel(col) {
+  if (sortKey.value !== col.key) return `${col.label}, not sorted. Activate to sort ascending.`
+  if (sortDir.value === 'asc')   return `${col.label}, sorted ascending. Activate to sort descending.`
+  return `${col.label}, sorted descending. Activate to remove sort.`
+}
+
 function rowClass(row) {
   const selected = isSelected(row)
   return {
@@ -140,21 +146,31 @@ function rowClass(row) {
       <div
         v-for="col in columns"
         :key="col.key"
+        role="columnheader"
+        :aria-sort="col.sortable ? (sortKey === col.key ? (sortDir === 'asc' ? 'ascending' : 'descending') : 'none') : undefined"
         class="dt__hcell"
         :class="{
           'dt__hcell--right':    col.align === 'right',
           'dt__hcell--sortable': col.sortable,
         }"
         :style="col.width ? { flex: `0 0 ${col.width}` } : {}"
-        @click="col.sortable && toggleSort(col.key)"
       >
         <slot :name="`header-${col.key}`">
-          <span class="dt__hcell-label">{{ col.label }}</span>
-          <span v-if="col.sortable" :class="['dt__sort-icon', sortKey === col.key && 'dt__sort-icon--active']">
-            <AppIcon v-if="sortKey === col.key && sortDir === 'asc'"  name="arrow-up"   :size="16" />
-            <AppIcon v-else-if="sortKey === col.key && sortDir === 'desc'" name="arrow-down" :size="16" />
-            <span v-else class="dt__sort-dash">–</span>
-          </span>
+          <button
+            v-if="col.sortable"
+            type="button"
+            class="dt__sort-btn"
+            :aria-label="sortLabel(col)"
+            @click="toggleSort(col.key)"
+          >
+            <span class="dt__hcell-label">{{ col.label }}</span>
+            <span :class="['dt__sort-icon', sortKey === col.key && 'dt__sort-icon--active']">
+              <AppIcon v-if="sortKey === col.key && sortDir === 'asc'"  name="arrow-up"   :size="16" />
+              <AppIcon v-else-if="sortKey === col.key && sortDir === 'desc'" name="arrow-down" :size="16" />
+              <span v-else class="dt__sort-dash">–</span>
+            </span>
+          </button>
+          <span v-else class="dt__hcell-label">{{ col.label }}</span>
         </slot>
       </div>
 
@@ -256,18 +272,43 @@ function rowClass(row) {
 
 .dt__hcell--right {
   text-align: right;
-  justify-content: flex-end;
 }
 
 .dt__hcell--sortable {
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 4px;
+  padding: 0;
 }
 
 .dt__hcell--sortable:hover {
   color: var(--grey-90);
+}
+
+.dt__sort-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  height: 100%;
+  padding: 0 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: var(--font-size-supporting-label);
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 0.25px;
+  color: inherit;
+  font-family: inherit;
+  text-align: left;
+}
+
+.dt__hcell--right .dt__sort-btn {
+  justify-content: flex-end;
+}
+
+.dt__sort-btn:focus-visible {
+  outline: 2px solid var(--blue-vivid-70);
+  outline-offset: -2px;
+  border-radius: 2px;
 }
 
 .dt__hcell-label {
