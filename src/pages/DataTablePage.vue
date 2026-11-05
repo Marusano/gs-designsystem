@@ -5,11 +5,11 @@ import AppTag       from '../components/ui/AppTag.vue'
 
 /* ── Sample data ─────────────────────────────────────────── */
 const assetsColumns = [
-  { key: 'name',    label: 'Display name',   bold: true },
+  { key: 'name',    label: 'Display name',   bold: true, sortable: true },
   { key: 'assetId', label: 'Asset ID' },
-  { key: 'type',    label: 'Type' },
+  { key: 'type',    label: 'Type',           sortable: true },
   { key: 'driver',  label: 'Current driver' },
-  { key: 'lastSeen',label: 'Last seen' },
+  { key: 'lastSeen',label: 'Last seen',      sortable: true },
   { key: 'status',  label: 'Status', align: 'right' },
 ]
 
@@ -20,11 +20,11 @@ const assets = [
 ]
 
 const usersColumns = [
-  { key: 'name',    label: 'Display name', bold: true },
-  { key: 'email',   label: 'Email' },
-  { key: 'roles',   label: 'Access control' },
-  { key: 'lastLogin', label: 'Last login' },
-  { key: 'status',  label: 'State', align: 'right' },
+  { key: 'name',     label: 'Display name',   bold: true, sortable: true },
+  { key: 'email',    label: 'Email' },
+  { key: 'roles',    label: 'Access control' },
+  { key: 'lastLogin',label: 'Last login',      sortable: true },
+  { key: 'status',   label: 'State', align: 'right' },
 ]
 
 const users = [

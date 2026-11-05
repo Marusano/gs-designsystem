@@ -7,10 +7,11 @@ const ICON_DOTS = `<svg width="16" height="16" viewBox="0 0 16 16" fill="current
 const props = defineProps({
   /**
    * Column definitions.
-   * [{ key: string, label: string, align?: 'left'|'right', bold?: boolean, width?: string }]
+   * [{ key: string, label: string, align?: 'left'|'right', bold?: boolean, width?: string, sortable?: boolean }]
    * - bold: renders cell value in semibold (use for primary identifier column)
    * - align: 'right' right-aligns the header and cell content
    * - width: CSS flex-basis override, e.g. '120px' (default: flex 1)
+   * - sortable: show sort indicator and allow click-to-sort; cycles none → asc → desc → none
    */
   columns: { type: Array, required: true },
 
@@ -40,9 +41,46 @@ const emit = defineEmits([
   'update:selected', // [key, ...] — updated selection
   'row-click',       // { row, key }
   'row-action',      // { row, key }
+  'sort',            // { key: string|null, dir: 'asc'|'desc'|null }
 ])
 
 const hoverKey = ref(null)
+
+/* ── Sorting ─────────────────────────────────────────────── */
+const sortKey = ref(null)
+const sortDir = ref(null)
+
+function toggleSort(key) {
+  if (sortKey.value !== key) {
+    sortKey.value = key
+    sortDir.value = 'asc'
+  } else if (sortDir.value === 'asc') {
+    sortDir.value = 'desc'
+  } else {
+    sortKey.value = null
+    sortDir.value = null
+  }
+  emit('sort', { key: sortKey.value, dir: sortDir.value })
+}
+
+const sortedRows = computed(() => {
+  if (!sortKey.value || !sortDir.value) return props.rows
+  const k = sortKey.value
+  const asc = sortDir.value === 'asc'
+  return [...props.rows].sort((a, b) => {
+    const va = a[k]
+    const vb = b[k]
+    if (va == null && vb == null) return 0
+    if (va == null) return 1
+    if (vb == null) return -1
+    if (typeof va === 'number' && typeof vb === 'number') return asc ? va - vb : vb - va
+    const sa = String(va).toLowerCase()
+    const sb = String(vb).toLowerCase()
+    if (sa < sb) return asc ? -1 : 1
+    if (sa > sb) return asc ? 1 : -1
+    return 0
+  })
+})
 
 const selectedSet = computed(() => new Set(props.selected))
 
@@ -102,10 +140,21 @@ function rowClass(row) {
         v-for="col in columns"
         :key="col.key"
         class="dt__hcell"
-        :class="{ 'dt__hcell--right': col.align === 'right' }"
+        :class="{
+          'dt__hcell--right':    col.align === 'right',
+          'dt__hcell--sortable': col.sortable,
+        }"
         :style="col.width ? { flex: `0 0 ${col.width}` } : {}"
+        @click="col.sortable && toggleSort(col.key)"
       >
-        <slot :name="`header-${col.key}`">{{ col.label }}</slot>
+        <slot :name="`header-${col.key}`">
+          <span class="dt__hcell-label">{{ col.label }}</span>
+          <span v-if="col.sortable" :class="['dt__sort-icon', sortKey === col.key && 'dt__sort-icon--active']">
+            <svg v-if="sortKey === col.key && sortDir === 'asc'" width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><path d="M5 1L9 7H1L5 1Z"/></svg>
+            <svg v-else-if="sortKey === col.key && sortDir === 'desc'" width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><path d="M5 9L1 3H9L5 9Z"/></svg>
+            <span v-else class="dt__sort-dash">–</span>
+          </span>
+        </slot>
       </div>
 
       <div v-if="showActions" class="dt__hcell dt__hcell--action" />
@@ -113,7 +162,7 @@ function rowClass(row) {
 
     <!-- ─── Rows ─────────────────────────────────────────────────── -->
     <div
-      v-for="row in rows"
+      v-for="row in sortedRows"
       :key="row[rowKey]"
       class="dt__row"
       :class="rowClass(row)"
@@ -206,6 +255,46 @@ function rowClass(row) {
 
 .dt__hcell--right {
   text-align: right;
+  justify-content: flex-end;
+}
+
+.dt__hcell--sortable {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.dt__hcell--sortable:hover {
+  color: var(--grey-90);
+}
+
+.dt__hcell-label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dt__sort-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  color: var(--grey-40);
+  transition: color 80ms;
+}
+
+.dt__sort-icon--active {
+  color: var(--grey-70);
+}
+
+.dt__sort-dash {
+  font-size: 11px;
+  line-height: 1;
 }
 
 /* ─── Data rows ─────────────────────────────────────────────── */
