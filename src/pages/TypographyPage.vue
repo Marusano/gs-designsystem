@@ -367,8 +367,8 @@ const SEVERITY_STYLES = [
               </tr>
               <tr>
                 <td><code>font/color/link</code></td>
-                <td><span class="swatch" style="background:#0369a1"></span>#0369a1</td>
-                <td><code>blue-azure-80</code></td>
+                <td><span class="swatch" style="background:#0068f4"></span>#0068f4</td>
+                <td><code>blue-vivid-70</code></td>
                 <td>Link text</td>
               </tr>
               <tr>
@@ -490,7 +490,7 @@ const SEVERITY_STYLES = [
 }
 
 .typo-link {
-  color: var(--blue-azure-80);
+  color: var(--color-text-link);
   font-size: 14px;
   text-decoration: none;
 }
