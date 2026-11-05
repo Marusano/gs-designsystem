@@ -45,7 +45,7 @@ const BUTTON_STYLES = [
 ]
 
 const OTHER_STYLES = [
-  { label: 'Link',            size: 14, weight: 400, lh: 16, tracking: 0,        color: '#0369a1', sample: 'Your fleet in one place', underline: true },
+  { label: 'Link',            size: 14, weight: 400, lh: 16, tracking: 0,        color: 'var(--color-text-link)', sample: 'Your fleet in one place', isLink: true },
   { label: 'Label',           size: 14, weight: 600, lh: 16, tracking: '0.25px', color: '#9c9ea3', sample: 'Your fleet in one place' },
   { label: 'Supporting label',size: 12, weight: 600, lh: 16, tracking: '0.25px', color: '#6f7176', sample: 'YOUR FLEET IN ONE PLACE', uppercase: true },
   { label: 'Supporting',      size: 12, weight: 400, lh: 14, tracking: 0,        color: '#6f7176', sample: 'Your fleet in one place' },
@@ -242,6 +242,7 @@ const SEVERITY_STYLES = [
             <span class="typo-style-label">{{ s.label }}</span>
             <p
               class="typo-style-sample"
+              :class="{ 'typo-sample--link': s.isLink }"
               :style="{
                 fontSize: s.size + 'px',
                 fontWeight: s.weight,
@@ -249,7 +250,6 @@ const SEVERITY_STYLES = [
                 letterSpacing: s.tracking,
                 color: s.color,
                 textTransform: s.uppercase ? 'uppercase' : 'none',
-                textDecoration: s.underline ? 'underline' : 'none',
               }"
             >{{ s.sample }}</p>
             <span class="typo-style-note">{{ s.size }}px · {{ s.weight >= 600 ? 'SemiBold' : 'Regular' }}</span>
@@ -672,6 +672,14 @@ const SEVERITY_STYLES = [
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.typo-sample--link {
+  text-decoration: none;
+  cursor: pointer;
+}
+.typo-sample--link:hover {
+  text-decoration: underline;
 }
 
 .typo-style-note {

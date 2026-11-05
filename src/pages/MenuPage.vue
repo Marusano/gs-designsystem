@@ -741,7 +741,7 @@ const cmItems = [
   margin-left: auto;
   color: #9c9ea3;
 }
-.ds-menu-item--selected .ds-menu-item__icon-right { color: #0369a1; }
+.ds-menu-item--selected .ds-menu-item__icon-right { color: var(--blue-azure-80); }
 
 /* flex spacer so label fills available width */
 .ds-menu-item:not(.ds-menu-item--multi) > :not(.ds-menu-item__icon):not(.ds-menu-item__icon-right) {

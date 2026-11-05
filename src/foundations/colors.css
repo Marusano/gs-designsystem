@@ -38,7 +38,7 @@
   --blue-vivid-50:  #4490f6;
   --blue-vivid-60:  #227df8;
   --blue-vivid-70:  #0068f4;
-  --blue-vivid-80:  #065cd1;
+  --blue-vivid-80:  #085dd0;
   --blue-vivid-90:  #0f4082;
   --blue-vivid-100: #072e63;
 
@@ -79,6 +79,7 @@
   --yellow-100: #927302;
 
   /* Primitives — Orange */
+  --orange-05:  #fcf9f5;
   --orange-10:  #fff0e6;
   --orange-20:  #ffe2cc;
   --orange-30:  #ffc49a;
