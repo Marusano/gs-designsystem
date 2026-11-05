@@ -32,6 +32,7 @@ import TimeFilterPage        from './pages/TimeFilterPage.vue'
 import SectionHeaderPage        from './pages/SectionHeaderPage.vue'
 import StatsCardsPage           from './pages/StatsCardsPage.vue'
 import ContextualOverlayPage    from './pages/ContextualOverlayPage.vue'
+import DataCardPage              from './pages/DataCardPage.vue'
 
 const page = ref('buttons')
 
@@ -60,6 +61,7 @@ const IconPageHeader        = `<svg width="14" height="14" viewBox="0 0 14 14" f
 const IconContextualHeader = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1.5" stroke="currentColor" stroke-width="1.1"/><path d="M1 6.5h12" stroke="currentColor" stroke-width="1.1"/><path d="M3 8.5h2M6.5 8.5h2M10 8.5h1" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><path d="M3 4.5h3" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>`
 const IconDataTable        = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1.5" stroke="currentColor" stroke-width="1.1"/><path d="M1 5.5h12" stroke="currentColor" stroke-width="1.1"/><path d="M5 5.5v6.5M5 2v3.5" stroke="currentColor" stroke-width="1.1"/></svg>`
 const IconDataPoint        = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="5" rx="1.5" stroke="currentColor" stroke-width="1.1"/><rect x="1" y="9" width="12" height="3" rx="1" stroke="currentColor" stroke-width="1.1"/><path d="M10 4.5h1.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>`
+const IconDataCard         = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="1.5" width="12" height="9" rx="1.5" stroke="currentColor" stroke-width="1.1"/><rect x="1" y="10.5" width="12" height="2" rx="1" stroke="currentColor" stroke-width="1.1"/><path d="M1 10.5h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>`
 const IconSideNav    = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1.5" stroke="currentColor" stroke-width="1.1"/><path d="M4.5 2v10" stroke="currentColor" stroke-width="1.1"/><path d="M2 5.5h1.5M2 8h1.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>`
 const IconSnackbar   = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="4" width="12" height="6" rx="1.5" stroke="currentColor" stroke-width="1.1"/><circle cx="3.5" cy="7" r="1" fill="currentColor"/><path d="M6 6h5M6 8h3" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>`
 const IconDialog        = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1.5" stroke="currentColor" stroke-width="1.1"/><path d="M1 8.5h12" stroke="currentColor" stroke-width="1.1"/><path d="M9 10.5h2.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><path d="M3 5h8M3 7h5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>`
@@ -227,6 +229,10 @@ const IconPlayground = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
             <span class="ds-sidebar__item-icon" v-html="IconDataPoint" />
             Data point
           </button>
+          <button @click="page = 'data-card'" :class="['ds-sidebar__item', { active: page === 'data-card' }]">
+            <span class="ds-sidebar__item-icon" v-html="IconDataCard" />
+            Data card
+          </button>
           <button @click="page = 'section-header'" :class="['ds-sidebar__item', { active: page === 'section-header' }]">
             <span class="ds-sidebar__item-icon" v-html="IconSectionHeader" />
             Section header
@@ -283,6 +289,7 @@ const IconPlayground = `<svg width="14" height="14" viewBox="0 0 14 14" fill="no
         <SectionHeaderPage     v-if="page === 'section-header'" />
         <StatsCardsPage           v-if="page === 'stats-cards'" />
         <ContextualOverlayPage    v-if="page === 'contextual-overlay'" />
+        <DataCardPage             v-if="page === 'data-card'" />
       </div>
 
     </div>
