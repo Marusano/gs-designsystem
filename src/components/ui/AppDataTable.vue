@@ -1,6 +1,7 @@
 <script setup>
 import { computed, ref } from 'vue'
 import AppCheckbox from './AppCheckbox.vue'
+import AppIcon from './AppIcon.vue'
 
 const ICON_DOTS = `<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><circle cx="3" cy="8" r="1.5"/><circle cx="8" cy="8" r="1.5"/><circle cx="13" cy="8" r="1.5"/></svg>`
 
@@ -150,8 +151,8 @@ function rowClass(row) {
         <slot :name="`header-${col.key}`">
           <span class="dt__hcell-label">{{ col.label }}</span>
           <span v-if="col.sortable" :class="['dt__sort-icon', sortKey === col.key && 'dt__sort-icon--active']">
-            <svg v-if="sortKey === col.key && sortDir === 'asc'" width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><path d="M5 1L9 7H1L5 1Z"/></svg>
-            <svg v-else-if="sortKey === col.key && sortDir === 'desc'" width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><path d="M5 9L1 3H9L5 9Z"/></svg>
+            <AppIcon v-if="sortKey === col.key && sortDir === 'asc'"  name="chevron-up"   :size="16" />
+            <AppIcon v-else-if="sortKey === col.key && sortDir === 'desc'" name="chevron-down" :size="16" />
             <span v-else class="dt__sort-dash">–</span>
           </span>
         </slot>
@@ -282,8 +283,8 @@ function rowClass(row) {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
   color: var(--grey-40);
   transition: color 80ms;
 }
