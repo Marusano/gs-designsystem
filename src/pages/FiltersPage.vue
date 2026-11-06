@@ -316,16 +316,17 @@ function resetOverflow()     { overflowChips.value = [...OVERFLOW_INIT] }
             <tr><td>Toolbar border</td><td><code>--color-border-default</code> / <code>--grey-20</code></td><td><span class="swatch" style="background:var(--grey-20)"></span>#e6e6e7</td></tr>
             <tr><td>Filter icon button bg</td><td><code>--grey-05</code></td><td><span class="swatch" style="background:var(--grey-05)"></span>#f7f7f8</td></tr>
             <tr><td>Filter icon button bg (active)</td><td><code>--blue-azure-10</code></td><td><span class="swatch" style="background:var(--blue-azure-10)"></span>#e8f6ff</td></tr>
-            <tr><td>Chip background</td><td><code>--blue-azure-10</code></td><td><span class="swatch" style="background:var(--blue-azure-10)"></span>#e8f6ff</td></tr>
-            <tr><td>Chip text</td><td><code>--blue-azure-70</code></td><td><span class="swatch" style="background:var(--blue-azure-70)"></span>#0a74a6</td></tr>
-            <tr><td>Chip dismiss icon</td><td><code>--blue-azure-70</code></td><td><span class="swatch" style="background:var(--blue-azure-70)"></span>#0a74a6</td></tr>
-            <tr><td>Dropdown panel background</td><td><code>--color-surface-default</code></td><td><span class="swatch" style="background:#fff"></span>#fff</td></tr>
+            <tr><td>Chip background</td><td><code>--grey-00</code></td><td><span class="swatch" style="background:var(--grey-00);box-shadow:inset 0 0 0 1px var(--grey-20)"></span>#ffffff</td></tr>
+            <tr><td>Chip border</td><td><code>--grey-40</code></td><td><span class="swatch" style="background:var(--grey-40)"></span>#c0c2c6</td></tr>
+            <tr><td>Chip text</td><td><code>--grey-70</code></td><td><span class="swatch" style="background:var(--grey-70)"></span>#6f7176</td></tr>
+            <tr><td>Chip dismiss icon</td><td><code>--grey-70</code> (inherited)</td><td><span class="swatch" style="background:var(--grey-70)"></span>#6f7176</td></tr>
+            <tr><td>Dropdown panel background</td><td><code>--color-surface-default</code></td><td><span class="swatch" style="background:#fff;box-shadow:inset 0 0 0 1px var(--grey-20)"></span>#fff</td></tr>
             <tr><td>Dropdown panel shadow</td><td>elevation-sm (4px blur)</td><td>—</td></tr>
             <tr><td>Dropdown item text</td><td><code>--color-text-primary</code> / <code>--grey-100</code></td><td><span class="swatch" style="background:var(--grey-100)"></span>#1f2124</td></tr>
             <tr><td>Dropdown item hover bg</td><td><code>--grey-05</code></td><td><span class="swatch" style="background:var(--grey-05)"></span>#f7f7f8</td></tr>
             <tr><td>Clear all text</td><td><code>--blue-azure-70</code></td><td><span class="swatch" style="background:var(--blue-azure-70)"></span>#0a74a6</td></tr>
-            <tr><td>Chip height</td><td>—</td><td>28px</td></tr>
-            <tr><td>Chip font size</td><td>—</td><td>13px</td></tr>
+            <tr><td>Chip height</td><td>—</td><td>24px</td></tr>
+            <tr><td>Chip font size</td><td>—</td><td>12px</td></tr>
             <tr><td>Chip border-radius</td><td>—</td><td>4px</td></tr>
           </tbody>
         </table>
